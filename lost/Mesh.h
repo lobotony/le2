@@ -73,6 +73,7 @@ struct Mesh
   
   virtual MeshPtr clone();
   uint32_t numVertices(); // returns the current size of the vertexbuffer
+  uint32_t numIndices();
 };
 
 }

@@ -119,5 +119,10 @@ uint32_t Mesh::numVertices()
   return vertexBuffer->hostBuffer->count; 
 }
 
+uint32_t Mesh::numIndices()
+{
+  return indexBuffer->hostBuffer->count;
+}
+
 }
 
