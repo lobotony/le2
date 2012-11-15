@@ -38,6 +38,10 @@ MeshPtr dot2;
 MeshPtr lines;
 MeshPtr spline;
 
+vector<MeshPtr> cpdots;
+vector<MeshPtr> ipdots;
+
+const uint32_t dotsize = 5;
 
 MeshPtr newLineStrip(uint16_t numLines)
 {
@@ -131,7 +135,15 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh)
   for(uint32_t i=0; i<numVertices; ++i)
   {
     lineMesh->set(i, UT_position, ip[i]);
+    // FIXME: needs to be moved outside again
+    MeshPtr p = dot->clone();
+    p->transform = MatrixTranslation(Vec3(ip[i].x-(dotsize/2), ip[i].y-(dotsize/2), 0));
+    p->material = dot->material->clone();
+    p->material->color = redColor;
+    ipdots.push_back(p);
   }
+  
+  
 }
 
 
@@ -178,7 +190,7 @@ void Engine::startup()
   texturedQuad->material->blendNormal();
   texturedQuad->transform = MatrixTranslation(Vec3(100,100,0));
   
-  dot = Quad::create(Rect(0,0,3,3));
+  dot = Quad::create(Rect(0,0,dotsize,dotsize));
   dot->material->shader = colorShader;
   dot->material->color = greenColor;
 
@@ -193,7 +205,7 @@ void Engine::startup()
   lines->set(2, UT_position, Vec2(20,30));
   lines->set(3, UT_position, Vec2(40,50));
   
-  spline = newLineStrip(200);
+  spline = newLineStrip(100);
   vector<Vec2> cp;
   cp.push_back(Vec2(50,400));
   cp.push_back(Vec2(50,400));
@@ -203,6 +215,13 @@ void Engine::startup()
   cp.push_back(Vec2(50,400));
   cp.push_back(Vec2(50,400));
   updateSpline(cp, spline);
+  
+  for(uint32_t i=0; i<cp.size(); ++i)
+  {
+    MeshPtr p = dot->clone();
+    p->transform = MatrixTranslation(Vec3(cp[i].x-(dotsize/2), cp[i].y-(dotsize/2), 0));
+    cpdots.push_back(p);
+  }
   
 }
 
@@ -219,6 +238,16 @@ void Engine::update()
 //  glContext->draw(dot2);
 //  glContext->draw(lines);
   glContext->draw(spline);
+
+  for(uint32_t i=0; i<ipdots.size(); ++i)
+  {
+    glContext->draw(ipdots[i]);
+  }
+  
+  for(uint32_t i=0; i<cpdots.size(); ++i)
+  {
+    glContext->draw(cpdots[i]);
+  }
 }
 
 void Engine::shutdown()
