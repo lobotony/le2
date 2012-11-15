@@ -93,25 +93,41 @@ void updateSplineSegment(vector<Vec2>&        interpolated, // receives the inte
 
 void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh)
 {
-  // assumes 4 control points
-/*  uint32_t numVertices = lineMesh->numVertices();
-  f32 stepSize = 1.0f/(numVertices-1);
-  f32 t = 0;
-  for(uint32_t i=0; i<numVertices; ++i)
-  {
-    f32 b0 = .5f*(-powf(t,3)+2*powf(t,2)-t);
-    f32 b1 = .5f*(3*powf(t,3)-5*powf(t,2)+2);
-    f32 b2 = .5f*(-3*powf(t,3)+4*powf(t,2)+t);
-    f32 b3 = .5f*(powf(t,3) - powf(t,2));
-    Vec2 pt = b0*cp[0] + b1*cp[1] + b2*cp[2] + b3*cp[3];
-    t += stepSize;
-    lineMesh->set(i, UT_position, pt);
-  }*/
-  
   uint32_t numVertices = lineMesh->numVertices();
-  vector<Vec2> ip;
+  vector<Vec2> ip; // interpolated points
   ip.reserve(numVertices);
-  updateSplineSegment(ip, 0, numVertices, cp, 0);
+  
+  // a minimum of 4 control points is required for the initial segment.
+  // Each consecutive is made up by following point + 3 previous.
+  uint32_t numSegments = ((uint32_t)cp.size()-4)+1;
+  // non-adaptive case: vertices spread evenly between segments
+  // leftovers are attached to last segment
+  uint32_t nps = numVertices / numSegments;
+  vector<uint32_t> pn;
+  pn.reserve(numSegments);
+  uint32_t pbudget = numVertices;
+  for(uint32_t i=0; i<numSegments; ++i)
+  {
+    if(2*nps > pbudget)
+    {
+      pn[i] = pbudget; // should only be the last one
+    }
+    else
+    {
+      pn[i] = nps;
+      pbudget -= nps;
+    }
+    DOUT("seg "<<pn[i]);
+  }
+  
+  uint32_t pointOffset = 0;
+  for(uint32_t segnum = 0; segnum < numSegments; ++segnum)
+  {
+    updateSplineSegment(ip, pointOffset, pn[segnum], cp, segnum);
+    pointOffset += pn[segnum];
+  }
+  
+  // copy interpolated points into mesh
   for(uint32_t i=0; i<numVertices; ++i)
   {
     lineMesh->set(i, UT_position, ip[i]);
@@ -179,10 +195,13 @@ void Engine::startup()
   
   spline = newLineStrip(200);
   vector<Vec2> cp;
-  cp.push_back(Vec2(0,0));
+  cp.push_back(Vec2(50,400));
   cp.push_back(Vec2(50,400));
   cp.push_back(Vec2(400,30));
-  cp.push_back(Vec2(450,30));
+  cp.push_back(Vec2(700,230));
+  cp.push_back(Vec2(650,400));
+  cp.push_back(Vec2(50,400));
+  cp.push_back(Vec2(50,400));
   updateSpline(cp, spline);
   
 }

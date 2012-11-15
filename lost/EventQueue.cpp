@@ -25,7 +25,10 @@ void EventQueue::addEvent(Event* event)
 void EventQueue::returnAllEvents()
 {
   size_t num = events.size();
-  if(num > 0) { DOUT("returning "<<(uint64_t)num<<" events"); }
+  if(num > 0)
+  {
+//    DOUT("returning "<<(uint64_t)num<<" events");
+  }
   for(size_t i=0; i<num; ++i)
   {
     Event* event = events[i];
