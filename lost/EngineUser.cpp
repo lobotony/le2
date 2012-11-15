@@ -65,10 +65,36 @@ MeshPtr newLineStrip(uint16_t numLines)
   return result;
 }
 
+
+void updateSplineSegment(vector<Vec2>&        interpolated, // receives the interpolated points
+                         uint32_t             pointOffset,  // offset write position into interpolated points. The current segment points will be written at pointOffset onwards
+                         uint32_t             numPoints,    // number of points for this segment
+                         const vector<Vec2>&  cp,           // control points (all of them)
+                         uint32_t             cpoffset)     // offset into control points. Four points after and including cp[0+cpoffset] will be used
+{
+  Vec2 cp0 = cp[cpoffset+0];
+  Vec2 cp1 = cp[cpoffset+1];
+  Vec2 cp2 = cp[cpoffset+2];
+  Vec2 cp3 = cp[cpoffset+3];
+
+  f32 t = 0;
+  f32 dt = 1.0f/(numPoints-1);
+  for(uint32_t i=0; i<numPoints; ++i)
+  {
+    f32 b0 = .5f*(-powf(t,3)+2*powf(t,2)-t);
+    f32 b1 = .5f*(3*powf(t,3)-5*powf(t,2)+2);
+    f32 b2 = .5f*(-3*powf(t,3)+4*powf(t,2)+t);
+    f32 b3 = .5f*(powf(t,3) - powf(t,2));
+    Vec2 pt = b0*cp0 + b1*cp1 + b2*cp2 + b3*cp3;
+    interpolated[pointOffset+i] = pt;
+    t += dt;
+  }
+}
+
 void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh)
 {
   // assumes 4 control points
-  uint32_t numVertices = lineMesh->numVertices();
+/*  uint32_t numVertices = lineMesh->numVertices();
   f32 stepSize = 1.0f/(numVertices-1);
   f32 t = 0;
   for(uint32_t i=0; i<numVertices; ++i)
@@ -80,9 +106,20 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh)
     Vec2 pt = b0*cp[0] + b1*cp[1] + b2*cp[2] + b3*cp[3];
     t += stepSize;
     lineMesh->set(i, UT_position, pt);
-  }
+  }*/
   
+  uint32_t numVertices = lineMesh->numVertices();
+  vector<Vec2> ip;
+  ip.reserve(numVertices);
+  updateSplineSegment(ip, 0, numVertices, cp, 0);
+  for(uint32_t i=0; i<numVertices; ++i)
+  {
+    lineMesh->set(i, UT_position, ip[i]);
+  }
 }
+
+
+
 
 void Engine::startup()
 {
