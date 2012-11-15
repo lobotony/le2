@@ -81,6 +81,8 @@ void updateSplineSegment(vector<Vec2>&        interpolated, // receives the inte
   Vec2 cp2 = cp[cpoffset+2];
   Vec2 cp3 = cp[cpoffset+3];
 
+  DOUT("seglen "<<len(cp2-cp1));
+
   f32 t = 0;
   f32 dt = 1.0f/(numPoints-1);
   for(uint32_t i=0; i<numPoints; ++i)
@@ -100,28 +102,60 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh)
   uint32_t numVertices = lineMesh->numVertices();
   vector<Vec2> ip; // interpolated points
   ip.reserve(numVertices);
+
+  bool adaptive = true;
   
   // a minimum of 4 control points is required for the initial segment.
   // Each consecutive is made up by following point + 3 previous.
   uint32_t numSegments = ((uint32_t)cp.size()-4)+1;
-  // non-adaptive case: vertices spread evenly between segments
-  // leftovers are attached to last segment
-  uint32_t nps = numVertices / numSegments;
-  vector<uint32_t> pn;
+  vector<uint32_t> pn; // number of points per segment
   pn.reserve(numSegments);
-  uint32_t pbudget = numVertices;
-  for(uint32_t i=0; i<numSegments; ++i)
+
+  if(!adaptive)
   {
-    if(2*nps > pbudget)
+    // non-adaptive case: vertices spread evenly between segments
+    // leftovers are attached to last segment
+    uint32_t nps = numVertices / numSegments;
+    uint32_t pbudget = numVertices;
+    for(uint32_t i=0; i<numSegments; ++i)
     {
-      pn[i] = pbudget; // should only be the last one
+      if(2*nps > pbudget)
+      {
+        pn[i] = pbudget; // should only be the last one
+      }
+      else
+      {
+        pn[i] = nps;
+        pbudget -= nps;
+      }
+      DOUT("seg "<<pn[i]);
     }
-    else
+  }
+  else
+  {
+    vector<f32> seglen;
+    seglen.reserve(numSegments);
+    f32 totalLength = 0;
+    for(u32 i=0; i<numSegments; ++i)
     {
-      pn[i] = nps;
-      pbudget -= nps;
+      seglen[i] = len(cp[i+2]-cp[i+1]);
+      DOUT("seglen" << seglen[i]);
+      totalLength += seglen[i];
     }
-    DOUT("seg "<<pn[i]);
+    
+    u32 budget = numVertices;
+    for(u32 i=0; i<numSegments; ++i)
+    {
+      if(i != (numSegments-1))
+      {
+        pn[i] = (seglen[i] / totalLength)*((f32)numVertices);
+        budget -= pn[i];
+      }
+      else
+      {
+        pn[i] = budget;
+      }
+    }
   }
   
   uint32_t pointOffset = 0;
@@ -205,15 +239,15 @@ void Engine::startup()
   lines->set(2, UT_position, Vec2(20,30));
   lines->set(3, UT_position, Vec2(40,50));
   
-  spline = newLineStrip(100);
+  spline = newLineStrip(130);
   vector<Vec2> cp;
-  cp.push_back(Vec2(50,400));
+  cp.push_back(Vec2(20,200));
   cp.push_back(Vec2(50,400));
   cp.push_back(Vec2(400,30));
   cp.push_back(Vec2(700,230));
   cp.push_back(Vec2(650,400));
   cp.push_back(Vec2(50,400));
-  cp.push_back(Vec2(50,400));
+  cp.push_back(Vec2(50,500));
   updateSpline(cp, spline);
   
   for(uint32_t i=0; i<cp.size(); ++i)
