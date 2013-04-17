@@ -19,10 +19,18 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <stdint.h>
 #include <string>
+#include <vector>
+#include <map>
+#include <list>
 #include "lost/shared_ptr.h"
 
 namespace lost
 {
+  using std::string;
+  using std::vector;
+  using std::map;
+  using std::list;
+  
   typedef int8_t s8;
   typedef int16_t s16;
   typedef int32_t s32;
