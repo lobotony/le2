@@ -37,6 +37,7 @@ MeshPtr dot2;
 
 MeshPtr lines;
 MeshPtr spline;
+MeshPtr normals;
 
 vector<MeshPtr> cpdots;
 vector<MeshPtr> ipdots;
@@ -69,8 +70,57 @@ MeshPtr newLineStrip(uint16_t numLines)
   return result;
 }
 
+MeshPtr newLineGroup(uint16_t numLines)
+{
+  MeshPtr result;
+
+  BufferLayout layout;
+  layout.add(ET_vec2_f32, UT_position);
+  result = Mesh::create(layout, ET_u16);
+  result->indexBuffer->drawMode = GL_LINES;
+
+  uint32_t numVertices = numLines*2;
+  uint32_t numIndices = numVertices;
+  
+  result->vertexBuffer->reset(numVertices);
+  result->indexBuffer->reset(numIndices);
+  
+  for(uint16_t i=0; i<numIndices; ++i)
+  {
+    result->set(i, UT_index, i);
+  }
+  
+  result->material->color = greenColor;
+  result->material->shader = colorShader;
+  
+  return result;
+}
+
+Vec2 cr(f32 t, const Vec2& cp0, const Vec2& cp1, const Vec2& cp2, const Vec2& cp3)
+{
+  f32 b0 = .5f*(-powf(t,3)+2*powf(t,2)-t);
+  f32 b1 = .5f*(3*powf(t,3)-5*powf(t,2)+2);
+  f32 b2 = .5f*(-3*powf(t,3)+4*powf(t,2)+t);
+  f32 b3 = .5f*(powf(t,3) - powf(t,2));
+  Vec2 pt = b0*cp0 + b1*cp1 + b2*cp2 + b3*cp3;
+  return pt;
+}
+
+Vec2 crderiv(float t, const Vec2& cp0, const Vec2& cp1, const Vec2& cp2, const Vec2& cp3)
+{
+  Vec2 result;
+  
+  result = -(3.0f/2.0f)*cp0*powf(t,2) + 2.0f*cp0*t - (0.5f)*cp0
+           + 0.5f*cp1*powf(t,2) - 5*cp1*t
+           - 0.5f*cp2 + 4*cp2 + 0.5f*cp2
+           + (3.0f/2.0f)*cp3*powf(t,2) - cp3;
+  
+  return result;
+}
+
 
 void updateSplineSegment(vector<Vec2>&        interpolated, // receives the interpolated points
+                         vector<Vec2>&        tangents, // receives tangent vector at this point
                          uint32_t             pointOffset,  // offset write position into interpolated points. The current segment points will be written at pointOffset onwards
                          uint32_t             numPoints,    // number of points for this segment
                          const vector<Vec2>&  cp,           // control points (all of them)
@@ -87,23 +137,21 @@ void updateSplineSegment(vector<Vec2>&        interpolated, // receives the inte
   f32 dt = 1.0f/(numPoints-1);
   for(uint32_t i=0; i<numPoints; ++i)
   {
-    f32 b0 = .5f*(-powf(t,3)+2*powf(t,2)-t);
-    f32 b1 = .5f*(3*powf(t,3)-5*powf(t,2)+2);
-    f32 b2 = .5f*(-3*powf(t,3)+4*powf(t,2)+t);
-    f32 b3 = .5f*(powf(t,3) - powf(t,2));
-    Vec2 pt = b0*cp0 + b1*cp1 + b2*cp2 + b3*cp3;
-    interpolated[pointOffset+i] = pt;
+    interpolated[pointOffset+i] = cr(t, cp0, cp1, cp2, cp3);
+    tangents[pointOffset+i] = crderiv(t, cp0, cp1, cp2, cp3);
     t += dt;
   }
 }
 
-void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh)
+void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh)
 {
   uint32_t numVertices = lineMesh->numVertices();
   vector<Vec2> ip; // interpolated points
+  vector<Vec2> tv; // tangent vectors
   ip.reserve(numVertices);
+  tv.reserve(numVertices);
 
-  bool adaptive = true;
+  bool adaptive = false;
   
   // a minimum of 4 control points is required for the initial segment.
   // Each consecutive is made up by following point + 3 previous.
@@ -161,26 +209,33 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh)
   uint32_t pointOffset = 0;
   for(uint32_t segnum = 0; segnum < numSegments; ++segnum)
   {
-    updateSplineSegment(ip, pointOffset, pn[segnum], cp, segnum);
+    updateSplineSegment(ip, tv, pointOffset, pn[segnum], cp, segnum);
     pointOffset += pn[segnum];
   }
   
-  // copy interpolated points into mesh
+  f32 normalLenght = 20;
   for(uint32_t i=0; i<numVertices; ++i)
   {
+    // copy interpolated points into mesh
     lineMesh->set(i, UT_position, ip[i]);
-    // FIXME: needs to be moved outside again
+    normalMesh->set(i*2,UT_position, ip[i]);
+    
+    Vec2 nv;
+    nv.x = -tv[i].y;
+    nv.y = tv[i].x;
+    normalise(nv);
+    normalMesh->set(i*2+1, UT_position, ip[i]+nv*normalLenght);
+    
+    // visualize interpolated points with quads for debugging
     MeshPtr p = dot->clone();
     p->transform = MatrixTranslation(Vec3(ip[i].x-(dotsize/2), ip[i].y-(dotsize/2), 0));
     p->material = dot->material->clone();
     p->material->color = redColor;
     ipdots.push_back(p);
+    
+    
   }
-  
-  
 }
-
-
 
 
 void Engine::startup()
@@ -239,16 +294,21 @@ void Engine::startup()
   lines->set(2, UT_position, Vec2(20,30));
   lines->set(3, UT_position, Vec2(40,50));
   
-  spline = newLineStrip(130);
+  spline = newLineStrip(60);
+  normals = newLineGroup(spline->numVertices());
   vector<Vec2> cp;
+  cp.push_back(Vec2(110,110));
+  cp.push_back(Vec2(110,110));
+  cp.push_back(Vec2(310,310));
+  cp.push_back(Vec2(610,110));
+  cp.push_back(Vec2(710,510));
+  cp.push_back(Vec2(110,510));
+  cp.push_back(Vec2(110,510));
+/*  cp.push_back(Vec2(200,200));
   cp.push_back(Vec2(20,200));
-  cp.push_back(Vec2(50,400));
-  cp.push_back(Vec2(400,30));
-  cp.push_back(Vec2(700,230));
-  cp.push_back(Vec2(650,400));
-  cp.push_back(Vec2(50,400));
-  cp.push_back(Vec2(50,500));
-  updateSpline(cp, spline);
+  cp.push_back(Vec2(110,110));
+  cp.push_back(Vec2(110,110));*/
+  updateSpline(cp, spline, normals);
   
   for(uint32_t i=0; i<cp.size(); ++i)
   {
@@ -272,6 +332,7 @@ void Engine::update()
 //  glContext->draw(dot2);
 //  glContext->draw(lines);
   glContext->draw(spline);
+  glContext->draw(normals);
 
   for(uint32_t i=0; i<ipdots.size(); ++i)
   {
