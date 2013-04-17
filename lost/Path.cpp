@@ -21,6 +21,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   #include <direct.h>
 #else
   #include <sys/stat.h>
+  #include <unistd.h>
 #endif
 #include <cerrno>
 
