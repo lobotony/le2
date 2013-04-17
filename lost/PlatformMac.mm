@@ -23,9 +23,15 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #import <Foundation/Foundation.h>
 #include "lost/Log.h"
 #import <AppKit/NSPasteboard.h>
+#include <pthread.h>
 
 namespace lost
 {
+  double currentTimeSeconds()
+  {
+    return ((double) currentTimeMicroSeconds() / 1000000.0);
+  }
+
 	// returns current time as string (e.g. "2007/11/26 23:30:37")
 	string currentTimeFormat()
 	{
