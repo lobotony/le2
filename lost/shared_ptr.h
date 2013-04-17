@@ -17,20 +17,16 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_PLATFORM_SHARED_PTR_H
 #define LOST_PLATFORM_SHARED_PTR_H
 
-#ifdef WIN32
-  #include <memory>
-#else
-  #include <tr1/memory>
-#endif
+#include <memory>
 
 namespace lost {
-using std::tr1::shared_ptr;
-using std::tr1::weak_ptr;
-using std::tr1::enable_shared_from_this;
+using std::shared_ptr;
+using std::weak_ptr;
+using std::enable_shared_from_this;
 
-using std::tr1::static_pointer_cast;
-using std::tr1::dynamic_pointer_cast;
-using std::tr1::const_pointer_cast;
+using std::static_pointer_cast;
+using std::dynamic_pointer_cast;
+using std::const_pointer_cast;
 
 template<typename T>
 struct ArrayDeleter
@@ -45,9 +41,9 @@ struct ArrayDeleter
 };
 
 template<typename T>
-struct shared_array : public std::tr1::shared_ptr<T>
+struct shared_array : public std::shared_ptr<T>
 {
-    shared_array(T* p=0) : std::tr1::shared_ptr<T>(p, lost::ArrayDeleter<T>()) {}
+    shared_array(T* p=0) : std::shared_ptr<T>(p, lost::ArrayDeleter<T>()) {}
     
     T & operator[] (std::ptrdiff_t i) const // never throws
     {
