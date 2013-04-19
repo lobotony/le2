@@ -142,12 +142,12 @@ namespace lost
   }
 }
 
-std::ostream& operator << (std::ostream& stream, const lost::Path& p)
+/*std::ostream& operator << (std::ostream& stream, const lost::Path& p)
 {
   stream << p.string();
   return stream;
 }
-
+*/
 lost::StringStream& operator<<(lost::StringStream& stream, const lost::Path& p)
 {
   stream << p.string();
