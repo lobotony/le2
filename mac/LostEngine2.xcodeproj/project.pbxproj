@@ -30,7 +30,6 @@
 		EA945F0715F7A53F004EE290 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945EFF15F7A428004EE290 /* ShaderProgram.cpp */; };
 		EAADB60F15FF97FD008F7450 /* BitmapPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB60D15FF97FD008F7450 /* BitmapPacker.cpp */; };
 		EAADB61915FFA391008F7450 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB61515FFA391008F7450 /* Font.cpp */; };
-		EAADB61A15FFA391008F7450 /* FontManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB61715FFA391008F7450 /* FontManager.cpp */; };
 		EAADB62215FFA3A2008F7450 /* TextBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB61C15FFA3A2008F7450 /* TextBuffer.cpp */; };
 		EAADB62315FFA3A2008F7450 /* TextMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB61E15FFA3A2008F7450 /* TextMesh.cpp */; };
 		EAADB62415FFA3A2008F7450 /* TextRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB62015FFA3A2008F7450 /* TextRender.cpp */; };
@@ -72,6 +71,10 @@
 		EAF358061726C79200824CF2 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358011726C79200824CF2 /* View.cpp */; };
 		EAF358091726DEC200824CF2 /* EventSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358071726DEC200824CF2 /* EventSystem.cpp */; };
 		EAF3580C1726DECA00824CF2 /* UpdateSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF3580A1726DECA00824CF2 /* UpdateSystem.cpp */; };
+		EAF3580F17280F6700824CF2 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF3580D17280F6700824CF2 /* ResourceManager.cpp */; };
+		EAF3581A1728162200824CF2 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358141728162200824CF2 /* json_reader.cpp */; };
+		EAF3581B1728162200824CF2 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358151728162200824CF2 /* json_value.cpp */; };
+		EAF3581D1728162200824CF2 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358171728162200824CF2 /* json_writer.cpp */; };
 		EAF87C7A15E903A900986F86 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF87C7815E903A900986F86 /* Buffer.cpp */; };
 		EAF87C7E15E903B800986F86 /* BufferLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF87C7C15E903B800986F86 /* BufferLayout.cpp */; };
 /* End PBXBuildFile section */
@@ -135,8 +138,6 @@
 		EAADB60E15FF97FD008F7450 /* BitmapPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapPacker.h; sourceTree = "<group>"; };
 		EAADB61515FFA391008F7450 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
 		EAADB61615FFA391008F7450 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
-		EAADB61715FFA391008F7450 /* FontManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontManager.cpp; sourceTree = "<group>"; };
-		EAADB61815FFA391008F7450 /* FontManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontManager.h; sourceTree = "<group>"; };
 		EAADB61B15FFA3A2008F7450 /* TextBreakmodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBreakmodes.h; sourceTree = "<group>"; };
 		EAADB61C15FFA3A2008F7450 /* TextBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBuffer.cpp; sourceTree = "<group>"; };
 		EAADB61D15FFA3A2008F7450 /* TextBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBuffer.h; sourceTree = "<group>"; };
@@ -225,6 +226,11 @@
 		EAF358081726DEC200824CF2 /* EventSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventSystem.h; path = ../guiro/EventSystem.h; sourceTree = "<group>"; };
 		EAF3580A1726DECA00824CF2 /* UpdateSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UpdateSystem.cpp; path = ../guiro/UpdateSystem.cpp; sourceTree = "<group>"; };
 		EAF3580B1726DECA00824CF2 /* UpdateSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpdateSystem.h; path = ../guiro/UpdateSystem.h; sourceTree = "<group>"; };
+		EAF3580D17280F6700824CF2 /* ResourceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourceManager.cpp; sourceTree = "<group>"; };
+		EAF3580E17280F6700824CF2 /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
+		EAF358141728162200824CF2 /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = json_reader.cpp; path = "../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_reader.cpp"; sourceTree = "<group>"; };
+		EAF358151728162200824CF2 /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = json_value.cpp; path = "../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_value.cpp"; sourceTree = "<group>"; };
+		EAF358171728162200824CF2 /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = json_writer.cpp; path = "../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_writer.cpp"; sourceTree = "<group>"; };
 		EAF87C7815E903A900986F86 /* Buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Buffer.cpp; sourceTree = "<group>"; };
 		EAF87C7915E903A900986F86 /* Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buffer.h; sourceTree = "<group>"; };
 		EAF87C7C15E903B800986F86 /* BufferLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferLayout.cpp; sourceTree = "<group>"; };
@@ -308,6 +314,7 @@
 		EACD246F15D7F35C00453F75 /* thirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				EAF358101728161300824CF2 /* json-cpp */,
 				EABB38EE1600DCE10009D8F7 /* tinythread */,
 				EACD247015D7F82100453F75 /* stb_image_write.h */,
 				EACD247115D7F82100453F75 /* stb_image.c */,
@@ -374,8 +381,6 @@
 				EABB38E81600D42B0009D8F7 /* EventQueue.h */,
 				EAADB61515FFA391008F7450 /* Font.cpp */,
 				EAADB61615FFA391008F7450 /* Font.h */,
-				EAADB61715FFA391008F7450 /* FontManager.cpp */,
-				EAADB61815FFA391008F7450 /* FontManager.h */,
 				EA945F0315F7A43A004EE290 /* FragmentShader.cpp */,
 				EA945F0415F7A43A004EE290 /* FragmentShader.h */,
 				EAADB62815FFA76B008F7450 /* Glyph.cpp */,
@@ -415,6 +420,8 @@
 				EACD24AC15D8528A00453F75 /* Rect.h */,
 				EA0EEAF615E677F0000CBC13 /* RectPacker.cpp */,
 				EA0EEAF715E677F0000CBC13 /* RectPacker.h */,
+				EAF3580D17280F6700824CF2 /* ResourceManager.cpp */,
+				EAF3580E17280F6700824CF2 /* ResourceManager.h */,
 				EA945EFC15F7A418004EE290 /* Shader.cpp */,
 				EA945EFD15F7A418004EE290 /* Shader.h */,
 				EA0C315215FCDBFE00661552 /* ShaderPreprocessor.cpp */,
@@ -476,6 +483,16 @@
 				EAF358021726C79200824CF2 /* View.h */,
 			);
 			name = guiro;
+			sourceTree = "<group>";
+		};
+		EAF358101728161300824CF2 /* json-cpp */ = {
+			isa = PBXGroup;
+			children = (
+				EAF358141728162200824CF2 /* json_reader.cpp */,
+				EAF358151728162200824CF2 /* json_value.cpp */,
+				EAF358171728162200824CF2 /* json_writer.cpp */,
+			);
+			name = "json-cpp";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -600,7 +617,6 @@
 				EAB2B90F15FE470A001CF4EF /* ContextMac.mm in Sources */,
 				EAADB60F15FF97FD008F7450 /* BitmapPacker.cpp in Sources */,
 				EAADB61915FFA391008F7450 /* Font.cpp in Sources */,
-				EAADB61A15FFA391008F7450 /* FontManager.cpp in Sources */,
 				EAADB62215FFA3A2008F7450 /* TextBuffer.cpp in Sources */,
 				EAADB62315FFA3A2008F7450 /* TextMesh.cpp in Sources */,
 				EAADB62415FFA3A2008F7450 /* TextRender.cpp in Sources */,
@@ -621,6 +637,10 @@
 				EAF358061726C79200824CF2 /* View.cpp in Sources */,
 				EAF358091726DEC200824CF2 /* EventSystem.cpp in Sources */,
 				EAF3580C1726DECA00824CF2 /* UpdateSystem.cpp in Sources */,
+				EAF3580F17280F6700824CF2 /* ResourceManager.cpp in Sources */,
+				EAF3581A1728162200824CF2 /* json_reader.cpp in Sources */,
+				EAF3581B1728162200824CF2 /* json_value.cpp in Sources */,
+				EAF3581D1728162200824CF2 /* json_writer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,6 +703,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "prefix-debug.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/..\"",
+					"\"$(SRCROOT)/../thirdparty/jsoncpp-src-0.5.0/include\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/LostEngine2-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -697,6 +721,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "prefix-release.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/..\"",
+					"\"$(SRCROOT)/../thirdparty/jsoncpp-src-0.5.0/include\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/LostEngine2-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";

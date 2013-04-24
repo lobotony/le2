@@ -6,7 +6,7 @@ namespace lost
 
 struct EventPool;
 struct EventQueue;
-struct FontManager;
+struct ResourceManager;
 struct Context;
 
 struct Engine
@@ -27,7 +27,7 @@ struct Engine
   EventPool*    eventPool; // global event pool, thread safe
   EventQueue*   eventQueue; // global event queue, fed by OS specific part, thread safe, user code reads events
   Context*      glContext;
-  FontManager*  fontManager;
+  ResourceManager*  resourceManager;
 };
 
 }

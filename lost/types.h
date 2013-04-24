@@ -55,6 +55,8 @@ namespace lost
 
   #define LE_SP(structname) struct structname;typedef shared_ptr<structname> structname##Ptr;
   
+  typedef u32 ResourceId;
+  
   LE_SP(VertexShader);
   LE_SP(UniformBlock);
   LE_SP(Texture);
