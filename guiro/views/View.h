@@ -3,7 +3,7 @@
 
 #include "guiro/Frame.h"
 #include "lost/Rect.h"
-#include "guiro/Layer.h"
+#include "guiro/layers/Layer.h"
 
 namespace lost
 {

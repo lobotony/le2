@@ -1,7 +1,7 @@
 #ifndef GUIRO_UI_H
 #define GUIRO_UI_H
 
-#include "guiro/View.h"
+#include "guiro/views/View.h"
 #include "guiro/EventSystem.h"
 #include "guiro/UpdateSystem.h"
 

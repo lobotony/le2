@@ -1,4 +1,4 @@
-#include "guiro/View.h"
+#include "guiro/views/View.h"
 #include <algorithm>
 
 namespace lost
