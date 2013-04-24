@@ -1,5 +1,6 @@
 #include "lost/ResourceManager.h"
 #include "lost/Bitmap.h"
+#include "lost/Texture.h"
 
 namespace lost
 {
@@ -61,6 +62,40 @@ BitmapPtr ResourceManager::bitmap(ResourceId rid)
   else
   {
     result = hash2bitmap[rid];
+  }
+  
+  return result;
+}
+
+TexturePtr ResourceManager::texture(const string& bitmapPath)
+{
+  ResourceId rid = stringToHash(bitmapPath);
+  if(hash2string.find(rid) == hash2string.end())
+  {
+    hash2string[rid] = bitmapPath;
+  }
+  ASSERT(hash2string[rid] == bitmapPath, "tried to overwrite resource id:"<<rid << " old path:'"<<hash2string[rid] << "new path:" <<bitmapPath);
+
+  return texture(rid);
+}
+
+TexturePtr ResourceManager::texture(ResourceId rid)
+{
+  TexturePtr result;
+  
+  if(hash2texture.find(rid) == hash2texture.end())
+  {
+    // hash to string mapping MUST exist if it wasn't loaded yet
+    ASSERT(hash2string.find(rid) != hash2string.end(), "couldn't find texture resource with id:"<<rid);
+    
+    DataPtr data = mainBundle.load(hash2string[rid]);
+    BitmapPtr bmp(new Bitmap(data));
+    result.reset(new Texture(bmp));
+    hash2texture[rid] = result;
+  }
+  else
+  {
+    result = hash2texture[rid];
   }
   
   return result;

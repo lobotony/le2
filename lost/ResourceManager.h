@@ -12,8 +12,11 @@ struct ResourceManager
   
   ResourceId stringToHash(const string& resourcePath);
   
-  BitmapPtr bitmap(const string& resourcePath); // takes an explicit resource path, e.g. "resources/images/background.png"
+  BitmapPtr bitmap(const string& bitmapPath); // takes an explicit resource path, e.g. "resources/images/background.png"
   BitmapPtr bitmap(ResourceId bitmapHash);
+
+  TexturePtr texture(const string& bitmapPath); // loads a bitmap and creates a texture from it, caching it
+  TexturePtr texture(ResourceId bitmapHash);
 
   void logStats();
 

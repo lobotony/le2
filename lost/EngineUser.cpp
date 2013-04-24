@@ -259,6 +259,9 @@ void Engine::startup()
   BitmapPtr bmp1 = resourceManager->bitmap("resources/rings.png");
   BitmapPtr bmp2 = resourceManager->bitmap("resources/rings.png");
   
+  TexturePtr tex1 = resourceManager->texture("resources/rings.png");
+  TexturePtr tex2 = resourceManager->texture("resources/rings.png");
+  
   resourceManager->logStats();
 
   ui.reset(new UserInterface);
