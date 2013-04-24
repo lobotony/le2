@@ -17,6 +17,7 @@
 #include <cmath>
 
 #include "guiro/UserInterface.h"
+#include "lost/ResourceManager.h"
 
 namespace lost 
 {
@@ -253,6 +254,12 @@ void Engine::startup()
   
   DataPtr fontData = mainBundle.load("resources/fonts/vera/Vera.ttf");
   font.reset(new TruetypeFont(fontData, 18));
+
+
+  BitmapPtr bmp1 = resourceManager->bitmap("resources/rings.png");
+  BitmapPtr bmp2 = resourceManager->bitmap("resources/rings.png");
+  
+  resourceManager->logStats();
 
   ui.reset(new UserInterface);
 

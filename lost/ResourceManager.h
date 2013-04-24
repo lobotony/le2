@@ -12,11 +12,10 @@ struct ResourceManager
   
   ResourceId stringToHash(const string& resourcePath);
   
-  // convenience methods that take paths and hash them before passing them on
-  BitmapPtr bitmap(const string& resourcePath); // takes an explicit resource path, e.g. "images/background.png"
+  BitmapPtr bitmap(const string& resourcePath); // takes an explicit resource path, e.g. "resources/images/background.png"
   BitmapPtr bitmap(ResourceId bitmapHash);
-//  TexturePtr texture(u32 bitmapHash);
-//  FontPtr font(u32 );
+
+  void logStats();
 
   ResourceBundle mainBundle;
   

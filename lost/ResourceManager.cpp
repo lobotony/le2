@@ -1,4 +1,5 @@
 #include "lost/ResourceManager.h"
+#include "lost/Bitmap.h"
 
 namespace lost
 {
@@ -27,7 +28,9 @@ u32 djb2Hash(const char* data)
 
 ResourceId ResourceManager::stringToHash(const string& resourcePath)
 {
-  return djb2Hash(resourcePath.c_str());
+  ResourceId result = djb2Hash(resourcePath.c_str());
+  DOUT(result << " = '" << resourcePath << "'");
+  return result;
 }
 
 BitmapPtr ResourceManager::bitmap(const string& resourcePath) 
@@ -42,13 +45,33 @@ BitmapPtr ResourceManager::bitmap(const string& resourcePath)
   return bitmap(rid);
 }
 
-BitmapPtr ResourceManager::bitmap(u32 bitmapHash)
+BitmapPtr ResourceManager::bitmap(ResourceId rid)
 {
   BitmapPtr result;
+  
+  if(hash2bitmap.find(rid) == hash2bitmap.end())
+  {
+    // hash to string mapping MUST exist if it wasn't loaded yet
+    ASSERT(hash2string.find(rid) != hash2string.end(), "couldn't find bitmap resource with id:"<<rid);
+    
+    DataPtr data = mainBundle.load(hash2string[rid]);
+    result.reset(new Bitmap(data));
+    hash2bitmap[rid] = result;
+  }
+  else
+  {
+    result = hash2bitmap[rid];
+  }
   
   return result;
 }
 
+void ResourceManager::logStats()
+{
+  DOUT("bitmaps: "<<(u32)hash2bitmap.size());
+  DOUT("textures: "<<(u32)hash2texture.size());
+  DOUT("shader programs: "<<(u32)hash2shaderprogram.size());
+}
 
 }
 
