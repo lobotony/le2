@@ -10,8 +10,6 @@ struct ResourceManager
   ResourceManager();
   ~ResourceManager();
   
-  ResourceId stringToHash(const string& resourcePath);
-  
   BitmapPtr bitmap(const string& bitmapPath); // takes an explicit resource path, e.g. "resources/images/background.png"
   BitmapPtr bitmap(ResourceId bitmapHash);
 
@@ -19,6 +17,10 @@ struct ResourceManager
   TexturePtr texture(ResourceId bitmapHash);
 
   void logStats();
+
+private:
+  ResourceId stringToHash(const string& resourcePath);
+  ResourceId hashPath(const string& resourcePath);
 
   ResourceBundle mainBundle;
   

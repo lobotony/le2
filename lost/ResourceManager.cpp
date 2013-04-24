@@ -34,7 +34,7 @@ ResourceId ResourceManager::stringToHash(const string& resourcePath)
   return result;
 }
 
-BitmapPtr ResourceManager::bitmap(const string& resourcePath) 
+ResourceId ResourceManager::hashPath(const string& resourcePath)
 {
   ResourceId rid = stringToHash(resourcePath);
   if(hash2string.find(rid) == hash2string.end())
@@ -42,8 +42,12 @@ BitmapPtr ResourceManager::bitmap(const string& resourcePath)
     hash2string[rid] = resourcePath;
   }
   ASSERT(hash2string[rid] == resourcePath, "tried to overwrite resource id:"<<rid << " old path:'"<<hash2string[rid] << "new path:" <<resourcePath);
+  return rid;
+}
 
-  return bitmap(rid);
+BitmapPtr ResourceManager::bitmap(const string& resourcePath) 
+{
+  return bitmap(hashPath(resourcePath));
 }
 
 BitmapPtr ResourceManager::bitmap(ResourceId rid)
@@ -69,14 +73,7 @@ BitmapPtr ResourceManager::bitmap(ResourceId rid)
 
 TexturePtr ResourceManager::texture(const string& bitmapPath)
 {
-  ResourceId rid = stringToHash(bitmapPath);
-  if(hash2string.find(rid) == hash2string.end())
-  {
-    hash2string[rid] = bitmapPath;
-  }
-  ASSERT(hash2string[rid] == bitmapPath, "tried to overwrite resource id:"<<rid << " old path:'"<<hash2string[rid] << "new path:" <<bitmapPath);
-
-  return texture(rid);
+  return texture(hashPath(bitmapPath));
 }
 
 TexturePtr ResourceManager::texture(ResourceId rid)
