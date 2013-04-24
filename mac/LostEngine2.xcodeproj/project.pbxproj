@@ -66,6 +66,12 @@
 		EAF0438815F7A88E0095549F /* HybridBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0A15F7A87B004EE290 /* HybridBuffer.cpp */; };
 		EAF0438915F7A88E0095549F /* HybridIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0C15F7A87B004EE290 /* HybridIndexBuffer.cpp */; };
 		EAF0438A15F7A88E0095549F /* HybridVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0E15F7A87C004EE290 /* HybridVertexBuffer.cpp */; };
+		EAF358031726C79200824CF2 /* Frame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF357FB1726C79200824CF2 /* Frame.cpp */; };
+		EAF358041726C79200824CF2 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF357FD1726C79200824CF2 /* Layer.cpp */; };
+		EAF358051726C79200824CF2 /* UserInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF357FF1726C79200824CF2 /* UserInterface.cpp */; };
+		EAF358061726C79200824CF2 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358011726C79200824CF2 /* View.cpp */; };
+		EAF358091726DEC200824CF2 /* EventSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358071726DEC200824CF2 /* EventSystem.cpp */; };
+		EAF3580C1726DECA00824CF2 /* UpdateSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF3580A1726DECA00824CF2 /* UpdateSystem.cpp */; };
 		EAF87C7A15E903A900986F86 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF87C7815E903A900986F86 /* Buffer.cpp */; };
 		EAF87C7E15E903B800986F86 /* BufferLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF87C7C15E903B800986F86 /* BufferLayout.cpp */; };
 /* End PBXBuildFile section */
@@ -162,7 +168,7 @@
 		EABB38F11600DCF00009D8F7 /* tinythread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinythread.h; path = ../thirdparty/tinythread/source/tinythread.h; sourceTree = "<group>"; };
 		EABB38F316010B670009D8F7 /* Engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
 		EABB38F416010B670009D8F7 /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
-		EABB38F616010F160009D8F7 /* EngineUser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EngineUser.cpp; sourceTree = "<group>"; };
+		EABB38F616010F160009D8F7 /* EngineUser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EngineUser.cpp; path = ../lost/EngineUser.cpp; sourceTree = "<group>"; };
 		EACD243315D7E48D00453F75 /* LostEngine2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LostEngine2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACD243715D7E48D00453F75 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		EACD243F15D7E48D00453F75 /* LostEngine2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LostEngine2-Info.plist"; sourceTree = "<group>"; };
@@ -207,6 +213,18 @@
 		EACD24B115D8531200453F75 /* Vec2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec2.cpp; sourceTree = "<group>"; };
 		EACD24B215D8531200453F75 /* Vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec2.h; sourceTree = "<group>"; };
 		EACD24B515D853D300453F75 /* lmath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lmath.h; sourceTree = "<group>"; };
+		EAF357FB1726C79200824CF2 /* Frame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Frame.cpp; path = ../guiro/Frame.cpp; sourceTree = "<group>"; };
+		EAF357FC1726C79200824CF2 /* Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Frame.h; path = ../guiro/Frame.h; sourceTree = "<group>"; };
+		EAF357FD1726C79200824CF2 /* Layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Layer.cpp; path = ../guiro/Layer.cpp; sourceTree = "<group>"; };
+		EAF357FE1726C79200824CF2 /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Layer.h; path = ../guiro/Layer.h; sourceTree = "<group>"; };
+		EAF357FF1726C79200824CF2 /* UserInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UserInterface.cpp; path = ../guiro/UserInterface.cpp; sourceTree = "<group>"; };
+		EAF358001726C79200824CF2 /* UserInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInterface.h; path = ../guiro/UserInterface.h; sourceTree = "<group>"; };
+		EAF358011726C79200824CF2 /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = View.cpp; path = ../guiro/View.cpp; sourceTree = "<group>"; };
+		EAF358021726C79200824CF2 /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = View.h; path = ../guiro/View.h; sourceTree = "<group>"; };
+		EAF358071726DEC200824CF2 /* EventSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventSystem.cpp; path = ../guiro/EventSystem.cpp; sourceTree = "<group>"; };
+		EAF358081726DEC200824CF2 /* EventSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventSystem.h; path = ../guiro/EventSystem.h; sourceTree = "<group>"; };
+		EAF3580A1726DECA00824CF2 /* UpdateSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UpdateSystem.cpp; path = ../guiro/UpdateSystem.cpp; sourceTree = "<group>"; };
+		EAF3580B1726DECA00824CF2 /* UpdateSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpdateSystem.h; path = ../guiro/UpdateSystem.h; sourceTree = "<group>"; };
 		EAF87C7815E903A900986F86 /* Buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Buffer.cpp; sourceTree = "<group>"; };
 		EAF87C7915E903A900986F86 /* Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buffer.h; sourceTree = "<group>"; };
 		EAF87C7C15E903B800986F86 /* BufferLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferLayout.cpp; sourceTree = "<group>"; };
@@ -241,6 +259,8 @@
 			isa = PBXGroup;
 			children = (
 				EACD248C15D81A6800453F75 /* lost */,
+				EABB38F616010F160009D8F7 /* EngineUser.cpp */,
+				EAF357FA1726C76100824CF2 /* guiro */,
 				EACD243D15D7E48D00453F75 /* mac */,
 				EACD246F15D7F35C00453F75 /* thirdparty */,
 				EACD243615D7E48D00453F75 /* Frameworks */,
@@ -346,7 +366,6 @@
 				EACD24AA15D8523300453F75 /* Disallow.h */,
 				EABB38F316010B670009D8F7 /* Engine.cpp */,
 				EABB38F416010B670009D8F7 /* Engine.h */,
-				EABB38F616010F160009D8F7 /* EngineUser.cpp */,
 				EABB38E51600D42B0009D8F7 /* Event.cpp */,
 				EABB38E61600D42B0009D8F7 /* Event.h */,
 				EABB38EB1600D6FA0009D8F7 /* EventPool.cpp */,
@@ -438,6 +457,25 @@
 			);
 			name = lost;
 			path = ../lost;
+			sourceTree = "<group>";
+		};
+		EAF357FA1726C76100824CF2 /* guiro */ = {
+			isa = PBXGroup;
+			children = (
+				EAF358071726DEC200824CF2 /* EventSystem.cpp */,
+				EAF358081726DEC200824CF2 /* EventSystem.h */,
+				EAF357FB1726C79200824CF2 /* Frame.cpp */,
+				EAF357FC1726C79200824CF2 /* Frame.h */,
+				EAF357FD1726C79200824CF2 /* Layer.cpp */,
+				EAF357FE1726C79200824CF2 /* Layer.h */,
+				EAF3580A1726DECA00824CF2 /* UpdateSystem.cpp */,
+				EAF3580B1726DECA00824CF2 /* UpdateSystem.h */,
+				EAF357FF1726C79200824CF2 /* UserInterface.cpp */,
+				EAF358001726C79200824CF2 /* UserInterface.h */,
+				EAF358011726C79200824CF2 /* View.cpp */,
+				EAF358021726C79200824CF2 /* View.h */,
+			);
+			name = guiro;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -577,6 +615,12 @@
 				EABB38F21600DCF00009D8F7 /* tinythread.cpp in Sources */,
 				EABB38F516010B670009D8F7 /* Engine.cpp in Sources */,
 				EABB38F716010F160009D8F7 /* EngineUser.cpp in Sources */,
+				EAF358031726C79200824CF2 /* Frame.cpp in Sources */,
+				EAF358041726C79200824CF2 /* Layer.cpp in Sources */,
+				EAF358051726C79200824CF2 /* UserInterface.cpp in Sources */,
+				EAF358061726C79200824CF2 /* View.cpp in Sources */,
+				EAF358091726DEC200824CF2 /* EventSystem.cpp in Sources */,
+				EAF3580C1726DECA00824CF2 /* UpdateSystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

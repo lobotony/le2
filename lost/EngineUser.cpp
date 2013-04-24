@@ -16,6 +16,8 @@
 #include "lost/TextBuffer.h"
 #include <cmath>
 
+#include "guiro/UserInterface.h"
+
 namespace lost 
 {
 
@@ -43,6 +45,9 @@ vector<MeshPtr> cpdots;
 vector<MeshPtr> ipdots;
 
 const uint32_t dotsize = 5;
+
+
+UserInterfacePtr ui;
 
 MeshPtr newLineStrip(uint16_t numLines)
 {
@@ -249,6 +254,8 @@ void Engine::startup()
   DataPtr fontData = mainBundle.load("resources/fonts/vera/Vera.ttf");
   font.reset(new TruetypeFont(fontData, 18));
 
+  ui.reset(new UserInterface);
+
   rt2.reset(new TextMesh());
   TextBuffer tb;
   tb.font(font);
@@ -343,6 +350,9 @@ void Engine::update()
   {
     glContext->draw(cpdots[i]);
   }
+  
+  ui->update();
+  ui->draw(glContext);
 }
 
 void Engine::shutdown()
