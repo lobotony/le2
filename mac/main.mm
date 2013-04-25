@@ -14,8 +14,6 @@ int main(int argc, char *argv[])
   NSApplication* app = [NSApplication sharedApplication];     // singleton
   LEAppDelegate* appDelegate = [[LEAppDelegate alloc] init];  // required for some important callbacks
 
-  LLOG("hello");
-
   // setup very basic menu so we can at least CMD-Q quit
   NSMenu *menu;
   NSMenuItem *menu_item, *temp_item;

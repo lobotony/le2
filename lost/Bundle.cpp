@@ -51,6 +51,22 @@ TexturePtr Bundle::loadTexture(const Path& relativePath) const
   return Texture::create(load(relativePath));
 }
 
+Json::Value Bundle::loadJson(const Path& relativePath) const
+{
+  Json::Value result;
+  
+  DataPtr data = load(relativePath);
+  string stringData = data->str();
+  
+  Json::Reader jsonReader;
+  bool parsingSuccessful = jsonReader.parse(stringData, result);
+  if (!parsingSuccessful)
+  {
+    EOUT("Failed to parse configuration\n" << jsonReader.getFormatedErrorMessages());
+  }
+  
+  return result;
+}
 
 ResourceBundle::ResourceBundle()
 : Bundle(getResourcePath())

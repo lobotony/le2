@@ -2,6 +2,7 @@
 #define LOST_BUNDLE_H
 
 #include "lost/Path.h"
+#include "json/json.h"
 
 namespace lost
 {
@@ -18,6 +19,7 @@ struct Bundle
   DataPtr           load(const Path& relativePath) const;
   ShaderProgramPtr  loadShader(const Path& relativePath) const; // loads shader using the shader preprocessor function
   TexturePtr        loadTexture(const Path& relativePath) const; // convenience function that loads an image and instantiates a texture. 
+  Json::Value       loadJson(const Path& relativePath) const;
   
   Path _path;
 };
