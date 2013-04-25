@@ -99,6 +99,33 @@ TexturePtr ResourceManager::texture(ResourceId rid)
   return result;
 }
 
+ShaderProgramPtr ResourceManager::shader(const string& shaderPath)
+{
+  return shader(hashPath(shaderPath));  
+}
+
+ShaderProgramPtr ResourceManager::shader(ResourceId rid)
+{
+  ShaderProgramPtr result;
+  
+  if(hash2shaderprogram.find(rid) == hash2shaderprogram.end())
+  {
+    // hash to string mapping MUST exist if it wasn't loaded yet
+    ASSERT(hash2string.find(rid) != hash2string.end(), "couldn't find shader resource with id:"<<rid);
+    DOUT("caching shader: " << rid << " -> " << hash2string[rid]);
+    
+    result = mainBundle.loadShader(hash2string[rid]);
+    hash2shaderprogram[rid] = result;
+  }
+  else
+  {
+    result = hash2shaderprogram[rid];
+  }
+
+  return result;
+}
+
+
 void ResourceManager::logStats()
 {
   DOUT("bitmaps: "<<(u32)hash2bitmap.size());

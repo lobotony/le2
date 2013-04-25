@@ -16,6 +16,9 @@ struct ResourceManager
   TexturePtr texture(const string& bitmapPath); // loads a bitmap and creates a texture from it, caching it
   TexturePtr texture(ResourceId bitmapHash);
 
+  ShaderProgramPtr shader(const string& shaderPath); // base path to a pair of files with .vs/.fs extensions
+  ShaderProgramPtr shader(ResourceId bitmapHash);
+  
   void logStats();
 
 private:

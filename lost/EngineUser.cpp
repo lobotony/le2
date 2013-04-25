@@ -247,8 +247,8 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
 void Engine::startup()
 {
   ResourceBundle mainBundle;
-  colorShader = mainBundle.loadShader("resources/glsl/color");
-  textureShader = mainBundle.loadShader("resources/glsl/texture");
+  colorShader = resourceManager->shader("resources/glsl/color");
+  textureShader = resourceManager->shader("resources/glsl/texture");
 	ringTexture = resourceManager->texture("resources/images/rings.png");
   cam = Camera2D::create(Rect(0,0,1024,768));
   
@@ -337,7 +337,7 @@ void Engine::update()
 
 //  glContext->draw(coloredQuad);
   glContext->draw(texturedQuad);
-//  glContext->draw(rt1);
+  glContext->draw(rt1);
 //  glContext->draw(rt2);
 //  glContext->draw(dot);
 //  glContext->draw(dot2);
