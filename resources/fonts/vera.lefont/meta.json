@@ -1,0 +1,44 @@
+{
+  "fonts" : [
+  {
+     "name" : "Vera",
+     "ttfile" : "Vera.ttf"
+   },
+   {
+     "name" : "Vera bold",
+     "ttfile" : "VeraBd.ttf"
+   },
+   {
+     "name" : "Vera bold italic",
+     "ttfile" : "VeraBI.ttf"
+   },
+   {
+     "name" : "Vera italic",
+     "ttfile" : "VeraIt.ttf"
+   },
+   {
+     "name" : "Vera mono bold",
+     "ttfile" : "VeraMoBd.ttf"
+   },
+   {
+     "name" : "Vera mono bold italic",
+     "ttfile" : "VeraMoBI.ttf"
+   },
+   {
+     "name" : "Vera mono italic",
+     "ttfile" : "VeraMoIt.ttf"
+   },
+   {
+     "name" : "Vera mono",
+     "ttfile" : "VeraMono.ttf"
+   },
+   {
+     "name" : "Vera serif",
+     "ttfile" : "VeraSe.ttf"
+   },
+   {
+     "name" : "Vera serif bold",
+     "ttfile" : "VeraSeBd.ttf"
+   },
+  ]
+}
