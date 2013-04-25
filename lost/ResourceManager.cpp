@@ -1,6 +1,7 @@
 #include "lost/ResourceManager.h"
 #include "lost/Bitmap.h"
 #include "lost/Texture.h"
+#include "lost/TruetypeFont.h"
 
 namespace lost
 {
@@ -125,12 +126,97 @@ ShaderProgramPtr ResourceManager::shader(ResourceId rid)
   return result;
 }
 
+void ResourceManager::registerFontBundle(const string& fontBundlePath)
+{
+  // fontBundles are relative to the resource dir, so build a new bundle originating form the resourceBundle
+  Bundle fontBundle = mainBundle.subBundle(fontBundlePath);
+  Json::Value metadata = fontBundle.loadJson("meta.json");
+
+/*
+  // ------------- debug
+  Json::StyledWriter writer;
+  string w = writer.write(metadata);
+  DOUT("loaded font metadata: "<<w);
+  // ------------- debug
+*/
+  
+  Json::Value fonts = metadata["fonts"];
+  DOUT("fonts found: "<<fonts.size());
+  for(u32 i=0; i<fonts.size(); ++i)
+  {
+    Json::Value font = fonts[i];
+    if(font.type() == Json::objectValue)
+    {
+      string fontName = font["name"].asString();
+      Path absoluteFontPath = fontBundle._path / font["ttfile"].asString();
+      Path relativeFontPath = absoluteFontPath.relativeTo(mainBundle._path);
+    
+      ResourceId rid = hashPath(fontName);
+      fontId2dataPath[rid] = relativeFontPath;
+    
+      DOUT(fontName << " -> " << relativeFontPath);
+    }
+    else
+    {
+      EOUT("not a dictionary");
+    }
+  }
+}
+
+FontPtr ResourceManager::font(const string& fontName, u32 fontSize)
+{
+  return font(hashPath(fontName), fontSize);
+}
+
+FontPtr ResourceManager::font(ResourceId rid, u32 fontSize)
+{
+  FontPtr result;
+  
+  ASSERT(fontId2dataPath.find(rid) != fontId2dataPath.end(), "can't find font data path for font with id:"<<rid<<" -> " << hash2string[rid]);
+  pair<ResourceId, u32> fontKey = make_pair(rid, fontSize);
+  
+  map<pair<ResourceId, u32>, FontPtr>::iterator fontPos = fontIdSize2font.find(fontKey);
+  if(fontPos == fontIdSize2font.end())
+  {
+    DOUT("no font yet for "<<hash2string[rid]<<" in size "<<fontSize<<" , creating");
+    // no font instance for this key => check if data was already loaded
+    DataPtr data;
+    map<ResourceId, DataPtr>::iterator dataPos = fontId2data.find(rid);
+    if(dataPos == fontId2data.end())
+    {
+      DOUT("loading data for font: "<<hash2string[rid]<< " "<<fontId2dataPath[rid]);
+      // no data loaded, get it from disk
+      data = mainBundle.load(fontId2dataPath[rid]);
+      fontId2data[rid] = data;
+    }
+    else
+    {
+      data = fontId2data[rid];
+    }
+    // instantiate font with data and size and put it into map
+    result.reset(new TruetypeFont(data, fontSize));
+    fontIdSize2font[fontKey] = result;
+  }
+  else
+  {
+    result = fontIdSize2font[fontKey];
+  }
+  return result;
+}
 
 void ResourceManager::logStats()
 {
   DOUT("bitmaps: "<<(u32)hash2bitmap.size());
   DOUT("textures: "<<(u32)hash2texture.size());
   DOUT("shader programs: "<<(u32)hash2shaderprogram.size());
+  DOUT("font names: "<<(u32)fontId2dataPath.size());
+  DOUT("font data loaded: "<<(u32)fontId2data.size());
+  DOUT("fonts instantiated: "<<(u32)fontIdSize2font.size());
+  DOUT("hashed resource paths: "<<(u32)hash2string.size());
+  for(map<ResourceId, string>::iterator pos = hash2string.begin(); pos != hash2string.end(); ++pos)
+  {
+    DOUT(pos->first << " -> " << pos->second);
+  }
 }
 
 }

@@ -19,6 +19,13 @@ struct ResourceManager
   ShaderProgramPtr shader(const string& shaderPath); // base path to a pair of files with .vs/.fs extensions
   ShaderProgramPtr shader(ResourceId bitmapHash);
   
+  // register font bundles first
+  // then access the fonts that are defined in the bundles via font(name, size)
+  // only supports truetype fonts for now
+  void registerFontBundle(const string& fontBundlePath); // reads the meta.json file and registers the font names
+  FontPtr font(const string& fontName, u32 fontSize); // loads the font with given name and instantiates a truetype font with the specified size, caching the font
+  FontPtr font(ResourceId rid, u32 fontSize); // same as above, with resourceId instead of fontName
+  
   void logStats();
 
 private:
@@ -27,11 +34,18 @@ private:
 
   ResourceBundle mainBundle;
   
-  map<ResourceId, string>           hash2string; 
+  map<ResourceId, string>             hash2string;
   
-  map<ResourceId, BitmapPtr>        hash2bitmap;
-  map<ResourceId, TexturePtr>       hash2texture;
-  map<ResourceId, ShaderProgramPtr> hash2shaderprogram;
+  map<ResourceId, BitmapPtr>          hash2bitmap;
+  map<ResourceId, TexturePtr>         hash2texture;
+  map<ResourceId, ShaderProgramPtr>   hash2shaderprogram;
+  
+  // ResourceId is derived from font name in meta file, NOT from data path
+  // data is loaded only once, but multiple font instances can exist, if the instances differ
+  // in size. 
+  map<ResourceId, Path>             fontId2dataPath;
+  map<ResourceId, DataPtr>            fontId2data;
+  map<pair<ResourceId, u32>, FontPtr> fontIdSize2font;
 };
 }
 

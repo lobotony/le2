@@ -252,9 +252,16 @@ void Engine::startup()
 	ringTexture = resourceManager->texture("resources/images/rings.png");
   cam = Camera2D::create(Rect(0,0,1024,768));
   
-  DataPtr fontData = mainBundle.load("resources/fonts/vera/Vera.ttf");
-  font.reset(new TruetypeFont(fontData, 18));
-    
+  resourceManager->registerFontBundle("resources/fonts/vera.lefont");
+//  DataPtr fontData = mainBundle.load("resources/fonts/vera.lefont/Vera.ttf");
+//  font.reset(new TruetypeFont(fontData, 18));
+  font = resourceManager->font("Vera", 18);
+  
+  FontPtr f2 = resourceManager->font("Vera", 18);
+  FontPtr f3 = resourceManager->font("Vera", 20);
+  FontPtr f4 = resourceManager->font("Vera", 30);
+  FontPtr f5 = resourceManager->font("Vera", 18);
+  
   resourceManager->logStats();
 
   ui.reset(new UserInterface);
