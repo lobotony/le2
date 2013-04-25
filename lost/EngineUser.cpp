@@ -249,7 +249,7 @@ void Engine::startup()
   ResourceBundle mainBundle;
   colorShader = mainBundle.loadShader("resources/glsl/color");
   textureShader = mainBundle.loadShader("resources/glsl/texture");
-	ringTexture = mainBundle.loadTexture("resources/rings.png");
+	ringTexture = resourceManager->texture("resources/rings.png");
   cam = Camera2D::create(Rect(0,0,1024,768));
   
   DataPtr fontData = mainBundle.load("resources/fonts/vera/Vera.ttf");
@@ -341,8 +341,9 @@ void Engine::update()
   glContext->clearColor(blackColor);
   glContext->camera(cam);
   glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
 //  glContext->draw(coloredQuad);
-//  glContext->draw(texturedQuad);
+  glContext->draw(texturedQuad);
 //  glContext->draw(rt1);
 //  glContext->draw(rt2);
 //  glContext->draw(dot);

@@ -33,7 +33,7 @@ DataPtr Bundle::load(const Path& relativePath) const
   ASSERT(0 == fgetpos(file, &size), "couldn't get file pos "<<spath);
   result->bytes.reset(new char[size]);
   result->size = size;
-  DOUT("'"<<absolutePath.file()<<"' [" << size << " bytes]");
+  DOUT("'"<<relativePath<<"' [" << size << " bytes]");
   ASSERT(0 == fseek(file, 0, SEEK_SET), "couldn't seek "<<spath);
   fread(result->bytes.get(), size, 1, file);
   ASSERT(0 == ferror(file), "couldn't read "<<spath);

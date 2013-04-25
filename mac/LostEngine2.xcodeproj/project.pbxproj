@@ -254,6 +254,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA898F1B172934BC00C7B957 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				EAF3582817287B1100824CF2 /* View.cpp */,
+				EAF3582917287B1100824CF2 /* View.h */,
+				EAF357FF1726C79200824CF2 /* UserInterface.cpp */,
+				EAF358001726C79200824CF2 /* UserInterface.h */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		EA898F1C172934C200C7B957 /* layers */ = {
+			isa = PBXGroup;
+			children = (
+				EAF3582617287B1100824CF2 /* Layer.cpp */,
+				EAF3582717287B1100824CF2 /* Layer.h */,
+			);
+			name = layers;
+			sourceTree = "<group>";
+		};
 		EABB38EE1600DCE10009D8F7 /* tinythread */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +492,8 @@
 		EAF357FA1726C76100824CF2 /* guiro */ = {
 			isa = PBXGroup;
 			children = (
+				EA898F1C172934C200C7B957 /* layers */,
+				EA898F1B172934BC00C7B957 /* views */,
 				EAF358071726DEC200824CF2 /* EventSystem.cpp */,
 				EAF358081726DEC200824CF2 /* EventSystem.h */,
 				EAF357FB1726C79200824CF2 /* Frame.cpp */,
@@ -480,12 +502,6 @@
 				EAF3582D17287B4000824CF2 /* RenderSystem.h */,
 				EAF3580A1726DECA00824CF2 /* UpdateSystem.cpp */,
 				EAF3580B1726DECA00824CF2 /* UpdateSystem.h */,
-				EAF357FF1726C79200824CF2 /* UserInterface.cpp */,
-				EAF358001726C79200824CF2 /* UserInterface.h */,
-				EAF3582617287B1100824CF2 /* Layer.cpp */,
-				EAF3582717287B1100824CF2 /* Layer.h */,
-				EAF3582817287B1100824CF2 /* View.cpp */,
-				EAF3582917287B1100824CF2 /* View.h */,
 			);
 			name = guiro;
 			sourceTree = "<group>";

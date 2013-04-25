@@ -10,4 +10,11 @@ Frame::~Frame()
 {
 }
 
+Rect Frame::rect(Rect superRect)
+{
+  Rect result;
+  
+  return result;
+}
+
 }

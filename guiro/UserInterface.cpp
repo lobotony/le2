@@ -17,6 +17,7 @@ void UserInterface::update()
 
 void UserInterface::draw(Context* glContext)
 {
+  renderSystem.draw(glContext, this);
 }
 
 }

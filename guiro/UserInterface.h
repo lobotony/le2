@@ -4,6 +4,7 @@
 #include "guiro/views/View.h"
 #include "guiro/EventSystem.h"
 #include "guiro/UpdateSystem.h"
+#include "guiro/RenderSystem.h"
 
 namespace lost
 {
@@ -23,6 +24,7 @@ struct UserInterface : View
   
   EventSystem eventSystem;
   UpdateSystem updateSystem;
+  RenderSystem renderSystem;
 };
 }
 

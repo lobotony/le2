@@ -30,7 +30,7 @@ u32 djb2Hash(const char* data)
 ResourceId ResourceManager::stringToHash(const string& resourcePath)
 {
   ResourceId result = djb2Hash(resourcePath.c_str());
-  DOUT(result << " = '" << resourcePath << "'");
+//  DOUT(result << " = '" << resourcePath << "'");
   return result;
 }
 
@@ -58,7 +58,7 @@ BitmapPtr ResourceManager::bitmap(ResourceId rid)
   {
     // hash to string mapping MUST exist if it wasn't loaded yet
     ASSERT(hash2string.find(rid) != hash2string.end(), "couldn't find bitmap resource with id:"<<rid);
-    
+    DOUT("caching bitmap: " << rid << " -> " << hash2string[rid]);
     DataPtr data = mainBundle.load(hash2string[rid]);
     result.reset(new Bitmap(data));
     hash2bitmap[rid] = result;
@@ -84,6 +84,7 @@ TexturePtr ResourceManager::texture(ResourceId rid)
   {
     // hash to string mapping MUST exist if it wasn't loaded yet
     ASSERT(hash2string.find(rid) != hash2string.end(), "couldn't find texture resource with id:"<<rid);
+    DOUT("caching texture: " << rid << " -> " << hash2string[rid]);
     
     DataPtr data = mainBundle.load(hash2string[rid]);
     BitmapPtr bmp(new Bitmap(data));
