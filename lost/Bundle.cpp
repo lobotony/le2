@@ -20,6 +20,11 @@ Bundle::Bundle(const Path& inPath)
 
 }
 
+Bundle Bundle::subBundle(const Path& inRelativePath)
+{
+  return Bundle(_path / inRelativePath);
+}
+
 DataPtr Bundle::load(const Path& relativePath) const
 {
   DataPtr result(new Data);
@@ -62,7 +67,11 @@ Json::Value Bundle::loadJson(const Path& relativePath) const
   bool parsingSuccessful = jsonReader.parse(stringData, result);
   if (!parsingSuccessful)
   {
-    EOUT("Failed to parse configuration\n" << jsonReader.getFormatedErrorMessages());
+    EOUT("!!!!!!!!!!!!!!!");
+    EOUT("!!!!!!!!!!!!!!!");
+    EOUT("Failed to parse file: "<<relativePath << " error:" << jsonReader.getFormatedErrorMessages());
+    EOUT("!!!!!!!!!!!!!!!");
+    EOUT("!!!!!!!!!!!!!!!");
   }
   
   return result;
