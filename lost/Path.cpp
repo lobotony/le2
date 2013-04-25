@@ -100,6 +100,20 @@ namespace lost
     return path;
   }
 
+  Path Path::relativeTo(const Path& other)
+  {
+    if(!path.compare(0, other.path.length(), other.path))
+    {
+      size_t ol = other.path.length();
+      size_t l = path.length()-other.path.length();
+      return Path(path.substr(ol,l));
+    }
+    else
+    {
+      return Path();
+    }
+  }
+
     
   Path operator / (const Path& left, const Path& right)
   {

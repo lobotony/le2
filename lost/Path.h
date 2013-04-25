@@ -35,6 +35,8 @@ namespace lost
     Path directory();
     Path file();
 
+    Path relativeTo(const Path& other);
+
     lost::string string() const;
     lost::string native() const;
 
