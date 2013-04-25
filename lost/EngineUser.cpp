@@ -249,19 +249,12 @@ void Engine::startup()
   ResourceBundle mainBundle;
   colorShader = mainBundle.loadShader("resources/glsl/color");
   textureShader = mainBundle.loadShader("resources/glsl/texture");
-	ringTexture = resourceManager->texture("resources/rings.png");
+	ringTexture = resourceManager->texture("resources/images/rings.png");
   cam = Camera2D::create(Rect(0,0,1024,768));
   
   DataPtr fontData = mainBundle.load("resources/fonts/vera/Vera.ttf");
   font.reset(new TruetypeFont(fontData, 18));
-
-
-  BitmapPtr bmp1 = resourceManager->bitmap("resources/rings.png");
-  BitmapPtr bmp2 = resourceManager->bitmap("resources/rings.png");
-  
-  TexturePtr tex1 = resourceManager->texture("resources/rings.png");
-  TexturePtr tex2 = resourceManager->texture("resources/rings.png");
-  
+    
   resourceManager->logStats();
 
   ui.reset(new UserInterface);
