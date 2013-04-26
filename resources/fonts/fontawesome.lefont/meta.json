@@ -1,0 +1,8 @@
+{
+  "fonts" : [
+  {
+     "name" : "fontawesome",
+     "ttfile" : "fontawesome-webfont.ttf"
+   }
+  ]
+}

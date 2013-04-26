@@ -34,6 +34,7 @@ TexturePtr ringTexture;
 FontPtr font;
 TextMeshPtr rt1;
 TextMeshPtr rt2;
+TextMeshPtr rt3;
 
 MeshPtr dot;
 MeshPtr dot2;
@@ -253,14 +254,19 @@ void Engine::startup()
   cam = Camera2D::create(Rect(0,0,1024,768));
   
   resourceManager->registerFontBundle("resources/fonts/vera.lefont");
+  resourceManager->registerFontBundle("resources/fonts/fontawesome.lefont");
 //  DataPtr fontData = mainBundle.load("resources/fonts/vera.lefont/Vera.ttf");
 //  font.reset(new TruetypeFont(fontData, 18));
   font = resourceManager->font("Vera", 18);
   
+  FontPtr f1 = resourceManager->font("Vera", 10);
   FontPtr f2 = resourceManager->font("Vera", 18);
   FontPtr f3 = resourceManager->font("Vera", 20);
   FontPtr f4 = resourceManager->font("Vera", 30);
   FontPtr f5 = resourceManager->font("Vera", 18);
+  FontPtr fa = resourceManager->font("fontawesome", 100);
+  
+  font = f1;
   
   resourceManager->logStats();
 
@@ -284,6 +290,12 @@ void Engine::startup()
   rt1->material->blendPremultiplied();
   rt1->transform = MatrixTranslation(Vec3(50,50,0));
 
+  utf32_string utf32s;
+  utf32s = 0xf085;
+  rt3 = render(utf32s, fa, false);
+  rt3->material->shader = textureShader;
+  rt3->material->blendPremultiplied();
+  rt3->transform = MatrixTranslation(Vec3(300,300,0));
 
 
   coloredQuad = Quad::create(Rect(0,0,50,50));
@@ -343,9 +355,10 @@ void Engine::update()
   glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
 //  glContext->draw(coloredQuad);
-  glContext->draw(texturedQuad);
-  glContext->draw(rt1);
+//  glContext->draw(texturedQuad);
+//  glContext->draw(rt1);
 //  glContext->draw(rt2);
+  glContext->draw(rt3);
 //  glContext->draw(dot);
 //  glContext->draw(dot2);
 //  glContext->draw(lines);
