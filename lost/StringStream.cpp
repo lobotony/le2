@@ -105,3 +105,10 @@ lost::StringStream& operator<<(lost::StringStream& s, const lost::string& v)
   s.append(v);
   return s;
 }
+
+lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec2& v)
+{
+  s << "( "<<v.x<<" / "<<v.y<<" )";
+  return s;
+}
+
