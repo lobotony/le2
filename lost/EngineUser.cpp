@@ -48,11 +48,17 @@ vector<MeshPtr> cpdots;
 vector<MeshPtr> ipdots;
 
 const uint32_t dotsize = 5;
-f32 splineWidth = 4;
+f32 splineWidth = 16;
 
 TexturePtr splineTexture;
 
 UserInterfacePtr ui;
+f64 lastTime;
+f64 nowTime;
+f64 deltaTime;
+
+vector<Vec2> controlPoints;
+vector<Vec2> cp2;
 
 MeshPtr newTriangleStrip(u32 numTriangles)
 {
@@ -158,7 +164,7 @@ void updateSplineSegment(vector<Vec2>&        interpolated, // receives the inte
   Vec2 cp2 = cp[cpoffset+2];
   Vec2 cp3 = cp[cpoffset+3];
 
-  DOUT("seglen "<<len(cp2-cp1));
+//  DOUT("seglen "<<len(cp2-cp1));
 
   f32 t = 0;
   f32 dt = 1.0f/(numPoints);
@@ -198,7 +204,7 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
       pn[i] = nps;
       pbudget -= nps;
     }
-    DOUT("seg "<<pn[i]);
+//    DOUT("seg "<<pn[i]);
   }
   
   uint32_t pointOffset = 0;
@@ -222,6 +228,7 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
   nv[numVertices-1] = nv[numVertices-2];
   
   f32 normalLenght = 20;
+  ipdots.clear();
   for(uint32_t i=0; i<numVertices; ++i)
   {
     // copy interpolated points into mesh
@@ -230,13 +237,13 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
     
     normalMesh->set(i*2+1, UT_position, ip[i]+nv[i]*normalLenght);
     
-    // visualize interpolated points with quads for debugging
+/*    // visualize interpolated points with quads for debugging
     MeshPtr p = dot->clone();
     p->transform = MatrixTranslation(Vec3(ip[i].x-(dotsize/2), ip[i].y-(dotsize/2), 0));
     p->material = dot->material->clone();
     p->material->color = Color(1.0, 0,0,.5);
     p->material->blendNormal();
-    ipdots.push_back(p);
+    ipdots.push_back(p);*/
   }
   
   // adjust triangle mesh, only writes to points
@@ -346,16 +353,15 @@ void Engine::startup()
   
   u32 numInterpolatedPoints = 100;
   spline = newLineStrip(numInterpolatedPoints);
-  normals = newLineGroup(spline->numVertices());
-  vector<Vec2> cp;
-  cp.push_back(Vec2(110,110));
-  cp.push_back(Vec2(110,110));
-  cp.push_back(Vec2(310,310));
-  cp.push_back(Vec2(610,110));
+  normals = newLineGroup(spline->numVertigces());
+  controlPoints.push_back(Vec2(110,110));
+  controlPoints.push_back(Vec2(110,110));
+  controlPoints.push_back(Vec2(310,310));
+  controlPoints.push_back(Vec2(610,110));
 
-  cp.push_back(Vec2(710,510));
-  cp.push_back(Vec2(110,510));
-  cp.push_back(Vec2(110,510));
+  controlPoints.push_back(Vec2(710,410));
+  controlPoints.push_back(Vec2(110,410));
+  controlPoints.push_back(Vec2(110,410));
 
   triangulatedSpline = newTriangleStrip((numInterpolatedPoints*2)-2);
   triangulatedSpline->material->blendPremultiplied();
@@ -375,7 +381,7 @@ void Engine::startup()
   cp.push_back(Vec2(20,200));
   cp.push_back(Vec2(110,110));
   cp.push_back(Vec2(110,110));*/
-  updateSpline(cp, spline, normals, triangulatedSpline);
+  updateSpline(controlPoints, spline, normals, triangulatedSpline);
   
 /*  for(uint32_t i=0; i<cp.size(); ++i)
   {
@@ -384,10 +390,40 @@ void Engine::startup()
     cpdots.push_back(p);
   }*/
   
+  lastTime = currentTimeSeconds();
+  nowTime = lastTime;
+  deltaTime = 0;
+  cp2 = controlPoints;
 }
+
+void updateDeltaTime()
+{
+  nowTime = currentTimeSeconds();
+  deltaTime = nowTime - lastTime;
+  lastTime = nowTime;
+}
+
+f32 d = 0;
 
 void Engine::update()
 {
+  updateDeltaTime();
+
+  d += deltaTime;
+  f32 v1 = sin(d);
+  f32 v2 = cos(d);
+
+  f32 ix = 50;
+  f32 iy = 80;
+  
+  for(u32 i=0; i<controlPoints.size();++i)
+  {
+    f32 f = sin(i)+cos(4*i);
+    controlPoints[i] = Vec2(cp2[i].x+v1*ix*f, cp2[i].y+v2*iy*f);
+  }
+
+  updateSpline(controlPoints, spline, normals, triangulatedSpline);
+
   glContext->clearColor(blackColor);
   glContext->camera(cam);
   glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
