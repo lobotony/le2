@@ -48,7 +48,9 @@ vector<MeshPtr> cpdots;
 vector<MeshPtr> ipdots;
 
 const uint32_t dotsize = 5;
+f32 splineWidth = 4;
 
+TexturePtr splineTexture;
 
 UserInterfacePtr ui;
 
@@ -60,6 +62,7 @@ MeshPtr newTriangleStrip(u32 numTriangles)
 
   BufferLayout layout;
   layout.add(ET_vec2_f32, UT_position);
+  layout.add(ET_vec2_f32, UT_texcoord0);  
   result = Mesh::create(layout, ET_u16);
   result->indexBuffer->drawMode = GL_TRIANGLE_STRIP;
   
@@ -73,10 +76,6 @@ MeshPtr newTriangleStrip(u32 numTriangles)
   
   result->vertexBuffer->reset(numVertices);
   result->indexBuffer->reset(numIndices);
-
-  result->material->color = Color(1,1,1,.6);
-  result->material->shader = colorShader;
-  result->material->blendNormal();
   
   for(u32 i=0; i<numIndices; ++i)
   {
@@ -241,7 +240,6 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
   }
   
   // adjust triangle mesh, only writes to points
-  f32 splineWidth = 16;
   f32 halfWidth = splineWidth / 2;
   u32 j=0;
   for(u32 i=0; i<numVertices; i+=1)
@@ -253,6 +251,9 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
     Vec2 rightPoint = p-halfdir;
     triangles->set(j, UT_position, leftPoint);
     triangles->set(j+1, UT_position, rightPoint);
+    
+    triangles->set(j, UT_texcoord0, Vec2(0,0));
+    triangles->set(j+1, UT_texcoord0, Vec2(1,0));
 //    DOUT("p "<< p << " n "<<n);
 //    DOUT("left "<<leftPoint<<" right "<<rightPoint );
     j+=2;
@@ -343,7 +344,7 @@ void Engine::startup()
   //////////////////////////////////////////
   /// SPLINE
   
-  u32 numInterpolatedPoints = 60;
+  u32 numInterpolatedPoints = 100;
   spline = newLineStrip(numInterpolatedPoints);
   normals = newLineGroup(spline->numVertices());
   vector<Vec2> cp;
@@ -357,6 +358,18 @@ void Engine::startup()
   cp.push_back(Vec2(110,510));
 
   triangulatedSpline = newTriangleStrip((numInterpolatedPoints*2)-2);
+  triangulatedSpline->material->blendPremultiplied();
+  triangulatedSpline->material->shader=textureShader;
+  
+  BitmapPtr splineBitmap(new Bitmap(splineWidth+2, 1, GL_RGBA));
+  for(u32 i=1; i<=splineWidth; ++i)
+  {
+    splineBitmap->pixel(i, 0, Color(1,1,1,1));
+  }
+  splineBitmap->premultiplyAlpha();
+  splineTexture.reset(new Texture(splineBitmap));
+  splineTexture->filter(GL_LINEAR);
+  triangulatedSpline->material->textures.push_back(splineTexture);
   
 /*  cp.push_back(Vec2(200,200));
   cp.push_back(Vec2(20,200));
@@ -387,11 +400,11 @@ void Engine::update()
 //  glContext->draw(dot);
 //  glContext->draw(dot2);
 //  glContext->draw(lines);
-  glContext->draw(spline);
-  glContext->draw(normals);
+//  glContext->draw(spline);
+//  glContext->draw(normals);
   glContext->draw(triangulatedSpline);
 
-  for(uint32_t i=0; i<ipdots.size(); ++i)
+/*  for(uint32_t i=0; i<ipdots.size(); ++i)
   {
     glContext->draw(ipdots[i]);
   }
@@ -399,7 +412,7 @@ void Engine::update()
   for(uint32_t i=0; i<cpdots.size(); ++i)
   {
     glContext->draw(cpdots[i]);
-  }
+  }*/
   
   ui->update();
   ui->draw(glContext);
