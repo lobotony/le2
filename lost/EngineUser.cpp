@@ -42,6 +42,7 @@ MeshPtr dot2;
 MeshPtr lines;
 MeshPtr spline;
 MeshPtr normals;
+MeshPtr triangulatedSpline;
 
 vector<MeshPtr> cpdots;
 vector<MeshPtr> ipdots;
@@ -51,7 +52,41 @@ const uint32_t dotsize = 5;
 
 UserInterfacePtr ui;
 
-MeshPtr newLineStrip(uint16_t numLines)
+MeshPtr newTriangleStrip(u32 numTriangles)
+{
+  ASSERT((numTriangles % 2) == 0, "numTriangles must be multiple of 2");
+  
+  MeshPtr result;
+
+  BufferLayout layout;
+  layout.add(ET_vec2_f32, UT_position);
+  result = Mesh::create(layout, ET_u16);
+  result->indexBuffer->drawMode = GL_TRIANGLE_STRIP;
+  
+  u32 numVertices = numTriangles + 2;
+  u32 numIndices = numVertices;
+  
+  DOUT("-------------- newTriangleStrip");
+  DOUT("numTriangles "<<numTriangles);
+  DOUT("numVertices "<< numVertices);
+  DOUT("numIndices "<< numIndices);
+  
+  result->vertexBuffer->reset(numVertices);
+  result->indexBuffer->reset(numIndices);
+
+  result->material->color = Color(1,1,1,.6);
+  result->material->shader = colorShader;
+  result->material->blendNormal();
+  
+  for(u32 i=0; i<numIndices; ++i)
+  {
+    result->set(i, UT_index, i);
+  }
+  
+  return result;
+}
+
+MeshPtr newLineStrip(uint16_t numVerts)
 {
   MeshPtr result;
 
@@ -60,7 +95,7 @@ MeshPtr newLineStrip(uint16_t numLines)
   result = Mesh::create(layout, ET_u16);
   result->indexBuffer->drawMode = GL_LINE_STRIP;
 
-  uint32_t numVertices = numLines+1;
+  uint32_t numVertices = numVerts;
   uint32_t numIndices = numVertices;
   
   result->vertexBuffer->reset(numVertices);
@@ -113,19 +148,6 @@ Vec2 cr(f32 t, const Vec2& cp0, const Vec2& cp1, const Vec2& cp2, const Vec2& cp
   return pt;
 }
 
-Vec2 crderiv(float t, const Vec2& cp0, const Vec2& cp1, const Vec2& cp2, const Vec2& cp3)
-{
-  Vec2 result;
-  
-  result = -(3.0f/2.0f)*cp0*powf(t,2) + 2.0f*cp0*t - (0.5f)*cp0
-           + 0.5f*cp1*powf(t,2) - 5*cp1*t
-           - 0.5f*cp2 + 4*cp2 + 0.5f*cp2
-           + (3.0f/2.0f)*cp3*powf(t,2) - cp3;
-  
-  return result;
-}
-
-
 void updateSplineSegment(vector<Vec2>&        interpolated, // receives the interpolated points
                          uint32_t             pointOffset,  // offset write position into interpolated points. The current segment points will be written at pointOffset onwards
                          uint32_t             numPoints,    // number of points for this segment
@@ -148,15 +170,13 @@ void updateSplineSegment(vector<Vec2>&        interpolated, // receives the inte
   }
 }
 
-void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh)
+void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh, MeshPtr& triangles)
 {
   uint32_t numVertices = lineMesh->numVertices();
   vector<Vec2> ip; // interpolated points
   vector<Vec2> nv; // tangent vectors
   ip.reserve(numVertices);
   nv.reserve(numVertices);
-
-  bool adaptive = false;
   
   // a minimum of 4 control points is required for the initial segment.
   // Each consecutive is made up by following point + 3 previous.
@@ -164,51 +184,22 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
   vector<uint32_t> pn; // number of points per segment
   pn.reserve(numSegments);
 
-  if(!adaptive)
+  // vertices spread evenly between segments
+  // leftovers are attached to last segment
+  uint32_t nps = numVertices / numSegments;
+  uint32_t pbudget = numVertices;
+  for(uint32_t i=0; i<numSegments; ++i)
   {
-    // non-adaptive case: vertices spread evenly between segments
-    // leftovers are attached to last segment
-    uint32_t nps = numVertices / numSegments;
-    uint32_t pbudget = numVertices;
-    for(uint32_t i=0; i<numSegments; ++i)
+    if(2*nps > pbudget)
     {
-      if(2*nps > pbudget)
-      {
-        pn[i] = pbudget; // should only be the last one
-      }
-      else
-      {
-        pn[i] = nps;
-        pbudget -= nps;
-      }
-      DOUT("seg "<<pn[i]);
+      pn[i] = pbudget; // should only be the last one
     }
-  }
-  else
-  {
-    vector<f32> seglen;
-    seglen.reserve(numSegments);
-    f32 totalLength = 0;
-    for(u32 i=0; i<numSegments; ++i)
+    else
     {
-      seglen[i] = len(cp[i+2]-cp[i+1]);
-      DOUT("seglen" << seglen[i]);
-      totalLength += seglen[i];
+      pn[i] = nps;
+      pbudget -= nps;
     }
-    
-    u32 budget = numVertices;
-    for(u32 i=0; i<numSegments; ++i)
-    {
-      if(i != (numSegments-1))
-      {
-        pn[i] = (seglen[i] / totalLength)*((f32)numVertices);
-        budget -= pn[i];
-      }
-      else
-      {
-        pn[i] = budget;
-      }
-    }
+    DOUT("seg "<<pn[i]);
   }
   
   uint32_t pointOffset = 0;
@@ -247,9 +238,26 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
     p->material->color = Color(1.0, 0,0,.5);
     p->material->blendNormal();
     ipdots.push_back(p);
-    
-    
   }
+  
+  // adjust triangle mesh, only writes to points
+  f32 splineWidth = 16;
+  f32 halfWidth = splineWidth / 2;
+  u32 j=0;
+  for(u32 i=0; i<numVertices; i+=1)
+  {
+    Vec2 p = ip[i];
+    Vec2 n = nv[i];
+    Vec2 halfdir = (n*halfWidth);
+    Vec2 leftPoint = p+halfdir;
+    Vec2 rightPoint = p-halfdir;
+    triangles->set(j, UT_position, leftPoint);
+    triangles->set(j+1, UT_position, rightPoint);
+//    DOUT("p "<< p << " n "<<n);
+//    DOUT("left "<<leftPoint<<" right "<<rightPoint );
+    j+=2;
+  }
+  
 }
 
 
@@ -325,13 +333,18 @@ void Engine::startup()
   dot2 = dot->clone();
   dot2->transform = MatrixTranslation(Vec3(30,30,0));
 
-  lines = newLineStrip(3);
+  lines = newLineStrip(4);
   lines->set(0, UT_position, Vec2(0,0));
   lines->set(1, UT_position, Vec2(10,10));
   lines->set(2, UT_position, Vec2(20,30));
   lines->set(3, UT_position, Vec2(40,50));
+
   
-  spline = newLineStrip(60);
+  //////////////////////////////////////////
+  /// SPLINE
+  
+  u32 numInterpolatedPoints = 60;
+  spline = newLineStrip(numInterpolatedPoints);
   normals = newLineGroup(spline->numVertices());
   vector<Vec2> cp;
   cp.push_back(Vec2(110,110));
@@ -343,11 +356,13 @@ void Engine::startup()
   cp.push_back(Vec2(110,510));
   cp.push_back(Vec2(110,510));
 
+  triangulatedSpline = newTriangleStrip((numInterpolatedPoints*2)-2);
+  
 /*  cp.push_back(Vec2(200,200));
   cp.push_back(Vec2(20,200));
   cp.push_back(Vec2(110,110));
   cp.push_back(Vec2(110,110));*/
-  updateSpline(cp, spline, normals);
+  updateSpline(cp, spline, normals, triangulatedSpline);
   
 /*  for(uint32_t i=0; i<cp.size(); ++i)
   {
@@ -374,6 +389,7 @@ void Engine::update()
 //  glContext->draw(lines);
   glContext->draw(spline);
   glContext->draw(normals);
+  glContext->draw(triangulatedSpline);
 
   for(uint32_t i=0; i<ipdots.size(); ++i)
   {
