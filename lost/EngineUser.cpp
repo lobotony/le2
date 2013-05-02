@@ -48,7 +48,7 @@ vector<MeshPtr> cpdots;
 vector<MeshPtr> ipdots;
 
 const uint32_t dotsize = 5;
-f32 splineWidth = 16;
+f32 splineWidth = 64;
 
 TexturePtr splineTexture;
 
@@ -237,23 +237,26 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
     
     normalMesh->set(i*2+1, UT_position, ip[i]+nv[i]*normalLenght);
     
-/*    // visualize interpolated points with quads for debugging
+    // visualize interpolated points with quads for debugging
     MeshPtr p = dot->clone();
     p->transform = MatrixTranslation(Vec3(ip[i].x-(dotsize/2), ip[i].y-(dotsize/2), 0));
     p->material = dot->material->clone();
     p->material->color = Color(1.0, 0,0,.5);
     p->material->blendNormal();
-    ipdots.push_back(p);*/
+    ipdots.push_back(p);
   }
   
   // adjust triangle mesh, only writes to points
   f32 halfWidth = splineWidth / 2;
   u32 j=0;
+  
+  f32 falloff = halfWidth / numVertices;
+  f32 hw = halfWidth;
   for(u32 i=0; i<numVertices; i+=1)
   {
     Vec2 p = ip[i];
     Vec2 n = nv[i];
-    Vec2 halfdir = (n*halfWidth);
+    Vec2 halfdir = (n*hw);
     Vec2 leftPoint = p+halfdir;
     Vec2 rightPoint = p-halfdir;
     triangles->set(j, UT_position, leftPoint);
@@ -264,6 +267,7 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
 //    DOUT("p "<< p << " n "<<n);
 //    DOUT("left "<<leftPoint<<" right "<<rightPoint );
     j+=2;
+    hw -= falloff;
   }
   
 }
@@ -351,15 +355,18 @@ void Engine::startup()
   //////////////////////////////////////////
   /// SPLINE
   
-  u32 numInterpolatedPoints = 100;
+  u32 numInterpolatedPoints = 200;
   spline = newLineStrip(numInterpolatedPoints);
-  normals = newLineGroup(spline->numVertigces());
+  normals = newLineGroup(spline->numVertices());
   controlPoints.push_back(Vec2(110,110));
   controlPoints.push_back(Vec2(110,110));
+
   controlPoints.push_back(Vec2(310,310));
   controlPoints.push_back(Vec2(610,110));
-
   controlPoints.push_back(Vec2(710,410));
+  controlPoints.push_back(Vec2(410,310));
+  controlPoints.push_back(Vec2(210,210));
+  
   controlPoints.push_back(Vec2(110,410));
   controlPoints.push_back(Vec2(110,410));
 
@@ -367,11 +374,22 @@ void Engine::startup()
   triangulatedSpline->material->blendPremultiplied();
   triangulatedSpline->material->shader=textureShader;
   
+  Color splineBorderColor = Color(.39,.75,0.1,1);
+  Color splineColor = Color(.24, .55, .0, 1);
+  
   BitmapPtr splineBitmap(new Bitmap(splineWidth+2, 1, GL_RGBA));
-  for(u32 i=1; i<=splineWidth; ++i)
+  for(u32 i=1; i<(splineWidth-1); ++i)
   {
-    splineBitmap->pixel(i, 0, Color(1,1,1,1));
+    splineBitmap->pixel(i, 0, splineColor);
   }
+  
+  f32 borderWith = floorf(splineWidth/3);
+  for(u32 i=0; i<borderWith; ++i)
+  {
+    splineBitmap->pixel(i+1, 0, splineBorderColor);
+    splineBitmap->pixel(splineWidth-1-i, 0, splineBorderColor);
+  }
+    
   splineBitmap->premultiplyAlpha();
   splineTexture.reset(new Texture(splineBitmap));
   splineTexture->filter(GL_LINEAR);
@@ -424,7 +442,7 @@ void Engine::update()
 
   updateSpline(controlPoints, spline, normals, triangulatedSpline);
 
-  glContext->clearColor(blackColor);
+  glContext->clearColor(Color(.45, .84, 1, 1));
   glContext->camera(cam);
   glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
