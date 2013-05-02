@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
   LEGLView* glview = [[[LEGLView alloc] initWithFrame:r pixelFormat:pixelFormat] autorelease];
   glcontext = [glview openGLContext];
 
-  // make ocntext current for this thread to be able to safely call startup
+  // make context current for this thread to be able to safely call startup
   [[glview openGLContext] makeCurrentContext];
   lost::Engine::instance()->doStartup();
   [NSOpenGLContext clearCurrentContext]; // then clear the context for this thread, so it's later only active on the render thread
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
                       styleMask: NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask
                       backing: NSBackingStoreBuffered
                       defer: NO];
-  [window setTitle: @"player"];
+  [window setTitle: @"LostEngine 2"];
   [window setAcceptsMouseMovedEvents: YES];
   [window setContentView: glview];
   [window setDelegate: appDelegate];
