@@ -6,18 +6,33 @@ GLOBALINCLUDE=-include ../lost/prefix-shared.h
 
 INCDIR=${SYSDIRS} ${THIRDPARTY} ${LOSTINCLUDE} ${GLOBALINCLUDE}
 
-LIBS=-lGLESv2 -lEGL -lm -lbcm_host -L/opt/vc/lib
-
 LOSTENGINE_DEFS=-DLOST_GL_DEBUG -DLOST_PLATFORM_RPI
 
-CPPFLAGS=${LOSTENGINE_DEFS} -std=c++0x
+CPPSOURCES=main.cpp ../lost/StringStream.cpp ../lost/Path.cpp ../lost/Log.cpp
+CSOURCES=esUtil.c ../thirdparty/stb_image.c
 
-COMMONSRC=esUtil.c main.cpp
-THIRDPARTYSRC=../thirdparty/stb_image.c
-LOSTSRC=../lost/StringStream.cpp ../lost/Path.cpp ../lost/Log.cpp
+CPP=g++
+CC=gcc
+CPPFLAGS=${LOSTENGINE_DEFS} ${INCDIR} -std=c++0x -c
+CFLAGS=${LOSTENGINE_DEFS} ${INCDIR} -c
+LDFLAGS=-lGLESv2 -lEGL -lm -lbcm_host -L/opt/vc/lib
+EXECUTABLE=le2.out
+SOURCES=$(CPPSOURCES) $(CSOURCES)
+CPPOBJECTS=$(CPPSOURCES:.cpp=.o)
+COBJECTS=$(CSOURCES:.c=.o)
+OBJECTS=$(CPPOBJECTS) $(COBJECTS)
 
-default: le2
+default: $(SOURCES) $(EXECUTABLE)
 
-le2:  ${THIRDPARTYSRC} ${COMMONSRC} ${LOSTSRC}
-	g++ ${CPPFLAGS} ${COMMONSRC} ${LOSTSRC} ${THIRDPARTYSRC} -o le2.out ${INCDIR} ${LIBS} 
+$(EXECUTABLE) : $(OBJECTS)
+	$(CPP) $(LDFLAGS) $(OBJECTS) -o $@
 
+.cpp.o:
+	$(CPP) $(CPPFLAGS) $< -o $@
+
+.c.o:
+	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm -vf $(OBJECTS)
+	rm -vf $(EXECUTABLE)
