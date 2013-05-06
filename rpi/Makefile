@@ -8,4 +8,5 @@ COMMONSRC=esUtil.c Hello_Triangle.c
 default: le2
 
 le2: ${COMMONSRC}
-	g++ -DRPI_NO_X ${CPPFLAGS} ${COMMONSRC} -o le2.out ${INCDIR} ${LIBS} 
+	g++ ${CPPFLAGS} ${COMMONSRC} -o le2.out ${INCDIR} ${LIBS} 
+
