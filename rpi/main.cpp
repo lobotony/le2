@@ -176,6 +176,7 @@ void Draw ( ESContext *esContext )
 
 int main ( int argc, char *argv[] )
 {
+  DOUT("YEAH!");
    ESContext esContext;
    UserData  userData;
 
