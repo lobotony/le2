@@ -5,8 +5,7 @@ CPPFLAGS=
 
 COMMONSRC=main.cpp
 
-default:
-	l2
+default: le2
 
 le2: main.cpp
 	g++ ${CPPFLAGS} ${COMMONSRC} -o $@ ${INCDIR} ${LIBS} 
