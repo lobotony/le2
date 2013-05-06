@@ -31,6 +31,9 @@
     #include <GL/glext.h>
     #include <GL/glu.h>
     #include <wingdi.h>
+  #elif defined LOST_PLATFORM_RPI
+    #include <GLES2/gl2.h>
+    #include <EGL/egl.h>
   #elif defined linux
     #include <GL/gl.h>
     #include <GL/glx.h>
