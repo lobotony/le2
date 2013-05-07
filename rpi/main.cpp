@@ -17,6 +17,8 @@
 #include <stdlib.h>
 #include "esUtil.h"
 
+#include "lost/Engine.h"
+
 typedef struct
 {
    // Handle to a program object
@@ -145,6 +147,8 @@ int Init ( ESContext *esContext )
    userData->programObject = programObject;
 
    glClearColor ( 0.0f, 0.0f, 0.0f, 1.0f );
+
+   lost::Engine::instance()->doStartup();
    return GL_TRUE;
 }
 
@@ -153,7 +157,7 @@ int Init ( ESContext *esContext )
 //
 void Draw ( ESContext *esContext )
 {
-   UserData *userData = (UserData*)esContext->userData;
+/*   UserData *userData = (UserData*)esContext->userData;
    GLfloat vVertices[] = {  0.0f,  0.5f, 0.0f, 
                            -0.5f, -0.5f, 0.0f,
                             0.5f, -0.5f, 0.0f };
@@ -171,7 +175,8 @@ void Draw ( ESContext *esContext )
    glVertexAttribPointer ( 0, 3, GL_FLOAT, GL_FALSE, 0, vVertices );
    glEnableVertexAttribArray ( 0 );
 
-   glDrawArrays ( GL_TRIANGLES, 0, 3 );
+   glDrawArrays ( GL_TRIANGLES, 0, 3 );*/
+   lost::Engine::instance()->doUpdate();
 }
 
 int main ( int argc, char *argv[] )
