@@ -1,4 +1,4 @@
-SYSDIRS=-I/opt/vc/include -I/opt/vc/include/interface/vmcs_host/linux -I/opt/vc/include/interface/vcos/pthreads
+SYSDIRS=-I/opt/vc/include -I/opt/vc/include/interface/vmcs_host/linux -I/opt/vc/include/interface/vmcs_host/ -I/opt/vc/include/interface/vcos/pthreads
 
 THIRDPARTY=-I../thirdparty -I../thirdparty/utfcpp -I../thirdparty/tinythread/source/ -I../thirdparty/jsoncpp-src-0.5.0/include
 LOSTINCLUDE=-I..

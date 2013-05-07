@@ -28,7 +28,7 @@
 #include "esUtil.h"
 
 #include  "bcm_host.h"
-
+#include "vc_dispmanx_types.h"
 ///
 // CreateEGLContext()
 //
@@ -126,6 +126,12 @@ EGLBoolean WinCreate(ESContext *esContext, const char *title)
    {
       return EGL_FALSE;
    }
+
+
+    VC_DISPMANX_ALPHA_T alpha; //= { DISPMANX_FLAGS_ALPHA_FIXED_ALL_PIXELS,0,0 };
+    alpha.flags = DISPMANX_FLAGS_ALPHA_FIXED_ALL_PIXELS;
+    alpha.opacity = 255;
+    alpha.mask = NULL;
    
    dst_rect.x = 0;
    dst_rect.y = 0;
@@ -142,7 +148,7 @@ EGLBoolean WinCreate(ESContext *esContext, const char *title)
          
    dispman_element = vc_dispmanx_element_add ( dispman_update, dispman_display,
       0/*layer*/, &dst_rect, 0/*src*/,
-      &src_rect, DISPMANX_PROTECTION_NONE, 0 /*alpha*/, 0/*clamp*/, (DISPMANX_TRANSFORM_T)0/*transform*/);
+      &src_rect, DISPMANX_PROTECTION_NONE, &alpha, 0/*clamp*/, (DISPMANX_TRANSFORM_T)0/*transform*/);
       
    nativewindow.element = dispman_element;
    nativewindow.width = display_width;
