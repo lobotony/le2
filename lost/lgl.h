@@ -7,7 +7,7 @@
 // in case of iphone, this header includes the OpenGL ES interfaces
 // every other platform gets the standard gl headers plus helpers provided
 // by GLee (extension handling) and GLFW (platform abstraction)
-#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE || defined ANDROID
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE || defined ANDROID || defined LOST_PLATFORM_RPI
   #define OPENGL_ES_1_1 11
   #define OPENGL_ES_2_0 20
 
