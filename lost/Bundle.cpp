@@ -34,8 +34,9 @@ DataPtr Bundle::load(const Path& relativePath) const
   FILE* file;
   ASSERT(file = fopen(spath.c_str(), "rb"), "couldn't open file "<<spath);
   ASSERT(0 == fseek(file, 0, SEEK_END), "couldn't seek "<<spath);
-  fpos_t size;
-  ASSERT(0 == fgetpos(file, &size), "couldn't get file pos "<<spath);
+  s64 size;
+  size = ftell(file);
+  ASSERT(size != -1, "couldn't get file pos "<<spath);
   result->bytes.reset(new char[size]);
   result->size = size;
   DOUT("'"<<relativePath<<"' [" << size << " bytes]");
