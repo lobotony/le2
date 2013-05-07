@@ -35,6 +35,12 @@ using namespace std;
 
 namespace lost
 {
+
+  double currentTimeSeconds()
+  {
+    return ((double) currentTimeMicroSeconds() / 1000000.0);
+  }
+
 	// returns current time as string (e.g. "2007/11/26 23:30:37")
 	string currentTimeFormat()
 	{
