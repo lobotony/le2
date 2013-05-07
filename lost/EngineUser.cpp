@@ -48,7 +48,7 @@ vector<MeshPtr> cpdots;
 vector<MeshPtr> ipdots;
 
 const uint32_t dotsize = 5;
-f32 splineWidth = 64;
+f32 splineWidth = 62;
 
 TexturePtr splineTexture;
 
@@ -237,13 +237,13 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
     
     normalMesh->set(i*2+1, UT_position, ip[i]+nv[i]*normalLenght);
     
-    // visualize interpolated points with quads for debugging
+/*    // visualize interpolated points with quads for debugging
     MeshPtr p = dot->clone();
     p->transform = MatrixTranslation(Vec3(ip[i].x-(dotsize/2), ip[i].y-(dotsize/2), 0));
     p->material = dot->material->clone();
     p->material->color = Color(1.0, 0,0,.5);
     p->material->blendNormal();
-    ipdots.push_back(p);
+    ipdots.push_back(p);*/
   }
   
   // adjust triangle mesh, only writes to points
@@ -294,7 +294,7 @@ void Engine::startup()
   FontPtr f5 = resourceManager->font("Vera", 18);
   FontPtr fa = resourceManager->font("fontawesome", 100);
   
-  font = f1;
+  font = f4;
   
   resourceManager->logStats();
 
@@ -322,8 +322,9 @@ void Engine::startup()
   utf32s = 0xf085;
   rt3 = render(utf32s, fa, false);
   rt3->material->shader = textureShader;
+  rt3->material->color = blackColor;
   rt3->material->blendPremultiplied();
-  rt3->transform = MatrixTranslation(Vec3(300,300,0));
+  rt3->transform = MatrixTranslation(Vec3(600,300,0));
 
 
   coloredQuad = Quad::create(Rect(0,0,50,50));
@@ -447,10 +448,10 @@ void Engine::update()
   glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
 //  glContext->draw(coloredQuad);
-//  glContext->draw(texturedQuad);
+  glContext->draw(texturedQuad);
 //  glContext->draw(rt1);
 //  glContext->draw(rt2);
-//  glContext->draw(rt3);
+  glContext->draw(rt3);
 //  glContext->draw(dot);
 //  glContext->draw(dot2);
 //  glContext->draw(lines);
