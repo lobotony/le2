@@ -74,7 +74,7 @@ CPPSOURCES=main.cpp \
 					../guiro/UserInterface.cpp \
 					../guiro/views/View.cpp
 
-CSOURCES=esUtil.c ../thirdparty/stb_image.c
+CSOURCES=../thirdparty/stb_image.c
 
 CPP=g++
 CC=gcc
@@ -88,7 +88,7 @@ CPPOBJECTS=$(CPPSOURCES:.cpp=.o)
 COBJECTS=$(CSOURCES:.c=.o)
 OBJECTS=$(CPPOBJECTS) $(COBJECTS)
 
-default: $(SOURCES) $(EXECUTABLE)
+default: Makefile $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE) : $(OBJECTS)
 	$(CPP) $(LDFLAGS) $(OBJECTS) -o $@
