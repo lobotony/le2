@@ -24,17 +24,14 @@
 #include <EGL/egl.h>
 #include  "bcm_host.h"
 #include "vc_dispmanx_types.h"
+#include <sstream>
 
-#define ES_WINDOW_RGB           0
-#define ES_WINDOW_ALPHA         1 
-#define ES_WINDOW_DEPTH         2 
-#define ES_WINDOW_STENCIL       4
-#define ES_WINDOW_MULTISAMPLE   8
+using namespace std;
+
+EGL_DISPMANX_WINDOW_T nativewindow;
 
 typedef struct _escontext
 {
-
-  void*       userData; /// Put your user data here...
   GLint       width;/// Window width
   GLint       height;/// Window height
   EGLNativeWindowType  hWnd; /// Window handle
@@ -44,61 +41,40 @@ typedef struct _escontext
 
 } ESContext;
 
+string eglErrorString()
+{
+  EGLint v = eglGetError();
+  ostringstream os;
+  os << "0x" <<  std::hex  << v;
+  return os.str();
+}
+
+#define EGLASSERT(c) ASSERT(c, " error:"<<eglErrorString())
+
 void CreateEGLContext ( EGLNativeWindowType hWnd, EGLDisplay* eglDisplay,
                               EGLContext* eglContext, EGLSurface* eglSurface,
                               EGLint attribList[])
 {
-   EGLint numConfigs;
-   EGLint majorVersion;
-   EGLint minorVersion;
-   EGLDisplay display;
-   EGLContext context;
-   EGLSurface surface;
-   EGLConfig config;
-   EGLint contextAttribs[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE };
+  EGLint numConfigs;
+  EGLint majorVersion;
+  EGLint minorVersion;
+  EGLDisplay display;
+  EGLContext context;
+  EGLSurface surface;
+  EGLConfig config;
+  EGLint contextAttribs[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE };
    
-   display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-   if ( display == EGL_NO_DISPLAY )
-   {
-      //FIXME: assert
-   }
-
-   if ( !eglInitialize(display, &majorVersion, &minorVersion) )
-   {
-      //FIXME: assert
-   }
-
-
-   if ( !eglGetConfigs(display, NULL, 0, &numConfigs) )
-   {
-      //FIXME: assert
-   }
-
-   if ( !eglChooseConfig(display, attribList, &config, 1, &numConfigs) )
-   {
-      //FIXME: assert
-   }
-
-   surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)hWnd, NULL);
-   if ( surface == EGL_NO_SURFACE )
-   {
-      //FIXME: assert
-   }
-
-   context = eglCreateContext(display, config, EGL_NO_CONTEXT, contextAttribs );
-   if ( context == EGL_NO_CONTEXT )
-   {
-      //FIXME: assert
-   }   
+  EGLASSERT((display = eglGetDisplay(EGL_DEFAULT_DISPLAY)) != EGL_NO_DISPLAY);
+  EGLASSERT(eglInitialize(display, &majorVersion, &minorVersion));
+  EGLASSERT(eglGetConfigs(display, NULL, 0, &numConfigs));
+  EGLASSERT(eglChooseConfig(display, attribList, &config, 1, &numConfigs));
+  EGLASSERT((surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)hWnd, NULL)) != EGL_NO_SURFACE);
+  EGLASSERT((context = eglCreateContext(display, config, EGL_NO_CONTEXT, contextAttribs)) != EGL_NO_CONTEXT);
+  EGLASSERT(eglMakeCurrent(display, surface, surface, context));
    
-   if ( !eglMakeCurrent(display, surface, surface, context) )
-   {
-      //FIXME: assert
-   }
-   
-   *eglDisplay = display;
-   *eglSurface = surface;
-   *eglContext = context;
+  *eglDisplay = display;
+  *eglSurface = surface;
+  *eglContext = context;
 } 
 
 ///
@@ -106,11 +82,9 @@ void CreateEGLContext ( EGLNativeWindowType hWnd, EGLDisplay* eglDisplay,
 //
 //      This function initialized the display and window for EGL
 //
-void WinCreate(ESContext *esContext, const char *title) 
+void WinCreate(ESContext *esContext) 
 {
    int32_t success = 0;
-
-   static EGL_DISPMANX_WINDOW_T nativewindow;
 
    DISPMANX_ELEMENT_HANDLE_T dispman_element;
    DISPMANX_DISPLAY_HANDLE_T dispman_display;
@@ -127,7 +101,6 @@ void WinCreate(ESContext *esContext, const char *title)
    {
       // FIXME: assert
    }
-
 
    VC_DISPMANX_ALPHA_T alpha = { DISPMANX_FLAGS_ALPHA_FIXED_ALL_PIXELS,255,0 };
    
@@ -156,40 +129,35 @@ void WinCreate(ESContext *esContext, const char *title)
    esContext->hWnd = &nativewindow;
 }
 
-void esCreateWindow ( ESContext *esContext, const char* title, GLint width, GLint height, GLuint flags )
-{
-   EGLint attribList[] =
-   {
-       EGL_RED_SIZE,       8,
-       EGL_GREEN_SIZE,     8,
-       EGL_BLUE_SIZE,      8,
-       EGL_ALPHA_SIZE,     (flags & ES_WINDOW_ALPHA) ? 8 : EGL_DONT_CARE,
-       EGL_DEPTH_SIZE,     (flags & ES_WINDOW_DEPTH) ? 8 : EGL_DONT_CARE,
-       EGL_STENCIL_SIZE,   (flags & ES_WINDOW_STENCIL) ? 8 : EGL_DONT_CARE,
-       EGL_SAMPLE_BUFFERS, (flags & ES_WINDOW_MULTISAMPLE) ? 1 : 0,
-       EGL_NONE
-   };
-   
-   esContext->width = width;
-   esContext->height = height;
-
-   WinCreate(esContext, title);
-  
-   CreateEGLContext(esContext->hWnd,
-                    &esContext->eglDisplay,
-                    &esContext->eglContext,
-                    &esContext->eglSurface,
-                    attribList);
-}
-
 int main ( int argc, char *argv[] )
 {
+  DOUT("===========================================================");
+  DOUT("===========================================================");
+  DOUT("===========================================================");
+  DOUT("===========================================================");
+
   bcm_host_init();
 
   ESContext esContext;
   memset( &esContext, 0, sizeof( ESContext) );
 
-  esCreateWindow ( &esContext, "Hello Triangle", 1280, 800, ES_WINDOW_RGB | ES_WINDOW_ALPHA );
+  EGLint attribList[] =
+  {
+     EGL_RED_SIZE,       8,
+     EGL_GREEN_SIZE,     8,
+     EGL_BLUE_SIZE,      8,
+     EGL_ALPHA_SIZE,     8,
+//     EGL_DEPTH_SIZE,     24,
+     EGL_NONE
+  };
+
+  WinCreate(&esContext);
+
+  CreateEGLContext(esContext.hWnd,
+                  &esContext.eglDisplay,
+                  &esContext.eglContext,
+                  &esContext.eglSurface,
+                  attribList);
 
   lost::Engine::instance()->doStartup();
   while(true)
