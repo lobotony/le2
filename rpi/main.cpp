@@ -22,25 +22,14 @@
 #include <sys/time.h>
 #include <GLES2/gl2.h>
 #include <EGL/egl.h>
-
 #include  "bcm_host.h"
 #include "vc_dispmanx_types.h"
-
-#define ESUTIL_API
-#define ESCALLBACK
 
 #define ES_WINDOW_RGB           0
 #define ES_WINDOW_ALPHA         1 
 #define ES_WINDOW_DEPTH         2 
 #define ES_WINDOW_STENCIL       4
 #define ES_WINDOW_MULTISAMPLE   8
-
-#ifndef FALSE
-#define FALSE 0
-#endif
-#ifndef TRUE
-#define TRUE 1
-#endif
 
 typedef struct _escontext
 {
@@ -55,12 +44,7 @@ typedef struct _escontext
 
 } ESContext;
 
-
-void ESUTIL_API esInitContext ( ESContext *esContext );
-GLboolean ESUTIL_API esCreateWindow ( ESContext *esContext, const char *title, GLint width, GLint height, GLuint flags );
-void ESUTIL_API esMainLoop ( ESContext *esContext );
-
-EGLBoolean CreateEGLContext ( EGLNativeWindowType hWnd, EGLDisplay* eglDisplay,
+void CreateEGLContext ( EGLNativeWindowType hWnd, EGLDisplay* eglDisplay,
                               EGLContext* eglContext, EGLSurface* eglSurface,
                               EGLint attribList[])
 {
@@ -76,46 +60,45 @@ EGLBoolean CreateEGLContext ( EGLNativeWindowType hWnd, EGLDisplay* eglDisplay,
    display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
    if ( display == EGL_NO_DISPLAY )
    {
-      return EGL_FALSE;
+      //FIXME: assert
    }
 
    if ( !eglInitialize(display, &majorVersion, &minorVersion) )
    {
-      return EGL_FALSE;
+      //FIXME: assert
    }
 
 
    if ( !eglGetConfigs(display, NULL, 0, &numConfigs) )
    {
-      return EGL_FALSE;
+      //FIXME: assert
    }
 
    if ( !eglChooseConfig(display, attribList, &config, 1, &numConfigs) )
    {
-      return EGL_FALSE;
+      //FIXME: assert
    }
 
    surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)hWnd, NULL);
    if ( surface == EGL_NO_SURFACE )
    {
-      return EGL_FALSE;
+      //FIXME: assert
    }
 
    context = eglCreateContext(display, config, EGL_NO_CONTEXT, contextAttribs );
    if ( context == EGL_NO_CONTEXT )
    {
-      return EGL_FALSE;
+      //FIXME: assert
    }   
    
    if ( !eglMakeCurrent(display, surface, surface, context) )
    {
-      return EGL_FALSE;
+      //FIXME: assert
    }
    
    *eglDisplay = display;
    *eglSurface = surface;
    *eglContext = context;
-   return EGL_TRUE;
 } 
 
 ///
@@ -123,7 +106,7 @@ EGLBoolean CreateEGLContext ( EGLNativeWindowType hWnd, EGLDisplay* eglDisplay,
 //
 //      This function initialized the display and window for EGL
 //
-EGLBoolean WinCreate(ESContext *esContext, const char *title) 
+void WinCreate(ESContext *esContext, const char *title) 
 {
    int32_t success = 0;
 
@@ -135,7 +118,6 @@ EGLBoolean WinCreate(ESContext *esContext, const char *title)
    VC_RECT_T dst_rect;
    VC_RECT_T src_rect;
    
-
    uint32_t display_width;
    uint32_t display_height;
 
@@ -143,7 +125,7 @@ EGLBoolean WinCreate(ESContext *esContext, const char *title)
    success = graphics_get_display_size(0 /* LCD */, &display_width, &display_height);
    if ( success < 0 )
    {
-      return EGL_FALSE;
+      // FIXME: assert
    }
 
 
@@ -172,11 +154,9 @@ EGLBoolean WinCreate(ESContext *esContext, const char *title)
    vc_dispmanx_update_submit_sync( dispman_update );
    
    esContext->hWnd = &nativewindow;
-
-  return EGL_TRUE;
 }
 
-GLboolean ESUTIL_API esCreateWindow ( ESContext *esContext, const char* title, GLint width, GLint height, GLuint flags )
+void esCreateWindow ( ESContext *esContext, const char* title, GLint width, GLint height, GLuint flags )
 {
    EGLint attribList[] =
    {
@@ -190,31 +170,16 @@ GLboolean ESUTIL_API esCreateWindow ( ESContext *esContext, const char* title, G
        EGL_NONE
    };
    
-   if ( esContext == NULL )
-   {
-      return GL_FALSE;
-   }
-
    esContext->width = width;
    esContext->height = height;
 
-   if ( !WinCreate ( esContext, title) )
-   {
-      return GL_FALSE;
-   }
-
+   WinCreate(esContext, title);
   
-   if ( !CreateEGLContext ( esContext->hWnd,
-                            &esContext->eglDisplay,
-                            &esContext->eglContext,
-                            &esContext->eglSurface,
-                            attribList) )
-   {
-      return GL_FALSE;
-   }
-   
-
-   return GL_TRUE;
+   CreateEGLContext(esContext->hWnd,
+                    &esContext->eglDisplay,
+                    &esContext->eglContext,
+                    &esContext->eglSurface,
+                    attribList);
 }
 
 int main ( int argc, char *argv[] )
