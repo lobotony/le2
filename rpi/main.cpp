@@ -181,15 +181,6 @@ EGLBoolean WinCreate(ESContext *esContext, const char *title)
   return EGL_TRUE;
 }
 
-void ESUTIL_API esInitContext ( ESContext *esContext )
-{
-   bcm_host_init();
-   if ( esContext != NULL )
-   {
-      memset( esContext, 0, sizeof( ESContext) );
-   }
-}
-
 GLboolean ESUTIL_API esCreateWindow ( ESContext *esContext, const char* title, GLint width, GLint height, GLuint flags )
 {
    EGLint attribList[] =
@@ -264,10 +255,10 @@ void ESUTIL_API esMainLoop ( ESContext *esContext )
 
 int main ( int argc, char *argv[] )
 {
-  DOUT("YEAH!");
-   ESContext esContext;
+   bcm_host_init();
 
-   esInitContext ( &esContext );
+   ESContext esContext;
+   memset( &esContext, 0, sizeof( ESContext) );
 
    esCreateWindow ( &esContext, "Hello Triangle", 1280, 800, ES_WINDOW_RGB | ES_WINDOW_ALPHA );
 
