@@ -42,11 +42,6 @@
 #define TRUE 1
 #endif
 
-typedef struct
-{
-    GLfloat   m[4][4];
-} ESMatrix;
-
 typedef struct _escontext
 {
 
@@ -222,47 +217,19 @@ GLboolean ESUTIL_API esCreateWindow ( ESContext *esContext, const char* title, G
    return GL_TRUE;
 }
 
-void ESUTIL_API esMainLoop ( ESContext *esContext )
-{
-    struct timeval t1, t2;
-    struct timezone tz;
-    float deltatime;
-    float totaltime = 0.0f;
-    unsigned int frames = 0;
-
-    gettimeofday ( &t1 , &tz );
-
-    while(true)
-    {
-        gettimeofday(&t2, &tz);
-        deltatime = (float)(t2.tv_sec - t1.tv_sec + (t2.tv_usec - t1.tv_usec) * 1e-6);
-        t1 = t2;
-
-         lost::Engine::instance()->doUpdate();
-
-        eglSwapBuffers(esContext->eglDisplay, esContext->eglSurface);
-
-        totaltime += deltatime;
-        frames++;
-        if (totaltime >  2.0f)
-        {
-            printf("%4d frames rendered in %1.4f seconds -> FPS=%3.4f\n", frames, totaltime, frames/totaltime);
-            totaltime -= 2.0f;
-            frames = 0;
-        }
-    }
-}
-
 int main ( int argc, char *argv[] )
 {
-   bcm_host_init();
+  bcm_host_init();
 
-   ESContext esContext;
-   memset( &esContext, 0, sizeof( ESContext) );
+  ESContext esContext;
+  memset( &esContext, 0, sizeof( ESContext) );
 
-   esCreateWindow ( &esContext, "Hello Triangle", 1280, 800, ES_WINDOW_RGB | ES_WINDOW_ALPHA );
+  esCreateWindow ( &esContext, "Hello Triangle", 1280, 800, ES_WINDOW_RGB | ES_WINDOW_ALPHA );
 
-   lost::Engine::instance()->doStartup();
-
-   esMainLoop ( &esContext );
+  lost::Engine::instance()->doStartup();
+  while(true)
+  {
+    lost::Engine::instance()->doUpdate();
+    eglSwapBuffers(esContext.eglDisplay, esContext.eglSurface);
+  }
 }
