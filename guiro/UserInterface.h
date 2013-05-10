@@ -9,12 +9,9 @@
 namespace lost
 {
 
-struct UserInterface;
-typedef lost::shared_ptr<UserInterface> UserInterfacePtr;
-
 struct Context;
 
-struct UserInterface : View
+struct UserInterface
 {
   UserInterface();
   ~UserInterface();
@@ -25,6 +22,8 @@ struct UserInterface : View
   EventSystem eventSystem;
   UpdateSystem updateSystem;
   RenderSystem renderSystem;
+  
+  ViewPtr rootView;
 };
 }
 

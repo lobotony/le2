@@ -8,6 +8,7 @@ struct EventPool;
 struct EventQueue;
 struct ResourceManager;
 struct Context;
+struct UserInterface;
 
 struct Engine
 {
@@ -28,6 +29,7 @@ struct Engine
   EventQueue*   eventQueue; // global event queue, fed by OS specific part, thread safe, user code reads events
   Context*      glContext;
   ResourceManager*  resourceManager;
+  UserInterface* ui;
 };
 
 }

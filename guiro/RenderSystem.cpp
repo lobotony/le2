@@ -10,7 +10,7 @@ RenderSystem::~RenderSystem()
 {
 }
   
-void RenderSystem::draw(Context* glContext, View* rootView)
+void RenderSystem::draw(Context* glContext, const ViewPtr& rootView)
 {
 }
 

@@ -52,7 +52,6 @@ f32 splineWidth = 62;
 
 TexturePtr splineTexture;
 
-UserInterfacePtr ui;
 f64 lastTime;
 f64 nowTime;
 f64 deltaTime;
@@ -298,7 +297,7 @@ void Engine::startup()
   
   resourceManager->logStats();
 
-  ui.reset(new UserInterface);
+  ui = new UserInterface;
 
   rt2.reset(new TextMesh());
   TextBuffer tb;

@@ -11,7 +11,7 @@ struct RenderSystem
   RenderSystem();
   ~RenderSystem();
   
-  void draw(Context* glContext, View* rootView);
+  void draw(Context* glContext, const ViewPtr& rootView);
 };
 }
 
