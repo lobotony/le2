@@ -4,17 +4,16 @@ namespace lost
 {
 Frame::Frame()
 {
+  clear();
 }
 
-Frame::~Frame()
+void Frame::clear()
 {
+  x.clear();
+  y.clear();
+  w.clear();
+  h.clear();
 }
 
-Rect Frame::rect(Rect superRect)
-{
-  Rect result;
-  
-  return result;
-}
 
 }
