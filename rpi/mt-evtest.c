@@ -83,8 +83,8 @@ read_mt_input_events (TouchContext *context)
       for (i = 0; i < ret; i++)
         {
           ev = &evts[i];
-       // fprintf (stderr, "evt: %d %d (%d) - %d %d %d\n",
-       //          ev->type, ev->code, ev->value, num_touches, have_x, have_y);
+        fprintf (stderr, "evt: %d %d (%d) - %d %d %d\n",
+                 ev->type, ev->code, ev->value, num_touches, have_x, have_y);
 
           if (ev->type == EV_SYN && ev->code == SYN_REPORT)
             {
@@ -177,6 +177,7 @@ open_input_devices (TouchContext *context, char *touch_filename)
   if (!(test_bit (ABS_MT_POSITION_X, bits) &&
         test_bit (ABS_MT_POSITION_Y, bits)))
     {
+      printf("absolute events\n");
       ioctl (fd, EVIOCGABS (ABS_X), &abs);
       context->min.x  = abs.minimum;
       context->max.x  = abs.maximum;
@@ -188,6 +189,7 @@ open_input_devices (TouchContext *context, char *touch_filename)
     }
   else
     {
+      printf("absolute multitouch events\n");
       ioctl (fd, EVIOCGABS (ABS_MT_POSITION_X), &abs);
       context->min.x = abs.minimum;
       context->max.x = abs.maximum;

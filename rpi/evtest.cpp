@@ -103,7 +103,58 @@ void logEvent(struct input_event* ev)
     printf("%d %d %s code:%s  val:%d  \n", ev->time.tv_sec, ev->time.tv_usec, type2string(ev->type), abscode, ev->value);
   }
 }
-  
+
+#define BITS_PER_LONG (sizeof(long) * 8)
+#define NBITS(x) ((((x)-1)/BITS_PER_LONG)+1)
+#define OFF(x)  ((x)%BITS_PER_LONG)
+#define BIT(x)  (1UL<<OFF(x))
+#define LONG(x) ((x)/BITS_PER_LONG)
+#define test_bit(bit, array)    ((array[LONG(bit)] >> OFF(bit)) & 1)
+
+bool hasAbsolutEvents(int fd)
+{
+  unsigned long bits[NBITS(KEY_MAX)];
+  ioctl (fd, EVIOCGBIT(0, EV_MAX), bits);
+  if (!test_bit (EV_ABS, bits))
+    {
+      return false;
+    }  
+  return true;
+}
+
+typedef signed long s32;
+
+void getTouchBounds(int fd, s32& minX, s32& maxX, s32& minY, s32& maxY)
+{
+  unsigned long bits[NBITS(KEY_MAX)];
+  struct input_absinfo abs;
+
+  ioctl (fd, EVIOCGBIT (EV_ABS, KEY_MAX), bits);
+  if (!(test_bit (ABS_MT_POSITION_X, bits) &&
+        test_bit (ABS_MT_POSITION_Y, bits)))
+    {
+      printf("absolute events\n");
+      ioctl (fd, EVIOCGABS (ABS_X), &abs);
+      minX  = abs.minimum;
+      maxX  = abs.maximum;
+      ioctl (fd, EVIOCGABS (ABS_Y), &abs);
+      minY = abs.minimum;
+      maxY = abs.maximum;
+      printf("NO multitouch\n");
+    }
+  else
+    {
+      printf("absolute multitouch events\n");
+      ioctl (fd, EVIOCGABS (ABS_MT_POSITION_X), &abs);
+      minX = abs.minimum;
+      maxX = abs.maximum;
+      ioctl (fd, EVIOCGABS (ABS_MT_POSITION_Y), &abs);
+      minY = abs.minimum;
+      maxY = abs.maximum;
+      printf("HAS multitouch\n");
+    }
+}
+
 int main (int argc, const char *argv[])
 {
   struct input_event ev[64];
@@ -122,8 +173,24 @@ int main (int argc, const char *argv[])
   //Open Device
   printf("++ opening\n");
   if ((fd = open (device, O_RDONLY)) == -1)
+  {
     printf ("%s is not a vaild device.\n", device);
+    exit(1);
+  }
  
+  if(hasAbsolutEvents(fd))
+  {
+    printf("input device provides absolute events\n");
+  }
+  else
+  {
+    printf("input device does NOT provide absolute events\n");
+  }
+
+  s32 minX, maxX, minY, maxY;
+  getTouchBounds(fd, minX, maxX, minY, maxY);
+  printf("%d %d %d %d\n",minX, maxX, minY, maxY);
+
   //Print Device Name
   printf("++ ioctl\n");
   ioctl (fd, EVIOCGNAME (sizeof (name)), name);
