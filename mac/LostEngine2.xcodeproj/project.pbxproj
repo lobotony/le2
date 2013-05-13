@@ -262,8 +262,6 @@
 			children = (
 				EAF3582817287B1100824CF2 /* View.cpp */,
 				EAF3582917287B1100824CF2 /* View.h */,
-				EAF357FF1726C79200824CF2 /* UserInterface.cpp */,
-				EAF358001726C79200824CF2 /* UserInterface.h */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -507,6 +505,8 @@
 				EAF3582D17287B4000824CF2 /* RenderSystem.h */,
 				EAF3580A1726DECA00824CF2 /* UpdateSystem.cpp */,
 				EAF3580B1726DECA00824CF2 /* UpdateSystem.h */,
+				EAF357FF1726C79200824CF2 /* UserInterface.cpp */,
+				EAF358001726C79200824CF2 /* UserInterface.h */,
 			);
 			name = guiro;
 			sourceTree = "<group>";

@@ -9,7 +9,7 @@ namespace lost
 struct Layer;
 typedef lost::shared_ptr<Layer> LayerPtr;
 
-struct Layer
+struct Layer : enable_shared_from_this<Layer>
 {
   Layer();
   virtual ~Layer();

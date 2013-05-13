@@ -11,7 +11,7 @@ namespace lost
 struct View;
 typedef lost::shared_ptr<View> ViewPtr;
 
-struct View
+struct View : enable_shared_from_this<View>
 {
   View();
   virtual ~View();
