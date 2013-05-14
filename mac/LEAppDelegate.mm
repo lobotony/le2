@@ -2,6 +2,8 @@
 #import "LEGLView.h"
 #include "lost/Engine.h"
 
+extern lost::Engine* _engineInstance;
+
 @implementation LEAppDelegate
 
 @synthesize window;
@@ -10,7 +12,7 @@
 {
   LEGLView* view = (LEGLView*)[window contentView];
   CVDisplayLinkStop([view displayLink]);
-  lost::Engine::instance()->doShutdown();
+  _engineInstance->doShutdown();
   [[NSApplication sharedApplication] terminate: nil];
 }
 

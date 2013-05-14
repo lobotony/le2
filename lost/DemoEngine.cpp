@@ -1,4 +1,5 @@
-#include "lost/Engine.h"
+#include "lost/DemoEngine.h"
+
 #include "lost/Log.h"
 #include "lost/Bundle.h"
 #include "lost/Bitmap.h"
@@ -21,47 +22,13 @@
 
 #include "lost/MeshAlgo.h"
 
-namespace lost 
+namespace lost
 {
 
-using namespace std;
+  const uint32_t dotsize = 5;
+  f32 splineWidth = 62;
 
-MeshPtr coloredQuad;
-MeshPtr texturedQuad;
-ShaderProgramPtr colorShader;
-ShaderProgramPtr textureShader;
-ShaderProgramPtr pointShader;
-CameraPtr cam;
-TexturePtr ringTexture;
-FontPtr font;
-TextMeshPtr rt1;
-TextMeshPtr rt2;
-TextMeshPtr rt3;
-
-MeshPtr dot;
-MeshPtr dot2;
-
-MeshPtr lines;
-MeshPtr spline;
-MeshPtr normals;
-MeshPtr triangulatedSpline;
-
-vector<MeshPtr> cpdots;
-vector<MeshPtr> ipdots;
-
-const uint32_t dotsize = 5;
-f32 splineWidth = 62;
-
-TexturePtr splineTexture;
-
-f64 lastTime;
-f64 nowTime;
-f64 deltaTime;
-
-vector<Vec2> controlPoints;
-vector<Vec2> cp2;
-
-void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh, MeshPtr& triangles)
+void DemoEngine::updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh, MeshPtr& triangles)
 {
   uint32_t numVertices = lineMesh->numVertices();
   vector<Vec2> ip; // interpolated points
@@ -158,8 +125,7 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
   
 }
 
-
-void Engine::startup()
+void DemoEngine::startup()
 {
   ResourceBundle mainBundle;
   colorShader = resourceManager->shader("resources/glsl/color");
@@ -305,7 +271,7 @@ void Engine::startup()
   cp2 = controlPoints;
 }
 
-void updateDeltaTime()
+void DemoEngine::updateDeltaTime()
 {
   nowTime = currentTimeSeconds();
   deltaTime = nowTime - lastTime;
@@ -314,7 +280,7 @@ void updateDeltaTime()
 
 f32 d = 0;
 
-void Engine::update()
+void DemoEngine::update()
 {
   updateDeltaTime();
 
@@ -333,7 +299,8 @@ void Engine::update()
 
   updateSpline(controlPoints, spline, normals, triangulatedSpline);
 
-  glContext->clearColor(Color(.45, .84, 1, 1));
+// light blue  glContext->clearColor(Color(.45, .84, 1, 1));
+  glContext->clearColor(Color(.3, .3, 0, 1));
   glContext->camera(cam);
   glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
@@ -363,7 +330,7 @@ void Engine::update()
   ui->draw(glContext);
 }
 
-void Engine::shutdown()
+void DemoEngine::shutdown()
 {
 }
 

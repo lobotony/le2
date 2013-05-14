@@ -7,8 +7,6 @@
 namespace lost
 {
 
-static Engine* _lostEngine = NULL;
-
 Engine::Engine()
 {
   eventPool = new EventPool;
@@ -21,13 +19,16 @@ Engine::~Engine()
 {
 }
 
-Engine* Engine::instance()
+void Engine::startup()
 {
-  if(!_lostEngine)
-  {
-    _lostEngine = new Engine;
-  }
-  return _lostEngine;
+}
+
+void Engine::update()
+{
+}
+
+void Engine::shutdown()
+{
 }
 
 void Engine::doStartup()

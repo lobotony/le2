@@ -15,11 +15,9 @@ struct Engine
   Engine();
   ~Engine();
 
-  static Engine* instance();
-
-  void startup();  // use provided, called by doStartup
-  void update();   // user provided, called by doUpdate
-  void shutdown(); // user provided, called by doShutdown
+  virtual void startup();  // user provided, called by doStartup
+  virtual void update();   // user provided, called by doUpdate
+  virtual void shutdown(); // user provided, called by doShutdown
   
   void doStartup(); // called by OS specific code, performs engine and user startup
   void doUpdate(); // called by OS specific code, performs user update and housekeeping

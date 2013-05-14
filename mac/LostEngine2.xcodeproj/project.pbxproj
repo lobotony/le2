@@ -19,6 +19,9 @@
 		EA0EEB0115E67855000CBC13 /* Vec4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA0EEAFC15E677F9000CBC13 /* Vec4.cpp */; };
 		EA0EEB0215E6785B000CBC13 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA0EEAFE15E67804000CBC13 /* Matrix.cpp */; };
 		EA6983BC172EF9BF00B4BA2E /* MeshAlgo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6983BA172EF9BF00B4BA2E /* MeshAlgo.cpp */; };
+		EA6B8A2E1742A4D800733FA9 /* DemoEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6B8A2C1742A4D800733FA9 /* DemoEngine.cpp */; };
+		EA6B8A311742A88300733FA9 /* RunnerMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA6B8A301742A88300733FA9 /* RunnerMac.mm */; };
+		EA6B8A331742A8D000733FA9 /* Runner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6B8A321742A8D000733FA9 /* Runner.cpp */; };
 		EA90FCB715DEB2690071F358 /* Bundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA90FCB415DEAF9D0071F358 /* Bundle.cpp */; };
 		EA90FCC115E151BD0071F358 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA90FCBF15E151600071F358 /* Texture.cpp */; };
 		EA90FCC415E15C740071F358 /* lgl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA90FCC315E15C730071F358 /* lgl.cpp */; };
@@ -46,7 +49,6 @@
 		EABB38ED1600D6FA0009D8F7 /* EventPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38EB1600D6FA0009D8F7 /* EventPool.cpp */; };
 		EABB38F21600DCF00009D8F7 /* tinythread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38F01600DCF00009D8F7 /* tinythread.cpp */; };
 		EABB38F516010B670009D8F7 /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38F316010B670009D8F7 /* Engine.cpp */; };
-		EABB38F716010F160009D8F7 /* EngineUser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38F616010F160009D8F7 /* EngineUser.cpp */; };
 		EACD243815D7E48D00453F75 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EACD243715D7E48D00453F75 /* Cocoa.framework */; };
 		EACD245A15D7E53300453F75 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EACD245915D7E53300453F75 /* OpenGL.framework */; };
 		EACD245C15D7E7E000453F75 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = EACD245B15D7E7E000453F75 /* main.mm */; };
@@ -106,6 +108,11 @@
 		EA0EEAFF15E67804000CBC13 /* Matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
 		EA6983BA172EF9BF00B4BA2E /* MeshAlgo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshAlgo.cpp; sourceTree = "<group>"; };
 		EA6983BB172EF9BF00B4BA2E /* MeshAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshAlgo.h; sourceTree = "<group>"; };
+		EA6B8A2C1742A4D800733FA9 /* DemoEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoEngine.cpp; sourceTree = "<group>"; };
+		EA6B8A2D1742A4D800733FA9 /* DemoEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoEngine.h; sourceTree = "<group>"; };
+		EA6B8A2F1742A5CE00733FA9 /* Runner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Runner.h; sourceTree = "<group>"; };
+		EA6B8A301742A88300733FA9 /* RunnerMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RunnerMac.mm; sourceTree = SOURCE_ROOT; };
+		EA6B8A321742A8D000733FA9 /* Runner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Runner.cpp; sourceTree = "<group>"; };
 		EA88BDD915E26FE9006D2B1D /* prefix-debug.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "prefix-debug.pch"; sourceTree = SOURCE_ROOT; };
 		EA88BDDA15E26FE9006D2B1D /* prefix-release.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "prefix-release.pch"; sourceTree = SOURCE_ROOT; };
 		EA90FCB415DEAF9D0071F358 /* Bundle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Bundle.cpp; sourceTree = "<group>"; };
@@ -173,7 +180,6 @@
 		EABB38F11600DCF00009D8F7 /* tinythread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinythread.h; path = ../thirdparty/tinythread/source/tinythread.h; sourceTree = "<group>"; };
 		EABB38F316010B670009D8F7 /* Engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
 		EABB38F416010B670009D8F7 /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
-		EABB38F616010F160009D8F7 /* EngineUser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EngineUser.cpp; path = ../lost/EngineUser.cpp; sourceTree = "<group>"; };
 		EACD243315D7E48D00453F75 /* LostEngine2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LostEngine2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACD243715D7E48D00453F75 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		EACD243F15D7E48D00453F75 /* LostEngine2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LostEngine2-Info.plist"; sourceTree = "<group>"; };
@@ -289,7 +295,6 @@
 			isa = PBXGroup;
 			children = (
 				EACD248C15D81A6800453F75 /* lost */,
-				EABB38F616010F160009D8F7 /* EngineUser.cpp */,
 				EAF357FA1726C76100824CF2 /* guiro */,
 				EACD243D15D7E48D00453F75 /* mac */,
 				EACD246F15D7F35C00453F75 /* thirdparty */,
@@ -329,6 +334,7 @@
 				EACD244515D7E48D00453F75 /* LostEngine2-Prefix.pch */,
 				EA88BDD915E26FE9006D2B1D /* prefix-debug.pch */,
 				EA88BDDA15E26FE9006D2B1D /* prefix-release.pch */,
+				EA6B8A301742A88300733FA9 /* RunnerMac.mm */,
 				EACD245B15D7E7E000453F75 /* main.mm */,
 			);
 			name = mac;
@@ -394,6 +400,8 @@
 				EAB2B90E15FE470A001CF4EF /* ContextMac.mm */,
 				EACD24A515D8333100453F75 /* Data.cpp */,
 				EACD24A615D8333100453F75 /* Data.h */,
+				EA6B8A2C1742A4D800733FA9 /* DemoEngine.cpp */,
+				EA6B8A2D1742A4D800733FA9 /* DemoEngine.h */,
 				EACD24AA15D8523300453F75 /* Disallow.h */,
 				EABB38F316010B670009D8F7 /* Engine.cpp */,
 				EABB38F416010B670009D8F7 /* Engine.h */,
@@ -448,6 +456,8 @@
 				EA0EEAF715E677F0000CBC13 /* RectPacker.h */,
 				EAF3580D17280F6700824CF2 /* ResourceManager.cpp */,
 				EAF3580E17280F6700824CF2 /* ResourceManager.h */,
+				EA6B8A321742A8D000733FA9 /* Runner.cpp */,
+				EA6B8A2F1742A5CE00733FA9 /* Runner.h */,
 				EA945EFC15F7A418004EE290 /* Shader.cpp */,
 				EA945EFD15F7A418004EE290 /* Shader.h */,
 				EA0C315215FCDBFE00661552 /* ShaderPreprocessor.cpp */,
@@ -656,7 +666,6 @@
 				EABB38ED1600D6FA0009D8F7 /* EventPool.cpp in Sources */,
 				EABB38F21600DCF00009D8F7 /* tinythread.cpp in Sources */,
 				EABB38F516010B670009D8F7 /* Engine.cpp in Sources */,
-				EABB38F716010F160009D8F7 /* EngineUser.cpp in Sources */,
 				EAF358031726C79200824CF2 /* Frame.cpp in Sources */,
 				EAF358051726C79200824CF2 /* UserInterface.cpp in Sources */,
 				EAF358091726DEC200824CF2 /* EventSystem.cpp in Sources */,
@@ -669,6 +678,9 @@
 				EAF3582B17287B1100824CF2 /* View.cpp in Sources */,
 				EAF3582E17287B4000824CF2 /* RenderSystem.cpp in Sources */,
 				EA6983BC172EF9BF00B4BA2E /* MeshAlgo.cpp in Sources */,
+				EA6B8A2E1742A4D800733FA9 /* DemoEngine.cpp in Sources */,
+				EA6B8A311742A88300733FA9 /* RunnerMac.mm in Sources */,
+				EA6B8A331742A8D000733FA9 /* Runner.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
