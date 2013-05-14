@@ -22,6 +22,7 @@
 		EA6B8A2E1742A4D800733FA9 /* DemoEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6B8A2C1742A4D800733FA9 /* DemoEngine.cpp */; };
 		EA6B8A311742A88300733FA9 /* RunnerMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA6B8A301742A88300733FA9 /* RunnerMac.mm */; };
 		EA6B8A331742A8D000733FA9 /* Runner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6B8A321742A8D000733FA9 /* Runner.cpp */; };
+		EA6B8A361742B16900733FA9 /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6B8A341742B16900733FA9 /* Clock.cpp */; };
 		EA90FCB715DEB2690071F358 /* Bundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA90FCB415DEAF9D0071F358 /* Bundle.cpp */; };
 		EA90FCC115E151BD0071F358 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA90FCBF15E151600071F358 /* Texture.cpp */; };
 		EA90FCC415E15C740071F358 /* lgl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA90FCC315E15C730071F358 /* lgl.cpp */; };
@@ -113,6 +114,8 @@
 		EA6B8A2F1742A5CE00733FA9 /* Runner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Runner.h; sourceTree = "<group>"; };
 		EA6B8A301742A88300733FA9 /* RunnerMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RunnerMac.mm; sourceTree = SOURCE_ROOT; };
 		EA6B8A321742A8D000733FA9 /* Runner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Runner.cpp; sourceTree = "<group>"; };
+		EA6B8A341742B16900733FA9 /* Clock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clock.cpp; sourceTree = "<group>"; };
+		EA6B8A351742B16900733FA9 /* Clock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Clock.h; sourceTree = "<group>"; };
 		EA88BDD915E26FE9006D2B1D /* prefix-debug.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "prefix-debug.pch"; sourceTree = SOURCE_ROOT; };
 		EA88BDDA15E26FE9006D2B1D /* prefix-release.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "prefix-release.pch"; sourceTree = SOURCE_ROOT; };
 		EA90FCB415DEAF9D0071F358 /* Bundle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Bundle.cpp; sourceTree = "<group>"; };
@@ -393,6 +396,8 @@
 				EA0C316115FD25A100661552 /* Camera2D.h */,
 				EA0C316215FD25A100661552 /* Camera3D.cpp */,
 				EA0C316315FD25A100661552 /* Camera3D.h */,
+				EA6B8A341742B16900733FA9 /* Clock.cpp */,
+				EA6B8A351742B16900733FA9 /* Clock.h */,
 				EACD24AD15D852AC00453F75 /* Color.cpp */,
 				EACD24AB15D8528400453F75 /* Color.h */,
 				EAB2B90C15FE4703001CF4EF /* Context.cpp */,
@@ -681,6 +686,7 @@
 				EA6B8A2E1742A4D800733FA9 /* DemoEngine.cpp in Sources */,
 				EA6B8A311742A88300733FA9 /* RunnerMac.mm in Sources */,
 				EA6B8A331742A8D000733FA9 /* Runner.cpp in Sources */,
+				EA6B8A361742B16900733FA9 /* Clock.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

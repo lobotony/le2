@@ -42,6 +42,7 @@ void Engine::doStartup()
 
 void Engine::doUpdate()
 {
+  clock.update();
   update();
   eventQueue->returnAllEvents();
 }

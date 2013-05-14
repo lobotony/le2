@@ -1,6 +1,8 @@
 #ifndef LOST_ENGINE_H
 #define LOST_ENGINE_H
 
+#include "lost/Clock.h"
+
 namespace lost
 {
 
@@ -23,6 +25,7 @@ struct Engine
   void doUpdate(); // called by OS specific code, performs user update and housekeeping
   void doShutdown(); // called by OS specific code, performs user and engine shutdown
   
+  Clock clock;
   EventPool*    eventPool; // global event pool, thread safe
   EventQueue*   eventQueue; // global event queue, fed by OS specific part, thread safe, user code reads events
   Context*      glContext;

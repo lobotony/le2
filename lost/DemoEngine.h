@@ -16,8 +16,6 @@ struct DemoEngine : Engine
                     MeshPtr& lineMesh,
                     MeshPtr& normalMesh,
                     MeshPtr& triangles);
-
-  void updateDeltaTime();
   
   MeshPtr coloredQuad;
   MeshPtr texturedQuad;
@@ -44,12 +42,9 @@ struct DemoEngine : Engine
   
   TexturePtr splineTexture;
 
-  f64 lastTime;
-  f64 nowTime;
-  f64 deltaTime;
-
   vector<Vec2> controlPoints;
   vector<Vec2> cp2;
+  f32 d;
 };
 
 }

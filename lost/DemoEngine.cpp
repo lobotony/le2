@@ -265,26 +265,14 @@ void DemoEngine::startup()
     cpdots.push_back(p);
   }
   
-  lastTime = currentTimeSeconds();
-  nowTime = lastTime;
-  deltaTime = 0;
   cp2 = controlPoints;
+  d = 0;
 }
 
-void DemoEngine::updateDeltaTime()
-{
-  nowTime = currentTimeSeconds();
-  deltaTime = nowTime - lastTime;
-  lastTime = nowTime;
-}
-
-f32 d = 0;
 
 void DemoEngine::update()
 {
-  updateDeltaTime();
-
-  d += deltaTime;
+  d += clock.deltaUpdate;
   f32 v1 = sin(d);
   f32 v2 = cos(d);
 
