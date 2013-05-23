@@ -34,7 +34,7 @@ void View::addSubview(ViewPtr view)
     }
     else
     {
-      WOUT("tried to insert subview that is ");
+      WOUT("tried to insert subview that already had superview");
     }
   }
   else
@@ -65,6 +65,8 @@ void View::removeSubview(ViewPtr view)
 
 void View::removeFromSuperview()
 {
+  ASSERT(superview != NULL, "tried to remove subview without superview");
+  superview->removeSubview(shared_from_this());
 }
 
 }

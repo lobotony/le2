@@ -28,6 +28,7 @@ struct View : enable_shared_from_this<View>
   lost::list<ViewPtr> subviews;
   
 };
+
 }
 
 #endif
