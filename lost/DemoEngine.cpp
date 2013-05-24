@@ -275,6 +275,9 @@ void DemoEngine::startup()
 void DemoEngine::update()
 {
   EventQueue::Container events = eventQueue->getCurrentQueue();
+  
+  int mp = 3;
+  
   for(Event* event : events)
   {
     if(event->base.type == ET_WindowResize)
@@ -283,6 +286,11 @@ void DemoEngine::update()
       f32 h = event->windowResizeEvent.height;
 //      DOUT("updating viewport "<<int(w)<<"/"<<int(h));
       cam->viewport(Rect(0,0,w,h));
+    }
+    else if(event->base.type == ET_MouseMoveEvent)
+    {
+      controlPoints[mp].x = event->mouseEvent.x;
+      controlPoints[mp].y = event->mouseEvent.y;
     }
   }
 
@@ -295,8 +303,11 @@ void DemoEngine::update()
   
   for(u32 i=0; i<controlPoints.size();++i)
   {
-    f32 f = sin(i)+cos(4*i);
-    controlPoints[i] = Vec2(cp2[i].x+v1*ix*f, cp2[i].y+v2*iy*f);
+    if(i != mp)
+    {
+      f32 f = sin(i)+cos(4*i);
+      controlPoints[i] = Vec2(cp2[i].x+v1*ix*f, cp2[i].y+v2*iy*f);
+    }
   }
 
   updateSpline(controlPoints, spline, normals, triangulatedSpline);
