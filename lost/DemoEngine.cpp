@@ -317,19 +317,19 @@ void DemoEngine::update()
   glContext->camera(cam);
   glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
-  glContext->draw(coloredQuad);
-  glContext->draw(texturedQuad);
+//  glContext->draw(coloredQuad);
+//  glContext->draw(texturedQuad);
 //  glContext->draw(rt1);
-  glContext->draw(rt2);
-  glContext->draw(rt3);
-  glContext->draw(dot);
-  glContext->draw(dot2);
-  glContext->draw(lines);
-  glContext->draw(spline);
-  glContext->draw(normals);
+//  glContext->draw(rt2);
+//  glContext->draw(rt3);
+//  glContext->draw(dot);
+//  glContext->draw(dot2);
+//  glContext->draw(lines);
+//  glContext->draw(spline);
+//  glContext->draw(normals);
   glContext->draw(triangulatedSpline);
 
-  for(uint32_t i=0; i<ipdots.size(); ++i)
+/*  for(uint32_t i=0; i<ipdots.size(); ++i)
   {
     glContext->draw(ipdots[i]);
   }
@@ -337,7 +337,7 @@ void DemoEngine::update()
   for(uint32_t i=0; i<cpdots.size(); ++i)
   {
     glContext->draw(cpdots[i]);
-  }
+  }*/
   
   ui->update();
   ui->draw(glContext);
