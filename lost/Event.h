@@ -11,7 +11,8 @@ enum EventType
   ET_KeyUpEvent,
   ET_MouseDownEvent,
   ET_MouseUpEvent,
-  ET_MouseMoveEvent
+  ET_MouseMoveEvent,
+  ET_WindowResize
 };
 
 struct EventPool;
@@ -34,12 +35,19 @@ struct MouseEvent : BaseEvent
   s32 y;
 };
 
+struct WindowResizeEvent : BaseEvent
+{
+  u32 width;
+  u32 height;
+};
+
 // don't add default constructors to event classes, or the union won't compile
 union Event
 {
-  BaseEvent base;
-  KeyEvent keyEvent;
-  MouseEvent mouseEvent;
+  BaseEvent         base;
+  KeyEvent          keyEvent;
+  MouseEvent        mouseEvent;
+  WindowResizeEvent windowResizeEvent;
 };
 
 }

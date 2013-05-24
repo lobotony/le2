@@ -21,6 +21,8 @@
 #include "lost/ResourceManager.h"
 
 #include "lost/MeshAlgo.h"
+#include "lost/EventQueue.h"
+#include "lost/Event.h"
 
 namespace lost
 {
@@ -272,6 +274,18 @@ void DemoEngine::startup()
 
 void DemoEngine::update()
 {
+  EventQueue::Container events = eventQueue->getCurrentQueue();
+  for(Event* event : events)
+  {
+    if(event->base.type == ET_WindowResize)
+    {
+      f32 w = event->windowResizeEvent.width;
+      f32 h = event->windowResizeEvent.height;
+//      DOUT("updating viewport "<<int(w)<<"/"<<int(h));
+      cam->viewport(Rect(0,0,w,h));
+    }
+  }
+
   d += clock.deltaUpdate;
   f32 v1 = sin(d);
   f32 v2 = cos(d);
@@ -294,7 +308,7 @@ void DemoEngine::update()
 
   glContext->draw(coloredQuad);
   glContext->draw(texturedQuad);
-  glContext->draw(rt1);
+//  glContext->draw(rt1);
   glContext->draw(rt2);
   glContext->draw(rt3);
   glContext->draw(dot);

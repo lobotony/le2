@@ -44,7 +44,7 @@ void Engine::doUpdate()
 {
   clock.update();
   update();
-  eventQueue->returnAllEvents();
+  eventQueue->swap();
 }
 
 void Engine::doShutdown()
