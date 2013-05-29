@@ -80,6 +80,7 @@ namespace lost
   LE_SP(TruetypeFont);
   LE_SP(TextMesh);
   LE_SP(Quad);
+  LE_SP(FrameBuffer);
 }
 
 #endif

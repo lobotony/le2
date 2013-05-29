@@ -77,7 +77,7 @@ namespace lost
     void param(GLenum pname, GLint p);
 
     GLuint          texture;
-//    GLenum          internalFormat;
+    GLenum          internalFormat;
     uint32_t width;
     uint32_t height;      
     uint32_t dataWidth; 

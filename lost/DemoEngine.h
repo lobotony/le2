@@ -45,6 +45,10 @@ struct DemoEngine : Engine
   vector<Vec2> controlPoints;
   vector<Vec2> cp2;
   f32 d;
+  
+  FrameBufferPtr fb;
+  QuadPtr fbquad;
+  CameraPtr fbcam;
 };
 
 }

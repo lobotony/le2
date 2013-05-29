@@ -24,6 +24,9 @@
 #include "lost/EventQueue.h"
 #include "lost/Event.h"
 
+#include "lost/FrameBuffer.h"
+#include "lost/Quad.h"
+
 namespace lost
 {
 
@@ -92,13 +95,13 @@ void DemoEngine::updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr
     
     normalMesh->set(i*2+1, UT_position, ip[i]+nv[i]*normalLenght);
     
-    // visualize interpolated points with quads for debugging
+/*    // visualize interpolated points with quads for debugging
     MeshPtr p = dot->clone();
     p->transform = MatrixTranslation(Vec3(ip[i].x-(dotsize/2), ip[i].y-(dotsize/2), 0));
     p->material = dot->material->clone();
     p->material->color = Color(1.0, 0,0,.5);
     p->material->blendNormal();
-    ipdots.push_back(p);
+    ipdots.push_back(p);*/
   }
   
   // adjust triangle mesh, only writes to points
@@ -269,6 +272,24 @@ void DemoEngine::startup()
   
   cp2 = controlPoints;
   d = 0;
+  
+  
+  ////////////////////////////////////////////
+  ////////////////////////////////////////////
+  //////// Framebuffer
+  ////////////////////////////////////////////
+  ////////////////////////////////////////////
+
+  Vec2 fbsize(512, 512);
+  fb = FrameBuffer::create(fbsize, GL_RGBA);
+  fb->check();
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
+  fbquad = Quad::create(fb->colorBuffers[0]->texture, false);
+  fbquad->material->shader = textureShader;
+  fbquad->material->color = whiteColor;
+  
+  fbcam = Camera2D::create(Rect(0,0,fbsize.width,fbsize.height));
+  
 }
 
 
@@ -312,8 +333,24 @@ void DemoEngine::update()
 
   updateSpline(controlPoints, spline, normals, triangulatedSpline);
 
-// light blue  glContext->clearColor(Color(.45, .84, 1, 1));
+  //////////////////////
+  // framebuffer pass
+  fb->bind();
   glContext->clearColor(Color(.3, .3, 0, 1));
+  glContext->camera(fbcam);
+  glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+  glContext->draw(triangulatedSpline);
+
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); // switch to default framebuffer
+  
+  //////////////////////
+  // screen pass
+
+
+// light blue  glContext->clearColor(Color(.45, .84, 1, 1));
+//  glContext->clearColor(Color(.3, .3, 0, 1));
+  glContext->clearColor(Color(0, 0, 0, 1));
   glContext->camera(cam);
   glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
@@ -327,7 +364,10 @@ void DemoEngine::update()
 //  glContext->draw(lines);
 //  glContext->draw(spline);
 //  glContext->draw(normals);
-  glContext->draw(triangulatedSpline);
+
+//  glContext->draw(triangulatedSpline);
+
+    glContext->draw(fbquad);
 
 /*  for(uint32_t i=0; i<ipdots.size(); ++i)
   {

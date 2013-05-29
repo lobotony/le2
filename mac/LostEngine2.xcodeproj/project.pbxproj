@@ -65,6 +65,8 @@
 		EACD24B015D852B300453F75 /* Rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EACD24AF15D852B300453F75 /* Rect.cpp */; };
 		EACD24B315D8531200453F75 /* Vec2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EACD24B115D8531200453F75 /* Vec2.cpp */; };
 		EACD24B415D8531B00453F75 /* Bitmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EACD24A815D851AB00453F75 /* Bitmap.cpp */; };
+		EAD599E41756081E00E09947 /* FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD599E21756081E00E09947 /* FrameBuffer.cpp */; };
+		EAD599E71756082E00E09947 /* RenderBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD599E51756082E00E09947 /* RenderBuffer.cpp */; };
 		EAF0438715F7A88E0095549F /* HostBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0815F7A87B004EE290 /* HostBuffer.cpp */; };
 		EAF0438815F7A88E0095549F /* HybridBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0A15F7A87B004EE290 /* HybridBuffer.cpp */; };
 		EAF0438915F7A88E0095549F /* HybridIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0C15F7A87B004EE290 /* HybridIndexBuffer.cpp */; };
@@ -227,6 +229,10 @@
 		EACD24B115D8531200453F75 /* Vec2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec2.cpp; sourceTree = "<group>"; };
 		EACD24B215D8531200453F75 /* Vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec2.h; sourceTree = "<group>"; };
 		EACD24B515D853D300453F75 /* lmath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lmath.h; sourceTree = "<group>"; };
+		EAD599E21756081E00E09947 /* FrameBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameBuffer.cpp; sourceTree = "<group>"; };
+		EAD599E31756081E00E09947 /* FrameBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameBuffer.h; sourceTree = "<group>"; };
+		EAD599E51756082E00E09947 /* RenderBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderBuffer.cpp; sourceTree = "<group>"; };
+		EAD599E61756082E00E09947 /* RenderBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderBuffer.h; sourceTree = "<group>"; };
 		EAF357FB1726C79200824CF2 /* Frame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Frame.cpp; path = ../guiro/Frame.cpp; sourceTree = "<group>"; };
 		EAF357FC1726C79200824CF2 /* Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Frame.h; path = ../guiro/Frame.h; sourceTree = "<group>"; };
 		EAF357FF1726C79200824CF2 /* UserInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UserInterface.cpp; path = ../guiro/UserInterface.cpp; sourceTree = "<group>"; };
@@ -420,6 +426,8 @@
 				EAADB61615FFA391008F7450 /* Font.h */,
 				EA945F0315F7A43A004EE290 /* FragmentShader.cpp */,
 				EA945F0415F7A43A004EE290 /* FragmentShader.h */,
+				EAD599E21756081E00E09947 /* FrameBuffer.cpp */,
+				EAD599E31756081E00E09947 /* FrameBuffer.h */,
 				EAADB62815FFA76B008F7450 /* Glyph.cpp */,
 				EAADB62915FFA76B008F7450 /* Glyph.h */,
 				EA945F0815F7A87B004EE290 /* HostBuffer.cpp */,
@@ -459,6 +467,8 @@
 				EACD24AC15D8528A00453F75 /* Rect.h */,
 				EA0EEAF615E677F0000CBC13 /* RectPacker.cpp */,
 				EA0EEAF715E677F0000CBC13 /* RectPacker.h */,
+				EAD599E51756082E00E09947 /* RenderBuffer.cpp */,
+				EAD599E61756082E00E09947 /* RenderBuffer.h */,
 				EAF3580D17280F6700824CF2 /* ResourceManager.cpp */,
 				EAF3580E17280F6700824CF2 /* ResourceManager.h */,
 				EA6B8A321742A8D000733FA9 /* Runner.cpp */,
@@ -687,6 +697,8 @@
 				EA6B8A311742A88300733FA9 /* RunnerMac.mm in Sources */,
 				EA6B8A331742A8D000733FA9 /* Runner.cpp in Sources */,
 				EA6B8A361742B16900733FA9 /* Clock.cpp in Sources */,
+				EAD599E41756081E00E09947 /* FrameBuffer.cpp in Sources */,
+				EAD599E71756082E00E09947 /* RenderBuffer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
