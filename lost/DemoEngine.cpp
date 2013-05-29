@@ -135,6 +135,9 @@ void DemoEngine::startup()
   ResourceBundle mainBundle;
   colorShader = resourceManager->shader("resources/glsl/color");
   textureShader = resourceManager->shader("resources/glsl/texture");
+  hblurShader = resourceManager->shader("resources/glsl/hblur");
+  vblurShader = resourceManager->shader("resources/glsl/vblur");
+
 	ringTexture = resourceManager->texture("resources/images/rings.png");
   cam = Camera2D::create(Rect(0,0,1024,768));
   
@@ -280,15 +283,26 @@ void DemoEngine::startup()
   ////////////////////////////////////////////
   ////////////////////////////////////////////
 
-  Vec2 fbsize(512, 512);
-  fb = FrameBuffer::create(fbsize, GL_RGBA);
-  fb->check();
-  glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
-  fbquad = Quad::create(fb->colorBuffers[0]->texture, false);
-  fbquad->material->shader = textureShader;
-  fbquad->material->color = whiteColor;
-  
+  Vec2 fbsize(1024, 768);
+
   fbcam = Camera2D::create(Rect(0,0,fbsize.width,fbsize.height));
+  
+  fb0 = FrameBuffer::create(fbsize, GL_RGBA);
+  fb0->check();
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
+  fb0quad = Quad::create(fb0->colorBuffers[0]->texture, false);
+  fb0quad->material->shader = vblurShader;
+  fb0quad->material->color = whiteColor;
+  fb0quad->material->blendPremultiplied();
+
+  fb1 = FrameBuffer::create(fbsize, GL_RGBA);
+  fb1->check();
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
+  fb1quad = Quad::create(fb1->colorBuffers[0]->texture, false);
+  fb1quad->material->shader = vblurShader;
+  fb1quad->material->color = whiteColor;
+  fb1quad->material->blendPremultiplied();
+  
   
 }
 
@@ -334,18 +348,37 @@ void DemoEngine::update()
   updateSpline(controlPoints, spline, normals, triangulatedSpline);
 
   //////////////////////
-  // framebuffer pass
-  fb->bind();
-  glContext->clearColor(Color(.3, .3, 0, 1));
+  // framebuffer
+  
+  // pass 1: original into buffer 0
+  fb0->bind();
+  glContext->clearColor(Color(0, 0, 0, 0));
   glContext->camera(fbcam);
   glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
   glContext->draw(triangulatedSpline);
 
-  glBindFramebuffer(GL_FRAMEBUFFER, 0); // switch to default framebuffer
+  // pass 2: horizontal blur into buffer 1
+  fb1->bind();
+  glContext->clearColor(Color(0, 0, 0, 0));
+  glContext->camera(fbcam);
+  glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+  fb0quad->material->shader = hblurShader;
+  glContext->draw(fb0quad);
+  
+  // pass 3: vertical blur into buffer 0
+  fb0->bind();
+  glContext->clearColor(Color(0, 0, 0, 0));
+  glContext->camera(fbcam);
+  glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+  fb1quad->material->shader = vblurShader;
+  glContext->draw(fb1quad);
   
   //////////////////////
   // screen pass
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); // switch to default framebuffer
 
 
 // light blue  glContext->clearColor(Color(.45, .84, 1, 1));
@@ -367,7 +400,11 @@ void DemoEngine::update()
 
 //  glContext->draw(triangulatedSpline);
 
-    glContext->draw(fbquad);
+    fb0quad->material->shader = textureShader;
+    fb0quad->material->color = Color(1,1,1,1);
+    glContext->draw(fb0quad);
+
+    glContext->draw(triangulatedSpline);
 
 /*  for(uint32_t i=0; i<ipdots.size(); ++i)
   {

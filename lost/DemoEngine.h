@@ -21,7 +21,9 @@ struct DemoEngine : Engine
   MeshPtr texturedQuad;
   ShaderProgramPtr colorShader;
   ShaderProgramPtr textureShader;
-  ShaderProgramPtr pointShader;
+  ShaderProgramPtr hblurShader;
+  ShaderProgramPtr vblurShader;
+  
   CameraPtr cam;
   TexturePtr ringTexture;
   FontPtr font;
@@ -46,8 +48,12 @@ struct DemoEngine : Engine
   vector<Vec2> cp2;
   f32 d;
   
-  FrameBufferPtr fb;
-  QuadPtr fbquad;
+  FrameBufferPtr fb0;
+  QuadPtr fb0quad;
+
+  FrameBufferPtr fb1;
+  QuadPtr fb1quad;
+
   CameraPtr fbcam;
 };
 
