@@ -400,11 +400,12 @@ void DemoEngine::update()
 
 //  glContext->draw(triangulatedSpline);
 
+    glContext->draw(triangulatedSpline);
+
     fb0quad->material->shader = textureShader;
     fb0quad->material->color = Color(1,1,1,1);
     glContext->draw(fb0quad);
 
-    glContext->draw(triangulatedSpline);
 
 /*  for(uint32_t i=0; i<ipdots.size(); ++i)
   {
