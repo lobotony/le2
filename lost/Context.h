@@ -56,8 +56,6 @@ private:
   Rect currentViewport;
   GLenum currentActiveTexture;
   ShaderProgramPtr currentShader;
-  Matrix currentTransform;
-  Buffer* currentBuffer;
   bool cullEnabled;
   GLenum cullFaceMode;
   static const uint32_t _maxTextures = 32;

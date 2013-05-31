@@ -109,10 +109,8 @@ map<void*, Context*> glContext2lostGlContext;
       scissorEnabled = getParam<bool>(GL_SCISSOR_TEST);
       texture2DEnabled = getParam<bool>(GL_TEXTURE_2D);
       currentActiveTexture = getParam<int>(GL_ACTIVE_TEXTURE);
-      currentTransform.initIdentity();
       currentClearColor = getParam<Color>(GL_COLOR_CLEAR_VALUE);
       currentScissorRect = getParam<Rect>(GL_SCISSOR_BOX);
-      currentBuffer = NULL;
       cullEnabled = getParam<bool>(GL_CULL_FACE);
       cullFaceMode = getParam<int>(GL_CULL_FACE_MODE);
       
@@ -141,13 +139,7 @@ map<void*, Context*> glContext2lostGlContext;
     {
       currentCam.reset();
       currentShader.reset();
-      currentBuffer = NULL;
     }
-
-/*    void Context::bindFramebuffer(const FrameBufferPtr& fbo)
-    {
-      fbo->bind();
-    }*/
 
     void Context::bindFramebuffer(GLuint fbo)
     {
@@ -506,10 +498,6 @@ map<void*, Context*> glContext2lostGlContext;
 
     void Context::bind(Buffer* buffer)
     {
-//      if(buffer != currentBuffer)
-//      {
-        glBindBuffer(buffer->target, buffer->buffer);GLDEBUG;
-//        currentBuffer = buffer;
-//      }
+      glBindBuffer(buffer->target, buffer->buffer);GLDEBUG;
     }
 }
