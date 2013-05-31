@@ -21,9 +21,8 @@ struct SunEngine : Engine
   ShaderProgramPtr hblurShader;
   ShaderProgramPtr vblurShader;
   
+  Vec2 winSize;
   CameraPtr cam;
-
-  u32 numInterpolatedPoints;
   
   MeshPtr triangulatedSpline;
   
@@ -41,12 +40,27 @@ struct SunEngine : Engine
 
   CameraPtr fbcam;
   
-  u32 dotsize;
   f32 splineWidth;
   
   std::function<void(void)> sceneRenderFunc; // renders only the scene
   std::function<void(void)> mainRenderFunc; // render scene and postprocesing
   
+  
+  ///////////////////
+  
+  u32 numCircles;
+  u32 numSplines;
+  Vec2 circleCenter;
+  u32 numInterpolatedPoints;
+  f32 minRadius;
+  f32 maxRadius;
+  
+  vector<f32> circleRadius;
+  Vec2* circlePoints;
+
+  u32 dotSize;
+  vector<MeshPtr> splines;
+  vector<MeshPtr> circleDots;
 };
 
 }

@@ -116,11 +116,10 @@ void SunEngine::startup()
   hblurShader = resourceManager->shader("resources/glsl/hblur");
   vblurShader = resourceManager->shader("resources/glsl/vblur");
 
-  cam = Camera2D::create(Rect(0,0,1024,768));
+  winSize = Vec2(800, 600);
+  cam = Camera2D::create(Rect(0,0,winSize.width, winSize.height));
   
-  dotsize = 5;
   splineWidth = 62;
-
   
   //////////////////////////////////////////
   /// SPLINE
@@ -177,7 +176,7 @@ void SunEngine::startup()
   ////////////////////////////////////////////
   ////////////////////////////////////////////
 
-  Vec2 fbsize(1024, 768);
+  Vec2 fbsize = winSize;
 
   fbcam = Camera2D::create(Rect(0,0,fbsize.width,fbsize.height));
   
@@ -249,6 +248,64 @@ void SunEngine::startup()
     fb0quad->material->color = Color(1,1,1,1);
     glContext->draw(fb0quad);  
   };
+  
+  
+  ////////////// prepare memory
+  numCircles = 5;
+  numSplines = 20;
+  minRadius = 50;
+  maxRadius = 200;
+  circleCenter = Vec2(winSize.width/2, winSize.height/2);
+  dotSize = 7;
+//  ASSERT(numCircles >= 2, "numCircles must be >= 2");
+  circlePoints = new Vec2[numCircles*numSplines];
+  circleRadius.reserve(numCircles);
+
+  // prepare debug dot meshes
+  u32 numDots = numCircles * numSplines;
+  for(u32 i=0; i<numDots; ++i)
+  {
+    QuadPtr m = Quad::create(Rect(0,0,dotSize, dotSize));
+    m->material->color = Color(1,0,0,1);
+    m->material->shader = colorShader;
+    circleDots.push_back(m);
+  }
+  
+  // precalculate radii
+  for (u32 i=0; i<numCircles; ++i)
+  {
+    f32 d = numCircles > 1 ? (((maxRadius - minRadius)/(numCircles-1))*i) : 0;
+    circleRadius[i] = minRadius + d;
+    DOUT(circleRadius[i]);
+  }
+  
+  // calculate circle points
+  for (u32 ci=0; ci<numCircles; ++ci)
+  {
+    f32 r = circleRadius[ci];
+    for(u32 cp=0; cp<numSplines; ++cp)
+    {
+      f32 f = ((f32)cp)/(f32(numSplines));
+      f *= 2*M_PI;
+      f32 x = sinf(f)*r;
+      f32 y = cosf(f)*r;
+      Vec2 p = Vec2(x,y)+circleCenter;
+      u32 idx = ci*numSplines + cp;
+      circlePoints[idx] = p;
+    }
+  }
+  
+  // apply circlePoints coordinates to debug meshes
+  for (u32 ci=0; ci<numCircles; ++ci)
+  {
+    for(u32 cp=0; cp<numSplines; ++cp)
+    {
+      u32 idx = ci*numSplines + cp;
+      Vec2 p = circlePoints[idx];
+      Vec3 tv(p.x, p.y, 0);
+      circleDots[idx]->transform = MatrixTranslation(tv);
+    }
+  }
 }
 
 
@@ -292,7 +349,17 @@ void SunEngine::update()
 
   updateSpline(controlPoints, numInterpolatedPoints,triangulatedSpline);
 
-  mainRenderFunc();
+//  mainRenderFunc();
+  
+      glContext->clearColor(Color(.1, .3, .3, 0));
+    glContext->camera(cam);
+    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+  for(u32 i=0; i<numSplines*numCircles; ++i)
+  {
+    auto mesh = circleDots[i];
+    glContext->draw(mesh);
+  }
 }
 
 void SunEngine::shutdown()
