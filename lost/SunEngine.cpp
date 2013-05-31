@@ -238,7 +238,7 @@ void SunEngine::startup()
     glBindFramebuffer(GL_FRAMEBUFFER, 0); // switch to default framebuffer
 
 
-    glContext->clearColor(Color(.1, .3, .7, 0));
+    glContext->clearColor(Color(.1, .3, .3, 0));
     glContext->camera(cam);
     glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
