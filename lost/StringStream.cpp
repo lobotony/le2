@@ -112,3 +112,9 @@ lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec2& v)
   return s;
 }
 
+lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec3& v)
+{
+  s << "( "<<v.x<<" / "<<v.y<<" / "<<v.z<<" )";
+  return s;
+}
+

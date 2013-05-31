@@ -21,6 +21,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <stdint.h>
 
 #include "Vec2.h"
+#include "Vec3.h"
 
 namespace lost
 {
@@ -50,5 +51,6 @@ lost::StringStream& operator<<(lost::StringStream& s, uint64_t v);
 lost::StringStream& operator<<(lost::StringStream& s, const char* v);
 lost::StringStream& operator<<(lost::StringStream& s, const lost::string& v);
 lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec2& v);
+lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec3& v);
 
 #endif
