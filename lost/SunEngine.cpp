@@ -197,7 +197,58 @@ void SunEngine::startup()
   fb1quad->material->color = whiteColor;
   fb1quad->material->blendPremultiplied();
   
+  sceneRenderFunc = [this] ()
+  {
+    glContext->draw(triangulatedSpline);
+  };
   
+  mainRenderFunc = [this] ()
+  {
+    //////////////////////
+    // framebuffer
+   
+    // pass 1: original into buffer 0
+    fb0->bind();
+    glContext->clearColor(Color(0, 0, 0, 0));
+    glContext->camera(fbcam);
+    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+    sceneRenderFunc();
+
+    // pass 2: horizontal blur into buffer 1
+    fb1->bind();
+    glContext->clearColor(Color(0, 0, 0, 0));
+    glContext->camera(fbcam);
+    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+    fb0quad->material->shader = hblurShader;
+    glContext->draw(fb0quad);
+    
+    // pass 3: vertical blur into buffer 0
+    fb0->bind();
+    glContext->clearColor(Color(0, 0, 0, 0));
+    glContext->camera(fbcam);
+    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+    fb1quad->material->shader = vblurShader;
+    glContext->draw(fb1quad);
+    
+    //////////////////////
+    // screen pass
+    glBindFramebuffer(GL_FRAMEBUFFER, 0); // switch to default framebuffer
+
+
+    glContext->clearColor(Color(.1, .3, .7, 0));
+    glContext->camera(cam);
+    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+
+    glContext->draw(triangulatedSpline);
+
+    fb0quad->material->shader = textureShader;
+    fb0quad->material->color = Color(1,1,1,1);
+    glContext->draw(fb0quad);  
+  };
 }
 
 
@@ -241,78 +292,7 @@ void SunEngine::update()
 
   updateSpline(controlPoints, numInterpolatedPoints,triangulatedSpline);
 
-  //////////////////////
-  // framebuffer
-  
-  // pass 1: original into buffer 0
-  fb0->bind();
-  glContext->clearColor(Color(0, 0, 0, 0));
-  glContext->camera(fbcam);
-  glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
-
-  glContext->draw(triangulatedSpline);
-
-  // pass 2: horizontal blur into buffer 1
-  fb1->bind();
-  glContext->clearColor(Color(0, 0, 0, 0));
-  glContext->camera(fbcam);
-  glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
-
-  fb0quad->material->shader = hblurShader;
-  glContext->draw(fb0quad);
-  
-  // pass 3: vertical blur into buffer 0
-  fb0->bind();
-  glContext->clearColor(Color(0, 0, 0, 0));
-  glContext->camera(fbcam);
-  glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
-
-  fb1quad->material->shader = vblurShader;
-  glContext->draw(fb1quad);
-  
-  //////////////////////
-  // screen pass
-  glBindFramebuffer(GL_FRAMEBUFFER, 0); // switch to default framebuffer
-
-
-// light blue  glContext->clearColor(Color(.45, .84, 1, 1));
-//  glContext->clearColor(Color(.3, .3, 0, 1));
-  glContext->clearColor(Color(0, 0, 0, 1));
-  glContext->camera(cam);
-  glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
-
-//  glContext->draw(coloredQuad);
-//  glContext->draw(texturedQuad);
-//  glContext->draw(rt1);
-//  glContext->draw(rt2);
-//  glContext->draw(rt3);
-//  glContext->draw(dot);
-//  glContext->draw(dot2);
-//  glContext->draw(lines);
-//  glContext->draw(spline);
-//  glContext->draw(normals);
-
-//  glContext->draw(triangulatedSpline);
-
-    glContext->draw(triangulatedSpline);
-
-    fb0quad->material->shader = textureShader;
-    fb0quad->material->color = Color(1,1,1,1);
-    glContext->draw(fb0quad);
-
-
-/*  for(uint32_t i=0; i<ipdots.size(); ++i)
-  {
-    glContext->draw(ipdots[i]);
-  }
-  
-  for(uint32_t i=0; i<cpdots.size(); ++i)
-  {
-    glContext->draw(cpdots[i]);
-  }*/
-  
-  ui->update();
-  ui->draw(glContext);
+  mainRenderFunc();
 }
 
 void SunEngine::shutdown()

@@ -43,6 +43,10 @@ struct SunEngine : Engine
   
   u32 dotsize;
   f32 splineWidth;
+  
+  std::function<void(void)> sceneRenderFunc; // renders only the scene
+  std::function<void(void)> mainRenderFunc; // render scene and postprocesing
+  
 };
 
 }
