@@ -18,6 +18,7 @@
 		EA0EEB0015E67852000CBC13 /* Vec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA0EEAFA15E677F9000CBC13 /* Vec3.cpp */; };
 		EA0EEB0115E67855000CBC13 /* Vec4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA0EEAFC15E677F9000CBC13 /* Vec4.cpp */; };
 		EA0EEB0215E6785B000CBC13 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA0EEAFE15E67804000CBC13 /* Matrix.cpp */; };
+		EA4AC4481758B3450083C751 /* SunEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC4461758B3450083C751 /* SunEngine.cpp */; };
 		EA6983BC172EF9BF00B4BA2E /* MeshAlgo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6983BA172EF9BF00B4BA2E /* MeshAlgo.cpp */; };
 		EA6B8A2E1742A4D800733FA9 /* DemoEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6B8A2C1742A4D800733FA9 /* DemoEngine.cpp */; };
 		EA6B8A311742A88300733FA9 /* RunnerMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA6B8A301742A88300733FA9 /* RunnerMac.mm */; };
@@ -109,6 +110,8 @@
 		EA0EEAFD15E677F9000CBC13 /* Vec4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vec4.h; sourceTree = "<group>"; };
 		EA0EEAFE15E67804000CBC13 /* Matrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
 		EA0EEAFF15E67804000CBC13 /* Matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		EA4AC4461758B3450083C751 /* SunEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SunEngine.cpp; sourceTree = "<group>"; };
+		EA4AC4471758B3450083C751 /* SunEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunEngine.h; sourceTree = "<group>"; };
 		EA6983BA172EF9BF00B4BA2E /* MeshAlgo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshAlgo.cpp; sourceTree = "<group>"; };
 		EA6983BB172EF9BF00B4BA2E /* MeshAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshAlgo.h; sourceTree = "<group>"; };
 		EA6B8A2C1742A4D800733FA9 /* DemoEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoEngine.cpp; sourceTree = "<group>"; };
@@ -484,6 +487,8 @@
 				EA0C315715FCDC0900661552 /* StringAdditions.h */,
 				EACD249F15D81FF600453F75 /* StringStream.cpp */,
 				EACD24A015D81FF600453F75 /* StringStream.h */,
+				EA4AC4461758B3450083C751 /* SunEngine.cpp */,
+				EA4AC4471758B3450083C751 /* SunEngine.h */,
 				EAADB61B15FFA3A2008F7450 /* TextBreakmodes.h */,
 				EAADB61C15FFA3A2008F7450 /* TextBuffer.cpp */,
 				EAADB61D15FFA3A2008F7450 /* TextBuffer.h */,
@@ -699,6 +704,7 @@
 				EA6B8A361742B16900733FA9 /* Clock.cpp in Sources */,
 				EAD599E41756081E00E09947 /* FrameBuffer.cpp in Sources */,
 				EAD599E71756082E00E09947 /* RenderBuffer.cpp in Sources */,
+				EA4AC4481758B3450083C751 /* SunEngine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
