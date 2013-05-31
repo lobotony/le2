@@ -119,12 +119,12 @@ void SunEngine::startup()
   winSize = Vec2(800, 600);
   cam = Camera2D::create(Rect(0,0,winSize.width, winSize.height));
   
-  splineWidth = 62;
+  splineWidth = 32;
   
   //////////////////////////////////////////
   /// SPLINE
   
-  numInterpolatedPoints = 200;
+  numInterpolatedPoints = 100;
   
   controlPoints.push_back(Vec2(110,110));
   controlPoints.push_back(Vec2(110,110));
@@ -253,8 +253,8 @@ void SunEngine::startup()
   ////////////// prepare memory
   numCircles = 5;
   numSplines = 20;
-  minRadius = 50;
-  maxRadius = 200;
+  minRadius = 2;
+  maxRadius = 300;
   circleCenter = Vec2(winSize.width/2, winSize.height/2);
   dotSize = 7;
 //  ASSERT(numCircles >= 2, "numCircles must be >= 2");
@@ -287,12 +287,52 @@ void SunEngine::startup()
     {
       f32 f = ((f32)cp)/(f32(numSplines));
       f *= 2*M_PI;
+      if(ci==2)
+      {
+        f+=.2;
+      }
+      else if(ci==4)
+      {
+        f-=.7;
+      }
       f32 x = sinf(f)*r;
       f32 y = cosf(f)*r;
       Vec2 p = Vec2(x,y)+circleCenter;
       u32 idx = ci*numSplines + cp;
       circlePoints[idx] = p;
     }
+  }
+  
+  // create spline meshes
+  for(u32 i=0; i<numSplines; ++i)
+  {
+    MeshPtr mesh = newTriangleStrip((numInterpolatedPoints*2)-2);
+    mesh->material->blendPremultiplied();
+    mesh->material->shader=colorShader;
+//    mesh->material->textures.push_back(splineTexture);
+    splines.push_back(mesh);
+  }
+  
+  // update splines
+  vector<Vec2> cps;
+  cps.resize(numCircles);
+  for(u32 i=0; i<numSplines; ++i)
+  {
+    for(u32 pi = 0; pi<numCircles; ++pi)
+    {
+      Vec2 v = circlePoints[pi*numSplines+i];
+      cps[pi] = v;
+    }
+    
+    vector<Vec2> dv;
+    dv.push_back(cps[0]);
+    for(auto v : cps)
+    {
+      dv.push_back(v);
+    }
+    dv.push_back(cps.back());
+    
+    updateSpline(dv, numInterpolatedPoints, splines[i]);
   }
   
   // apply circlePoints coordinates to debug meshes
@@ -355,11 +395,16 @@ void SunEngine::update()
     glContext->camera(cam);
     glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
-  for(u32 i=0; i<numSplines*numCircles; ++i)
+  for(auto mesh : splines)
+  {
+    glContext->draw(mesh);
+  }
+
+/*  for(u32 i=0; i<numSplines*numCircles; ++i)
   {
     auto mesh = circleDots[i];
     glContext->draw(mesh);
-  }
+  }*/
 }
 
 void SunEngine::shutdown()
