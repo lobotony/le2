@@ -27,6 +27,8 @@
 #include "lost/FrameBuffer.h"
 #include "lost/Quad.h"
 
+using namespace std;
+
 namespace lost
 {
 
@@ -108,6 +110,29 @@ void SunEngine::updateSpline(const vector<Vec2>& cp, u32 numPoints, MeshPtr& tri
   
 }
 
+void SunEngine::fbsetup()
+{
+  Vec2 fbsize = winSize;
+
+  fbcam = Camera2D::create(Rect(0,0,fbsize.width,fbsize.height));
+  
+  fb0 = FrameBuffer::create(fbsize, GL_RGBA);
+  fb0->check();
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
+  fb0quad = Quad::create(fb0->colorBuffers[0]->texture, false);
+  fb0quad->material->shader = vblurShader;
+  fb0quad->material->color = whiteColor;
+  fb0quad->material->blendPremultiplied();
+
+  fb1 = FrameBuffer::create(fbsize, GL_RGBA);
+  fb1->check();
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
+  fb1quad = Quad::create(fb1->colorBuffers[0]->texture, false);
+  fb1quad->material->shader = vblurShader;
+  fb1quad->material->color = whiteColor;
+  fb1quad->material->blendPremultiplied();  
+}
+
 void SunEngine::startup()
 {
   ResourceBundle mainBundle;
@@ -149,32 +174,8 @@ void SunEngine::startup()
   
   d = 0;
   
-  ////////////////////////////////////////////
-  ////////////////////////////////////////////
-  //////// Framebuffer
-  ////////////////////////////////////////////
-  ////////////////////////////////////////////
-
-  Vec2 fbsize = winSize;
-
-  fbcam = Camera2D::create(Rect(0,0,fbsize.width,fbsize.height));
+  fbsetup();
   
-  fb0 = FrameBuffer::create(fbsize, GL_RGBA);
-  fb0->check();
-  glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
-  fb0quad = Quad::create(fb0->colorBuffers[0]->texture, false);
-  fb0quad->material->shader = vblurShader;
-  fb0quad->material->color = whiteColor;
-  fb0quad->material->blendPremultiplied();
-
-  fb1 = FrameBuffer::create(fbsize, GL_RGBA);
-  fb1->check();
-  glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
-  fb1quad = Quad::create(fb1->colorBuffers[0]->texture, false);
-  fb1quad->material->shader = vblurShader;
-  fb1quad->material->color = whiteColor;
-  fb1quad->material->blendPremultiplied();
-    
   mainRenderFunc = [this] ()
   {
     //////////////////////
@@ -225,16 +226,43 @@ void SunEngine::startup()
   };
   
   
-  ////////////// prepare memory
+  setupSplines();
+  updateSplines();
+    
+  sceneRenderFunc = [this] () {
+    glContext->clearColor(Color(.1, .3, .3, 0));
+    glContext->camera(cam);
+    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+    for(auto mesh : splines)
+    {
+      glContext->draw(mesh);
+    }
+  };
+}
+
+// one time setup, memory and meshes
+void SunEngine::setupSplines()
+{
   numCircles = 5;
-  numSplines = 22;
+  numSplines = 50;
   minRadius = 50;
   maxRadius = 300;
   circleCenter = Vec2(winSize.width/2, winSize.height/2);
   dotSize = 7;
-//  ASSERT(numCircles >= 2, "numCircles must be >= 2");
+  ASSERT(numCircles >= 2, "numCircles must be >= 2");
   circlePoints = new Vec2[numCircles*numSplines];
   circleRadius.resize(numCircles);
+
+  // create spline meshes
+  for(u32 i=0; i<numSplines; ++i)
+  {
+    MeshPtr mesh = newTriangleStrip((numInterpolatedPoints*2)-2);
+    mesh->material->blendPremultiplied();
+    mesh->material->shader=textureShader;
+    mesh->material->textures.push_back(splineTexture);
+    splines.push_back(mesh);
+  }
 
 /*  // prepare debug dot meshes
   u32 numDots = numCircles * numSplines;
@@ -246,6 +274,15 @@ void SunEngine::startup()
     circleDots.push_back(m);
   }*/
   
+}
+
+// continuous update
+void SunEngine::updateSplines()
+{
+  minRadius = 50;
+  maxRadius = min(winSize.width, winSize.height)/2;
+  DOUT(maxRadius);
+  circleCenter = Vec2(winSize.width/2, winSize.height/2);  
   // precalculate radii
   for (u32 i=0; i<numCircles; ++i)
   {
@@ -262,14 +299,14 @@ void SunEngine::startup()
     {
       f32 f = ((f32)cp)/(f32(numSplines));
       f *= 2*M_PI;
-      if(ci==2)
+/*      if(ci==2)
       {
         f+=.2;
       }
       else if(ci==4)
       {
         f-=.7;
-      }
+      }*/
       f32 x = sinf(f)*r;
       f32 y = cosf(f)*r;
       Vec2 p = Vec2(x,y)+circleCenter;
@@ -278,15 +315,6 @@ void SunEngine::startup()
     }
   }
   
-  // create spline meshes
-  for(u32 i=0; i<numSplines; ++i)
-  {
-    MeshPtr mesh = newTriangleStrip((numInterpolatedPoints*2)-2);
-    mesh->material->blendPremultiplied();
-    mesh->material->shader=textureShader;
-    mesh->material->textures.push_back(splineTexture);
-    splines.push_back(mesh);
-  }
   
   // update splines
   vector<Vec2> cps;
@@ -310,7 +338,7 @@ void SunEngine::startup()
     updateSpline(dv, numInterpolatedPoints, splines[i]);
   }
   
-/*  // apply circlePoints coordinates to debug meshes
+  /*  // apply circlePoints coordinates to debug meshes
   for (u32 ci=0; ci<numCircles; ++ci)
   {
     for(u32 cp=0; cp<numSplines; ++cp)
@@ -321,21 +349,7 @@ void SunEngine::startup()
       circleDots[idx]->transform = MatrixTranslation(tv);
     }
   }*/
-  
-    sceneRenderFunc = [this] () {
-    glContext->clearColor(Color(.1, .3, .3, 0));
-    glContext->camera(cam);
-    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
-
-    for(auto mesh : splines)
-    {
-      glContext->draw(mesh);
-    }
-
-  };
-
 }
-
 
 void SunEngine::update()
 {
@@ -348,7 +362,9 @@ void SunEngine::update()
       f32 w = event->windowResizeEvent.width;
       f32 h = event->windowResizeEvent.height;
       DOUT("updating viewport "<<int(w)<<"/"<<int(h));
+      winSize = Vec2(w, h);
       cam->viewport(Rect(0,0,w,h));
+      fbsetup();
     }
     else if(event->base.type == ET_MouseMoveEvent)
     {
@@ -357,6 +373,7 @@ void SunEngine::update()
 
   d += clock.deltaUpdate;
 
+  updateSplines();
   mainRenderFunc();
 
 /*  for(u32 i=0; i<numSplines*numCircles; ++i)

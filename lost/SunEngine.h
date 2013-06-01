@@ -57,6 +57,10 @@ struct SunEngine : Engine
   u32 dotSize;
   vector<MeshPtr> splines;
   vector<MeshPtr> circleDots;
+  
+  void fbsetup();
+  void setupSplines();
+  void updateSplines();
 };
 
 }
