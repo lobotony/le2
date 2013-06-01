@@ -119,29 +119,13 @@ void SunEngine::startup()
   winSize = Vec2(800, 600);
   cam = Camera2D::create(Rect(0,0,winSize.width, winSize.height));
   
-  splineWidth = 32;
+  splineWidth = 12;
   
   //////////////////////////////////////////
   /// SPLINE
   
-  numInterpolatedPoints = 100;
-  
-  controlPoints.push_back(Vec2(110,110));
-  controlPoints.push_back(Vec2(110,110));
-
-  controlPoints.push_back(Vec2(310,310));
-  controlPoints.push_back(Vec2(610,110));
-  controlPoints.push_back(Vec2(710,410));
-  controlPoints.push_back(Vec2(410,310));
-  controlPoints.push_back(Vec2(210,210));
-  
-  controlPoints.push_back(Vec2(110,410));
-  controlPoints.push_back(Vec2(110,410));
-
-  triangulatedSpline = newTriangleStrip((numInterpolatedPoints*2)-2);
-  triangulatedSpline->material->blendPremultiplied();
-  triangulatedSpline->material->shader=textureShader;
-  
+  numInterpolatedPoints = 50;
+    
   Color splineBorderColor = Color(.39,.75,0.1,1);
   Color splineColor = Color(.24, .55, .0, 1);
   
@@ -162,13 +146,8 @@ void SunEngine::startup()
   splineBitmap->premultiplyAlpha();
   splineTexture.reset(new Texture(splineBitmap));
   splineTexture->filter(GL_LINEAR);
-  triangulatedSpline->material->textures.push_back(splineTexture);
   
-  updateSpline(controlPoints, numInterpolatedPoints, triangulatedSpline);
-    
-  cp2 = controlPoints;
   d = 0;
-  
   
   ////////////////////////////////////////////
   ////////////////////////////////////////////
@@ -195,12 +174,7 @@ void SunEngine::startup()
   fb1quad->material->shader = vblurShader;
   fb1quad->material->color = whiteColor;
   fb1quad->material->blendPremultiplied();
-  
-  sceneRenderFunc = [this] ()
-  {
-    glContext->draw(triangulatedSpline);
-  };
-  
+    
   mainRenderFunc = [this] ()
   {
     //////////////////////
@@ -242,26 +216,27 @@ void SunEngine::startup()
     glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
 
-    glContext->draw(triangulatedSpline);
+//    glContext->draw(triangulatedSpline);
+    sceneRenderFunc();
 
     fb0quad->material->shader = textureShader;
-    fb0quad->material->color = Color(1,1,1,1);
+    fb0quad->material->color = Color(1,1,0,1);
     glContext->draw(fb0quad);  
   };
   
   
   ////////////// prepare memory
   numCircles = 5;
-  numSplines = 20;
-  minRadius = 2;
+  numSplines = 22;
+  minRadius = 50;
   maxRadius = 300;
   circleCenter = Vec2(winSize.width/2, winSize.height/2);
   dotSize = 7;
 //  ASSERT(numCircles >= 2, "numCircles must be >= 2");
   circlePoints = new Vec2[numCircles*numSplines];
-  circleRadius.reserve(numCircles);
+  circleRadius.resize(numCircles);
 
-  // prepare debug dot meshes
+/*  // prepare debug dot meshes
   u32 numDots = numCircles * numSplines;
   for(u32 i=0; i<numDots; ++i)
   {
@@ -269,14 +244,14 @@ void SunEngine::startup()
     m->material->color = Color(1,0,0,1);
     m->material->shader = colorShader;
     circleDots.push_back(m);
-  }
+  }*/
   
   // precalculate radii
   for (u32 i=0; i<numCircles; ++i)
   {
     f32 d = numCircles > 1 ? (((maxRadius - minRadius)/(numCircles-1))*i) : 0;
     circleRadius[i] = minRadius + d;
-    DOUT(circleRadius[i]);
+//    DOUT(circleRadius[i]);
   }
   
   // calculate circle points
@@ -308,8 +283,8 @@ void SunEngine::startup()
   {
     MeshPtr mesh = newTriangleStrip((numInterpolatedPoints*2)-2);
     mesh->material->blendPremultiplied();
-    mesh->material->shader=colorShader;
-//    mesh->material->textures.push_back(splineTexture);
+    mesh->material->shader=textureShader;
+    mesh->material->textures.push_back(splineTexture);
     splines.push_back(mesh);
   }
   
@@ -335,7 +310,7 @@ void SunEngine::startup()
     updateSpline(dv, numInterpolatedPoints, splines[i]);
   }
   
-  // apply circlePoints coordinates to debug meshes
+/*  // apply circlePoints coordinates to debug meshes
   for (u32 ci=0; ci<numCircles; ++ci)
   {
     for(u32 cp=0; cp<numSplines; ++cp)
@@ -345,60 +320,44 @@ void SunEngine::startup()
       Vec3 tv(p.x, p.y, 0);
       circleDots[idx]->transform = MatrixTranslation(tv);
     }
-  }
+  }*/
+  
+    sceneRenderFunc = [this] () {
+    glContext->clearColor(Color(.1, .3, .3, 0));
+    glContext->camera(cam);
+    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+    for(auto mesh : splines)
+    {
+      glContext->draw(mesh);
+    }
+
+  };
+
 }
 
 
 void SunEngine::update()
 {
   EventQueue::Container events = eventQueue->getCurrentQueue();
-  
-  int mp = 3;
-  
+    
   for(Event* event : events)
   {
     if(event->base.type == ET_WindowResize)
     {
       f32 w = event->windowResizeEvent.width;
       f32 h = event->windowResizeEvent.height;
-//      DOUT("updating viewport "<<int(w)<<"/"<<int(h));
+      DOUT("updating viewport "<<int(w)<<"/"<<int(h));
       cam->viewport(Rect(0,0,w,h));
     }
     else if(event->base.type == ET_MouseMoveEvent)
     {
-      controlPoints[mp].x = event->mouseEvent.x;
-      controlPoints[mp].y = event->mouseEvent.y;
     }
   }
 
   d += clock.deltaUpdate;
-  f32 v1 = sin(d);
-  f32 v2 = cos(d);
 
-  f32 ix = 50;
-  f32 iy = 80;
-  
-  for(u32 i=0; i<controlPoints.size();++i)
-  {
-    if(i != mp)
-    {
-      f32 f = sin(i)+cos(4*i);
-      controlPoints[i] = Vec2(cp2[i].x+v1*ix*f, cp2[i].y+v2*iy*f);
-    }
-  }
-
-  updateSpline(controlPoints, numInterpolatedPoints,triangulatedSpline);
-
-//  mainRenderFunc();
-  
-      glContext->clearColor(Color(.1, .3, .3, 0));
-    glContext->camera(cam);
-    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
-
-  for(auto mesh : splines)
-  {
-    glContext->draw(mesh);
-  }
+  mainRenderFunc();
 
 /*  for(u32 i=0; i<numSplines*numCircles; ++i)
   {

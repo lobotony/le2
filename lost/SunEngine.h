@@ -24,12 +24,8 @@ struct SunEngine : Engine
   Vec2 winSize;
   CameraPtr cam;
   
-  MeshPtr triangulatedSpline;
-  
   TexturePtr splineTexture;
 
-  vector<Vec2> controlPoints;
-  vector<Vec2> cp2;
   f32 d;
   
   FrameBufferPtr fb0;
