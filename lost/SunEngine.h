@@ -38,6 +38,11 @@ struct SunEngine : Engine
   
   f32 splineWidth;
   
+  CanvasPtr offscreenCanvas;
+  CanvasPtr hblurCanvas;
+  CanvasPtr vblurCanvas;
+  QuadPtr canvasQuad;
+  
   std::function<void(void)> sceneRenderFunc; // renders only the scene
   std::function<void(void)> mainRenderFunc; // render scene and postprocesing
   

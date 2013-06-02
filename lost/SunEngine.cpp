@@ -27,6 +27,8 @@
 #include "lost/FrameBuffer.h"
 #include "lost/Quad.h"
 
+#include "lost/Canvas.h"
+
 using namespace std;
 
 namespace lost
@@ -130,7 +132,16 @@ void SunEngine::fbsetup()
   fb1quad = Quad::create(fb1->colorBuffers[0]->texture, false);
   fb1quad->material->shader = vblurShader;
   fb1quad->material->color = whiteColor;
-  fb1quad->material->blendPremultiplied();  
+  fb1quad->material->blendPremultiplied();
+  
+  offscreenCanvas.reset(new Canvas(winSize));
+  hblurCanvas.reset(new Canvas(winSize));
+  vblurCanvas.reset(new Canvas(winSize));
+
+  canvasQuad = Quad::create(offscreenCanvas->framebuffer->texture(0), false);
+  canvasQuad->material->color = whiteColor;
+  canvasQuad->material->shader = textureShader;
+  canvasQuad->material->blendPremultiplied();
 }
 
 void SunEngine::startup()
@@ -150,7 +161,7 @@ void SunEngine::startup()
     
   fbsetup();
   
-  mainRenderFunc = [this] ()
+/*  mainRenderFunc = [this] ()
   {
     //////////////////////
     // framebuffer
@@ -196,6 +207,43 @@ void SunEngine::startup()
     fb0quad->material->shader = textureShader;
     fb0quad->material->color = Color(1,1,1,1);
     glContext->draw(fb0quad); 
+  };*/
+  
+  Color skyBlue(.4, .8, 1, 1);
+  
+  mainRenderFunc = [this] ()
+  {
+    // offscreen pass
+    offscreenCanvas->drawToCanvas(sceneRenderFunc);
+    
+    // horizontal blur pass
+    canvasQuad->material->setTexture(0, offscreenCanvas->framebuffer->texture(0));
+    canvasQuad->material->shader = vblurShader;
+    hblurCanvas->drawToCanvas([this]()
+    {
+      glContext->draw(canvasQuad);
+    });
+
+    // vertical blur pass
+    canvasQuad->material->setTexture(0, hblurCanvas->framebuffer->texture(0));
+    canvasQuad->material->shader = vblurShader;
+    vblurCanvas->drawToCanvas([this]()
+    {
+      glContext->draw(canvasQuad);
+    });
+    
+    // onscreen pass
+    glContext->bindDefaultFramebuffer();
+    
+    canvasQuad->material->setTexture(0, vblurCanvas->framebuffer->texture(0));
+    canvasQuad->material->shader = textureShader;
+    
+    glContext->clearColor(blackColor);
+    glContext->camera(cam);
+    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+    sceneRenderFunc();
+    glContext->draw(canvasQuad);
   };
   
   
@@ -203,10 +251,6 @@ void SunEngine::startup()
   updateSplines();
     
   sceneRenderFunc = [this] () {
-    glContext->clearColor(Color(0, 0, 0, 0));
-    glContext->camera(cam);
-    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
-
     for(auto mesh : splines)
     {
       glContext->draw(mesh);
@@ -241,7 +285,7 @@ void SunEngine::setupSplineTexture()
 void SunEngine::setupSplines()
 {
   numInterpolatedPoints = 50;
-  splineWidth = 22;
+  splineWidth = 202;
   d = 0;
   numCircles = 5;
   numSplines = 20;
@@ -260,6 +304,7 @@ void SunEngine::setupSplines()
     MeshPtr mesh = newTriangleStrip((numInterpolatedPoints*2)-2);
     mesh->material->blendPremultiplied();
     mesh->material->shader=textureShader;
+    mesh->material->color = whiteColor;
     mesh->material->textures.push_back(splineTexture);
     splines.push_back(mesh);
   }
@@ -376,9 +421,12 @@ void SunEngine::update()
 
   d += clock.deltaUpdate;
 
-  o1 = sin(d);
-  o2 = cos(d)/2;
-  o3 = sin(d)/3;
+
+  f32 ff = .1;
+
+  o1 = sin(d)*ff;
+  o2 = cos(d)/2*ff;
+  o3 = sin(d)/3*ff;
 
   updateSplines();
   mainRenderFunc();
