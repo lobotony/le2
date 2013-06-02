@@ -1,32 +1,18 @@
 #include "lost/SunEngine.h"
 
 #include "lost/Log.h"
-#include "lost/Bundle.h"
 #include "lost/Bitmap.h"
-#include "lost/Texture.h"
 #include "lost/Context.h"
-#include "lost/BufferLayout.h"
 #include "lost/Mesh.h"
-#include "lost/HybridIndexBuffer.h"
-#include "lost/HybridVertexBuffer.h"
 #include "lost/Camera2D.h"
-#include "lost/TruetypeFont.h"
-#include "lost/TextRender.h"
-#include "lost/TextMesh.h"
 #include "lost/Material.h"
-#include "lost/TextBuffer.h"
 #include <cmath>
-
-#include "guiro/UserInterface.h"
 #include "lost/ResourceManager.h"
-
 #include "lost/MeshAlgo.h"
 #include "lost/EventQueue.h"
 #include "lost/Event.h"
-
 #include "lost/FrameBuffer.h"
 #include "lost/Quad.h"
-
 #include "lost/Canvas.h"
 
 using namespace std;
@@ -106,7 +92,7 @@ void SunEngine::startup()
     
     // horizontal blur pass
     canvasQuad->material->setTexture(0, offscreenCanvas->framebuffer->texture(0));
-    canvasQuad->material->shader = vblurShader;
+    canvasQuad->material->shader = hblurShader;
     hblurCanvas->drawToCanvas([this]()
     {
       glContext->draw(canvasQuad);
