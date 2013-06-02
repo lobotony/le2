@@ -44,6 +44,10 @@ struct SunEngine : Engine
   
   ///////////////////
   
+  f32 o1;
+  f32 o2;
+  f32 o3;
+  
   u32 numCircles;
   u32 numSplines;
   Vec2 circleCenter;
@@ -61,6 +65,7 @@ struct SunEngine : Engine
   void fbsetup();
   void setupSplines();
   void updateSplines();
+  void setupSplineTexture();
 };
 
 }

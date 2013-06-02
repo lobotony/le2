@@ -144,36 +144,10 @@ void SunEngine::startup()
   winSize = Vec2(800, 600);
   cam = Camera2D::create(Rect(0,0,winSize.width, winSize.height));
   
-  splineWidth = 12;
   
   //////////////////////////////////////////
   /// SPLINE
-  
-  numInterpolatedPoints = 50;
     
-  Color splineBorderColor = Color(.39,.75,0.1,1);
-  Color splineColor = Color(.24, .55, .0, 1);
-  
-  BitmapPtr splineBitmap(new Bitmap(splineWidth+2, 1, GL_RGBA));
-  splineBitmap->clear(Color(0,0,0,0));
-  for(u32 i=1; i<(splineWidth-1); ++i)
-  {
-    splineBitmap->pixel(i, 0, splineColor);
-  }
-  
-  f32 borderWith = floorf(splineWidth/3);
-  for(u32 i=0; i<borderWith; ++i)
-  {
-    splineBitmap->pixel(i+1, 0, splineBorderColor);
-    splineBitmap->pixel(splineWidth-1-i, 0, splineBorderColor);
-  }
-    
-  splineBitmap->premultiplyAlpha();
-  splineTexture.reset(new Texture(splineBitmap));
-  splineTexture->filter(GL_LINEAR);
-  
-  d = 0;
-  
   fbsetup();
   
   mainRenderFunc = [this] ()
@@ -212,17 +186,16 @@ void SunEngine::startup()
     glBindFramebuffer(GL_FRAMEBUFFER, 0); // switch to default framebuffer
 
 
-    glContext->clearColor(Color(.1, .3, .3, 0));
+//    glContext->clearColor(Color(.1, .3, .3, 0));
+    glContext->clearColor(Color(0, 0, 0, 0));
     glContext->camera(cam);
     glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
-
-//    glContext->draw(triangulatedSpline);
     sceneRenderFunc();
 
     fb0quad->material->shader = textureShader;
-    fb0quad->material->color = Color(1,1,0,1);
-    glContext->draw(fb0quad);  
+    fb0quad->material->color = Color(1,1,1,1);
+    glContext->draw(fb0quad); 
   };
   
   
@@ -230,7 +203,7 @@ void SunEngine::startup()
   updateSplines();
     
   sceneRenderFunc = [this] () {
-    glContext->clearColor(Color(.1, .3, .3, 0));
+    glContext->clearColor(Color(0, 0, 0, 0));
     glContext->camera(cam);
     glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
@@ -241,12 +214,38 @@ void SunEngine::startup()
   };
 }
 
+void SunEngine::setupSplineTexture()
+{
+  Color splineBorderColor = Color(.39,.75,0.1,1);
+  Color splineColor = Color(.24, .55, .0, 1);  
+  BitmapPtr splineBitmap(new Bitmap(splineWidth+2, 1, GL_RGBA));
+  splineBitmap->clear(Color(0,0,0,0));
+  for(u32 i=1; i<(splineWidth-1); ++i)
+  {
+    splineBitmap->pixel(i, 0, splineColor);
+  }
+  
+  f32 borderWith = floorf(splineWidth/3);
+  for(u32 i=0; i<borderWith; ++i)
+  {
+    splineBitmap->pixel(i+1, 0, splineBorderColor);
+    splineBitmap->pixel(splineWidth-1-i, 0, splineBorderColor);
+  }
+    
+  splineBitmap->premultiplyAlpha();
+  splineTexture.reset(new Texture(splineBitmap));
+  splineTexture->filter(GL_LINEAR);
+}
+
 // one time setup, memory and meshes
 void SunEngine::setupSplines()
 {
+  numInterpolatedPoints = 50;
+  splineWidth = 22;
+  d = 0;
   numCircles = 5;
-  numSplines = 50;
-  minRadius = 50;
+  numSplines = 20;
+  minRadius = 5;
   maxRadius = 300;
   circleCenter = Vec2(winSize.width/2, winSize.height/2);
   dotSize = 7;
@@ -254,6 +253,7 @@ void SunEngine::setupSplines()
   circlePoints = new Vec2[numCircles*numSplines];
   circleRadius.resize(numCircles);
 
+  setupSplineTexture();
   // create spline meshes
   for(u32 i=0; i<numSplines; ++i)
   {
@@ -263,6 +263,7 @@ void SunEngine::setupSplines()
     mesh->material->textures.push_back(splineTexture);
     splines.push_back(mesh);
   }
+
 
 /*  // prepare debug dot meshes
   u32 numDots = numCircles * numSplines;
@@ -279,9 +280,7 @@ void SunEngine::setupSplines()
 // continuous update
 void SunEngine::updateSplines()
 {
-  minRadius = 50;
   maxRadius = min(winSize.width, winSize.height)/2;
-  DOUT(maxRadius);
   circleCenter = Vec2(winSize.width/2, winSize.height/2);  
   // precalculate radii
   for (u32 i=0; i<numCircles; ++i)
@@ -299,14 +298,18 @@ void SunEngine::updateSplines()
     {
       f32 f = ((f32)cp)/(f32(numSplines));
       f *= 2*M_PI;
-/*      if(ci==2)
+      if(ci==2)
       {
-        f+=.2;
+        f+=o2;
       }
       else if(ci==4)
       {
-        f-=.7;
-      }*/
+        f-=o1;
+      }
+      else if(ci==0)
+      {
+        f-=o3;
+      }
       f32 x = sinf(f)*r;
       f32 y = cosf(f)*r;
       Vec2 p = Vec2(x,y)+circleCenter;
@@ -372,6 +375,10 @@ void SunEngine::update()
   }
 
   d += clock.deltaUpdate;
+
+  o1 = sin(d);
+  o2 = cos(d)/2;
+  o3 = sin(d)/3;
 
   updateSplines();
   mainRenderFunc();
