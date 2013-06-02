@@ -36,63 +36,19 @@ namespace lost
 
 void SunEngine::updateSpline(const vector<Vec2>& cp, u32 numPoints, MeshPtr& triangles)
 {
-  uint32_t numVertices = numPoints;
   vector<Vec2> ip; // interpolated points
   vector<Vec2> nv; // tangent vectors
-  ip.reserve(numVertices);
-  nv.reserve(numVertices);
   
-  // a minimum of 4 control points is required for the initial segment.
-  // Each consecutive is made up by following point + 3 previous.
-  uint32_t numSegments = ((uint32_t)cp.size()-4)+1;
-  vector<uint32_t> pn; // number of points per segment
-  pn.reserve(numSegments);
-
-  // vertices spread evenly between segments
-  // leftovers are attached to last segment
-  uint32_t nps = numVertices / numSegments;
-  uint32_t pbudget = numVertices;
-  for(uint32_t i=0; i<numSegments; ++i)
-  {
-    if(2*nps > pbudget)
-    {
-      pn[i] = pbudget; // should only be the last one
-    }
-    else
-    {
-      pn[i] = nps;
-      pbudget -= nps;
-    }
-//    DOUT("seg "<<pn[i]);
-  }
+  catmullRom(cp, numPoints, ip);
+  calculateNormals(ip, nv);
   
-  uint32_t pointOffset = 0;
-  for(uint32_t segnum = 0; segnum < numSegments; ++segnum)
-  {
-    catmullRomSegment(ip, pointOffset, pn[segnum], cp, segnum);
-    pointOffset += pn[segnum];
-  }
-
-  // fix normal vectors
-  ASSERT(numVertices >= 2, "numVertices must be at least 2");
-  for(u32 i=0; i<(numVertices-1); ++i)
-  {
-    Vec2 tv = ip[i+1] - ip[i+0];
-    Vec2 tnv;
-    tnv.x = -tv.y;
-    tnv.y = tv.x;
-    normalise(tnv);
-    nv[i] = tnv;
-  }
-  nv[numVertices-1] = nv[numVertices-2];
-    
   // adjust triangle mesh, only writes to points
   f32 halfWidth = splineWidth / 2;
   u32 j=0;
   
-  f32 falloff = halfWidth / numVertices;
+  f32 falloff = halfWidth / numPoints;
   f32 hw = halfWidth;
-  for(u32 i=0; i<numVertices; i+=1)
+  for(u32 i=0; i<numPoints; i+=1)
   {
     Vec2 p = ip[i];
     Vec2 n = nv[i];
@@ -217,7 +173,7 @@ void SunEngine::setupSplineTexture()
 void SunEngine::setupSplines()
 {
   numInterpolatedPoints = 50;
-  splineWidth = 202;
+  splineWidth = 12;
   d = 0;
   numCircles = 5;
   numSplines = 20;
