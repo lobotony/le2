@@ -22,10 +22,10 @@ MeshPtr newTriangleStrip(u32 numTriangles)
   u32 numVertices = numTriangles + 2;
   u32 numIndices = numVertices;
   
-  DOUT("-------------- newTriangleStrip");
+/*  DOUT("-------------- newTriangleStrip");
   DOUT("numTriangles "<<numTriangles);
   DOUT("numVertices "<< numVertices);
-  DOUT("numIndices "<< numIndices);
+  DOUT("numIndices "<< numIndices);*/
   
   result->vertexBuffer->reset(numVertices);
   result->indexBuffer->reset(numIndices);

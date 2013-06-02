@@ -294,7 +294,7 @@ namespace lost
       switch (err)
       {
         case GL_FRAMEBUFFER_COMPLETE:
-          DOUT("Framebuffer ok");
+//          DOUT("Framebuffer ok");
           break;
         CB(GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT);
         CB(GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT);
