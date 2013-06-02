@@ -66,6 +66,7 @@
 		EACD24B015D852B300453F75 /* Rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EACD24AF15D852B300453F75 /* Rect.cpp */; };
 		EACD24B315D8531200453F75 /* Vec2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EACD24B115D8531200453F75 /* Vec2.cpp */; };
 		EACD24B415D8531B00453F75 /* Bitmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EACD24A815D851AB00453F75 /* Bitmap.cpp */; };
+		EAD336E1175B6D07001A4747 /* Canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD336DF175B6D07001A4747 /* Canvas.cpp */; };
 		EAD599E41756081E00E09947 /* FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD599E21756081E00E09947 /* FrameBuffer.cpp */; };
 		EAD599E71756082E00E09947 /* RenderBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD599E51756082E00E09947 /* RenderBuffer.cpp */; };
 		EAF0438715F7A88E0095549F /* HostBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0815F7A87B004EE290 /* HostBuffer.cpp */; };
@@ -232,6 +233,8 @@
 		EACD24B115D8531200453F75 /* Vec2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec2.cpp; sourceTree = "<group>"; };
 		EACD24B215D8531200453F75 /* Vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec2.h; sourceTree = "<group>"; };
 		EACD24B515D853D300453F75 /* lmath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lmath.h; sourceTree = "<group>"; };
+		EAD336DF175B6D07001A4747 /* Canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Canvas.cpp; sourceTree = "<group>"; };
+		EAD336E0175B6D07001A4747 /* Canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Canvas.h; sourceTree = "<group>"; };
 		EAD599E21756081E00E09947 /* FrameBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameBuffer.cpp; sourceTree = "<group>"; };
 		EAD599E31756081E00E09947 /* FrameBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameBuffer.h; sourceTree = "<group>"; };
 		EAD599E51756082E00E09947 /* RenderBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderBuffer.cpp; sourceTree = "<group>"; };
@@ -405,6 +408,8 @@
 				EA0C316115FD25A100661552 /* Camera2D.h */,
 				EA0C316215FD25A100661552 /* Camera3D.cpp */,
 				EA0C316315FD25A100661552 /* Camera3D.h */,
+				EAD336DF175B6D07001A4747 /* Canvas.cpp */,
+				EAD336E0175B6D07001A4747 /* Canvas.h */,
 				EA6B8A341742B16900733FA9 /* Clock.cpp */,
 				EA6B8A351742B16900733FA9 /* Clock.h */,
 				EACD24AD15D852AC00453F75 /* Color.cpp */,
@@ -705,6 +710,7 @@
 				EAD599E41756081E00E09947 /* FrameBuffer.cpp in Sources */,
 				EAD599E71756082E00E09947 /* RenderBuffer.cpp in Sources */,
 				EA4AC4481758B3450083C751 /* SunEngine.cpp in Sources */,
+				EAD336E1175B6D07001A4747 /* Canvas.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -81,6 +81,7 @@ namespace lost
   LE_SP(TextMesh);
   LE_SP(Quad);
   LE_SP(FrameBuffer);
+  LE_SP(Canvas);
 }
 
 #endif
