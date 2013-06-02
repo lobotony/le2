@@ -27,15 +27,6 @@ struct SunEngine : Engine
   TexturePtr splineTexture;
 
   f32 d;
-  
-  FrameBufferPtr fb0;
-  QuadPtr fb0quad;
-
-  FrameBufferPtr fb1;
-  QuadPtr fb1quad;
-
-  CameraPtr fbcam;
-  
   f32 splineWidth;
   
   CanvasPtr offscreenCanvas;

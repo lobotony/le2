@@ -114,26 +114,6 @@ void SunEngine::updateSpline(const vector<Vec2>& cp, u32 numPoints, MeshPtr& tri
 
 void SunEngine::fbsetup()
 {
-  Vec2 fbsize = winSize;
-
-  fbcam = Camera2D::create(Rect(0,0,fbsize.width,fbsize.height));
-  
-  fb0 = FrameBuffer::create(fbsize, GL_RGBA);
-  fb0->check();
-  glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
-  fb0quad = Quad::create(fb0->colorBuffers[0]->texture, false);
-  fb0quad->material->shader = vblurShader;
-  fb0quad->material->color = whiteColor;
-  fb0quad->material->blendPremultiplied();
-
-  fb1 = FrameBuffer::create(fbsize, GL_RGBA);
-  fb1->check();
-  glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
-  fb1quad = Quad::create(fb1->colorBuffers[0]->texture, false);
-  fb1quad->material->shader = vblurShader;
-  fb1quad->material->color = whiteColor;
-  fb1quad->material->blendPremultiplied();
-  
   offscreenCanvas.reset(new Canvas(winSize));
   hblurCanvas.reset(new Canvas(winSize));
   vblurCanvas.reset(new Canvas(winSize));
@@ -160,55 +140,7 @@ void SunEngine::startup()
   /// SPLINE
     
   fbsetup();
-  
-/*  mainRenderFunc = [this] ()
-  {
-    //////////////////////
-    // framebuffer
-   
-    // pass 1: original into buffer 0
-    fb0->bind();
-    glContext->clearColor(Color(0, 0, 0, 0));
-    glContext->camera(fbcam);
-    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
-
-    sceneRenderFunc();
-
-    // pass 2: horizontal blur into buffer 1
-    fb1->bind();
-    glContext->clearColor(Color(0, 0, 0, 0));
-    glContext->camera(fbcam);
-    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
-
-    fb0quad->material->shader = hblurShader;
-    glContext->draw(fb0quad);
     
-    // pass 3: vertical blur into buffer 0
-    fb0->bind();
-    glContext->clearColor(Color(0, 0, 0, 0));
-    glContext->camera(fbcam);
-    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
-
-    fb1quad->material->shader = vblurShader;
-    glContext->draw(fb1quad);
-    
-    //////////////////////
-    // screen pass
-    glBindFramebuffer(GL_FRAMEBUFFER, 0); // switch to default framebuffer
-
-
-//    glContext->clearColor(Color(.1, .3, .3, 0));
-    glContext->clearColor(Color(0, 0, 0, 0));
-    glContext->camera(cam);
-    glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
-
-    sceneRenderFunc();
-
-    fb0quad->material->shader = textureShader;
-    fb0quad->material->color = Color(1,1,1,1);
-    glContext->draw(fb0quad); 
-  };*/
-  
   Color skyBlue(.4, .8, 1, 1);
   
   mainRenderFunc = [this] ()
@@ -303,23 +235,11 @@ void SunEngine::setupSplines()
   {
     MeshPtr mesh = newTriangleStrip((numInterpolatedPoints*2)-2);
     mesh->material->blendPremultiplied();
-    mesh->material->shader=textureShader;
-    mesh->material->color = whiteColor;
-    mesh->material->textures.push_back(splineTexture);
+    mesh->material->shader=colorShader;
+    mesh->material->color = greenColor;
+//    mesh->material->textures.push_back(splineTexture);
     splines.push_back(mesh);
-  }
-
-
-/*  // prepare debug dot meshes
-  u32 numDots = numCircles * numSplines;
-  for(u32 i=0; i<numDots; ++i)
-  {
-    QuadPtr m = Quad::create(Rect(0,0,dotSize, dotSize));
-    m->material->color = Color(1,0,0,1);
-    m->material->shader = colorShader;
-    circleDots.push_back(m);
-  }*/
-  
+  }  
 }
 
 // continuous update
@@ -384,19 +304,7 @@ void SunEngine::updateSplines()
     dv.push_back(cps.back());
     
     updateSpline(dv, numInterpolatedPoints, splines[i]);
-  }
-  
-  /*  // apply circlePoints coordinates to debug meshes
-  for (u32 ci=0; ci<numCircles; ++ci)
-  {
-    for(u32 cp=0; cp<numSplines; ++cp)
-    {
-      u32 idx = ci*numSplines + cp;
-      Vec2 p = circlePoints[idx];
-      Vec3 tv(p.x, p.y, 0);
-      circleDots[idx]->transform = MatrixTranslation(tv);
-    }
-  }*/
+  }  
 }
 
 void SunEngine::update()
@@ -430,12 +338,6 @@ void SunEngine::update()
 
   updateSplines();
   mainRenderFunc();
-
-/*  for(u32 i=0; i<numSplines*numCircles; ++i)
-  {
-    auto mesh = circleDots[i];
-    glContext->draw(mesh);
-  }*/
 }
 
 void SunEngine::shutdown()
