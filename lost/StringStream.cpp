@@ -15,6 +15,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include "lost/StringStream.h"
+#include "lost/types.h"
 
 namespace lost
 {
@@ -117,4 +118,25 @@ lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec3& v)
   s << "( "<<v.x<<" / "<<v.y<<" / "<<v.z<<" )";
   return s;
 }
+
+lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec4& v)
+{
+  s << "( "<<v.x<<" / "<<v.y<<" / "<<v.z<<" / "<<v.w<<" )";
+  return s;
+}
+
+lost::StringStream& operator<<(lost::StringStream& s, const lost::Matrix& v)
+{
+  for(lost::u32 i=0; i<lost::Matrix::numvals; ++i)
+  {
+    s << "\n" ;
+    for(lost::u32 j=0; j<4; ++j)
+    {
+      s << v.col(j) << "\n";
+    }
+  }
+  return s;
+}
+
+
 

@@ -22,6 +22,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "Vec2.h"
 #include "Vec3.h"
+#include "Matrix.h"
 
 namespace lost
 {
@@ -52,5 +53,7 @@ lost::StringStream& operator<<(lost::StringStream& s, const char* v);
 lost::StringStream& operator<<(lost::StringStream& s, const lost::string& v);
 lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec2& v);
 lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec3& v);
+lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec4& v);
+lost::StringStream& operator<<(lost::StringStream& s, const lost::Matrix& v);
 
 #endif
