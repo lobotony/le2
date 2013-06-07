@@ -171,12 +171,12 @@ void DemoEngine::startup()
   tb.renderAllPhysicalLines(rt2);
   rt2->material->blendPremultiplied();
   rt2->material->shader = textureShader;
-  rt2->transform = MatrixTranslation(Vec3(200,200,0));
+  rt2->transform = Matrix::translate(Vec3(200,200,0));
 
   rt1 = render("I vant to drink your blood!", font, false);
   rt1->material->shader = textureShader;
   rt1->material->blendPremultiplied();
-  rt1->transform = MatrixTranslation(Vec3(50,50,0));
+  rt1->transform = Matrix::translate(Vec3(50,50,0));
 
   utf32_string utf32s;
   utf32s = 0xf085;
@@ -184,7 +184,7 @@ void DemoEngine::startup()
   rt3->material->shader = textureShader;
   rt3->material->color = blackColor;
   rt3->material->blendPremultiplied();
-  rt3->transform = MatrixTranslation(Vec3(600,300,0));
+  rt3->transform = Matrix::translate(Vec3(600,300,0));
 
 
   coloredQuad = Quad::create(Rect(0,0,50,50));
@@ -195,16 +195,16 @@ void DemoEngine::startup()
   texturedQuad->material->shader = textureShader;
   texturedQuad->material->color = whiteColor;
   texturedQuad->material->blendNormal();
-  texturedQuad->transform = MatrixTranslation(Vec3(100,100,0));
+  texturedQuad->transform = Matrix::translate(Vec3(100,100,0));
   
   dot = Quad::create(Rect(0,0,dotsize,dotsize));
   dot->material->shader = colorShader;
   dot->material->color = greenColor;
 
-  dot->transform = MatrixTranslation(Vec3(10,10,0));
+  dot->transform = Matrix::translate(Vec3(10,10,0));
 
   dot2 = dot->clone();
-  dot2->transform = MatrixTranslation(Vec3(30,30,0));
+  dot2->transform = Matrix::translate(Vec3(30,30,0));
 
   lines = newLineStrip(4);
   lines->material->shader = colorShader;
@@ -269,7 +269,7 @@ void DemoEngine::startup()
   for(uint32_t i=0; i<controlPoints.size(); ++i)
   {
     MeshPtr p = dot->clone();
-    p->transform = MatrixTranslation(Vec3(controlPoints[i].x-(dotsize/2), controlPoints[i].y-(dotsize/2), 0));
+    p->transform = Matrix::translate(Vec3(controlPoints[i].x-(dotsize/2), controlPoints[i].y-(dotsize/2), 0));
     cpdots.push_back(p);
   }
   
@@ -301,9 +301,7 @@ void DemoEngine::startup()
   fb1quad = Quad::create(fb1->colorBuffers[0]->texture, false);
   fb1quad->material->shader = vblurShader;
   fb1quad->material->color = whiteColor;
-  fb1quad->material->blendPremultiplied();
-  
-  
+  fb1quad->material->blendPremultiplied();  
 }
 
 

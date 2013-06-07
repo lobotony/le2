@@ -268,51 +268,5 @@ bool operator!=(const Matrix& lhs, const Matrix& rhs)
   return !(lhs == rhs);
 }
 
-MatrixRotation::MatrixRotation(const Vec3& inAngles)
-{
-  initRotateX(inAngles.x);
-  initRotateY(inAngles.y);
-  initRotateZ(inAngles.z);
-}
-
-MatrixRotX::MatrixRotX(float inAngle)
-{
-  initRotateX(inAngle);
-}
-
-MatrixRotY::MatrixRotY(float inAngle)
-{
-  initRotateY(inAngle);
-}
-
-MatrixRotZ::MatrixRotZ(float inAngle)
-{
-  initRotateZ(inAngle);
-}
-
-MatrixTranslation::MatrixTranslation(const Vec3& inTranslation)
-{
-  initTranslation(inTranslation);
-}
-
-MatrixOrtho::MatrixOrtho(const Rect& rect, const Vec2& nearAndFar)
-{
-  initOrtho(rect, nearAndFar);
-}
-
-MatrixPerspective::MatrixPerspective(const float& fovy, const float& aspect, const Vec2& nearAndFar)
-{
-  initPerspective(fovy, aspect, nearAndFar);
-}
-
-MatrixLookAt::MatrixLookAt(const Vec3& eye, const Vec3& center, const Vec3& up)
-{
-  initLookAt(eye, center, up);
-}
-
-MatrixScaling::MatrixScaling(const Vec3& scaling)
-{
-  initScaling(scaling);
-}
 }
 

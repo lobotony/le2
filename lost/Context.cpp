@@ -121,6 +121,8 @@ map<void*, Context*> glContext2lostGlContext;
       }
       clearVertexAttributeEnabled();
       clearVertexAttributeRequired();
+      
+      modelViewStack.push_back(Matrix::identity());
     }
     
     Context::~Context()
@@ -139,11 +141,6 @@ map<void*, Context*> glContext2lostGlContext;
     {
       currentCam.reset();
       currentShader.reset();
-    }
-
-    void Context::bindFramebuffer(GLuint fbo)
-    {
-      glBindFramebuffer(GL_FRAMEBUFFER, fbo); GLASSERT;
     }
 
     void Context::bindDefaultFramebuffer()
@@ -428,14 +425,12 @@ map<void*, Context*> glContext2lostGlContext;
       }
       bind(ib->gpuBuffer.get());
 
-      // store the enabled vertex attributes
-      vector<GLint> enabledVertexAttributes;
       // don't do anything if there's no shader
       if(currentShader)
-      {
+      {      
         // set automatic uniforms if the shader wants them
         if(currentShader->hasUniform("projectionMatrix")) { currentShader->set("projectionMatrix", currentCam->projectionMatrix() * currentCam->viewMatrix()); }
-        if(currentShader->hasUniform("modelViewMatrix")) { currentShader->set("modelViewMatrix", mesh->transform); }
+        if(currentShader->hasUniform("modelViewMatrix")) { currentShader->set("modelViewMatrix", mesh->transform * modelViewStack.back()); }
         if(currentShader->hasUniform("viewport")) { Rect v = currentCam->viewport(); currentShader->set("viewport", Vec2(v.width, v.height)); }
         if(currentShader->hasUniform("depth")) { currentShader->set("depth", currentCam->depth()); }
         if(currentShader->hasUniform("color")) { currentShader->set("color", mesh->material->color); }
@@ -462,7 +457,6 @@ map<void*, Context*> glContext2lostGlContext;
             const AttributePointerConfig apc = vb->pointerConfigForUsageType(ut);
             vertexAttributeEnable(va.location, true);
             glVertexAttribPointer(va.location, apc.size, apc.type, apc.normalise, apc.stride, apc.offset);GLDEBUG;
-            enabledVertexAttributes.push_back(va.location);
           }
         }
       }
@@ -500,4 +494,29 @@ map<void*, Context*> glContext2lostGlContext;
     {
       glBindBuffer(buffer->target, buffer->buffer);GLDEBUG;
     }
+  
+void Context::pushMatrix(GLenum mode, const Matrix& matrix)
+{
+  Matrix current = matrix * modelViewStack.back();
+  modelViewStack.push_back(current);
+}
+
+void Context::popMatrix(GLenum mode)
+{
+  if(modelViewStack.size() > 1)
+  {
+    modelViewStack.pop_back();
+  }
+}
+
+void Context::pushModelViewMatrix(const Matrix& matrix)
+{
+  pushMatrix(GL_MODELVIEW, matrix);
+}
+
+void Context::popModelViewMatrix()
+{
+  popMatrix(GL_MODELVIEW);
+}
+  
 }

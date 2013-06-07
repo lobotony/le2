@@ -39,10 +39,7 @@ Vec3 Camera3D::position()
   Vec3 result = mPosition;
   if (stickToTarget())
   {
-    MatrixRotX rotX(mRotation.x);
-    MatrixRotY rotY(mRotation.y);
-    MatrixRotZ rotZ(mRotation.z);
-    result = target() + (rotZ * rotY * rotX * (mDirection * -1.0f));
+    result = target() + (Matrix::rotateZ(mRotation.z) * Matrix::rotateY(mRotation.y) * Matrix::rotateX(mRotation.x) * (mDirection * -1.0f));
   }
   return result;
 }
@@ -52,10 +49,7 @@ Vec3 Camera3D::direction()
   Vec3 result = mDirection;
   if (!stickToTarget())
   {
-    MatrixRotX rotX(mRotation.x);
-    MatrixRotY rotY(mRotation.y);
-    MatrixRotZ rotZ(mRotation.z);
-    result = rotZ * rotY * rotX * result;
+    result = Matrix::rotateZ(mRotation.z) * Matrix::rotateY(mRotation.y) * Matrix::rotateX(mRotation.x) * result;
   }
   return result;
 }
@@ -77,10 +71,7 @@ Vec3 Camera3D::target()
 
 Vec3 Camera3D::up()
 {
-  MatrixRotX rotX(mRotation.x);
-  MatrixRotY rotY(mRotation.y);
-  MatrixRotZ rotZ(mRotation.z);
-  return rotZ * rotY * rotX * Vec3(0.0f, 1.0f, 0.0f);
+  return Matrix::rotateZ(mRotation.z) * Matrix::rotateY(mRotation.y) * Matrix::rotateX(mRotation.x) * Vec3(0.0f, 1.0f, 0.0f);
 }
 
 float Camera3D::fovY()
@@ -122,18 +113,15 @@ void Camera3D::move(const Vec3& deltaMove)
 {
   if (stickToTarget())
   {
-    MatrixTranslation translationMatrix(Vec3(0.0f, 0.0f, deltaMove.z));
+    Matrix translationMatrix = Matrix::translate(Vec3(0.0f, 0.0f, deltaMove.z));
     Vec3 currentTarget(target());
     position(translationMatrix * mPosition);
     target(currentTarget);
   }
   else
   {
-    MatrixRotX        rotX(mRotation.x);
-    MatrixRotY        rotY(mRotation.y);
-    MatrixRotZ        rotZ(mRotation.z);
-    Vec3              newDelta(rotZ * rotY * rotX * deltaMove);
-    MatrixTranslation translationMatrix(newDelta);
+    Vec3              newDelta(Matrix::rotateZ(mRotation.z) * Matrix::rotateY(mRotation.y) * Matrix::rotateX(mRotation.x) * deltaMove);
+    Matrix translationMatrix = Matrix::translate(newDelta);
     position(translationMatrix * mPosition);
   }
   needsUpdate = true;
@@ -162,9 +150,9 @@ void Camera3D::update()
 {
   if (needsUpdate)
   {
-    mViewMatrix = MatrixLookAt(position(), target(), up());
+    mViewMatrix = Matrix::lookAt(position(), target(), up());
     double aspectRatio = (double)mViewport.width / (double)mViewport.height;
-    mProjectionMatrix = MatrixPerspective(mFovY, (float)aspectRatio, mDepth);
+    mProjectionMatrix = Matrix::perspective(mFovY, (float)aspectRatio, mDepth);
     needsUpdate = false;
   }
 }
