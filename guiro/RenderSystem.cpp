@@ -50,7 +50,7 @@ void RenderSystem::windowResized(const Vec2& newSize)
 {
   DOUT("");
   canvas.reset(new Canvas(newSize));
-  canvasQuad = Quad::create(canvas->texture());
+  canvasQuad = Quad::create(canvas->texture(), false);
   canvasQuad->material->shader = _engineInstance->resourceManager->shader("resources/glsl/texture");
   canvasQuad->material->blendPremultiplied();
   uicam.reset(new Camera2D(Rect(0,0,newSize)));
@@ -67,7 +67,8 @@ void RenderSystem::draw(Context* glContext, const ViewPtr& rootView)
 void RenderSystem::draw(Context* glContext, const LayerPtr& layer)
 {
   canvas->drawToCanvas([this, glContext, layer](){
-    bgquad->transform = Matrix::scale(Vec3(layer->rect.width, layer->rect.height, 1));
+    Rect r = layer->rect;
+    bgquad->transform = Matrix::translate(Vec3(r.x, r.y, 0)) * Matrix::scale(Vec3(layer->rect.width, layer->rect.height, 1));
     bgquad->material->color = layer->backgroundColor;
     bgquad->material->shader = _engineInstance->resourceManager->shader("resources/glsl/color");
     glContext->draw(bgquad);
