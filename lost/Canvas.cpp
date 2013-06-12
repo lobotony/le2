@@ -33,5 +33,10 @@ namespace lost
 
     sceneFunc();
   }
+  
+  TexturePtr Canvas::texture()
+  {
+    return framebuffer->texture(0);
+  }
 
 }
