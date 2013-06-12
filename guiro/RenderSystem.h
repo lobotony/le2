@@ -12,6 +12,18 @@ struct RenderSystem
   ~RenderSystem();
   
   void draw(Context* glContext, const ViewPtr& rootView);
+  
+  void windowResized(const Vec2& newSize);
+  
+private:
+  CanvasPtr canvas;
+  QuadPtr canvasQuad;
+  Camera2DPtr uicam;
+  
+  void draw(Context* glContext, const LayerPtr& layer);
+  
+  
+  MeshPtr bgquad;
 };
 }
 
