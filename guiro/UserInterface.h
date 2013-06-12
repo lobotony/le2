@@ -5,6 +5,7 @@
 #include "guiro/EventSystem.h"
 #include "guiro/UpdateSystem.h"
 #include "guiro/RenderSystem.h"
+#include "lost/EventQueue.h"
 
 namespace lost
 {
@@ -16,7 +17,7 @@ struct UserInterface
   UserInterface();
   ~UserInterface();
   
-  void update();
+  void update(const EventQueue::Container& events);
   void draw(Context* glContext);
   
   EventSystem eventSystem;
