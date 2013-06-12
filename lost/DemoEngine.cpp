@@ -307,7 +307,7 @@ void DemoEngine::startup()
 
 void DemoEngine::update()
 {
-  EventQueue::Container events = eventQueue->getCurrentQueue();
+  EventQueue::Container& events = eventQueue->getCurrentQueue();
   
   int mp = 3;
   
@@ -413,10 +413,7 @@ void DemoEngine::update()
   for(uint32_t i=0; i<cpdots.size(); ++i)
   {
     glContext->draw(cpdots[i]);
-  }*/
-  
-  ui->update();
-  ui->draw(glContext);
+  }*/  
 }
 
 void DemoEngine::shutdown()

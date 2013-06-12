@@ -3,6 +3,7 @@
 #include "lost/EventQueue.h"
 #include "lost/Context.h"
 #include "lost/ResourceManager.h"
+#include "guiro/UserInterface.h"
 
 namespace lost
 {
@@ -36,6 +37,7 @@ void Engine::doStartup()
   // engine startup
   glContext = new Context;
   resourceManager = new ResourceManager;
+  ui = new UserInterface;
   // user startup
   startup();
 }
@@ -44,6 +46,8 @@ void Engine::doUpdate()
 {
   clock.update();
   update();
+  ui->update(eventQueue->getCurrentQueue());
+  ui->draw(glContext);
   eventQueue->swap();
 }
 
