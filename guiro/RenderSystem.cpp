@@ -39,7 +39,9 @@ RenderSystem::RenderSystem()
   bgquad->material->shader = _engineInstance->resourceManager->shader("resources/glsl/color");
   bgquad->material->color = whiteColor;
   
-  windowResized(Vec2(0,0)); // init so draw resources are not NULL, FIXME: take a close look at startup equence and event flow to avoid this?
+  // calling windowResized here prevents the render system from starting up with null framebuffer
+  // we have to use 1,1 as minimum since a 0,0 framebuffer will produce GL errors should it get used. 
+  windowResized(Vec2(1,1));
 }
 
 RenderSystem::~RenderSystem()
