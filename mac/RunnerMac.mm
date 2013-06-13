@@ -7,6 +7,8 @@
 #import "lost/Engine.h"
 #import "LEWindow.h"
 #include "lost/Log.h"
+#include "lost/EventPool.h"
+#include "lost/EventQueue.h"
 
 lost::Engine* _engineInstance = NULL;
 
@@ -60,7 +62,9 @@ void run(Engine* engine)
   [app setDelegate: appDelegate];
 
   // setup window and GL view
-  CGRect fr = CGRectMake(0, 0, 800, 600);
+  CGFloat defaultWindowWidth = 800;
+  CGFloat defaultWindowHeight = 600;
+  CGRect fr = CGRectMake(0, 0, defaultWindowWidth, defaultWindowHeight);
   const NSOpenGLPixelFormatAttribute windowedAttributes[] =
   {
     NSOpenGLPFADoubleBuffer,
@@ -85,6 +89,13 @@ void run(Engine* engine)
   [[glview openGLContext] makeCurrentContext];
   _engineInstance->doStartup();
   [NSOpenGLContext clearCurrentContext]; // then clear the context for this thread, so it's later only active on the render thread
+
+  // add a resize event so engine gets correct window size on first update() call
+  lost::Event* event = _engineInstance->eventPool->borrowEvent();
+  event->base.type = lost::ET_WindowResize;
+  event->windowResizeEvent.width = defaultWindowWidth;
+  event->windowResizeEvent.height = defaultWindowHeight;
+  _engineInstance->eventQueue->addEventToNextQueue(event);
   
   LEWindow* window = [[LEWindow alloc]
                       initWithContentRect: r
