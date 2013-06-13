@@ -24,7 +24,7 @@ void EventQueue::addEventToNextQueue(Event* event)
   _mutex->unlock();
 }
 
-EventQueue::Container& EventQueue::getCurrentQueue()
+const EventQueue::Container& EventQueue::getCurrentQueue()
 {
   return *currentQ;
 }

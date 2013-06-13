@@ -30,7 +30,7 @@ struct EventQueue
   ~EventQueue();
 
   void addEventToNextQueue(Event* event); // add an event to the queue for the next frame. Use this from the UI thread
-  Container& getCurrentQueue(); // returns the queue whose events should be read and consumed next. Use this from the engine thread
+  const Container& getCurrentQueue(); // returns the queue whose events should be read and consumed next. Use this from the engine thread
   void swap();
   
 

@@ -307,7 +307,7 @@ void DemoEngine::startup()
 
 void DemoEngine::update()
 {
-  EventQueue::Container& events = eventQueue->getCurrentQueue();
+  const EventQueue::Container& events = eventQueue->getCurrentQueue();
   
   int mp = 3;
   
