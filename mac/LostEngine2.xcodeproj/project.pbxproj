@@ -113,6 +113,7 @@
 		EA0EEAFF15E67804000CBC13 /* Matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
 		EA4AC4461758B3450083C751 /* SunEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SunEngine.cpp; sourceTree = "<group>"; };
 		EA4AC4471758B3450083C751 /* SunEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunEngine.h; sourceTree = "<group>"; };
+		EA52D53C176A083000BB3DC3 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = types.h; path = ../guiro/types.h; sourceTree = "<group>"; };
 		EA6983BA172EF9BF00B4BA2E /* MeshAlgo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshAlgo.cpp; sourceTree = "<group>"; };
 		EA6983BB172EF9BF00B4BA2E /* MeshAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshAlgo.h; sourceTree = "<group>"; };
 		EA6B8A2C1742A4D800733FA9 /* DemoEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoEngine.cpp; sourceTree = "<group>"; };
@@ -538,6 +539,7 @@
 				EAF357FC1726C79200824CF2 /* Frame.h */,
 				EAF3582C17287B4000824CF2 /* RenderSystem.cpp */,
 				EAF3582D17287B4000824CF2 /* RenderSystem.h */,
+				EA52D53C176A083000BB3DC3 /* types.h */,
 				EAF3580A1726DECA00824CF2 /* UpdateSystem.cpp */,
 				EAF3580B1726DECA00824CF2 /* UpdateSystem.h */,
 				EAF357FF1726C79200824CF2 /* UserInterface.cpp */,
