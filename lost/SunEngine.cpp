@@ -32,7 +32,7 @@ void SunEngine::updateSpline(const vector<Vec2>& cp, u32 numPoints, MeshPtr& tri
   f32 halfWidth = splineWidth / 2;
   u32 j=0;
   
-  f32 falloff = halfWidth / numPoints;
+//  f32 falloff = halfWidth / numPoints;
   f32 hw = halfWidth;
   for(u32 i=0; i<numPoints; i+=1)
   {
@@ -49,7 +49,7 @@ void SunEngine::updateSpline(const vector<Vec2>& cp, u32 numPoints, MeshPtr& tri
 //    DOUT("p "<< p << " n "<<n);
 //    DOUT("left "<<leftPoint<<" right "<<rightPoint );
     j+=2;
-    hw -= falloff;
+//    hw -= falloff;
   }
   
 }
@@ -177,9 +177,9 @@ void SunEngine::setupSplines()
   {
     MeshPtr mesh = newTriangleStrip((numInterpolatedPoints*2)-2);
     mesh->material->blendPremultiplied();
-    mesh->material->shader=colorShader;
-    mesh->material->color = greenColor;
-//    mesh->material->textures.push_back(splineTexture);
+    mesh->material->shader=textureShader;
+    mesh->material->color = whiteColor;
+    mesh->material->textures.push_back(splineTexture);
     splines.push_back(mesh);
   }  
 }
@@ -251,7 +251,7 @@ void SunEngine::updateSplines()
 
 void SunEngine::update()
 {
-  EventQueue::Container events = eventQueue->getCurrentQueue();
+  const EventQueue::Container& events = eventQueue->getCurrentQueue();
     
   for(Event* event : events)
   {
