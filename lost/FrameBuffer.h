@@ -102,9 +102,7 @@ namespace lost
     void check();
 
     TexturePtr texture(u32 idx) { return colorBuffers[idx]->texture; }
-    
-    void resize(const Vec2& size);
-    
+        
     void bind();
 
     static void setup();

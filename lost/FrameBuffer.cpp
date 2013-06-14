@@ -144,12 +144,6 @@ namespace lost
       if (renderBuffer) renderBuffer.reset();
     }
 
-    void FrameBuffer::Attachment::resize(const Vec2& size)
-    {
-      this->size = size;
-      update();
-    }
-
     void FrameBuffer::Attachment::resetBitFormat(GLenum bitFormat)
     {
       this->bitFormat = bitFormat;
@@ -205,12 +199,8 @@ namespace lost
 
     FrameBuffer::FrameBuffer(const Vec2& size, GLenum colorBits, GLenum depthBits, GLenum stencilBits)
     {
-//      Vec2 correctedSize((f32)nextPowerOf2((u32)size.width), (f32)nextPowerOf2((u32)size.height));
-      Vec2 correctedSize(size);
-//      correctedSize.x = fmax(correctedSize.x, correctedSize.y);
-//      correctedSize.y = fmax(correctedSize.x, correctedSize.y);
-      DOUT("creating framebuffer with size "<<int(correctedSize.x)<<" "<<int(correctedSize.y));
-      this->size = correctedSize;
+      DOUT("creating framebuffer with size "<<int(size.x)<<" "<<int(size.y));
+      this->size = size;
 
       glGenFramebuffers(1, &buffer); GLASSERT;
 
@@ -305,74 +295,9 @@ namespace lost
           EOUT("inconsistent framebuffer: "<<err);
       }
     }
-
-    void FrameBuffer::resize(const Vec2& size)
-    {
-      Vec2 correctedSize((f32)nextPowerOf2((u32)size.width), (f32)nextPowerOf2((u32)size.height));
-      correctedSize.x = fmaxf(correctedSize.x, correctedSize.y);
-      correctedSize.y = fmaxf(correctedSize.x, correctedSize.y);
-      this->size = correctedSize;
-      for (map<uint8_t, AttachmentPtr>::iterator idx = colorBuffers.begin(); idx != colorBuffers.end(); ++idx)
-      {
-        idx->second->resize(size);
-      }
-      if (depthBuffer) depthBuffer->resize(size);
-      if (stencilBuffer) stencilBuffer->resize(size);
-    }
-
+  
     void FrameBuffer::bind()
     {
       glBindFramebuffer(GL_FRAMEBUFFER, buffer);GLASSERT;
-    }
-
-    /*
-     * Produces some debug output regarding FBO sizing and bit formats
-     */
-    void FrameBuffer::setup()
-    {
-      FrameBufferPtr fb;
-      /*
-       * defaults
-       */
-      Vec2 size(0,0);
-#if !TARGET_IPHONE_SIMULATOR && !TARGET_OS_IPHONE && !defined ANDROID
-      GLenum color = GL_RGBA8;
-      GLenum depth = GL_DEPTH_COMPONENT32;
-#else
-      GLenum color = GL_RGBA;
-      GLenum depth = GL_DEPTH_COMPONENT24;
-#endif      
-      bool done = false;
-      unsigned int step = 1;
-
-      IOUT("Determine sizing");
-      while (!done) {
-        try {
-          fb = FrameBuffer::create(size, color, depth);
-          fb->check();
-          IOUT("Step " << step++ << " (ok): " << fb->size.x << "x" << fb->size.y);
-          done = true;
-        } catch (std::exception& e) {
-          size.x = nextPowerOf2(size.x);
-          size.y = nextPowerOf2(size.y);
-          WOUT("Step " << step++ << " (failed): " << size.x << "x" << size.y << ", " << e.what());
-          size.x += 1;
-          size.y += 1;
-        }
-      }
-
-      IOUT("FBO setup");
-      IOUT("---------");
-      IOUT("  size            : " << fb->size.x << "x" << fb->size.y);
-      if (fb->colorBuffers.size() > 0)
-      {
-        DOUT("  color component : " << ((fb->colorBuffers[0]->bitFormat == GL_RGB) ? "RGB" : (fb->colorBuffers[0]->bitFormat == GL_RGBA) ? "RGBA" : "RGBA8"));
-      }
-      if (fb->depthBuffer)
-      {
-        DOUT("  depth component : " << ((fb->depthBuffer->bitFormat == GL_DEPTH_COMPONENT16) ? "16" : (fb->depthBuffer->bitFormat == GL_DEPTH_COMPONENT24) ? "24" : "32"));
-      }
-      
-      fb.reset();
     }
 }
