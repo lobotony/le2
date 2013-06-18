@@ -7,8 +7,8 @@ namespace lost
 
 void run()
 {
-//  run(new DemoEngine);
-  run(new SunEngine);
+  run(new DemoEngine);
+//  run(new SunEngine);
 }
 
 }

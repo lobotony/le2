@@ -20,8 +20,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "lost/Glyph.h"
 #include "lost/Vec2.h"
 #include "lost/Rect.h"
-#include "utf8.h"
 #include <math.h>
+#include "StringAdditions.h"
 
 namespace lost
 {
@@ -58,31 +58,30 @@ TextMeshPtr render(const string & inText, const FontPtr& font, bool characterMet
 
 void render(const string & inUtf8String, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align)
 {
-  utf32_string txt;
-  utf8::utf8to32(inUtf8String.begin(), inUtf8String.end(), back_inserter(txt));
+  u32string txt = convertUtf8ToUtf32(inUtf8String);
   render(txt, font, target, characterMetrics);
 }
 
-TextMeshPtr render(const utf32_string& inText, const FontPtr& font, bool characterMetrics, int align)
+TextMeshPtr render(const u32string& inText, const FontPtr& font, bool characterMetrics, int align)
 {
   TextMeshPtr result(new TextMesh);
   render(inText, font, result, characterMetrics);
   return result;  
 }
 
-void render(const utf32_string& inText, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align)
+void render(const u32string& inText, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align)
 {
   render(inText, Range(0, (uint32_t)inText.size()), font, target, characterMetrics);
 }
 
-void render(const utf32_string& inText, const Range& range, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align)
+void render(const u32string& inText, const Range& range, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align)
 {
   vector<Range> lines;
   lines.push_back(range);
   render(inText, lines, font, target, characterMetrics);
 }
 
-void render(const utf32_string& inText, const vector<Range>& lines, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align)
+void render(const u32string& inText, const vector<Range>& lines, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align)
 {
   // these arrays will receive the character geometry in space, relative to a 0,0 baseline
   // and the corresponding pixel coordinates of the subtexture within the font texture atlas
@@ -108,7 +107,7 @@ void render(const utf32_string& inText, const vector<Range>& lines, const FontPt
       Vec2 bounds(addIndex,addIndex);
       for(uint32_t i=pos->begin; i<pos->end; ++i)
       {
-        utf32_char c = inText[i];
+        char32_t c = inText[i];
         xoffset+=font->kerningOffset(previousGlyphIndex, c);
         GlyphPtr glyph = font->glyph(c);
         if (!glyph) continue;

@@ -178,11 +178,11 @@ void DemoEngine::startup()
   rt1->material->blendPremultiplied();
   rt1->transform = Matrix::translate(Vec3(50,50,0));
 
-  utf32_string utf32s;
+  u32string utf32s;
   utf32s = 0xf085;
   rt3 = render(utf32s, fa, false);
   rt3->material->shader = textureShader;
-  rt3->material->color = blackColor;
+  rt3->material->color = yellowColor;
   rt3->material->blendPremultiplied();
   rt3->transform = Matrix::translate(Vec3(600,300,0));
 
@@ -387,9 +387,9 @@ void DemoEngine::update()
 
 //  glContext->draw(coloredQuad);
 //  glContext->draw(texturedQuad);
-//  glContext->draw(rt1);
-//  glContext->draw(rt2);
-//  glContext->draw(rt3);
+  glContext->draw(rt1);
+  glContext->draw(rt2);
+  glContext->draw(rt3);
 //  glContext->draw(dot);
 //  glContext->draw(dot2);
 //  glContext->draw(lines);
