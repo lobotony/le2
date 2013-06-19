@@ -41,8 +41,9 @@
 		EAADB62D15FFABC4008F7450 /* Quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB62B15FFABC4008F7450 /* Quad.cpp */; };
 		EAAFD8AE177207D700C1D521 /* RenderContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAFD8AD177207D700C1D521 /* RenderContext.cpp */; };
 		EAAFD8B117720FDB00C1D521 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAFD8AF17720FDB00C1D521 /* Application.cpp */; };
-		EAAFD8B71772119400C1D521 /* DemoEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAFD8B31772119400C1D521 /* DemoEngine.cpp */; };
-		EAAFD8B81772119400C1D521 /* SunEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAFD8B51772119400C1D521 /* SunEngine.cpp */; };
+		EAAFD8BB1772147800C1D521 /* UiTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAFD8B91772147800C1D521 /* UiTestApp.cpp */; };
+		EAAFD8BE177215AA00C1D521 /* DemoApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAFD8BC177215AA00C1D521 /* DemoApp.cpp */; };
+		EAAFD8C1177215CB00C1D521 /* SunApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAFD8BF177215CB00C1D521 /* SunApp.cpp */; };
 		EAB2B90D15FE4703001CF4EF /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B90C15FE4703001CF4EF /* Context.cpp */; };
 		EAB2B90F15FE470A001CF4EF /* ContextMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B90E15FE470A001CF4EF /* ContextMac.mm */; };
 		EABB38E01600CC990009D8F7 /* LEAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = EABB38DF1600CC990009D8F7 /* LEAppDelegate.mm */; };
@@ -172,10 +173,12 @@
 		EAAFD8AD177207D700C1D521 /* RenderContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RenderContext.cpp; path = ../guiro/RenderContext.cpp; sourceTree = "<group>"; };
 		EAAFD8AF17720FDB00C1D521 /* Application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
 		EAAFD8B017720FDB00C1D521 /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Application.h; sourceTree = "<group>"; };
-		EAAFD8B31772119400C1D521 /* DemoEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DemoEngine.cpp; path = ../apps/DemoEngine.cpp; sourceTree = "<group>"; };
-		EAAFD8B41772119400C1D521 /* DemoEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoEngine.h; path = ../apps/DemoEngine.h; sourceTree = "<group>"; };
-		EAAFD8B51772119400C1D521 /* SunEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SunEngine.cpp; path = ../apps/SunEngine.cpp; sourceTree = "<group>"; };
-		EAAFD8B61772119400C1D521 /* SunEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SunEngine.h; path = ../apps/SunEngine.h; sourceTree = "<group>"; };
+		EAAFD8B91772147800C1D521 /* UiTestApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UiTestApp.cpp; path = ../apps/UiTestApp.cpp; sourceTree = "<group>"; };
+		EAAFD8BA1772147800C1D521 /* UiTestApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UiTestApp.h; path = ../apps/UiTestApp.h; sourceTree = "<group>"; };
+		EAAFD8BC177215AA00C1D521 /* DemoApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DemoApp.cpp; path = ../apps/DemoApp.cpp; sourceTree = "<group>"; };
+		EAAFD8BD177215AA00C1D521 /* DemoApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoApp.h; path = ../apps/DemoApp.h; sourceTree = "<group>"; };
+		EAAFD8BF177215CB00C1D521 /* SunApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SunApp.cpp; path = ../apps/SunApp.cpp; sourceTree = "<group>"; };
+		EAAFD8C0177215CB00C1D521 /* SunApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SunApp.h; path = ../apps/SunApp.h; sourceTree = "<group>"; };
 		EAB2B8FE15FE3DEE001CF4EF /* Context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Context.h; sourceTree = "<group>"; };
 		EAB2B90C15FE4703001CF4EF /* Context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Context.cpp; sourceTree = "<group>"; };
 		EAB2B90E15FE470A001CF4EF /* ContextMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContextMac.mm; sourceTree = "<group>"; };
@@ -297,10 +300,12 @@
 		EAAFD8B21772118300C1D521 /* apps */ = {
 			isa = PBXGroup;
 			children = (
-				EAAFD8B31772119400C1D521 /* DemoEngine.cpp */,
-				EAAFD8B41772119400C1D521 /* DemoEngine.h */,
-				EAAFD8B51772119400C1D521 /* SunEngine.cpp */,
-				EAAFD8B61772119400C1D521 /* SunEngine.h */,
+				EAAFD8BC177215AA00C1D521 /* DemoApp.cpp */,
+				EAAFD8BD177215AA00C1D521 /* DemoApp.h */,
+				EAAFD8BF177215CB00C1D521 /* SunApp.cpp */,
+				EAAFD8C0177215CB00C1D521 /* SunApp.h */,
+				EAAFD8B91772147800C1D521 /* UiTestApp.cpp */,
+				EAAFD8BA1772147800C1D521 /* UiTestApp.h */,
 			);
 			name = apps;
 			sourceTree = "<group>";
@@ -696,8 +701,9 @@
 				EAD336E1175B6D07001A4747 /* Canvas.cpp in Sources */,
 				EAAFD8AE177207D700C1D521 /* RenderContext.cpp in Sources */,
 				EAAFD8B117720FDB00C1D521 /* Application.cpp in Sources */,
-				EAAFD8B71772119400C1D521 /* DemoEngine.cpp in Sources */,
-				EAAFD8B81772119400C1D521 /* SunEngine.cpp in Sources */,
+				EAAFD8BB1772147800C1D521 /* UiTestApp.cpp in Sources */,
+				EAAFD8BE177215AA00C1D521 /* DemoApp.cpp in Sources */,
+				EAAFD8C1177215CB00C1D521 /* SunApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

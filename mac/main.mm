@@ -1,10 +1,12 @@
 #include "lost/Runner.h"
-#include "apps/SunEngine.h"
-#include "apps/DemoEngine.h"
+#include "apps/SunApp.h"
+#include "apps/DemoApp.h"
+#include "apps/UiTestApp.h"
 
 int main(int argc, char *argv[])
 {
-//  lost::run(new lost::DemoEngine);
-  lost::run(new lost::SunEngine);
+//  lost::run(new lost::DemoApp);
+//  lost::run(new lost::SunApp);
+  lost::run(new lost::UiTestApp);
   return EXIT_SUCCESS;
 }

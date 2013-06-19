@@ -1,4 +1,4 @@
-#include "apps/SunEngine.h"
+#include "apps/SunApp.h"
 
 #include "lost/Log.h"
 #include "lost/Bitmap.h"
@@ -20,7 +20,7 @@ using namespace std;
 namespace lost
 {
 
-void SunEngine::updateSpline(const vector<Vec2>& cp, u32 numPoints, MeshPtr& triangles)
+void SunApp::updateSpline(const vector<Vec2>& cp, u32 numPoints, MeshPtr& triangles)
 {
   vector<Vec2> ip; // interpolated points
   vector<Vec2> nv; // tangent vectors
@@ -54,7 +54,7 @@ void SunEngine::updateSpline(const vector<Vec2>& cp, u32 numPoints, MeshPtr& tri
   
 }
 
-void SunEngine::fbsetup()
+void SunApp::fbsetup()
 {
   offscreenCanvas.reset(new Canvas(winSize));
   hblurCanvas.reset(new Canvas(winSize));
@@ -66,7 +66,7 @@ void SunEngine::fbsetup()
   canvasQuad->material->blendPremultiplied();
 }
 
-void SunEngine::startup()
+void SunApp::startup()
 {
   ResourceBundle mainBundle;
   colorShader = resourceManager->shader("resources/glsl/color");
@@ -132,7 +132,7 @@ void SunEngine::startup()
   };
 }
 
-void SunEngine::setupSplineTexture()
+void SunApp::setupSplineTexture()
 {
   Color splineBorderColor = Color(.39,.75,0.1,1);
   Color splineColor = Color(.24, .55, .0, 1);  
@@ -156,7 +156,7 @@ void SunEngine::setupSplineTexture()
 }
 
 // one time setup, memory and meshes
-void SunEngine::setupSplines()
+void SunApp::setupSplines()
 {
   numInterpolatedPoints = 50;
   splineWidth = 12;
@@ -185,7 +185,7 @@ void SunEngine::setupSplines()
 }
 
 // continuous update
-void SunEngine::updateSplines()
+void SunApp::updateSplines()
 {
   maxRadius = min(winSize.width, winSize.height)/2;
   circleCenter = Vec2(winSize.width/2, winSize.height/2);  
@@ -249,7 +249,7 @@ void SunEngine::updateSplines()
   }  
 }
 
-void SunEngine::update()
+void SunApp::update()
 {
   const EventQueue::Container& events = eventQueue->getCurrentQueue();
     
@@ -282,7 +282,7 @@ void SunEngine::update()
   mainRenderFunc();
 }
 
-void SunEngine::shutdown()
+void SunApp::shutdown()
 {
 }
 

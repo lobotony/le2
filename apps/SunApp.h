@@ -1,12 +1,12 @@
-#ifndef LOST_SUNENGINE_H
-#define LOST_SUNENGINE_H
+#ifndef LOST_SUNAPP_H
+#define LOST_SUNAPP_H
 
 #include "lost/Application.h"
 
 namespace lost
 {
 
-struct SunEngine : Application
+struct SunApp : Application
 {
   void startup();
   void update();

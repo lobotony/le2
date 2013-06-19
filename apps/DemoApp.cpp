@@ -1,4 +1,4 @@
-#include "apps/DemoEngine.h"
+#include "apps/DemoApp.h"
 
 #include "lost/Log.h"
 #include "lost/Bundle.h"
@@ -33,7 +33,7 @@ namespace lost
   const uint32_t dotsize = 5;
   f32 splineWidth = 62;
 
-void DemoEngine::updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh, MeshPtr& triangles)
+void DemoApp::updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh, MeshPtr& triangles)
 {
   uint32_t numVertices = lineMesh->numVertices();
   vector<Vec2> ip; // interpolated points
@@ -130,7 +130,7 @@ void DemoEngine::updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr
   
 }
 
-void DemoEngine::startup()
+void DemoApp::startup()
 {
   ResourceBundle mainBundle;
   colorShader = resourceManager->shader("resources/glsl/color");
@@ -305,7 +305,7 @@ void DemoEngine::startup()
 }
 
 
-void DemoEngine::update()
+void DemoApp::update()
 {
   const EventQueue::Container& events = eventQueue->getCurrentQueue();
   
@@ -416,7 +416,7 @@ void DemoEngine::update()
   }*/  
 }
 
-void DemoEngine::shutdown()
+void DemoApp::shutdown()
 {
 }
 
