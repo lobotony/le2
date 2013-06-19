@@ -6,6 +6,9 @@
 
 namespace lost
 {
+
+struct RenderContext;
+
 struct RenderSystem
 {
   RenderSystem();
@@ -20,10 +23,9 @@ private:
   QuadPtr canvasQuad;
   Camera2DPtr uicam;
   
+  RenderContext* rc;
+  
   void draw(Context* glContext, const LayerPtr& layer);
-  
-  
-  MeshPtr bgquad;
 };
 }
 

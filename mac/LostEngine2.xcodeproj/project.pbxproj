@@ -42,6 +42,7 @@
 		EAADB62715FFA3BA008F7450 /* TruetypeFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB62515FFA3BA008F7450 /* TruetypeFont.cpp */; };
 		EAADB62A15FFA76B008F7450 /* Glyph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB62815FFA76B008F7450 /* Glyph.cpp */; };
 		EAADB62D15FFABC4008F7450 /* Quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB62B15FFABC4008F7450 /* Quad.cpp */; };
+		EAAFD8AE177207D700C1D521 /* RenderContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAFD8AD177207D700C1D521 /* RenderContext.cpp */; };
 		EAB2B90D15FE4703001CF4EF /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B90C15FE4703001CF4EF /* Context.cpp */; };
 		EAB2B90F15FE470A001CF4EF /* ContextMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B90E15FE470A001CF4EF /* ContextMac.mm */; };
 		EABB38E01600CC990009D8F7 /* LEAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = EABB38DF1600CC990009D8F7 /* LEAppDelegate.mm */; };
@@ -173,6 +174,8 @@
 		EAADB62B15FFABC4008F7450 /* Quad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Quad.cpp; sourceTree = "<group>"; };
 		EAADB62C15FFABC4008F7450 /* Quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quad.h; sourceTree = "<group>"; };
 		EAADB62E15FFB7DD008F7450 /* Range.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Range.h; sourceTree = "<group>"; };
+		EAAFD8AC177207D700C1D521 /* RenderContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenderContext.h; path = ../guiro/RenderContext.h; sourceTree = "<group>"; };
+		EAAFD8AD177207D700C1D521 /* RenderContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RenderContext.cpp; path = ../guiro/RenderContext.cpp; sourceTree = "<group>"; };
 		EAB2B8FE15FE3DEE001CF4EF /* Context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Context.h; sourceTree = "<group>"; };
 		EAB2B90C15FE4703001CF4EF /* Context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Context.cpp; sourceTree = "<group>"; };
 		EAB2B90E15FE470A001CF4EF /* ContextMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContextMac.mm; sourceTree = "<group>"; };
@@ -512,6 +515,8 @@
 				EAF358081726DEC200824CF2 /* EventSystem.h */,
 				EAF357FB1726C79200824CF2 /* Frame.cpp */,
 				EAF357FC1726C79200824CF2 /* Frame.h */,
+				EAAFD8AC177207D700C1D521 /* RenderContext.h */,
+				EAAFD8AD177207D700C1D521 /* RenderContext.cpp */,
 				EAF3582C17287B4000824CF2 /* RenderSystem.cpp */,
 				EAF3582D17287B4000824CF2 /* RenderSystem.h */,
 				EA52D53C176A083000BB3DC3 /* types.h */,
@@ -688,6 +693,7 @@
 				EAD599E71756082E00E09947 /* RenderBuffer.cpp in Sources */,
 				EA4AC4481758B3450083C751 /* SunEngine.cpp in Sources */,
 				EAD336E1175B6D07001A4747 /* Canvas.cpp in Sources */,
+				EAAFD8AE177207D700C1D521 /* RenderContext.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
