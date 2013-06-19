@@ -6,4 +6,4 @@ A simple library for OpenGL based applications, aiming for a OpenGL ES 2.0 compa
 * font rendering: text is rendered into meshes that use dynamically generated textures of packed glyphs
 * basic shader preprocessor that allows usage of include directives 
 * minimized dependencies: no boost, bitmap loading via stb_image, font rendering via stb_truetype, 
-* supported platforms: mac
+* supported platforms: Mac OS X, Raspberry Pi
