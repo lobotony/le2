@@ -1,11 +1,11 @@
 #import "LEAppDelegate.h"
 #import "LEGLView.h"
-#include "lost/Engine.h"
+#include "lost/Application.h"
 #include "lost/EventPool.h"
 #include "lost/EventQueue.h"
 #include "lost/Event.h"
 
-extern lost::Engine* _engineInstance;
+extern lost::Application* _appInstance;
 
 @implementation LEAppDelegate
 
@@ -15,7 +15,7 @@ extern lost::Engine* _engineInstance;
 {
   LEGLView* view = (LEGLView*)[window contentView];
   CVDisplayLinkStop([view displayLink]);
-  _engineInstance->doShutdown();
+  _appInstance->doShutdown();
   [[NSApplication sharedApplication] terminate: nil];
 }
 
@@ -28,11 +28,11 @@ extern lost::Engine* _engineInstance;
 {
   NSRect curFrame = [self.window contentRectForFrameRect:self.window.frame];
 //  DOUT("w:"<<int(curFrame.size.width)<<" h:"<<int(curFrame.size.height));
-  lost::Event* event = _engineInstance->eventPool->borrowEvent();
+  lost::Event* event = _appInstance->eventPool->borrowEvent();
   event->base.type = lost::ET_WindowResize;
   event->windowResizeEvent.width = curFrame.size.width;
   event->windowResizeEvent.height = curFrame.size.height;
-  _engineInstance->eventQueue->addEventToNextQueue(event);
+  _appInstance->eventQueue->addEventToNextQueue(event);
 }
 
 @end

@@ -1,4 +1,4 @@
-#include "lost/SunEngine.h"
+#include "apps/SunEngine.h"
 
 #include "lost/Log.h"
 #include "lost/Bitmap.h"

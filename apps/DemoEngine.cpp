@@ -1,4 +1,4 @@
-#include "lost/DemoEngine.h"
+#include "apps/DemoEngine.h"
 
 #include "lost/Log.h"
 #include "lost/Bundle.h"

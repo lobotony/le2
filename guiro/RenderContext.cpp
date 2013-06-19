@@ -2,10 +2,10 @@
 #include "lost/Context.h"
 #include "lost/HybridIndexBuffer.h"
 #include "lost/Mesh.h"
-#include "lost/Engine.h"
+#include "lost/Application.h"
 #include "lost/ResourceManager.h"
 
-extern lost::Engine* _engineInstance;
+extern lost::Application* _appInstance;
 
 namespace lost
 {
@@ -14,7 +14,7 @@ RenderContext::RenderContext(Context* ctx)
 {
   glContext = ctx;
   // load some common shaders
-  colorShader = _engineInstance->resourceManager->shader("resources/glsl/color");
+  colorShader = _appInstance->resourceManager->shader("resources/glsl/color");
   
   // create buffers for efficient quad drawing. Vertex and index buffers are reused as often as possible
   BufferLayout layout;

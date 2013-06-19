@@ -1,5 +1,4 @@
 #include "guiro/layers/Layer.h"
-#include "lost/Engine.h"
 #include "guiro/UserInterface.h"
 
 namespace lost

@@ -1,13 +1,13 @@
 #include "lost/Canvas.h"
 
-#include "lost/Engine.h"
+#include "lost/Application.h"
 #include "lost/Camera2D.h"
 #include "lost/FrameBuffer.h"
 #include "lost/Context.h"
 #include "lost/Quad.h"
 #include "lost/ResourceManager.h"
 
-extern lost::Engine* _engineInstance;
+extern lost::Application* _appInstance;
 
 namespace lost
 {
@@ -19,7 +19,7 @@ namespace lost
 
     framebuffer = FrameBuffer::create(size, GL_RGBA);
     framebuffer->check();
-    _engineInstance->glContext->bindDefaultFramebuffer();
+    _appInstance->glContext->bindDefaultFramebuffer();
 
     clearColor = Color(0,0,0,0);
   }
@@ -27,9 +27,9 @@ namespace lost
   void Canvas::drawToCanvas(const std::function<void(void)>& sceneFunc)
   {
     framebuffer->bind();
-    _engineInstance->glContext->clearColor(clearColor);
-    _engineInstance->glContext->camera(cam);
-    _engineInstance->glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+    _appInstance->glContext->clearColor(clearColor);
+    _appInstance->glContext->camera(cam);
+    _appInstance->glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
     sceneFunc();
   }

@@ -1,12 +1,12 @@
 #ifndef LOST_DEMOENGINE_H
 #define LOST_DEMOENGINE_H
 
-#include "lost/Engine.h"
+#include "lost/Application.h"
 
 namespace lost
 {
 
-struct DemoEngine : Engine
+struct DemoEngine : Application
 {
   void startup();
   void update();

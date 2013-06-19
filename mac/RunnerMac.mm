@@ -4,22 +4,22 @@
 #import "LEAppDelegate.h"
 #import "LEGLView.h"
 #import <OpenGL/gl.h>
-#import "lost/Engine.h"
+#import "lost/Application.h"
 #import "LEWindow.h"
 #include "lost/Log.h"
 #include "lost/EventPool.h"
 #include "lost/EventQueue.h"
 
-lost::Engine* _engineInstance = NULL;
+lost::Application* _appInstance = NULL;
 
 namespace lost {
 
 
 NSOpenGLContext* glcontext = nil;
 
-void run(Engine* engine)
+void run(Application* application)
 {
-  _engineInstance = engine;
+  _appInstance = application;
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; // first global one, required or we leak 
   NSApplication* app = [NSApplication sharedApplication];     // singleton
   LEAppDelegate* appDelegate = [[LEAppDelegate alloc] init];  // required for some important callbacks
@@ -87,15 +87,15 @@ void run(Engine* engine)
 
   // make context current for this thread to be able to safely call startup
   [[glview openGLContext] makeCurrentContext];
-  _engineInstance->doStartup();
+  _appInstance->doStartup();
   [NSOpenGLContext clearCurrentContext]; // then clear the context for this thread, so it's later only active on the render thread
 
   // add a resize event so engine gets correct window size on first update() call
-  lost::Event* event = _engineInstance->eventPool->borrowEvent();
+  lost::Event* event = _appInstance->eventPool->borrowEvent();
   event->base.type = lost::ET_WindowResize;
   event->windowResizeEvent.width = defaultWindowWidth;
   event->windowResizeEvent.height = defaultWindowHeight;
-  _engineInstance->eventQueue->addEventToNextQueue(event);
+  _appInstance->eventQueue->addEventToNextQueue(event);
   
   LEWindow* window = [[LEWindow alloc]
                       initWithContentRect: r

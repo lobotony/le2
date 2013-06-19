@@ -1,5 +1,5 @@
-#ifndef LOST_ENGINE_H
-#define LOST_ENGINE_H
+#ifndef LOST_APPLICATION_H
+#define LOST_APPLICATION_H
 
 #include "lost/Clock.h"
 
@@ -12,10 +12,10 @@ struct ResourceManager;
 struct Context;
 struct UserInterface;
 
-struct Engine
+struct Application
 {
-  Engine();
-  ~Engine();
+  Application();
+  ~Application();
 
   virtual void startup();  // user provided, called by doStartup
   virtual void update();   // user provided, called by doUpdate
@@ -25,12 +25,12 @@ struct Engine
   void doUpdate(); // called by OS specific code, performs user update and housekeeping
   void doShutdown(); // called by OS specific code, performs user and engine shutdown
   
-  Clock clock;
-  EventPool*    eventPool; // global event pool, thread safe
-  EventQueue*   eventQueue; // global event queue, fed by OS specific part, thread safe, user code reads events
-  Context*      glContext;
+  Clock             clock;
+  EventPool*        eventPool; // global event pool, thread safe
+  EventQueue*       eventQueue; // global event queue, fed by OS specific part, thread safe, user code reads events
+  Context*          glContext;
   ResourceManager*  resourceManager;
-  UserInterface* ui;
+  UserInterface*    ui;
 };
 
 }

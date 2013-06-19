@@ -5,10 +5,10 @@
 namespace lost
 {
 
-struct Engine;
+struct Application;
 
-/** This is basically a cross plattform main() method that either creates a demo engine to run
- * if called with no parameters, or uses the provided engine to startup a new application.
+/** This is basically a cross plattform main() method that either creates a demo app to run
+ * if called with no parameters, or uses the provided app to startup a new application.
  * 
  * Implementations of the functions below must be provided at link time, i.e. you have to add the
  * correct platform-specific files to your project or makefile.
@@ -17,8 +17,7 @@ struct Engine;
  *       aspects of OpenGL context
  */
 
-void run(); // creates and runs a demo engine
-void run(Engine* engine); // uses provided engine. Subclass Engine and override as required.
+void run(Application* app); // uses provided app. Subclass Application and override as required.
 
 }
 

@@ -1,4 +1,4 @@
-#include "lost/Engine.h"
+#include "lost/Application.h"
 #include "lost/EventPool.h"
 #include "lost/EventQueue.h"
 #include "lost/Context.h"
@@ -8,7 +8,7 @@
 namespace lost
 {
 
-Engine::Engine()
+Application::Application()
 {
   eventPool = new EventPool;
   eventQueue = new EventQueue;
@@ -16,25 +16,25 @@ Engine::Engine()
   resourceManager = NULL;// created in startup, after glContext was created, because it will use GL resources
 }
 
-Engine::~Engine()
+Application::~Application()
 {
 }
 
-void Engine::startup()
+void Application::startup()
 {
 }
 
-void Engine::update()
+void Application::update()
 {
 }
 
-void Engine::shutdown()
+void Application::shutdown()
 {
 }
 
-void Engine::doStartup()
+void Application::doStartup()
 {
-  // engine startup
+  // Application startup
   glContext = new Context;
   resourceManager = new ResourceManager;
   ui = new UserInterface;
@@ -42,7 +42,7 @@ void Engine::doStartup()
   startup();
 }
 
-void Engine::doUpdate()
+void Application::doUpdate()
 {
   clock.update();
   update();
@@ -51,11 +51,11 @@ void Engine::doUpdate()
   eventQueue->swap();
 }
 
-void Engine::doShutdown()
+void Application::doShutdown()
 {
   // user shutdown
   shutdown();
-  // engine shutdown
+  // Application shutdown
   delete glContext;
 }
 
