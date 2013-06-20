@@ -41,7 +41,10 @@ void UserInterface::update(const EventQueue::Container& events)
 
 void UserInterface::draw()
 {
-  renderSystem->draw(rootView);
+  if(rootView)
+  {
+    renderSystem->draw(rootView->layer);
+  }
 }
 
 void UserInterface::needsRedraw(Layer* layer)
