@@ -14,7 +14,7 @@ struct RenderSystem
   RenderSystem();
   ~RenderSystem();
   
-  void draw(Context* glContext, const ViewPtr& rootView);
+  void draw(const ViewPtr& rootView);
   
   void windowResized(const Vec2& newSize);
   
@@ -25,7 +25,7 @@ private:
   
   RenderContext* rc;
   
-  void draw(Context* glContext, const LayerPtr& layer);
+  void draw(const LayerPtr& layer);
 };
 }
 

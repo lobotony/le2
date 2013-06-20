@@ -64,9 +64,9 @@ void UserInterface::update(const EventQueue::Container& events)
   // FIXME: layout system needs to layout any views and layers in queue
 }
 
-void UserInterface::draw(Context* glContext)
+void UserInterface::draw()
 {
-  renderSystem->draw(glContext, rootView);
+  renderSystem->draw(rootView);
 }
 
 }

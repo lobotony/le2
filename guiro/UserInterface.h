@@ -19,7 +19,7 @@ struct UserInterface
   
   // called by engine for basic updating and rendering
   void update(const EventQueue::Container& events);
-  void draw(Context* glContext);
+  void draw();
   
   // helper methods for views/layers so they don't need to access low level systems directly  
   

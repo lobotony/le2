@@ -34,15 +34,15 @@ void RenderSystem::windowResized(const Vec2& newSize)
   uicam.reset(new Camera2D(Rect(0,0,newSize)));
 }
   
-void RenderSystem::draw(Context* glContext, const ViewPtr& rootView)
+void RenderSystem::draw(const ViewPtr& rootView)
 {
-  draw(glContext, rootView->layer);
-  glContext->bindDefaultFramebuffer();
-  glContext->camera(uicam);
-  glContext->draw(canvasQuad);
+  draw(rootView->layer);
+  rc->glContext->bindDefaultFramebuffer();
+  rc->glContext->camera(uicam);
+  rc->glContext->draw(canvasQuad);
 }
 
-void RenderSystem::draw(Context* glContext, const LayerPtr& layer)
+void RenderSystem::draw(const LayerPtr& layer)
 {
   canvas->drawToCanvas([this, layer](){
     rc->drawSolidRect(layer->rect, layer->backgroundColor);

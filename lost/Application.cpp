@@ -47,7 +47,7 @@ void Application::doUpdate()
   clock.update();
   update();
   ui->update(eventQueue->getCurrentQueue());
-  ui->draw(glContext);
+  ui->draw();
   eventQueue->swap();
 }
 
