@@ -18,18 +18,27 @@ struct Layer : enable_shared_from_this<Layer>
   void removeFromSuperlayer();
   bool isSublayer(const LayerPtr& layer);
   
+  bool isSublayerOf(Layer* root); // return true if root is one of the superlayers of this layer
+  
+  bool isVisibleWithinSuperlayers(); // returns visibility of this and all superlayers
+  void visible(bool val); // sets this layers visibility flag
+  bool visible(); // returns this layers visibility flag
+  
   void needsRedraw(); // invalidate texture cache in compositor, force content redraw and composition
+
+  string description();
   
   u16 z();
   string name;
   Frame frame;
   Rect  rect;
   
-  string description();
-  
   Color backgroundColor;
   LayerPtr superlayer;
   vector<LayerPtr> sublayers;
+
+private:
+  bool _visible;
 };
 }
 

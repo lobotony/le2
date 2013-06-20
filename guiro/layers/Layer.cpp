@@ -8,6 +8,7 @@ namespace lost
 Layer::Layer()
 {
   backgroundColor = whiteColor;
+  _visible = true;
   needsRedraw();
 }
 
@@ -88,5 +89,48 @@ void Layer::needsRedraw()
   Application::instance()->ui->needsRedraw(this);
 }
 
+bool Layer::isVisibleWithinSuperlayers()
+{
+  bool result = visible();
+  
+  Layer* l = this;
+  while (result && l)
+  {
+    result = l->visible();
+    l = l->superlayer.get();
+  }
+  
+  return result;
 }
+
+void Layer::visible(bool val)
+{
+  _visible = val;
+}
+
+bool Layer::visible()
+{
+  return _visible;
+}
+
+bool Layer::isSublayerOf(Layer* root)
+{
+  bool result = false;
+  
+  Layer* l = this->superlayer.get();
+  while(l)
+  {
+    if(l == root)
+    {
+      result = true;
+      break;
+    }
+    l = l->superlayer.get();
+  }
+  
+  return result;
+}
+
+}
+
 
