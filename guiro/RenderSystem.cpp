@@ -32,34 +32,50 @@ void RenderSystem::windowResized(const Vec2& newSize)
   uicam.reset(new Camera2D(Rect(0,0,newSize)));
 }
   
-void RenderSystem::draw(const ViewPtr& rootView)
+void RenderSystem::draw(const LayerPtr& rootLayer)
 {
-  if(redraws.size()>0)
-  {
-    DOUT("REDRAWS: "<<u64(redraws.size()));
-  }
+  prepareRedraws();
+  redraw();
 
-  if(rootView)
+/*  if(rootView)
   {
     draw(rootView->layer);
     rc->glContext->bindDefaultFramebuffer();
     rc->glContext->camera(uicam);
     rc->glContext->draw(canvasQuad);
-  }
+  }*/
   
+  redrawCandidates.clear();
   redraws.clear();
 }
 
-void RenderSystem::draw(const LayerPtr& layer)
+void RenderSystem::prepareRedraws()
+{
+  if(redrawCandidates.size()>0)
+  {
+    DOUT("redraw candidates: "<<u64(redrawCandidates.size()));
+    for(auto layer : redrawCandidates)
+    {
+      
+    }
+  }  
+}
+
+void RenderSystem::redraw()
+{
+  
+}
+
+/*void RenderSystem::draw(const LayerPtr& layer)
 {
   canvas->drawToCanvas([this, layer](){
     rc->drawSolidRect(layer->rect, layer->backgroundColor);
   });
-}
+}*/
 
 void RenderSystem::needsRedraw(Layer* layer)
 {
-  redraws.push_back(layer);
+  redrawCandidates.push_back(layer);
 }
 
 }
