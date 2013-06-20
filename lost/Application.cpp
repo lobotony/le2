@@ -5,8 +5,15 @@
 #include "lost/ResourceManager.h"
 #include "guiro/UserInterface.h"
 
+extern lost::Application* _appInstance; // must be set by runner implementation
+
 namespace lost
 {
+
+Application* Application::instance()
+{
+  return _appInstance;
+}
 
 Application::Application()
 {

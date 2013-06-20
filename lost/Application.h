@@ -25,6 +25,8 @@ struct Application
   void doUpdate(); // called by OS specific code, performs user update and housekeeping
   void doShutdown(); // called by OS specific code, performs user and engine shutdown
   
+  static Application* instance(); 
+  
   Clock             clock;
   EventPool*        eventPool; // global event pool, thread safe
   EventQueue*       eventQueue; // global event queue, fed by OS specific part, thread safe, user code reads events

@@ -18,6 +18,9 @@ struct RenderSystem
   
   void windowResized(const Vec2& newSize);
   
+  void needsRedraw(Layer* layer);
+  
+  
 private:
   CanvasPtr canvas;
   QuadPtr canvasQuad;
@@ -26,6 +29,9 @@ private:
   RenderContext* rc;
   
   void draw(const LayerPtr& layer);
+  
+  vector<Layer*> redraws;
+  map<Layer*, TexturePtr> layerCache;
 };
 }
 

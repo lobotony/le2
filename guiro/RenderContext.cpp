@@ -5,8 +5,6 @@
 #include "lost/Application.h"
 #include "lost/ResourceManager.h"
 
-extern lost::Application* _appInstance;
-
 namespace lost
 {
 
@@ -14,7 +12,7 @@ RenderContext::RenderContext(Context* ctx)
 {
   glContext = ctx;
   // load some common shaders
-  colorShader = _appInstance->resourceManager->shader("resources/glsl/color");
+  colorShader = Application::instance()->resourceManager->shader("resources/glsl/color");
   
   // create buffers for efficient quad drawing. Vertex and index buffers are reused as often as possible
   BufferLayout layout;

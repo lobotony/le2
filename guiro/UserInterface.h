@@ -21,7 +21,8 @@ struct UserInterface
   void update(const EventQueue::Container& events);
   void draw();
   
-  // helper methods for views/layers so they don't need to access low level systems directly  
+  // helper methods for views/layers so they don't need to access low level systems directly
+  void needsRedraw(Layer* layer);
   
   EventSystem* eventSystem;
   UpdateSystem* updateSystem;

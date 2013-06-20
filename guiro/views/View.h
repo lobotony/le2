@@ -8,17 +8,14 @@
 namespace lost
 {
 
-struct View;
-typedef lost::shared_ptr<View> ViewPtr;
-
 struct View : enable_shared_from_this<View>
 {
   View();
   virtual ~View();
   
-  bool containsSubview(ViewPtr view); // does NOT recurse
-  void addSubview(ViewPtr view);
-  void removeSubview(ViewPtr view);
+  bool containsSubview(const ViewPtr& view); // does NOT recurse
+  void addSubview(const ViewPtr& view);
+  void removeSubview(const ViewPtr& view);
   void removeFromSuperview();
   
   Rect rect;

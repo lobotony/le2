@@ -18,6 +18,8 @@ struct Layer : enable_shared_from_this<Layer>
   void removeFromSuperlayer();
   bool isSublayer(const LayerPtr& layer);
   
+  void needsRedraw(); // invalidate texture cache in compositor, force content redraw and composition
+  
   u16 z();
   string name;
   Frame frame;

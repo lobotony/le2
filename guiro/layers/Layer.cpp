@@ -1,5 +1,6 @@
 #include "guiro/layers/Layer.h"
 #include "guiro/UserInterface.h"
+#include "lost/Application.h"
 
 namespace lost
 {
@@ -7,6 +8,7 @@ namespace lost
 Layer::Layer()
 {
   backgroundColor = whiteColor;
+  needsRedraw();
 }
 
 Layer::~Layer()
@@ -79,6 +81,11 @@ u16 Layer::z()
     current = current->superlayer;
   }
   return result;
+}
+
+void Layer::needsRedraw()
+{
+  Application::instance()->ui->needsRedraw(this);
 }
 
 }
