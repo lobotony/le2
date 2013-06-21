@@ -8,7 +8,7 @@ namespace lost
 void UiTestApp::startup()
 {
   ui->rootView.reset(new View);
-  ui->rootView->layer->rect = Rect(100,100,100,200);
+  ui->rootView->layer->rect = Rect(100,20,400,500);
   ui->rootView->layer->backgroundColor = redColor;
   
   LayerPtr sl1(new Layer);
@@ -20,7 +20,7 @@ void UiTestApp::startup()
   sl2->backgroundColor = yellowColor;
 
   LayerPtr sl3(new Layer);
-  sl3->rect = Rect(300,100,90,10);
+  sl3->rect = Rect(0,0,90,10);
   sl3->backgroundColor = blueColor;
   
   ui->rootView->layer->addSublayer(sl1);
