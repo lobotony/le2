@@ -12,10 +12,21 @@ struct EventSystem;
 struct UpdateSystem;
 struct RenderSystem;
 
+/** Main class for everything user interface related.
+ * Every application has a UserInterface instance, but it is not enabled by default,
+ * i.e. there is no rootView, there are no Views that take up memory, and no event handling will happen.
+ * In order to actually use the UserInterface, you have to call enable(). This will create the rootView
+ * and keep its size synced with the main window. Following that, you can simply add your controls to the
+ * rootView. 
+ * Calling disable() gets rid of the rootView again. 
+ */
 struct UserInterface
 {
   UserInterface();
   ~UserInterface();
+  
+  void enable(); // creates an empty transparent rootView and keeps it stretched to main window size
+  void disable(); // deletes the rootView
   
   // called by engine for basic updating and rendering
   void update(const EventQueue::Container& events);
@@ -29,6 +40,8 @@ struct UserInterface
   RenderSystem* renderSystem;
   
   ViewPtr rootView;
+  
+  void windowResized(f32 w, f32 h);
 };
 }
 

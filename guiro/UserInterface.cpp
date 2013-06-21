@@ -28,7 +28,7 @@ void UserInterface::update(const EventQueue::Container& events)
     {
       f32 w = event->windowResizeEvent.width;
       f32 h = event->windowResizeEvent.height;
-      renderSystem->windowResized(Vec2(w, h));
+      windowResized(w, h);
     }
     else if(event->base.type == ET_MouseMoveEvent)
     {
@@ -37,6 +37,15 @@ void UserInterface::update(const EventQueue::Container& events)
 
   // FIXME: event system needs to handle any incoming events
   // FIXME: layout system needs to layout any views and layers in queue
+}
+
+void UserInterface::windowResized(f32 w, f32 h)
+{
+  if(rootView)
+  {
+    rootView->layer->rect(Rect(0,0,w,h));
+  }
+  renderSystem->windowResized(Vec2(w, h));
 }
 
 void UserInterface::draw()
@@ -50,6 +59,20 @@ void UserInterface::draw()
 void UserInterface::needsRedraw(Layer* layer)
 {
   renderSystem->needsRedraw(layer);
+}
+
+void UserInterface::enable()
+{
+  if(!rootView)
+  {
+    rootView.reset(new View);
+    rootView->layer->rect(0,0,1,1); // any size other than 0,0 to prevent unnecessary OpenGL framebuffer errors
+  }
+}
+
+void UserInterface::disable()
+{
+  rootView.reset();
 }
 
 }

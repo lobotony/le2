@@ -7,20 +7,20 @@ namespace lost
 
 void UiTestApp::startup()
 {
-  ui->rootView.reset(new View);
-  ui->rootView->layer->rect = Rect(100,20,400,500);
-  ui->rootView->layer->backgroundColor = redColor;
+  ui->enable();
+
+  ui->rootView->layer->backgroundColor = clearColor;
   
   LayerPtr sl1(new Layer);
-  sl1->rect = Rect(50,50,200,20);
+  sl1->rect(Rect(50,50,200,20));
   sl1->backgroundColor = greenColor;
   
   LayerPtr sl2(new Layer);
-  sl2->rect = Rect(75,100,30,40);
+  sl2->rect(Rect(75,100,30,40));
   sl2->backgroundColor = yellowColor;
 
   LayerPtr sl3(new Layer);
-  sl3->rect = Rect(0,0,90,10);
+  sl3->rect(Rect(0,0,90,10));
   sl3->backgroundColor = blueColor;
   
   ui->rootView->layer->addSublayer(sl1);
@@ -34,8 +34,14 @@ void UiTestApp::startup()
   
   sl3->needsRedraw();
   
-  DOUT("sizeof(Layer) = "<<u64(sizeof(Layer)));
-  DOUT("sizeof(View) = "<<u64(sizeof(View)));
+  #define SZDOUT(c) DOUT("sizeof("<<#c<<") = "<<u64(sizeof(c)));
+  SZDOUT(Layer);
+  SZDOUT(LayerPtr);
+  SZDOUT(string);
+  SZDOUT(vector<LayerPtr>);
+  SZDOUT(View);
+  SZDOUT(Color);
+  SZDOUT(Frame);
 }
 
 void UiTestApp::update()

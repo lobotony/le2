@@ -32,16 +32,20 @@ struct Layer : enable_shared_from_this<Layer>
 
   string description();
   
+  void rect(f32 x, f32 y, f32 w, f32 h);
+  void rect(const Rect& r);
+  const Rect& rect() const;
+  
   u16 z();
   string name;
   Frame frame;
-  Rect  rect;
   
   Color backgroundColor;
   LayerPtr superlayer;
   vector<LayerPtr> sublayers;
 
 private:
+  Rect  _rect;
   bool _visible;
 };
 }

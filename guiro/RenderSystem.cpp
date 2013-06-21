@@ -40,7 +40,7 @@ void RenderSystem::draw(const LayerPtr& rootLayer)
   rc->glContext->camera(uicam);
   rc->glContext->clearColor(Color(0,0,0,0));
   rc->glContext->clear(GL_COLOR_BUFFER_BIT);
-  rc->drawTexturedRect(rootLayer->rect, layerCache[rootLayer.get()], whiteColor);
+  rc->drawTexturedRect(rootLayer->rect(), layerCache[rootLayer.get()], whiteColor);
   
   redrawCandidates.clear();
   redraws.clear();
@@ -69,18 +69,18 @@ void RenderSystem::updateLayerCaches()
 {
   for(Layer* layer : redraws)
   {
-    DOUT("creating cache for Layer with z = "<<layer->z());
+    DOUT(layer->description());
     // find existing texture for layer or create new one and resize to current layer size
     TexturePtr texture;
     auto pos = layerCache.find(layer);
     if(pos != layerCache.end())
     {
       texture = pos->second;
-      texture->init(layer->rect.size());
+      texture->init(layer->rect().size());
     }
     else
     {
-      texture.reset(new Texture(layer->rect.size()));
+      texture.reset(new Texture(layer->rect().size()));
       layerCache[layer] = texture;
     }
     
@@ -89,7 +89,7 @@ void RenderSystem::updateLayerCaches()
     fb->detachAll();
     fb->attachColorBuffer(0, texture);
     fb->check();
-    fbcam->viewport(Rect(0,0,layer->rect.size()));
+    fbcam->viewport(Rect(0,0,layer->rect().size()));
     rc->glContext->camera(fbcam);
     // draw current layer contents. does NOT draw sublayers
     layer->draw(rc);
@@ -97,7 +97,7 @@ void RenderSystem::updateLayerCaches()
     // draw sublayer contents
     for(LayerPtr sublayer : layer->sublayers)
     {
-      rc->drawTexturedRect(sublayer->rect, layerCache[sublayer.get()], whiteColor);
+      rc->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], whiteColor);
     }
   }
 }

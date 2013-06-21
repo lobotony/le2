@@ -9,7 +9,7 @@ namespace lost
 
 Layer::Layer()
 {
-  backgroundColor = whiteColor;
+  backgroundColor = clearColor;
   _visible = true;
   needsRedraw();
 }
@@ -137,8 +137,29 @@ void Layer::draw(RenderContext* rc)
 {
   rc->glContext->clearColor(Color(0,0,0,0));
   rc->glContext->clear(GL_COLOR_BUFFER_BIT);
-  rc->drawSolidRect(Rect(0,0,rect.size()), backgroundColor);
+  rc->drawSolidRect(Rect(0,0,_rect.size()), backgroundColor);
 }
+
+void Layer::rect(f32 x, f32 y, f32 w, f32 h)
+{
+  rect(Rect(x,y,w,h));
+}
+
+
+void Layer::rect(const Rect& r)
+{
+  if(r != _rect)
+  {
+    needsRedraw();
+  }
+  _rect = r;
+}
+
+const Rect& Layer::rect() const
+{
+  return _rect;
+}
+
 
 }
 
