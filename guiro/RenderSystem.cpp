@@ -17,6 +17,7 @@ RenderSystem::RenderSystem()
   rc = new RenderContext(Application::instance()->glContext);
   fb.reset(new FrameBuffer);
   fbcam.reset(new Camera2D(Rect(0, 0, 0, 0)));
+  uicam.reset(new Camera2D(Rect(0, 0, 0, 0)));
 }
 
 RenderSystem::~RenderSystem()
@@ -26,27 +27,20 @@ RenderSystem::~RenderSystem()
 void RenderSystem::windowResized(const Vec2& newSize)
 {
   DOUT("");
-/*  canvas.reset(new Canvas(newSize));
-  canvasQuad = Quad::create(canvas->texture(), false);
-  canvasQuad->material->shader = Application::instance()->resourceManager->shader("resources/glsl/texture");
-  canvasQuad->material->blendPremultiplied();
-  uicam.reset(new Camera2D(Rect(0,0,newSize)));*/
   windowSize = newSize;
+  uicam->viewport(Rect(0,0,windowSize));
 }
   
 void RenderSystem::draw(const LayerPtr& rootLayer)
 {
   prepareRedraws(rootLayer);
   updateLayerCaches();
-  redraw();
 
-/*  if(rootView)
-  {
-    draw(rootView->layer);
-    rc->glContext->bindDefaultFramebuffer();
-    rc->glContext->camera(uicam);
-    rc->glContext->draw(canvasQuad);
-  }*/
+  rc->glContext->bindDefaultFramebuffer();
+  rc->glContext->camera(uicam);
+  rc->glContext->clearColor(Color(0,0,0,0));
+  rc->glContext->clear(GL_COLOR_BUFFER_BIT);
+  rc->drawTexturedRect(rootLayer->rect, layerCache[rootLayer.get()], whiteColor);
   
   redrawCandidates.clear();
   redraws.clear();
@@ -56,6 +50,7 @@ void RenderSystem::prepareRedraws(const LayerPtr rootLayer)
 {
   if(redrawCandidates.size()>0)
   {
+    // remove all candidates that are currently set to invisible or not part of the main hierarchy that starts at root layer
     DOUT("redraw candidates: "<<u64(redrawCandidates.size()));
     for(auto layer : redrawCandidates)
     {
@@ -64,6 +59,9 @@ void RenderSystem::prepareRedraws(const LayerPtr rootLayer)
         redraws.push_back(layer);
       }
     }
+    
+    // sort the remaining redraws by z coordinate, descending
+    std::sort(redraws.begin(), redraws.end(), [](Layer* l1, Layer* l2){ return l1->z() > l2->z(); });
   }  
 }
 
@@ -71,6 +69,7 @@ void RenderSystem::updateLayerCaches()
 {
   for(Layer* layer : redraws)
   {
+    DOUT("creating cache for Layer with z = "<<layer->z());
     // find existing texture for layer or create new one and resize to current layer size
     TexturePtr texture;
     auto pos = layerCache.find(layer);
@@ -85,28 +84,23 @@ void RenderSystem::updateLayerCaches()
       layerCache[layer] = texture;
     }
     
-    // set up frame buffer
+    // set up frame buffer for layer cache
     fb->bind();
     fb->detachAll();
     fb->attachColorBuffer(0, texture);
     fb->check();
     fbcam->viewport(Rect(0,0,layer->rect.size()));
     rc->glContext->camera(fbcam);
+    // draw current layer contents. does NOT draw sublayers
     layer->draw(rc);
+    
+    // draw sublayer contents
+    for(LayerPtr sublayer : layer->sublayers)
+    {
+      rc->drawTexturedRect(sublayer->rect, layerCache[sublayer.get()], whiteColor);
+    }
   }
 }
-
-void RenderSystem::redraw()
-{
-  
-}
-
-/*void RenderSystem::draw(const LayerPtr& layer)
-{
-  canvas->drawToCanvas([this, layer](){
-    rc->drawSolidRect(layer->rect, layer->backgroundColor);
-  });
-}*/
 
 void RenderSystem::needsRedraw(Layer* layer)
 {

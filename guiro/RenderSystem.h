@@ -23,8 +23,6 @@ struct RenderSystem
   
 private:
   Vec2 windowSize;
-  CanvasPtr canvas;
-  QuadPtr canvasQuad;
   Camera2DPtr uicam;
   
   FrameBufferPtr fb;
@@ -35,7 +33,6 @@ private:
     
   void prepareRedraws(const LayerPtr rootLayer);
   void updateLayerCaches();
-  void redraw();
   
   vector<Layer*> redrawCandidates;
   vector<Layer*> redraws;
