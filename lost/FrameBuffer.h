@@ -67,6 +67,7 @@ namespace lost
       ~Attachment();
 
       void attach(GLenum target);
+      void detach(GLenum target);
 
       void resize(const Vec2& size);
       void resetBitFormat(GLenum bitFormat);
@@ -96,6 +97,8 @@ namespace lost
     void attachDepthBuffer(const AttachmentPtr& buffer);
     void attachStencilBuffer(const TexturePtr& buffer);
     void attachStencilBuffer(const AttachmentPtr& buffer);
+
+    void detachAll();
     
     GLenum status();
     bool isComplete();

@@ -168,6 +168,21 @@ namespace lost
       }
     }
 
+    void FrameBuffer::Attachment::detach(GLenum target)
+    {
+      switch (usageType)
+      {
+        case Attachment::UT_texture:
+            glFramebufferTexture2D(GL_FRAMEBUFFER, target, GL_TEXTURE_2D, 0, 0); GLASSERT;
+            break;
+        case Attachment::UT_renderBuffer:
+          glFramebufferRenderbuffer(GL_FRAMEBUFFER, target, GL_RENDERBUFFER, 0); GLASSERT;
+          break;
+        default:
+          ASSERT(false, "invalid usage type: " << usageType);
+      }
+    }
+
     void FrameBuffer::Attachment::bind()
     {
       switch (usageType)
@@ -230,6 +245,22 @@ namespace lost
     FrameBuffer::~FrameBuffer()
     {
       glDeleteFramebuffers(1, &buffer); GLASSERT;
+    }
+
+    void FrameBuffer::detachAll()
+    {
+      if(depthBuffer)
+      {
+        depthBuffer->detach(GL_DEPTH_ATTACHMENT);
+      }
+      if(stencilBuffer)
+      {
+        stencilBuffer->detach(GL_STENCIL_ATTACHMENT);
+      }
+      for(u32 i=0; i<colorBuffers.size();++i)
+      {
+        colorBuffers[i]->detach(GL_COLOR_ATTACHMENT0+i);
+      }
     }
 
     void FrameBuffer::attachColorBuffer(uint8_t index, const TexturePtr& buffer)
