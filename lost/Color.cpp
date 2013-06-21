@@ -19,7 +19,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace lost
 {
-  const Color transparentColor(0.0f, 0.0f, 0.0f, 0.0f);
+  const Color clearColor      (0.0f, 0.0f, 0.0f, 0.0f);
   const Color whiteColor      (1.0f, 1.0f, 1.0f, 1.0f);
   const Color blackColor      (0.0f, 0.0f, 0.0f, 1.0f);
   const Color redColor        (1.0f, 0.0f, 0.0f, 1.0f);

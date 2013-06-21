@@ -60,7 +60,7 @@ namespace lost
   void operator-=(Color& l, const Color& r);
   void operator/=(Color& l, float);
 
-  extern const lost::Color transparentColor;
+  extern const lost::Color clearColor      ;
   extern const lost::Color whiteColor      ;
   extern const lost::Color blackColor      ;
   extern const lost::Color redColor        ;
