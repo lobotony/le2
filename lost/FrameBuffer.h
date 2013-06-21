@@ -88,6 +88,7 @@ namespace lost
 
     static FrameBufferPtr create(const Vec2& size, GLenum colorBits = -1, GLenum depthBits = -1, GLenum stencilBits = -1);
 
+    FrameBuffer();
     FrameBuffer(const Vec2& size, GLenum colorBits = -1, GLenum depthBits = -1, GLenum stencilBits = -1);
     ~FrameBuffer();
 

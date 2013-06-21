@@ -241,7 +241,12 @@ namespace lost
       // FIXME: 
 //      bindDefaultFramebuffer();
     }
-    
+  
+    FrameBuffer::FrameBuffer()
+    {
+      glGenFramebuffers(1, &buffer); GLASSERT;    
+    }
+  
     FrameBuffer::~FrameBuffer()
     {
       glDeleteFramebuffers(1, &buffer); GLASSERT;
