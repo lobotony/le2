@@ -22,13 +22,19 @@ struct RenderSystem
   
   
 private:
+  Vec2 windowSize;
   CanvasPtr canvas;
   QuadPtr canvasQuad;
   Camera2DPtr uicam;
   
+  FrameBufferPtr fb;
+  Camera2DPtr fbcam;
+  
+  
   RenderContext* rc;
     
-  void prepareRedraws();
+  void prepareRedraws(const LayerPtr rootLayer);
+  void updateLayerCaches();
   void redraw();
   
   vector<Layer*> redrawCandidates;
