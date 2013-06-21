@@ -1,6 +1,8 @@
 #include "guiro/layers/Layer.h"
 #include "guiro/UserInterface.h"
 #include "lost/Application.h"
+#include "guiro/RenderContext.h"
+#include "lost/Context.h"
 
 namespace lost
 {
@@ -115,7 +117,7 @@ bool Layer::visible()
 
 bool Layer::isSublayerOf(Layer* root)
 {
-  bool result = false;
+  bool result = this == root ? true : false;
   
   Layer* l = this->superlayer.get();
   while(l)
@@ -129,6 +131,13 @@ bool Layer::isSublayerOf(Layer* root)
   }
   
   return result;
+}
+
+void Layer::draw(RenderContext* rc)
+{
+  rc->glContext->clearColor(Color(0,0,0,0));
+  rc->glContext->clear(GL_COLOR_BUFFER_BIT);
+  rc->drawSolidRect(Rect(0,0,rect.size()), backgroundColor);
 }
 
 }
