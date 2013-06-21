@@ -13,6 +13,7 @@ RenderContext::RenderContext(Context* ctx)
   glContext = ctx;
   // load some common shaders
   colorShader = Application::instance()->resourceManager->shader("resources/glsl/color");
+  textureShader = Application::instance()->resourceManager->shader("resources/glsl/texture");
   
   // create buffers for efficient quad drawing. Vertex and index buffers are reused as often as possible
   BufferLayout layout;
@@ -48,6 +49,16 @@ void RenderContext::drawSolidRect(const Rect& rect, const Color& col)
   bgquad->transform = Matrix::translate(Vec3(rect.x, rect.y, 0)) * Matrix::scale(Vec3(rect.width, rect.height, 1));
   bgquad->material->color = col;
   bgquad->material->shader = colorShader;
+  glContext->draw(bgquad);
+}
+
+void RenderContext::drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col)
+{
+  bgquad->transform = Matrix::translate(Vec3(rect.x, rect.y, 0)) * Matrix::scale(Vec3(rect.width, rect.height, 1));
+  bgquad->material->color = col;
+  bgquad->material->shader = textureShader;
+  bgquad->material->limitTextures(1);
+  bgquad->material->setTexture(0, tex);
   glContext->draw(bgquad);
 }
 

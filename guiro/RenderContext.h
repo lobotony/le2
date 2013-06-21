@@ -17,8 +17,10 @@ struct RenderContext
   RenderContext(Context* ctx);
   
   void drawSolidRect(const Rect& rect, const Color& col);
+  void drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col);
   
   ShaderProgramPtr colorShader;
+  ShaderProgramPtr textureShader;
   
   Context* glContext;
   MeshPtr bgquad;  
