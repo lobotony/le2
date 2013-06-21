@@ -32,6 +32,8 @@ void UiTestApp::startup()
   DOUT("sl2 Z:"<<sl2->z());
   DOUT("sl3 Z:"<<sl3->z());
   
+  sl3->needsRedraw();
+  
   DOUT("sizeof(Layer) = "<<u64(sizeof(Layer)));
   DOUT("sizeof(View) = "<<u64(sizeof(View)));
 }

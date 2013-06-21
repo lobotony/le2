@@ -104,7 +104,11 @@ void RenderSystem::updateLayerCaches()
 
 void RenderSystem::needsRedraw(Layer* layer)
 {
-  redrawCandidates.push_back(layer);
+  auto pos = find(redrawCandidates.begin(), redrawCandidates.end(), layer);
+  if(pos == redrawCandidates.end())
+  {
+    redrawCandidates.push_back(layer);
+  }
 }
 
 }
