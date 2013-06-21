@@ -55,6 +55,11 @@ namespace lost
     {
       return Vec2( x, y );
     }
+  
+    Vec2 Rect::size() const
+    {
+      return Vec2(width, height);
+    }
 
     void Rect::clipTo(const Rect& parent)
     {

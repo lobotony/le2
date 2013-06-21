@@ -32,6 +32,7 @@ namespace lost
     bool operator !=(const Rect& rect) const;
     bool operator !();
     Vec2 pos() const;
+    Vec2 size() const;
     void clipTo(const Rect& parent);
     float maxX() const;
     float maxY() const;
