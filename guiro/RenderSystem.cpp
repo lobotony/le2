@@ -9,9 +9,11 @@
 #include "guiro/layers/Layer.h"
 #include "lost/FrameBuffer.h"
 #include "lost/Context.h"
+#include <algorithm>
 
 namespace lost
 {
+
 RenderSystem::RenderSystem()
 {
   rc = new RenderContext(Application::instance()->glContext);
