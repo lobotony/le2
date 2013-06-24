@@ -11,6 +11,10 @@ LOSTENGINE_DEFS=-DLOST_PLATFORM_RPI
 
 CPPSOURCES=main.cpp \
 					RunnerRpi.cpp \
+					../apps/DemoApp.cpp \
+					../apps/SunApp.cpp \
+					../apps/UiTestApp.cpp \
+					../lost/Application.cpp \
 					../lost/Bitmap.cpp \
 					../lost/BitmapPacker.cpp \
 					../lost/Buffer.cpp \
@@ -19,13 +23,12 @@ CPPSOURCES=main.cpp \
 					../lost/Camera.cpp \
 					../lost/Camera2D.cpp \
 					../lost/Camera3D.cpp \
+					../lost/Canvas.cpp \
 					../lost/Clock.cpp \
 					../lost/Color.cpp \
 					../lost/Context.cpp \
 					../lost/ContextRpi.cpp \
 					../lost/Data.cpp \
-					../lost/DemoEngine.cpp \
-					../lost/Engine.cpp \
 					../lost/Event.cpp \
 					../lost/EventPool.cpp \
 					../lost/EventQueue.cpp \
@@ -50,7 +53,6 @@ CPPSOURCES=main.cpp \
 					../lost/RectPacker.cpp \
 					../lost/RenderBuffer.cpp \
 					../lost/ResourceManager.cpp \
-					../lost/Runner.cpp \
 					../lost/Shader.cpp \
 					../lost/ShaderPreprocessor.cpp \
 					../lost/ShaderProgram.cpp \
@@ -75,6 +77,7 @@ CPPSOURCES=main.cpp \
 					../guiro/EventSystem.cpp \
 					../guiro/Frame.cpp \
 					../guiro/layers/Layer.cpp \
+					../guiro/RenderContext.cpp \
 					../guiro/RenderSystem.cpp \
 					../guiro/UpdateSystem.cpp \
 					../guiro/UserInterface.cpp \
