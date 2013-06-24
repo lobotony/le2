@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "lost/Engine.h"
+#include "lost/Application.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
@@ -9,8 +9,10 @@
 #include  "bcm_host.h"
 #include "vc_dispmanx_types.h"
 #include <sstream>
+#include "lost/EventQueue.h"
+#include "lost/EventPool.h"
 
-lost::Engine* _engineInstance = NULL;
+lost::Application* _appInstance = NULL;
 
 namespace lost
 {
@@ -22,6 +24,9 @@ EGL_DISPMANX_WINDOW_T nativewindow;
 EGLDisplay display;
 EGLContext context;
 EGLSurface surface;
+
+uint32_t display_width;
+uint32_t display_height;
 
 string eglErrorString()
 {
@@ -40,9 +45,6 @@ void createNativeWindow()
   DISPMANX_UPDATE_HANDLE_T dispman_update;
   VC_RECT_T dst_rect;
   VC_RECT_T src_rect;
-
-  uint32_t display_width;
-  uint32_t display_height;
 
   int32_t success = 0;
   success = graphics_get_display_size(0 /* LCD */, 
@@ -82,9 +84,9 @@ void createNativeWindow()
   vc_dispmanx_update_submit_sync( dispman_update );   
 }
 
-void run(Engine* engine)
+void run(Application* app)
 {
-  _engineInstance = engine;
+  _appInstance = app;
 
   DOUT("===========================================================");
   DOUT("===========================================================");
@@ -119,14 +121,21 @@ void run(Engine* engine)
   EGLASSERT((context = eglCreateContext(display, config, EGL_NO_CONTEXT, contextAttribs)) != EGL_NO_CONTEXT);
   EGLASSERT(eglMakeCurrent(display, surface, surface, context));
    
-  _engineInstance->doStartup();
+  _appInstance->doStartup();
+
+  lost::Event* event = _appInstance->eventPool->borrowEvent();
+  event->base.type = lost::ET_WindowResize;
+  event->windowResizeEvent.width = display_width;
+  event->windowResizeEvent.height = display_height;
+  _appInstance->eventQueue->addEventToNextQueue(event);
+
   while(true)
   {
-    _engineInstance->doUpdate();
+    _appInstance->doUpdate();
     eglSwapBuffers(display, surface);
   }
 
-  _engineInstance->doShutdown();
+  _appInstance->doShutdown();
 }
 
 }
