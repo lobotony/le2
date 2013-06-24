@@ -3,6 +3,7 @@
 #include "lost/Application.h"
 #include "guiro/RenderContext.h"
 #include "lost/Context.h"
+#include <algorithm>
 
 namespace lost
 {
@@ -44,7 +45,7 @@ void Layer::addSublayer(const LayerPtr& layer)
 
 void Layer::removeSublayer(const LayerPtr& layer)
 {
-  auto pos = find(sublayers.begin(), sublayers.end(), layer);
+  auto pos = std::find(sublayers.begin(), sublayers.end(), layer);
   if(pos != sublayers.end())
   {
     LayerPtr sublayer = *pos;
