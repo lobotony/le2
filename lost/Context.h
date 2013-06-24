@@ -96,9 +96,7 @@ public:
   void bindDefaultFramebuffer();
   void defaultFramebuffer(GLuint fbo);
   GLuint defaultFramebuffer();
-
-  void pushMatrix(GLenum mode, const Matrix& matrix); // mode = GL_MODELVIEW, will take GL_PROJECTION parameter in future if required
-  void popMatrix(GLenum mode); // mode = GL_MODELVIEW
+  
   void pushModelViewMatrix(const Matrix& matrix);
   void popModelViewMatrix();
 

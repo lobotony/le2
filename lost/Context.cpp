@@ -495,28 +495,18 @@ map<void*, Context*> glContext2lostGlContext;
       glBindBuffer(buffer->target, buffer->buffer);GLDEBUG;
     }
   
-void Context::pushMatrix(GLenum mode, const Matrix& matrix)
-{
-  Matrix current = matrix * modelViewStack.back();
-  modelViewStack.push_back(current);
-}
+    void Context::pushModelViewMatrix(const Matrix& matrix)
+    {
+      Matrix current = matrix * modelViewStack.back();
+      modelViewStack.push_back(current);
+    }
 
-void Context::popMatrix(GLenum mode)
-{
-  if(modelViewStack.size() > 1)
-  {
-    modelViewStack.pop_back();
-  }
-}
-
-void Context::pushModelViewMatrix(const Matrix& matrix)
-{
-  pushMatrix(GL_MODELVIEW, matrix);
-}
-
-void Context::popModelViewMatrix()
-{
-  popMatrix(GL_MODELVIEW);
-}
+    void Context::popModelViewMatrix()
+    {
+      if(modelViewStack.size() > 1)
+      {
+        modelViewStack.pop_back();
+      }
+    }
   
 }
