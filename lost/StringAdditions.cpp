@@ -2,6 +2,7 @@
 #include <string>
 #include <codecvt>
 #include <iostream>
+#include "thirdparty/utf8.h"
 
 namespace lost
 {
@@ -84,6 +85,21 @@ void normaliseLinebreaks(string& data)
 
 u32string convertUtf8ToUtf32(const string& utf8string)
 {
+  u32string result;
+  utf8::utf8to32(utf8string.begin(), utf8string.end(), back_inserter(result));
+  return result;
+}
+
+string convertUtf32ToUtf8String(const u32string& utf32string)
+{
+  string result;
+  utf8::utf32to8(utf32string.begin(), utf32string.begin(), back_inserter(result));
+  return result;
+}
+
+
+/*u32string convertUtf8ToUtf32(const string& utf8string)
+{
   wstring_convert<codecvt_utf8<char32_t>, char32_t> convert;
   return convert.from_bytes(utf8string);
 }
@@ -92,7 +108,7 @@ string convertUtf32ToUtf8String(const u32string& utf32string)
 {
   wstring_convert<codecvt_utf8<char32_t>, char32_t> convert;
   return convert.to_bytes(utf32string);
-}
+}*/
 
 }
 
