@@ -1,6 +1,5 @@
 #include "lost/StringAdditions.h"
 #include <string>
-#include <codecvt>
 #include <iostream>
 #include "thirdparty/utf8.h"
 
