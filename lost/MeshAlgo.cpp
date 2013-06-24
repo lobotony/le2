@@ -22,10 +22,10 @@ MeshPtr newTriangleStrip(u32 numTriangles)
   u32 numVertices = numTriangles + 2;
   u32 numIndices = numVertices;
   
-  DOUT("-------------- newTriangleStrip");
+/*  DOUT("-------------- newTriangleStrip");
   DOUT("numTriangles "<<numTriangles);
   DOUT("numVertices "<< numVertices);
-  DOUT("numIndices "<< numIndices);
+  DOUT("numIndices "<< numIndices);*/
   
   result->vertexBuffer->reset(numVertices);
   result->indexBuffer->reset(numIndices);
@@ -118,6 +118,63 @@ void catmullRomSegment(vector<Vec2>&        interpolated, // receives the interp
     interpolated[pointOffset+i] = catmullRomInterpolate(t, cp0, cp1, cp2, cp3);
     t += dt;
   }
+}
+
+void catmullRom(const vector<Vec2>& controlPoints,  // arbitrary number of control point, at least 4
+                u32 numInterpolatedPoints,          // number of points to calculate from the controlPoints
+                vector<Vec2>& interpolatedPoints)    // result vector, will be resized to numInterpolatedPoints
+{
+  interpolatedPoints.resize(numInterpolatedPoints);
+  // a minimum of 4 control points is required for the initial segment.
+  // Each consecutive is made up by following point + 3 previous.
+  uint32_t numSegments = ((uint32_t)controlPoints.size()-4)+1;
+  vector<uint32_t> pn; // number of points per segment
+  pn.resize(numSegments);
+
+  // vertices spread evenly between segments
+  // leftovers are attached to last segment
+  uint32_t nps = numInterpolatedPoints / numSegments;
+  uint32_t pbudget = numInterpolatedPoints;
+  for(uint32_t i=0; i<numSegments; ++i)
+  {
+    if(2*nps > pbudget)
+    {
+      pn[i] = pbudget; // should only be the last one
+    }
+    else
+    {
+      pn[i] = nps;
+      pbudget -= nps;
+    }
+//    DOUT("seg "<<pn[i]);
+  }
+  
+  uint32_t pointOffset = 0;
+  for(uint32_t segnum = 0; segnum < numSegments; ++segnum)
+  {
+    catmullRomSegment(interpolatedPoints, pointOffset, pn[segnum], controlPoints, segnum);
+    pointOffset += pn[segnum];
+  }
+
+}
+
+void calculateNormals(const vector<Vec2>& points, // vector of points that form a line
+                      vector<Vec2>& normals)
+{
+  u32 num = (u32)points.size();
+  normals.resize(num);
+  // fix normal vectors
+  ASSERT(num >= 2, "numVertices must be at least 2");
+  for(u32 i=0; i<(num-1); ++i)
+  {
+    Vec2 tv = points[i+1] - points[i+0];
+    Vec2 tnv;
+    tnv.x = -tv.y;
+    tnv.y = tv.x;
+    normalise(tnv);
+    normals[i] = tnv;
+  }
+  normals[num-1] = normals[num-2];  
 }
 
 

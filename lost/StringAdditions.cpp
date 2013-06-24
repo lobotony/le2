@@ -1,7 +1,12 @@
 #include "lost/StringAdditions.h"
+#include <string>
+#include <codecvt>
+#include <iostream>
 
 namespace lost
 {
+
+using namespace std;
 
 bool replace(string& value,
              string const& search,
@@ -75,6 +80,18 @@ void normaliseLinebreaks(string& data)
 {
   replace(data, "\r\n", "\n");
   replace(data, "\r", "\n");
+}
+
+u32string convertUtf8ToUtf32(const string& utf8string)
+{
+  wstring_convert<codecvt_utf8<char32_t>, char32_t> convert;
+  return convert.from_bytes(utf8string);
+}
+
+string convertUtf32ToUtf8String(const u32string& utf32string)
+{
+  wstring_convert<codecvt_utf8<char32_t>, char32_t> convert;
+  return convert.to_bytes(utf32string);
 }
 
 }

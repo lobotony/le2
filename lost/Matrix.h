@@ -58,6 +58,82 @@ struct Matrix
   void initLookAt(const Vec3& eye, const Vec3& center, const Vec3& up);
   void transpose();
 
+
+  static Matrix rotate(const Vec3& inAngles)
+  {
+    Matrix m;
+    m.initRotateX(inAngles.x);
+    m.initRotateY(inAngles.y);
+    m.initRotateZ(inAngles.z);
+    return m;
+  }
+  
+  static Matrix rotateX(f32 angle)
+  {
+    Matrix m;
+    m.initRotateX(angle);
+    return m;
+  }
+
+  static Matrix rotateY(f32 angle)
+  {
+    Matrix m;
+    m.initRotateY(angle);
+    return m;
+  }
+
+  static Matrix rotateZ(f32 angle)
+  {
+    Matrix m;
+    m.initRotateZ(angle);
+    return m;
+  }
+  
+  static Matrix translate(const Vec3& inTranslation)
+  {
+    Matrix m;
+    m.initTranslation(inTranslation);
+    return m;
+  }
+  
+  static Matrix ortho(const Rect& rect, const Vec2& nearAndFar)
+  {
+    Matrix m;
+    m.initOrtho(rect, nearAndFar);
+    return m;
+  }
+  
+  static Matrix perspective(float fovy,
+                            float aspect,
+                            const Vec2& nearAndFar)
+  {
+    Matrix m;
+    m.initPerspective(fovy, aspect, nearAndFar);
+    return m;
+  }
+  
+  static Matrix lookAt(const Vec3& eye,
+                       const Vec3& center,
+                       const Vec3& up)
+  {
+    Matrix m;
+    m.initLookAt(eye, center, up);
+    return m;
+  }
+  
+  static Matrix scale(const Vec3& f)
+  {
+    Matrix m;
+    m.initScaling(f);
+    return m;
+  }
+  
+  static Matrix identity()
+  {
+    Matrix m;
+    m.initIdentity();
+    return m;
+  }
   
   Vec4 row(long num) const; // return the specified row as vec4
   void row(long num, const Vec4& row); // set the specified row as vec4
@@ -73,50 +149,6 @@ bool operator!=(const Matrix& lhs, const Matrix& rhs);
 
 
 
-struct MatrixRotation : public Matrix
-{
-  MatrixRotation(const Vec3& inAngles);
-};
-
-struct MatrixRotX : public Matrix
-{
-  MatrixRotX(float inAngle);
-};
-
-struct MatrixRotY : public Matrix
-{
-  MatrixRotY(float inAngle);
-};
-
-struct MatrixRotZ : public Matrix
-{
-  MatrixRotZ(float inAngle);
-};
-
-struct MatrixTranslation : public Matrix
-{
-  MatrixTranslation(const Vec3& inTranslation);
-};
-
-struct MatrixOrtho : public Matrix
-{
-  MatrixOrtho(const Rect& rect, const Vec2& nearAndFar);
-};
-
-struct MatrixPerspective : public Matrix
-{
-  MatrixPerspective(const float& fovy, const float& aspect, const Vec2& nearAndFar);
-};
-
-struct MatrixLookAt : public Matrix
-{
-  MatrixLookAt(const Vec3& eye, const Vec3& center, const Vec3& up);
-};
-
-struct MatrixScaling : public Matrix
-{
-  MatrixScaling(const Vec3& scaling);
-};
 }
 
 #endif

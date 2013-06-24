@@ -24,6 +24,7 @@ namespace lost
   struct Rect
   {
     Rect(float nx, float ny, float w, float h);
+    Rect(float nx, float ny, const Vec2& sz);
     Rect();
 
     void operator +=( const Vec2& parentPos );
@@ -31,6 +32,7 @@ namespace lost
     bool operator !=(const Rect& rect) const;
     bool operator !();
     Vec2 pos() const;
+    Vec2 size() const;
     void clipTo(const Rect& parent);
     float maxX() const;
     float maxY() const;

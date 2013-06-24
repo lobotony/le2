@@ -40,7 +40,7 @@ struct TruetypeFont : public Font
   stbtt_fontinfo    _fontinfo;
   
   DataPtr _data;
-  std::map<utf32_char, GlyphPtr> char2glyph;
+  std::map<char32_t, GlyphPtr> char2glyph;
   std::vector<GlyphPtr> glyphs; // this list of glyphs contains the glyphs in the order they were rendered
   // this is important to preserve the ordering fo rth packing of the atlas
   
@@ -49,7 +49,7 @@ struct TruetypeFont : public Font
    *  and updates it if they don't.
    *  @return true if the glyph was rendered, false if it was cached and didn't need to be rendered again.
    */
-  bool renderGlyph(utf32_char c);
+  bool renderGlyph(char32_t c);
   void rebuildTextureAtlas(); // builds a new texture atlas from the current glyphs in the cache.
   
 };

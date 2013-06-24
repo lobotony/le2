@@ -23,11 +23,11 @@ namespace lost
 {
 
 TextMeshPtr render(const string & inText, const FontPtr& font, bool characterMetrics, int align = 0);
-TextMeshPtr render(const utf32_string& inText, const FontPtr& font, bool characterMetrics, int align = 0);
-void render(const std::string & inText, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align = 0);
-void render(const utf32_string& inText, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align = 0);
-void render(const utf32_string& inText, const Range& range, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align = 0);
-void render(const utf32_string& inText, const std::vector<Range>& lines, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align = 0);
+TextMeshPtr render(const u32string& inText, const FontPtr& font, bool characterMetrics, int align = 0);
+void render(const string & inText, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align = 0);
+void render(const u32string& inText, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align = 0);
+void render(const u32string& inText, const Range& range, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align = 0);
+void render(const u32string& inText, const vector<Range>& lines, const FontPtr& font, const TextMeshPtr& target, bool characterMetrics, int align = 0);
 
 }
 

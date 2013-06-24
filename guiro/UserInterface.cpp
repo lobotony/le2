@@ -1,26 +1,78 @@
 #include "UserInterface.h"
+#include "guiro/EventSystem.h"
+#include "guiro/UpdateSystem.h"
+#include "guiro/RenderSystem.h"
 
 namespace lost
 {
 
 UserInterface::UserInterface()
 {
-  rootView.reset(new View);
+  eventSystem = new EventSystem;
+  updateSystem = new UpdateSystem;
+  renderSystem = new RenderSystem;
 }
 
 UserInterface::~UserInterface()
 {
+  delete renderSystem;
+  delete updateSystem;
+  delete eventSystem;
 }
 
-void UserInterface::update()
+void UserInterface::update(const EventQueue::Container& events)
 {
+  for(Event* event : events)
+  {
+    if(event->base.type == ET_WindowResize)
+    {
+      f32 w = event->windowResizeEvent.width;
+      f32 h = event->windowResizeEvent.height;
+      windowResized(w, h);
+    }
+    else if(event->base.type == ET_MouseMoveEvent)
+    {
+    }
+  }
+
   // FIXME: event system needs to handle any incoming events
   // FIXME: layout system needs to layout any views and layers in queue
 }
 
-void UserInterface::draw(Context* glContext)
+void UserInterface::windowResized(f32 w, f32 h)
 {
-  renderSystem.draw(glContext, rootView);
+  if(rootView)
+  {
+    rootView->layer->rect(Rect(0,0,w,h));
+  }
+  renderSystem->windowResized(Vec2(w, h));
+}
+
+void UserInterface::draw()
+{
+  if(rootView)
+  {
+    renderSystem->draw(rootView->layer);
+  }
+}
+
+void UserInterface::needsRedraw(Layer* layer)
+{
+  renderSystem->needsRedraw(layer);
+}
+
+void UserInterface::enable()
+{
+  if(!rootView)
+  {
+    rootView.reset(new View);
+    rootView->layer->rect(0,0,1,1); // any size other than 0,0 to prevent unnecessary OpenGL framebuffer errors
+  }
+}
+
+void UserInterface::disable()
+{
+  rootView.reset();
 }
 
 }

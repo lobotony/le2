@@ -6,16 +6,17 @@ namespace lost
 
 View::View()
 {
+  layer.reset(new Layer);
 }
 
 View::~View()
 {
 }
 
-bool View::containsSubview(ViewPtr view)
+bool View::containsSubview(const ViewPtr& view)
 {
   bool result = false;
-  lost::list<ViewPtr>::iterator pos = std::find(subviews.begin(), subviews.end(), view);
+  auto pos = std::find(subviews.begin(), subviews.end(), view);
   if(pos != subviews.end())
   {
     result = true;
@@ -23,7 +24,7 @@ bool View::containsSubview(ViewPtr view)
   return result;
 }
 
-void View::addSubview(ViewPtr view)
+void View::addSubview(const ViewPtr& view)
 {
   if(!containsSubview(view))
   {
@@ -34,7 +35,7 @@ void View::addSubview(ViewPtr view)
     }
     else
     {
-      WOUT("tried to insert subview that is ");
+      WOUT("tried to insert subview that already had superview");
     }
   }
   else
@@ -43,7 +44,7 @@ void View::addSubview(ViewPtr view)
   }
 }
 
-void View::removeSubview(ViewPtr view)
+void View::removeSubview(const ViewPtr& view)
 {
   if(containsSubview(view))
   {
@@ -65,6 +66,8 @@ void View::removeSubview(ViewPtr view)
 
 void View::removeFromSuperview()
 {
+  ASSERT(superview != NULL, "tried to remove subview without superview");
+  superview->removeSubview(shared_from_this());
 }
 
 }

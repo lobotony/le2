@@ -20,6 +20,10 @@ void split(const string& str,
 //  "\r\n" and "\r" to "\n"
 void normaliseLinebreaks(string& data);
 
+u32string convertUtf8ToUtf32(const string& utf8string);
+string convertUtf32ToUtf8String(const u32string& utf32string);
+
+
 }
 
 

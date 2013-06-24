@@ -11,4 +11,9 @@ UpdateSystem::~UpdateSystem()
 {
 }
 
+void UpdateSystem::update()
+{
+  
+}
+
 }

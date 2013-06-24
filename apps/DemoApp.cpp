@@ -1,4 +1,5 @@
-#include "lost/Engine.h"
+#include "apps/DemoApp.h"
+
 #include "lost/Log.h"
 #include "lost/Bundle.h"
 #include "lost/Bitmap.h"
@@ -20,48 +21,19 @@
 #include "lost/ResourceManager.h"
 
 #include "lost/MeshAlgo.h"
+#include "lost/EventQueue.h"
+#include "lost/Event.h"
 
-namespace lost 
+#include "lost/FrameBuffer.h"
+#include "lost/Quad.h"
+
+namespace lost
 {
 
-using namespace std;
+  const uint32_t dotsize = 5;
+  f32 splineWidth = 62;
 
-MeshPtr coloredQuad;
-MeshPtr texturedQuad;
-ShaderProgramPtr colorShader;
-ShaderProgramPtr textureShader;
-ShaderProgramPtr pointShader;
-CameraPtr cam;
-TexturePtr ringTexture;
-FontPtr font;
-TextMeshPtr rt1;
-TextMeshPtr rt2;
-TextMeshPtr rt3;
-
-MeshPtr dot;
-MeshPtr dot2;
-
-MeshPtr lines;
-MeshPtr spline;
-MeshPtr normals;
-MeshPtr triangulatedSpline;
-
-vector<MeshPtr> cpdots;
-vector<MeshPtr> ipdots;
-
-const uint32_t dotsize = 5;
-f32 splineWidth = 62;
-
-TexturePtr splineTexture;
-
-f64 lastTime;
-f64 nowTime;
-f64 deltaTime;
-
-vector<Vec2> controlPoints;
-vector<Vec2> cp2;
-
-void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh, MeshPtr& triangles)
+void DemoApp::updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh, MeshPtr& triangles)
 {
   uint32_t numVertices = lineMesh->numVertices();
   vector<Vec2> ip; // interpolated points
@@ -123,13 +95,13 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
     
     normalMesh->set(i*2+1, UT_position, ip[i]+nv[i]*normalLenght);
     
-    // visualize interpolated points with quads for debugging
+/*    // visualize interpolated points with quads for debugging
     MeshPtr p = dot->clone();
     p->transform = MatrixTranslation(Vec3(ip[i].x-(dotsize/2), ip[i].y-(dotsize/2), 0));
     p->material = dot->material->clone();
     p->material->color = Color(1.0, 0,0,.5);
     p->material->blendNormal();
-    ipdots.push_back(p);
+    ipdots.push_back(p);*/
   }
   
   // adjust triangle mesh, only writes to points
@@ -158,12 +130,14 @@ void updateSpline(const vector<Vec2>& cp, MeshPtr& lineMesh, MeshPtr& normalMesh
   
 }
 
-
-void Engine::startup()
+void DemoApp::startup()
 {
   ResourceBundle mainBundle;
   colorShader = resourceManager->shader("resources/glsl/color");
   textureShader = resourceManager->shader("resources/glsl/texture");
+  hblurShader = resourceManager->shader("resources/glsl/hblur");
+  vblurShader = resourceManager->shader("resources/glsl/vblur");
+
 	ringTexture = resourceManager->texture("resources/images/rings.png");
   cam = Camera2D::create(Rect(0,0,1024,768));
   
@@ -197,20 +171,20 @@ void Engine::startup()
   tb.renderAllPhysicalLines(rt2);
   rt2->material->blendPremultiplied();
   rt2->material->shader = textureShader;
-  rt2->transform = MatrixTranslation(Vec3(200,200,0));
+  rt2->transform = Matrix::translate(Vec3(200,200,0));
 
   rt1 = render("I vant to drink your blood!", font, false);
   rt1->material->shader = textureShader;
   rt1->material->blendPremultiplied();
-  rt1->transform = MatrixTranslation(Vec3(50,50,0));
+  rt1->transform = Matrix::translate(Vec3(50,50,0));
 
-  utf32_string utf32s;
+  u32string utf32s;
   utf32s = 0xf085;
   rt3 = render(utf32s, fa, false);
   rt3->material->shader = textureShader;
-  rt3->material->color = blackColor;
+  rt3->material->color = yellowColor;
   rt3->material->blendPremultiplied();
-  rt3->transform = MatrixTranslation(Vec3(600,300,0));
+  rt3->transform = Matrix::translate(Vec3(600,300,0));
 
 
   coloredQuad = Quad::create(Rect(0,0,50,50));
@@ -221,16 +195,16 @@ void Engine::startup()
   texturedQuad->material->shader = textureShader;
   texturedQuad->material->color = whiteColor;
   texturedQuad->material->blendNormal();
-  texturedQuad->transform = MatrixTranslation(Vec3(100,100,0));
+  texturedQuad->transform = Matrix::translate(Vec3(100,100,0));
   
   dot = Quad::create(Rect(0,0,dotsize,dotsize));
   dot->material->shader = colorShader;
   dot->material->color = greenColor;
 
-  dot->transform = MatrixTranslation(Vec3(10,10,0));
+  dot->transform = Matrix::translate(Vec3(10,10,0));
 
   dot2 = dot->clone();
-  dot2->transform = MatrixTranslation(Vec3(30,30,0));
+  dot2->transform = Matrix::translate(Vec3(30,30,0));
 
   lines = newLineStrip(4);
   lines->material->shader = colorShader;
@@ -295,30 +269,65 @@ void Engine::startup()
   for(uint32_t i=0; i<controlPoints.size(); ++i)
   {
     MeshPtr p = dot->clone();
-    p->transform = MatrixTranslation(Vec3(controlPoints[i].x-(dotsize/2), controlPoints[i].y-(dotsize/2), 0));
+    p->transform = Matrix::translate(Vec3(controlPoints[i].x-(dotsize/2), controlPoints[i].y-(dotsize/2), 0));
     cpdots.push_back(p);
   }
   
-  lastTime = currentTimeSeconds();
-  nowTime = lastTime;
-  deltaTime = 0;
   cp2 = controlPoints;
+  d = 0;
+  
+  
+  ////////////////////////////////////////////
+  ////////////////////////////////////////////
+  //////// Framebuffer
+  ////////////////////////////////////////////
+  ////////////////////////////////////////////
+
+  Vec2 fbsize(1024, 768);
+
+  fbcam = Camera2D::create(Rect(0,0,fbsize.width,fbsize.height));
+  
+  fb0 = FrameBuffer::create(fbsize, GL_RGBA);
+  fb0->check();
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
+  fb0quad = Quad::create(fb0->colorBuffers[0]->texture, false);
+  fb0quad->material->shader = vblurShader;
+  fb0quad->material->color = whiteColor;
+  fb0quad->material->blendPremultiplied();
+
+  fb1 = FrameBuffer::create(fbsize, GL_RGBA);
+  fb1->check();
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
+  fb1quad = Quad::create(fb1->colorBuffers[0]->texture, false);
+  fb1quad->material->shader = vblurShader;
+  fb1quad->material->color = whiteColor;
+  fb1quad->material->blendPremultiplied();  
 }
 
-void updateDeltaTime()
+
+void DemoApp::update()
 {
-  nowTime = currentTimeSeconds();
-  deltaTime = nowTime - lastTime;
-  lastTime = nowTime;
-}
+  const EventQueue::Container& events = eventQueue->getCurrentQueue();
+  
+  int mp = 3;
+  
+  for(Event* event : events)
+  {
+    if(event->base.type == ET_WindowResize)
+    {
+      f32 w = event->windowResizeEvent.width;
+      f32 h = event->windowResizeEvent.height;
+//      DOUT("updating viewport "<<int(w)<<"/"<<int(h));
+      cam->viewport(Rect(0,0,w,h));
+    }
+    else if(event->base.type == ET_MouseMoveEvent)
+    {
+      controlPoints[mp].x = event->mouseEvent.x;
+      controlPoints[mp].y = event->mouseEvent.y;
+    }
+  }
 
-f32 d = 0;
-
-void Engine::update()
-{
-  updateDeltaTime();
-
-  d += deltaTime;
+  d += clock.deltaUpdate;
   f32 v1 = sin(d);
   f32 v2 = cos(d);
 
@@ -327,29 +336,76 @@ void Engine::update()
   
   for(u32 i=0; i<controlPoints.size();++i)
   {
-    f32 f = sin(i)+cos(4*i);
-    controlPoints[i] = Vec2(cp2[i].x+v1*ix*f, cp2[i].y+v2*iy*f);
+    if(i != mp)
+    {
+      f32 f = sin(i)+cos(4*i);
+      controlPoints[i] = Vec2(cp2[i].x+v1*ix*f, cp2[i].y+v2*iy*f);
+    }
   }
 
   updateSpline(controlPoints, spline, normals, triangulatedSpline);
 
-  glContext->clearColor(Color(.45, .84, 1, 1));
+  //////////////////////
+  // framebuffer
+  
+  // pass 1: original into buffer 0
+  fb0->bind();
+  glContext->clearColor(Color(0, 0, 0, 0));
+  glContext->camera(fbcam);
+  glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+  glContext->draw(triangulatedSpline);
+
+  // pass 2: horizontal blur into buffer 1
+  fb1->bind();
+  glContext->clearColor(Color(0, 0, 0, 0));
+  glContext->camera(fbcam);
+  glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+  fb0quad->material->shader = hblurShader;
+  glContext->draw(fb0quad);
+  
+  // pass 3: vertical blur into buffer 0
+  fb0->bind();
+  glContext->clearColor(Color(0, 0, 0, 0));
+  glContext->camera(fbcam);
+  glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+
+  fb1quad->material->shader = vblurShader;
+  glContext->draw(fb1quad);
+  
+  //////////////////////
+  // screen pass
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); // switch to default framebuffer
+
+
+// light blue  glContext->clearColor(Color(.45, .84, 1, 1));
+//  glContext->clearColor(Color(.3, .3, 0, 1));
+  glContext->clearColor(Color(0, 0, 0, 1));
   glContext->camera(cam);
   glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
-  glContext->draw(coloredQuad);
-  glContext->draw(texturedQuad);
+//  glContext->draw(coloredQuad);
+//  glContext->draw(texturedQuad);
   glContext->draw(rt1);
   glContext->draw(rt2);
   glContext->draw(rt3);
-  glContext->draw(dot);
-  glContext->draw(dot2);
-  glContext->draw(lines);
-  glContext->draw(spline);
-  glContext->draw(normals);
-  glContext->draw(triangulatedSpline);
+//  glContext->draw(dot);
+//  glContext->draw(dot2);
+//  glContext->draw(lines);
+//  glContext->draw(spline);
+//  glContext->draw(normals);
 
-  for(uint32_t i=0; i<ipdots.size(); ++i)
+//  glContext->draw(triangulatedSpline);
+
+    glContext->draw(triangulatedSpline);
+
+    fb0quad->material->shader = textureShader;
+    fb0quad->material->color = Color(1,1,1,1);
+    glContext->draw(fb0quad);
+
+
+/*  for(uint32_t i=0; i<ipdots.size(); ++i)
   {
     glContext->draw(ipdots[i]);
   }
@@ -357,13 +413,10 @@ void Engine::update()
   for(uint32_t i=0; i<cpdots.size(); ++i)
   {
     glContext->draw(cpdots[i]);
-  }
-  
-  ui->update();
-  ui->draw(glContext);
+  }*/  
 }
 
-void Engine::shutdown()
+void DemoApp::shutdown()
 {
 }
 

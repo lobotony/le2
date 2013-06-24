@@ -6,9 +6,11 @@ GLOBALINCLUDE=-include ../lost/prefix-shared.h
 
 INCDIR=${SYSDIRS} ${THIRDPARTY} ${LOSTINCLUDE} ${GLOBALINCLUDE}
 
-LOSTENGINE_DEFS=-DLOST_GL_DEBUG -DLOST_PLATFORM_RPI
+#LOSTENGINE_DEFS=-DLOST_GL_DEBUG -DLOST_PLATFORM_RPI
+LOSTENGINE_DEFS=-DLOST_PLATFORM_RPI
 
 CPPSOURCES=main.cpp \
+					RunnerRpi.cpp \
 					../lost/Bitmap.cpp \
 					../lost/BitmapPacker.cpp \
 					../lost/Buffer.cpp \
@@ -17,17 +19,19 @@ CPPSOURCES=main.cpp \
 					../lost/Camera.cpp \
 					../lost/Camera2D.cpp \
 					../lost/Camera3D.cpp \
+					../lost/Clock.cpp \
 					../lost/Color.cpp \
 					../lost/Context.cpp \
 					../lost/ContextRpi.cpp \
 					../lost/Data.cpp \
+					../lost/DemoEngine.cpp \
 					../lost/Engine.cpp \
-					../lost/EngineUser.cpp \
 					../lost/Event.cpp \
 					../lost/EventPool.cpp \
 					../lost/EventQueue.cpp \
 					../lost/Font.cpp \
 					../lost/FragmentShader.cpp \
+					../lost/FrameBuffer.cpp \
 					../lost/Glyph.cpp \
 					../lost/HostBuffer.cpp \
 					../lost/HybridBuffer.cpp \
@@ -44,7 +48,9 @@ CPPSOURCES=main.cpp \
 					../lost/Quad.cpp \
 					../lost/Rect.cpp \
 					../lost/RectPacker.cpp \
+					../lost/RenderBuffer.cpp \
 					../lost/ResourceManager.cpp \
+					../lost/Runner.cpp \
 					../lost/Shader.cpp \
 					../lost/ShaderPreprocessor.cpp \
 					../lost/ShaderProgram.cpp \

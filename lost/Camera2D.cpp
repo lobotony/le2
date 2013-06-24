@@ -26,7 +26,7 @@ Camera2D::Camera2D(const Rect& inViewport)
 {
   mDepth = Vec2(-1.0, 1.0);
   float offset = .375f;
-  mViewMatrix = MatrixTranslation(Vec3(offset, offset, .0f));
+  mViewMatrix = Matrix::translate(Vec3(offset, offset, .0f));
 }
 
 Camera2DPtr Camera2D::create(const Rect& inViewport)
@@ -38,7 +38,7 @@ void Camera2D::update()
 {
   if (needsUpdate)
   {
-    mProjectionMatrix = MatrixOrtho(Rect(0, 0, mViewport.width, mViewport.height), mDepth);
+    mProjectionMatrix = Matrix::ortho(Rect(0, 0, mViewport.width, mViewport.height), mDepth);
     needsUpdate = false;        
   }
 }

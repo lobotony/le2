@@ -109,10 +109,8 @@ map<void*, Context*> glContext2lostGlContext;
       scissorEnabled = getParam<bool>(GL_SCISSOR_TEST);
       texture2DEnabled = getParam<bool>(GL_TEXTURE_2D);
       currentActiveTexture = getParam<int>(GL_ACTIVE_TEXTURE);
-      currentTransform.initIdentity();
       currentClearColor = getParam<Color>(GL_COLOR_CLEAR_VALUE);
       currentScissorRect = getParam<Rect>(GL_SCISSOR_BOX);
-      currentBuffer = NULL;
       cullEnabled = getParam<bool>(GL_CULL_FACE);
       cullFaceMode = getParam<int>(GL_CULL_FACE_MODE);
       
@@ -123,6 +121,8 @@ map<void*, Context*> glContext2lostGlContext;
       }
       clearVertexAttributeEnabled();
       clearVertexAttributeRequired();
+      
+      modelViewStack.push_back(Matrix::identity());
     }
     
     Context::~Context()
@@ -141,17 +141,6 @@ map<void*, Context*> glContext2lostGlContext;
     {
       currentCam.reset();
       currentShader.reset();
-      currentBuffer = NULL;
-    }
-
-/*    void Context::bindFramebuffer(const FrameBufferPtr& fbo)
-    {
-      fbo->bind();
-    }*/
-
-    void Context::bindFramebuffer(GLuint fbo)
-    {
-      glBindFramebuffer(GL_FRAMEBUFFER, fbo); GLASSERT;
     }
 
     void Context::bindDefaultFramebuffer()
@@ -436,14 +425,12 @@ map<void*, Context*> glContext2lostGlContext;
       }
       bind(ib->gpuBuffer.get());
 
-      // store the enabled vertex attributes
-      vector<GLint> enabledVertexAttributes;
       // don't do anything if there's no shader
       if(currentShader)
-      {
+      {      
         // set automatic uniforms if the shader wants them
         if(currentShader->hasUniform("projectionMatrix")) { currentShader->set("projectionMatrix", currentCam->projectionMatrix() * currentCam->viewMatrix()); }
-        if(currentShader->hasUniform("modelViewMatrix")) { currentShader->set("modelViewMatrix", mesh->transform); }
+        if(currentShader->hasUniform("modelViewMatrix")) { currentShader->set("modelViewMatrix", mesh->transform * modelViewStack.back()); }
         if(currentShader->hasUniform("viewport")) { Rect v = currentCam->viewport(); currentShader->set("viewport", Vec2(v.width, v.height)); }
         if(currentShader->hasUniform("depth")) { currentShader->set("depth", currentCam->depth()); }
         if(currentShader->hasUniform("color")) { currentShader->set("color", mesh->material->color); }
@@ -470,7 +457,6 @@ map<void*, Context*> glContext2lostGlContext;
             const AttributePointerConfig apc = vb->pointerConfigForUsageType(ut);
             vertexAttributeEnable(va.location, true);
             glVertexAttribPointer(va.location, apc.size, apc.type, apc.normalise, apc.stride, apc.offset);GLDEBUG;
-            enabledVertexAttributes.push_back(va.location);
           }
         }
       }
@@ -506,10 +492,31 @@ map<void*, Context*> glContext2lostGlContext;
 
     void Context::bind(Buffer* buffer)
     {
-//      if(buffer != currentBuffer)
-//      {
-        glBindBuffer(buffer->target, buffer->buffer);GLDEBUG;
-//        currentBuffer = buffer;
-//      }
+      glBindBuffer(buffer->target, buffer->buffer);GLDEBUG;
     }
+  
+void Context::pushMatrix(GLenum mode, const Matrix& matrix)
+{
+  Matrix current = matrix * modelViewStack.back();
+  modelViewStack.push_back(current);
+}
+
+void Context::popMatrix(GLenum mode)
+{
+  if(modelViewStack.size() > 1)
+  {
+    modelViewStack.pop_back();
+  }
+}
+
+void Context::pushModelViewMatrix(const Matrix& matrix)
+{
+  pushMatrix(GL_MODELVIEW, matrix);
+}
+
+void Context::popModelViewMatrix()
+{
+  popMatrix(GL_MODELVIEW);
+}
+  
 }

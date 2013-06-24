@@ -168,7 +168,7 @@ void Texture::init(const vector<BitmapPtr>& inBitmaps, const Params& inParams)
              inBitmaps[i]->data);GLASSERT;
     ++bitmapParams.level;
   }
-  
+  this->internalFormat = bitmapParams.internalFormat;
   wrapS(bitmapParams.wrapS);
   wrapT(bitmapParams.wrapT);
   minFilter(bitmapParams.minFilter);
@@ -193,7 +193,7 @@ void Texture::subImage(const Vec2& targetPos, const BitmapPtr& inBitmap)
 }
 
 void Texture::init(GLint level, // mipmap level
-           GLenum internalformat, // number of color components
+           GLenum inInternalFormat, // number of color components
            GLsizei width,
            GLsizei height,
            GLint border, // must be 0 or 1
@@ -204,13 +204,14 @@ void Texture::init(GLint level, // mipmap level
     bind();
     glTexImage2D(GL_TEXTURE_2D,
                  level,
-                 internalformat,
+                 inInternalFormat,
                  width,
                  height,
                  border,
                  format,
                  type,
                  data);GLASSERT;
+  this->internalFormat = inInternalFormat;
 }
 
 void Texture::wrap(GLint p)

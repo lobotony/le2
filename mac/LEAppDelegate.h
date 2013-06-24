@@ -4,4 +4,6 @@
 
 @property (assign) IBOutlet NSWindow *window;
 
+-(void)sendWindowResizeEvent;
+
 @end

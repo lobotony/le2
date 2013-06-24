@@ -22,6 +22,9 @@ namespace lost
     Rect::Rect(float nx, float ny, float w, float h)
     : x(nx), y(ny), width(w), height(h) {}
 
+    Rect::Rect(float nx, float ny, const Vec2& sz)
+    : x(nx), y(ny), width(sz.width), height(sz.height) {}
+
     Rect::Rect() : x(0), y(0), width(0), height(0) {}
 
     void Rect::operator +=( const Vec2& parentPos )
@@ -51,6 +54,11 @@ namespace lost
     Vec2 Rect::pos() const
     {
       return Vec2( x, y );
+    }
+  
+    Vec2 Rect::size() const
+    {
+      return Vec2(width, height);
     }
 
     void Rect::clipTo(const Rect& parent)

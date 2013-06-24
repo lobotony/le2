@@ -56,7 +56,7 @@ TruetypeFont::~TruetypeFont()
 {
 }
 
-bool TruetypeFont::renderGlyph(utf32_char c)
+bool TruetypeFont::renderGlyph(char32_t c)
 {
   bool result = false;
   GlyphPtr glyph = char2glyph[c];
@@ -153,7 +153,7 @@ GlyphPtr TruetypeFont::glyph(uint32_t utf32character)
   GlyphPtr result = char2glyph[utf32character];
   if(!result)
   {
-    if(renderGlyph(utf32character))
+    if(this->renderGlyph(utf32character))
     {
       rebuildTextureAtlas();
     }

@@ -27,6 +27,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace lost
 {
   using std::string;
+  using std::u32string;
   using std::vector;
   using std::map;
   using std::list;
@@ -43,15 +44,6 @@ namespace lost
   
   typedef float f32;
   typedef double f64;
-
-  typedef uint8_t                         utf8_char;
-  typedef std::basic_string<utf8_char>    utf8_string;
-
-  typedef uint16_t                        utf16_char;
-  typedef std::basic_string<utf16_char>   utf16_string;
-
-  typedef uint32_t                        utf32_char;
-  typedef std::basic_string<utf32_char>   utf32_string;
 
   #define LE_SP(structname) struct structname;typedef shared_ptr<structname> structname##Ptr;
   
@@ -80,6 +72,8 @@ namespace lost
   LE_SP(TruetypeFont);
   LE_SP(TextMesh);
   LE_SP(Quad);
+  LE_SP(FrameBuffer);
+  LE_SP(Canvas);
 }
 
 #endif

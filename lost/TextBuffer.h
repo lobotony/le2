@@ -91,7 +91,7 @@ private:
   vector<Range>        _physicalLines;
   FontPtr                   _font;
   BreakMode                 _breakMode;
-  utf32_string               _text;
+  u32string               _text;
   float                     _width;
   bool                      _characterMetrics;
   int                       _align;

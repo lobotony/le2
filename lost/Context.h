@@ -56,8 +56,6 @@ private:
   Rect currentViewport;
   GLenum currentActiveTexture;
   ShaderProgramPtr currentShader;
-  Matrix currentTransform;
-  Buffer* currentBuffer;
   bool cullEnabled;
   GLenum cullFaceMode;
   static const uint32_t _maxTextures = 32;
@@ -80,36 +78,29 @@ private:
   GLuint m_defaultFrameBuffer;
   vector<Rect> _scissorRectStack;
   
+  vector<Matrix> modelViewStack;
+  
 public:
   Context();
   ~Context();
 
   void cleanup(); // cleanup all resources
 
-  /**
-   * sets this OpenGL context as the thread's current context
-   */
-  void makeCurrent();
-
-  /**
-   * clear the thread's current context
-   */
-  void clearCurrent();
-
-  /**
-   * swaps buffers :)
-   */
+  void makeCurrent(); // make this context the current context, platform specific
+  void clearCurrent(); // reset current context, platform specific
   void swapBuffers();
 
   void vsync(bool enable); // true to enable vsync to prevent tearing
   void multithreaded(bool enable); // true to enable multithreaded OpenGL execution on Mac
-  
-//  void bindFramebuffer(const FrameBufferPtr& fbo);
-  void bindFramebuffer(GLuint fbo);
 
   void bindDefaultFramebuffer();
   void defaultFramebuffer(GLuint fbo);
   GLuint defaultFramebuffer();
+
+  void pushMatrix(GLenum mode, const Matrix& matrix); // mode = GL_MODELVIEW, will take GL_PROJECTION parameter in future if required
+  void popMatrix(GLenum mode); // mode = GL_MODELVIEW
+  void pushModelViewMatrix(const Matrix& matrix);
+  void popModelViewMatrix();
 
   void depthTest(bool enable);
   void blend(bool enable);

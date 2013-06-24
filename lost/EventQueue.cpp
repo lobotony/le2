@@ -8,6 +8,8 @@ namespace lost
 EventQueue::EventQueue()
 {
   _mutex = new tthread::mutex;
+  currentQ = &q0;
+  nextQ = &q1;
 }
 
 EventQueue::~EventQueue()
@@ -15,26 +17,42 @@ EventQueue::~EventQueue()
   delete _mutex;
 }
 
-void EventQueue::addEvent(Event* event)
+void EventQueue::addEventToNextQueue(Event* event)
 {
   _mutex->lock();
-  events.push_back(event);
+  nextQ->push_back(event);
   _mutex->unlock();
 }
 
-void EventQueue::returnAllEvents()
+const EventQueue::Container& EventQueue::getCurrentQueue()
 {
-  size_t num = events.size();
+  return *currentQ;
+}
+
+void EventQueue::swap()
+{
+  _mutex->lock();
+
+  
+  // return all events to their respective pools and clear pointer list
+  Container& cnt = *currentQ;
+
+/*  size_t num = currentQ->size();
   if(num > 0)
   {
-//    DOUT("returning "<<(uint64_t)num<<" events");
-  }
-  for(size_t i=0; i<num; ++i)
+    DOUT("returning "<<(uint64_t)num<<" events");
+  }*/
+
+  for(Event* event : cnt)
   {
-    Event* event = events[i];
+//    DOUT(event->base.type);
     event->base.pool->returnEvent(event);
   }
-  events.clear();
+  cnt.clear();
+  
+  std::swap(currentQ, nextQ);
+
+  _mutex->unlock();
 }
 
 }

@@ -17,12 +17,12 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "lost/TextBuffer.h"
 #include "lost/Font.h"
 #include "lost/TextRender.h"
-#include "utf8.h"
+#include "StringAdditions.h"
 
 namespace lost
 {
 
-uint32_t skipToNewlineOrEnd(uint32_t pos, const utf32_string& txt)
+uint32_t skipToNewlineOrEnd(uint32_t pos, const u32string& txt)
 {
   if(pos < txt.size())
   {
@@ -57,15 +57,13 @@ void TextBuffer::text(const string& inUtf8String)
   normaliseNewlines(normalised);
   _text.clear();
   // transcode to utf32 for parsing
-  utf8::utf8to32(normalised.begin(), normalised.end(), back_inserter(_text));  
+  _text = convertUtf8ToUtf32(normalised);
 }
 
 string TextBuffer::utf8String()
 {
   string result;
-  
-  utf8::utf32to8(_text.begin(), _text.end(), back_inserter(result));  
-  
+  result = convertUtf32ToUtf8String(_text);  
   return result;
 }
 
@@ -85,7 +83,7 @@ string TextBuffer::substring(uint32_t fromLine, uint32_t fromIndex, uint32_t toL
       t = _physicalLines[fromLine].begin + fromIndex;
     }
     if (f < _text.size() && t > 0 && t <= _text.size()) {
-      utf8::utf32to8(_text.begin()+f, _text.begin()+t, back_inserter(result));
+      result = convertUtf32ToUtf8String(u32string(_text.begin()+f, _text.begin()+t));
     }
   }
   return result;
@@ -359,9 +357,7 @@ uint32_t TextBuffer::numCharsInPhysicalLine(uint32_t lineIndex)
 
 void TextBuffer::insertUtf8StringAtPosition(uint32_t lineIndex, uint32_t charIndex, const string& inString)
 {
-  utf32_string decoded;
-  utf8::utf8to32(inString.begin(), inString.end(),
-                 back_inserter(decoded));
+  u32string decoded = convertUtf8ToUtf32(inString);
   
   Range r;
   if(lineIndex < _physicalLines.size())
