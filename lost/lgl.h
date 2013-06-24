@@ -15,7 +15,14 @@
     #import <OpenGLES/ES2/gl.h>
     #import <OpenGLES/ES2/glext.h>
     #define VERSION_OPENGL_ES OPENGL_ES_1_1
-  #else
+  #elif defined LOST_PLATFORM_RPI
+    #include <EGL/egl.h>
+    #include <GLES2/gl2.h>
+    #include <GLES2/gl2ext.h>
+    #define VERSION_OPENGL_ES OPENGL_ES_2_0
+    #define GL_DEPTH_COMPONENT24 GL_DEPTH_COMPONENT24_OES
+    #define GL_DEPTH_COMPONENT32 GL_DEPTH_COMPONENT32_OES    
+   #else
     #include <EGL/egl.h>
     #include <GLES2/gl2.h>
     #include <GLES2/gl2ext.h>
