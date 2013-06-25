@@ -85,17 +85,24 @@ void Texture::init(const Vec2& inSize, const Texture::Params& inParams)
   // if sizehint is dontcare we try to choose non-power-of-two, unless the platform doesn't allow it
   if(sizeHint == Texture::SIZE_DONT_CARE)
   {
-#if TARGET_OPENGL
+/*#if TARGET_OPENGL
       sizeHint = Texture::SIZE_ORIGINAL;
 #else
       sizeHint = Texture::SIZE_POWER_OF_TWO;
-#endif
+#endif*/
+      sizeHint = Texture::SIZE_ORIGINAL;
+
   }
 
   if(sizeHint == Texture::SIZE_POWER_OF_TWO)
   {
     texwidth = nextPowerOf2(inSize.width);
     texheight = nextPowerOf2(inSize.height);
+//    DOUT("creating power-of-two texture "<<texwidth<<" "<<texheight);
+  }
+  else
+  {
+//    DOUT("creating texture of size "<<texwidth<<" "<<texheight);
   }
 
   // create an empty texture object, i.e. without data, to setup the desired size
