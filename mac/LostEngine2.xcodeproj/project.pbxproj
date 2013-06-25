@@ -31,6 +31,7 @@
 		EA945F0515F7A4C1004EE290 /* FragmentShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0315F7A43A004EE290 /* FragmentShader.cpp */; };
 		EA945F0615F7A503004EE290 /* VertexShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0115F7A430004EE290 /* VertexShader.cpp */; };
 		EA945F0715F7A53F004EE290 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945EFF15F7A428004EE290 /* ShaderProgram.cpp */; };
+		EA95A49C1779F93B00087013 /* TextLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA95A49A1779F93B00087013 /* TextLayer.cpp */; };
 		EAADB60F15FF97FD008F7450 /* BitmapPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB60D15FF97FD008F7450 /* BitmapPacker.cpp */; };
 		EAADB61915FFA391008F7450 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB61515FFA391008F7450 /* Font.cpp */; };
 		EAADB62215FFA3A2008F7450 /* TextBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB61C15FFA3A2008F7450 /* TextBuffer.cpp */; };
@@ -151,6 +152,8 @@
 		EA945F0D15F7A87C004EE290 /* HybridIndexBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HybridIndexBuffer.h; sourceTree = "<group>"; };
 		EA945F0E15F7A87C004EE290 /* HybridVertexBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HybridVertexBuffer.cpp; sourceTree = "<group>"; };
 		EA945F0F15F7A87C004EE290 /* HybridVertexBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HybridVertexBuffer.h; sourceTree = "<group>"; };
+		EA95A49A1779F93B00087013 /* TextLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextLayer.cpp; path = ../guiro/layers/TextLayer.cpp; sourceTree = "<group>"; };
+		EA95A49B1779F93B00087013 /* TextLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextLayer.h; path = ../guiro/layers/TextLayer.h; sourceTree = "<group>"; };
 		EAADB60D15FF97FD008F7450 /* BitmapPacker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitmapPacker.cpp; sourceTree = "<group>"; };
 		EAADB60E15FF97FD008F7450 /* BitmapPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapPacker.h; sourceTree = "<group>"; };
 		EAADB61515FFA391008F7450 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 			children = (
 				EAF3582617287B1100824CF2 /* Layer.cpp */,
 				EAF3582717287B1100824CF2 /* Layer.h */,
+				EA95A49A1779F93B00087013 /* TextLayer.cpp */,
+				EA95A49B1779F93B00087013 /* TextLayer.h */,
 			);
 			name = layers;
 			sourceTree = "<group>";
@@ -704,6 +709,7 @@
 				EAAFD8BB1772147800C1D521 /* UiTestApp.cpp in Sources */,
 				EAAFD8BE177215AA00C1D521 /* DemoApp.cpp in Sources */,
 				EAAFD8C1177215CB00C1D521 /* SunApp.cpp in Sources */,
+				EA95A49C1779F93B00087013 /* TextLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
