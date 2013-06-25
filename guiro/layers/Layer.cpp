@@ -161,6 +161,29 @@ const Rect& Layer::rect() const
   return _rect;
 }
 
+void Layer::pos(const Vec2& p)
+{
+  Rect r = _rect;
+  r.pos(p);
+  rect(r);
+}
+
+Vec2 Layer::pos() const
+{
+  return _rect.pos();
+}
+
+void Layer::size(const Vec2& sz)
+{
+  Rect r = _rect;
+  r.size(sz);
+  rect(r);
+}
+
+Vec2 Layer::size() const
+{
+  return _rect.size();
+}
 
 }
 

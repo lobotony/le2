@@ -26,15 +26,21 @@ struct Layer : enable_shared_from_this<Layer>
   void visible(bool val); // sets this layers visibility flag
   bool visible(); // returns this layers visibility flag
   
-  void draw(RenderContext* rc);
+  virtual void draw(RenderContext* rc);
   
   void needsRedraw(); // invalidate texture cache in compositor, force content redraw and composition
 
-  string description();
+  virtual string description();
   
   void rect(f32 x, f32 y, f32 w, f32 h);
   void rect(const Rect& r);
   const Rect& rect() const;
+  
+  void pos(const Vec2& p);
+  Vec2 pos() const;
+  
+  void size(const Vec2& sz);
+  Vec2 size() const;
   
   u16 z();
   string name;
