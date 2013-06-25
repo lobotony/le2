@@ -4,6 +4,8 @@
 #include "lost/Mesh.h"
 #include "lost/Application.h"
 #include "lost/ResourceManager.h"
+#include "lost/TextRender.h"
+#include "lost/TextMesh.h"
 
 namespace lost
 {
@@ -42,6 +44,10 @@ RenderContext::RenderContext(Context* ctx)
   
   bgquad->material->shader = colorShader;
   bgquad->material->color = whiteColor;
+  
+  textMesh.reset(new TextMesh);
+  textMesh->material->shader = textureShader;
+  textMesh->material->color = whiteColor;
 }
 
 void RenderContext::drawSolidRect(const Rect& rect, const Color& col)
@@ -62,5 +68,14 @@ void RenderContext::drawTexturedRect(const Rect& rect, const TexturePtr& tex, co
   glContext->draw(bgquad);
 }
 
+void RenderContext::drawText(const string& text, const FontPtr& font, const Color& col, const Vec2& pos, int alignment)
+{
+  render(text, font, textMesh, true, alignment);
+  textMesh->transform = Matrix::translate(Vec3(pos.x, pos.y, 0));
+  textMesh->material->color = col;
+  glContext->draw(textMesh);
 }
+
+}
+
 

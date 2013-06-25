@@ -18,12 +18,14 @@ struct RenderContext
   
   void drawSolidRect(const Rect& rect, const Color& col);
   void drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col);
+  void drawText(const string& text, const FontPtr& font, const Color& col, const Vec2& pos, int alignment);
   
   ShaderProgramPtr colorShader;
   ShaderProgramPtr textureShader;
   
   Context* glContext;
-  MeshPtr bgquad;  
+  MeshPtr bgquad;
+  TextMeshPtr textMesh;
 };
 }
 
