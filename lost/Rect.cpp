@@ -50,12 +50,24 @@ namespace lost
     {
       return !(this->x || this->y || this->width || this->height);
     }
-    
+
+    void Rect::pos(const Vec2& v)
+    {
+      x = v.x;
+      y = v.y;
+    }
+  
     Vec2 Rect::pos() const
     {
       return Vec2( x, y );
     }
   
+    void Rect::size(const Vec2& v)
+    {
+      width = v.width;
+      height = v.height;
+    }
+
     Vec2 Rect::size() const
     {
       return Vec2(width, height);

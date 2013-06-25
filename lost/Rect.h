@@ -31,7 +31,9 @@ namespace lost
     bool operator ==(const Rect& rect) const;
     bool operator !=(const Rect& rect) const;
     bool operator !();
+    void pos(const Vec2& v);
     Vec2 pos() const;
+    void size(const Vec2& v);
     Vec2 size() const;
     void clipTo(const Rect& parent);
     float maxX() const;
