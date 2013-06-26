@@ -19,6 +19,13 @@ struct RenderContext
   void drawSolidRect(const Rect& rect, const Color& col);
   void drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col);
   void drawText(const string& text, const FontPtr& font, const Color& col, const Vec2& pos, int alignment);
+  void drawRoundRect(const Rect& rect, u16 radius, const Color& col);
+  
+  string quarterDiscPath(u16 radius);
+  string quarterRingPath(u16 radius, u16 thickness);
+  
+  TexturePtr quarterDisc(u16 radius);
+  TexturePtr quarterRing(u16 radius, u16 thickness);
   
   ShaderProgramPtr colorShader;
   ShaderProgramPtr textureShader;

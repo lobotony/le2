@@ -6,9 +6,12 @@
 #include "lost/ResourceManager.h"
 #include "lost/TextRender.h"
 #include "lost/TextMesh.h"
+#include "lost/Bitmap.h"
 
 namespace lost
 {
+
+#pragma mark - de/construction -
 
 RenderContext::RenderContext(Context* ctx)
 {
@@ -44,27 +47,92 @@ RenderContext::RenderContext(Context* ctx)
   
   bgquad->material->shader = colorShader;
   bgquad->material->color = whiteColor;
+  bgquad->material->blendPremultiplied();
   
   textMesh.reset(new TextMesh);
   textMesh->material->shader = textureShader;
   textMesh->material->color = whiteColor;
 }
 
+#pragma mark - resource management -
+
+string RenderContext::quarterDiscPath(u16 radius)
+{
+  StringStream ss;
+  ss << "qdisc-"<<radius;
+  return ss.str();
+}
+
+string RenderContext::quarterRingPath(u16 radius, u16 thickness)
+{
+  StringStream ss;
+  ss << "qring-"<<radius<<"-"<<thickness;
+  return ss.str();
+}
+
+TexturePtr RenderContext::quarterDisc(u16 radius)
+{
+  TexturePtr result;
+  
+  string path = quarterDiscPath(radius);
+  if(!Application::instance()->resourceManager->hasTexture(path))
+  {
+    BitmapPtr bitmap(new Bitmap(radius, radius, GL_RGBA));
+    bitmap->disc(radius-1, radius-1, radius);
+    bitmap->premultiplyAlpha();
+    result.reset(new Texture(bitmap));
+    Application::instance()->resourceManager->texture(path, result);
+    bitmap->write("/Users/tony/"+path+".tga");
+  }
+  else
+  {
+    result = Application::instance()->resourceManager->texture(path);
+  }
+  
+  return result;
+}
+
+TexturePtr RenderContext::quarterRing(u16 radius, u16 thickness)
+{
+  TexturePtr result;
+  
+  string path = quarterRingPath(radius, thickness);
+  
+  if(!Application::instance()->resourceManager->hasTexture(path))
+  {
+    BitmapPtr bitmap(new Bitmap(radius, radius, GL_RGBA));
+    bitmap->ring(radius-1, radius-1, radius, thickness);
+    bitmap->premultiplyAlpha();
+    result.reset(new Texture(bitmap));
+    Application::instance()->resourceManager->texture(path, result);
+  }
+  else
+  {
+    result = Application::instance()->resourceManager->texture(path);
+  }
+  
+  return result;
+}
+
+#pragma mark - drawing -
+
 void RenderContext::drawSolidRect(const Rect& rect, const Color& col)
 {
   bgquad->transform = Matrix::translate(Vec3(rect.x, rect.y, 0)) * Matrix::scale(Vec3(rect.width, rect.height, 1));
-  bgquad->material->color = col;
+  bgquad->material->color = col.premultiplied();
   bgquad->material->shader = colorShader;
+  bgquad->material->blendPremultiplied();
   glContext->draw(bgquad);
 }
 
 void RenderContext::drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col)
 {
   bgquad->transform = Matrix::translate(Vec3(rect.x, rect.y, 0)) * Matrix::scale(Vec3(rect.width, rect.height, 1));
-  bgquad->material->color = col;
+  bgquad->material->color = col.premultiplied();
   bgquad->material->shader = textureShader;
   bgquad->material->limitTextures(1);
   bgquad->material->setTexture(0, tex);
+  bgquad->material->blendPremultiplied();
   glContext->draw(bgquad);
 }
 
@@ -72,9 +140,37 @@ void RenderContext::drawText(const string& text, const FontPtr& font, const Colo
 {
   render(text, font, textMesh, true, alignment);
   textMesh->transform = Matrix::translate(Vec3(pos.x, pos.y, 0));
-  textMesh->material->color = col;
+  textMesh->material->color = col.premultiplied();
+  textMesh->material->blendPremultiplied();
   glContext->draw(textMesh);
 }
+
+void RenderContext::drawRoundRect(const Rect& rect, u16 r, const Color& col)
+{
+  TexturePtr qd = quarterDisc(r);
+  
+  DOUT("tex "<<u64(qd.get()));
+  // round corners
+  Rect bl(rect.x, rect.y, r, r);
+  Rect br(rect.x+rect.width-r, rect.y, r, r);
+  Rect tr(rect.x+rect.width-r, rect.y+rect.height-r, r, r);
+  Rect tl(rect.x, rect.y+rect.height-r, r, r);
+  
+  // 3 horizontal in-between slices
+  Rect top(rect.x+r, rect.y+rect.height-r, rect.width-2*r, r);
+  Rect mid(rect.x, rect.y+r, rect.width, rect.height-2*r);
+  Rect bot(rect.x+r, rect.y, rect.width-2*r, r);
+  
+  drawTexturedRect(bl, qd, col);
+  drawTexturedRect(br, qd, col);
+  drawTexturedRect(tr, qd, col);
+  drawTexturedRect(tl, qd, col);
+  
+  drawSolidRect(top, col);
+  drawSolidRect(mid, col);
+  drawSolidRect(bot, col);
+}
+
 
 }
 
