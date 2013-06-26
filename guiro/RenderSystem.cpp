@@ -71,7 +71,7 @@ void RenderSystem::updateLayerCaches()
 {
   for(Layer* layer : redraws)
   {
-    DOUT(layer->description());
+    DOUT(layer->z() << " : " << layer->description());
     // find existing texture for layer or create new one and resize to current layer size
     TexturePtr texture;
     auto pos = layerCache.find(layer);
