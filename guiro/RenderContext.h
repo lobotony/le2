@@ -17,7 +17,7 @@ struct RenderContext
   RenderContext(Context* ctx);
   
   void drawSolidRect(const Rect& rect, const Color& col);
-  void drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col);
+  void drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col, bool flipX=false, bool flipY=false);
   void drawText(const string& text, const FontPtr& font, const Color& col, const Vec2& pos, int alignment);
   void drawRoundRect(const Rect& rect, u16 radius, const Color& col);
   
@@ -33,6 +33,12 @@ struct RenderContext
   Context* glContext;
   MeshPtr bgquad;
   TextMeshPtr textMesh;
+  
+private:
+  bool _flipX;
+  bool _flipY;
+  void updateTexCoords(); // always updates texcoords for current flip settings
+  void updateTexCoords(bool flipX, bool flipY); // checks if new flags are different and triggers optional update
 };
 }
 

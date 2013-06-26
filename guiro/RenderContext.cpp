@@ -52,6 +52,10 @@ RenderContext::RenderContext(Context* ctx)
   textMesh.reset(new TextMesh);
   textMesh->material->shader = textureShader;
   textMesh->material->color = whiteColor;
+  
+  _flipX = false;
+  _flipY = false;
+  updateTexCoords();
 }
 
 #pragma mark - resource management -
@@ -114,6 +118,51 @@ TexturePtr RenderContext::quarterRing(u16 radius, u16 thickness)
   return result;
 }
 
+#pragma mark - tex coord updates for image flipping - 
+
+void RenderContext::updateTexCoords()
+{
+  if(!_flipX && !_flipY)
+  {
+    bgquad->set(0,UT_texcoord0, Vec2(0,0));
+    bgquad->set(1,UT_texcoord0, Vec2(1,0));
+    bgquad->set(2,UT_texcoord0, Vec2(1,1));
+    bgquad->set(3,UT_texcoord0, Vec2(0,1));
+  }
+  else if(_flipX && !_flipY)
+  {
+    bgquad->set(0,UT_texcoord0, Vec2(1,0));
+    bgquad->set(1,UT_texcoord0, Vec2(0,0));
+    bgquad->set(2,UT_texcoord0, Vec2(0,1));
+    bgquad->set(3,UT_texcoord0, Vec2(1,1));
+  }
+  else if(!_flipX && _flipY)
+  {
+    bgquad->set(0,UT_texcoord0, Vec2(0,1));
+    bgquad->set(1,UT_texcoord0, Vec2(1,1));
+    bgquad->set(2,UT_texcoord0, Vec2(1,0));
+    bgquad->set(3,UT_texcoord0, Vec2(0,0));
+  }
+  else if(_flipX && _flipY)
+  {
+    bgquad->set(0,UT_texcoord0, Vec2(1,1));
+    bgquad->set(1,UT_texcoord0, Vec2(0,1));
+    bgquad->set(2,UT_texcoord0, Vec2(0,0));
+    bgquad->set(3,UT_texcoord0, Vec2(1,0));
+  }
+}
+
+void RenderContext::updateTexCoords(bool flipX, bool flipY)
+{
+  if((_flipX != flipX) || (_flipY != flipY))
+  {
+    _flipX = flipX;
+    _flipY = flipY;
+    updateTexCoords();
+  }
+}
+
+
 #pragma mark - drawing -
 
 void RenderContext::drawSolidRect(const Rect& rect, const Color& col)
@@ -125,8 +174,9 @@ void RenderContext::drawSolidRect(const Rect& rect, const Color& col)
   glContext->draw(bgquad);
 }
 
-void RenderContext::drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col)
+void RenderContext::drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col, bool flipX, bool flipY)
 {
+  updateTexCoords(flipX, flipY);
   bgquad->transform = Matrix::translate(Vec3(rect.x, rect.y, 0)) * Matrix::scale(Vec3(rect.width, rect.height, 1));
   bgquad->material->color = col.premultiplied();
   bgquad->material->shader = textureShader;
@@ -161,10 +211,10 @@ void RenderContext::drawRoundRect(const Rect& rect, u16 r, const Color& col)
   Rect mid(rect.x, rect.y+r, rect.width, rect.height-2*r);
   Rect bot(rect.x+r, rect.y, rect.width-2*r, r);
   
-  drawTexturedRect(bl, qd, col);
-  drawTexturedRect(br, qd, col);
-  drawTexturedRect(tr, qd, col);
-  drawTexturedRect(tl, qd, col);
+  drawTexturedRect(bl, qd, col, false, false);
+  drawTexturedRect(br, qd, col, true, false);
+  drawTexturedRect(tr, qd, col,true,true);
+  drawTexturedRect(tl, qd, col,false, true);
   
   drawSolidRect(top, col);
   drawSolidRect(mid, col);
