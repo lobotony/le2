@@ -197,9 +197,18 @@ void RenderContext::drawText(const string& text, const FontPtr& font, const Colo
 
 void RenderContext::drawRoundRect(const Rect& rect, u16 r, const Color& col)
 {
-  TexturePtr qd = quarterDisc(r);
-  
-  DOUT("tex "<<u64(qd.get()));
+  TexturePtr tex = quarterDisc(r);
+  drawRR(rect, r, tex, col);
+}
+
+void RenderContext::drawRoundRectFrame(const Rect& rect, u16 radius, u16 thickness, const Color& col)
+{
+  TexturePtr tex = quarterRing(radius, thickness);
+  drawRR(rect, radius, tex, col);
+}
+
+void RenderContext::drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const Color& col)
+{
   // round corners
   Rect bl(rect.x, rect.y, r, r);
   Rect br(rect.x+rect.width-r, rect.y, r, r);
@@ -211,16 +220,15 @@ void RenderContext::drawRoundRect(const Rect& rect, u16 r, const Color& col)
   Rect mid(rect.x, rect.y+r, rect.width, rect.height-2*r);
   Rect bot(rect.x+r, rect.y, rect.width-2*r, r);
   
-  drawTexturedRect(bl, qd, col, false, false);
-  drawTexturedRect(br, qd, col, true, false);
-  drawTexturedRect(tr, qd, col,true,true);
-  drawTexturedRect(tl, qd, col,false, true);
+  drawTexturedRect(bl, tex, col, false, false);
+  drawTexturedRect(br, tex, col, true, false);
+  drawTexturedRect(tr, tex, col,true,true);
+  drawTexturedRect(tl, tex, col,false, true);
   
   drawSolidRect(top, col);
   drawSolidRect(mid, col);
   drawSolidRect(bot, col);
 }
-
 
 }
 

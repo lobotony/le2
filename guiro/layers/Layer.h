@@ -19,8 +19,9 @@ struct Layer : enable_shared_from_this<Layer>
   void removeSublayer(const LayerPtr& layer);
   void removeFromSuperlayer();
   bool isSublayer(const LayerPtr& layer);
-  
   bool isSublayerOf(Layer* root); // return true if root is one of the superlayers of this layer
+  u16 z();
+  
   
   bool isVisibleWithinSuperlayers(); // returns visibility of this and all superlayers
   void visible(bool val); // sets this layers visibility flag
@@ -42,11 +43,14 @@ struct Layer : enable_shared_from_this<Layer>
   void size(const Vec2& sz);
   Vec2 size() const;
   
-  u16 z();
+  
   string name;
   Frame frame;
   
+  u16 cornerRadius;
   Color backgroundColor;
+  Color borderColor;
+  
   LayerPtr superlayer;
   vector<LayerPtr> sublayers;
 

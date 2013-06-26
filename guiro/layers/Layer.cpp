@@ -11,7 +11,10 @@ namespace lost
 Layer::Layer()
 {
   backgroundColor = clearColor;
+  borderColor = clearColor;
   _visible = true;
+  cornerRadius = 0;
+  
   needsRedraw();
 }
 
@@ -136,11 +139,21 @@ bool Layer::isSublayerOf(Layer* root)
 
 void Layer::draw(RenderContext* rc)
 {
+  // clear buffer in any case
   rc->glContext->clearColor(Color(0,0,0,0));
   rc->glContext->clear(GL_COLOR_BUFFER_BIT);
+
+  // draw background if not clear color
   if(backgroundColor != clearColor)
   {
-    rc->drawRoundRect(Rect(0,0,_rect.size()), 8, backgroundColor);
+    if(cornerRadius == 0)
+    {
+      rc->drawSolidRect(Rect(0,0,_rect.size()), backgroundColor);
+    }
+    else
+    {
+      rc->drawRoundRect(Rect(0,0,_rect.size()), cornerRadius, backgroundColor);
+    }
   }
 }
 

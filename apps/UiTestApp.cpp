@@ -18,21 +18,25 @@ void UiTestApp::startup()
   sl1->rect(Rect(50,50,200,20));
   sl1->backgroundColor = greenColor;
   sl1->name = "green";
+  sl1->cornerRadius = 8;
   
   LayerPtr sl2(new Layer);
   sl2->rect(Rect(75,100,30,40));
   sl2->backgroundColor = yellowColor;
   sl2->name = "yellow";
+  sl2->cornerRadius = 12;
 
   LayerPtr sl3(new Layer);
   sl3->rect(Rect(0,0,90,10));
   sl3->backgroundColor = blueColor;
   sl3->name = "blue";
+  sl3->cornerRadius = 4;
 
   LayerPtr sl4(new Layer);
-  sl4->rect(Rect(280,50,200,20));
+  sl4->rect(Rect(280,50,200,60));
   sl4->backgroundColor = Color(1,0,0,1);
   sl4->name = "reddy";
+  sl4->cornerRadius = 20;
 
   
   ui->rootView->layer->addSublayer(sl1);
@@ -67,6 +71,7 @@ void UiTestApp::startup()
     tl->rect(10,10,50,20);
     tl->textColor(blackColor);
     tl->backgroundColor = whiteColor;
+    tl->cornerRadius = 8;
     ui->rootView->layer->addSublayer(tl);
   }
   {
@@ -77,6 +82,7 @@ void UiTestApp::startup()
     tl->rect(75,10,50,20);
     tl->textColor(blackColor);
     tl->backgroundColor = whiteColor;
+    tl->cornerRadius = 8;
     ui->rootView->layer->addSublayer(tl);
   }
   {
@@ -87,6 +93,7 @@ void UiTestApp::startup()
     tl->rect(10,100,50,20);
     tl->textColor(blackColor);
     tl->backgroundColor = whiteColor;
+    tl->cornerRadius = 8;
     ui->rootView->layer->addSublayer(tl);
   }
   {
@@ -97,15 +104,26 @@ void UiTestApp::startup()
     tl->rect(100,100,50,20);
     tl->textColor(blackColor);
     tl->backgroundColor = whiteColor;
+    tl->cornerRadius = 8;
     ui->rootView->layer->addSublayer(tl);
   }
-
+  first = true;
+  logged = false;
 }
 
 void UiTestApp::update()
 {
   glContext->clearColor(Color(0,0,0,1));
   glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
+  if(!first && !logged)
+  {
+    Application::instance()->resourceManager->logStats();
+    logged = true;
+  }
+  if(first)
+  {
+    first = false;
+  }
 }
 
 void UiTestApp::shutdown()

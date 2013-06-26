@@ -11,6 +11,9 @@ struct UiTestApp : Application
   void startup();
   void update();
   void shutdown();
+  
+  bool first;
+  bool logged;
 };
 
 }
