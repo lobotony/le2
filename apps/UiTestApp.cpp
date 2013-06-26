@@ -28,18 +28,25 @@ void UiTestApp::startup()
   sl3->rect(Rect(0,0,90,10));
   sl3->backgroundColor = blueColor;
   sl3->name = "blue";
+
+  LayerPtr sl4(new Layer);
+  sl4->rect(Rect(280,50,200,20));
+  sl4->backgroundColor = Color(1,0,0,1);
+  sl4->name = "reddy";
+
   
   ui->rootView->layer->addSublayer(sl1);
   ui->rootView->layer->addSublayer(sl2);
   sl2->addSublayer(sl3);
+  ui->rootView->layer->addSublayer(sl4);
   
+    
+
   DOUT("root Z:"<<ui->rootView->layer->z(););
   DOUT("sl1 Z:"<<sl1->z());
   DOUT("sl2 Z:"<<sl2->z());
   DOUT("sl3 Z:"<<sl3->z());
-  
-  sl3->needsRedraw();
-  
+
   #define SZDOUT(c) DOUT("sizeof("<<#c<<") = "<<u64(sizeof(c)));
   SZDOUT(Layer);
   SZDOUT(LayerPtr);
