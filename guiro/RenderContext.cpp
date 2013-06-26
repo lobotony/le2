@@ -86,7 +86,6 @@ TexturePtr RenderContext::quarterDisc(u16 radius)
     bitmap->premultiplyAlpha();
     result.reset(new Texture(bitmap));
     Application::instance()->resourceManager->texture(path, result);
-    bitmap->write("/Users/tony/"+path+".tga");
   }
   else
   {
