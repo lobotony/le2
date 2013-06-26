@@ -48,7 +48,7 @@ namespace lost
     
     float fv[4];
 
-    Color premultiplied(); // creates a new color object from the current one with color values premultiplied with alpha
+    Color premultiplied() const; // creates a new color object from the current one with color values premultiplied with alpha
   };
 
 
