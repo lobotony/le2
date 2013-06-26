@@ -70,7 +70,7 @@ namespace lost
     
     void FrameBuffer::Attachment::updateTexture()
     {
-      texture->bind();
+//      texture->bind();
       Texture::Params textureParams;
       textureParams.internalFormat = bitFormat;
       switch (bitFormat)
@@ -125,7 +125,7 @@ namespace lost
       usageType = UT_texture;
 
       this->texture = texture;
-      this->texture->bind();
+//      this->texture->bind();
       this->texture->filter(GL_NEAREST);
     }
 
@@ -155,13 +155,13 @@ namespace lost
       switch (usageType)
       {
         case Attachment::UT_texture:
-          texture->bind();
+//          texture->bind();
           glFramebufferTexture2D(GL_FRAMEBUFFER, target, GL_TEXTURE_2D, texture->texture, 0); GLASSERT;
           break;
         case Attachment::UT_renderBuffer:
-          renderBuffer->enable();
+//          renderBuffer->enable();
           glFramebufferRenderbuffer(GL_FRAMEBUFFER, target, GL_RENDERBUFFER, renderBuffer->buffer); GLASSERT;
-          renderBuffer->disable();
+//          renderBuffer->disable();
           break;
         default:
           ASSERT(false, "invalid usage type: " << usageType);
