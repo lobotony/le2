@@ -423,14 +423,14 @@ map<void*, Context*> glContext2lostGlContext;
       if(ib->dirty) {ib->upload();}
       if(vb->dirty) {vb->upload();}
 
-      Buffer* gpuBuffer = vb->bufferForUsageType(UT_position);
-      bind(gpuBuffer);
+      Buffer* vertexBuffer = vb->bufferForUsageType(UT_position);
+      bind(vertexBuffer);
+      bind(ib->gpuBuffer.get());
       
       if(mesh->material)
       {
         material(mesh->material);      
       }
-      bind(ib->gpuBuffer.get());
 
       // don't do anything if there's no shader
       if(currentShader)
