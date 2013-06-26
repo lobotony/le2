@@ -285,7 +285,7 @@ map<void*, Context*> glContext2lostGlContext;
     
     void Context::bindTextures(const vector<TexturePtr>& textures)
     {
-      if(textures.size() > 0)
+/*      if(textures.size() > 0)
       {
         size_t num = textures.size();
         for(size_t i=0; i<num; ++i)
@@ -299,6 +299,13 @@ map<void*, Context*> glContext2lostGlContext;
           }
         }
         activeTexture(GL_TEXTURE0); // reset 
+      }*/
+      
+      u32 numTextures = (u32)textures.size();
+      for(u32 i=0; i<numTextures; ++i)
+      {
+        glActiveTexture(GL_TEXTURE0+i);GLASSERT;
+        glBindTexture(GL_TEXTURE_2D, textures[i]->texture);GLASSERT;
       }
     }
     
