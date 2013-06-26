@@ -54,7 +54,7 @@ BitmapPtr ResourceManager::bitmap(const string& resourcePath)
 BitmapPtr ResourceManager::bitmap(ResourceId rid)
 {
   BitmapPtr result;
-  
+   
   if(hash2bitmap.find(rid) == hash2bitmap.end())
   {
     // hash to string mapping MUST exist if it wasn't loaded yet
@@ -72,6 +72,17 @@ BitmapPtr ResourceManager::bitmap(ResourceId rid)
   return result;
 }
 
+bool ResourceManager::hasTexture(const string& texturePath)
+{
+  ResourceId rid = hashPath(texturePath);
+  return hasTexture(rid);
+}
+
+bool ResourceManager::hasTexture(ResourceId rid)
+{
+  return (hash2texture.find(rid) != hash2texture.end());  
+}
+
 TexturePtr ResourceManager::texture(const string& bitmapPath)
 {
   return texture(hashPath(bitmapPath));
@@ -81,7 +92,7 @@ TexturePtr ResourceManager::texture(ResourceId rid)
 {
   TexturePtr result;
   
-  if(hash2texture.find(rid) == hash2texture.end())
+  if(!hasTexture(rid))
   {
     // hash to string mapping MUST exist if it wasn't loaded yet
     ASSERT(hash2string.find(rid) != hash2string.end(), "couldn't find texture resource with id:"<<rid);
@@ -95,6 +106,19 @@ TexturePtr ResourceManager::texture(ResourceId rid)
   else
   {
     result = hash2texture[rid];
+  }
+  
+  return result;
+}
+
+TexturePtr ResourceManager::texture(const string& bitmapPath, const TexturePtr& tex)
+{
+  TexturePtr result = tex;
+  ResourceId rid = hashPath(bitmapPath);
+  
+  if(!hasTexture(rid))
+  {
+    hash2texture[rid] = tex;
   }
   
   return result;

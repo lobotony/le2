@@ -5,6 +5,10 @@
 
 namespace lost
 {
+
+/** central storage for all kinds of resources.
+ * The ResourceManager might, at any point in time, garbage collect resources.
+ */
 struct ResourceManager
 {
   ResourceManager();
@@ -13,7 +17,11 @@ struct ResourceManager
   BitmapPtr bitmap(const string& bitmapPath); // takes an explicit resource path, e.g. "resources/images/background.png"
   BitmapPtr bitmap(ResourceId bitmapHash);
 
+  bool hasTexture(const string& texturePath);
+  bool hasTexture(ResourceId rid);
+
   TexturePtr texture(const string& bitmapPath); // loads a bitmap and creates a texture from it, caching it
+  TexturePtr texture(const string& bitmapPath, const TexturePtr& tex); // takes tex and adds it to the resources under path 'bitmapPath', returning tex. Nothing is loaded from disk
   TexturePtr texture(ResourceId bitmapHash);
 
   ShaderProgramPtr shader(const string& shaderPath); // base path to a pair of files with .vs/.fs extensions
