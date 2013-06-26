@@ -140,7 +140,6 @@ void Layer::draw(RenderContext* rc)
   rc->glContext->clear(GL_COLOR_BUFFER_BIT);
   if(backgroundColor != clearColor)
   {
-    rc->drawSolidRect(Rect(0,0,_rect.size()), Color(.3, 0, 0, 1));
     rc->drawRoundRect(Rect(0,0,_rect.size()), 8, backgroundColor);
   }
 }
