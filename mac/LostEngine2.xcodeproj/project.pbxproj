@@ -86,6 +86,7 @@
 		EAF3582B17287B1100824CF2 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF3582817287B1100824CF2 /* View.cpp */; };
 		EAF4A186177DC15100958CEE /* DrawContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF4A184177DC15000958CEE /* DrawContext.cpp */; };
 		EAF4A189177DC25E00958CEE /* Compositor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF4A187177DC25E00958CEE /* Compositor.cpp */; };
+		EAF4A18C177DCAD300958CEE /* NinePatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF4A18A177DCAD200958CEE /* NinePatch.cpp */; };
 		EAF87C7A15E903A900986F86 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF87C7815E903A900986F86 /* Buffer.cpp */; };
 		EAF87C7E15E903B800986F86 /* BufferLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF87C7C15E903B800986F86 /* BufferLayout.cpp */; };
 /* End PBXBuildFile section */
@@ -262,6 +263,8 @@
 		EAF4A185177DC15100958CEE /* DrawContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawContext.h; path = ../guiro/DrawContext.h; sourceTree = "<group>"; };
 		EAF4A187177DC25E00958CEE /* Compositor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Compositor.cpp; path = ../guiro/Compositor.cpp; sourceTree = "<group>"; };
 		EAF4A188177DC25E00958CEE /* Compositor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Compositor.h; path = ../guiro/Compositor.h; sourceTree = "<group>"; };
+		EAF4A18A177DCAD200958CEE /* NinePatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NinePatch.cpp; sourceTree = "<group>"; };
+		EAF4A18B177DCAD200958CEE /* NinePatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NinePatch.h; sourceTree = "<group>"; };
 		EAF87C7815E903A900986F86 /* Buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Buffer.cpp; sourceTree = "<group>"; };
 		EAF87C7915E903A900986F86 /* Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buffer.h; sourceTree = "<group>"; };
 		EAF87C7C15E903B800986F86 /* BufferLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferLayout.cpp; sourceTree = "<group>"; };
@@ -456,6 +459,8 @@
 				EA0C316B15FD28E700661552 /* Mesh.h */,
 				EA6983BA172EF9BF00B4BA2E /* MeshAlgo.cpp */,
 				EA6983BB172EF9BF00B4BA2E /* MeshAlgo.h */,
+				EAF4A18A177DCAD200958CEE /* NinePatch.cpp */,
+				EAF4A18B177DCAD200958CEE /* NinePatch.h */,
 				EACD249115D81A6800453F75 /* Path.cpp */,
 				EACD249215D81A6800453F75 /* Path.h */,
 				EACD249815D81E4400453F75 /* Platform.h */,
@@ -710,6 +715,7 @@
 				EA95A49C1779F93B00087013 /* TextLayer.cpp in Sources */,
 				EAF4A186177DC15100958CEE /* DrawContext.cpp in Sources */,
 				EAF4A189177DC25E00958CEE /* Compositor.cpp in Sources */,
+				EAF4A18C177DCAD300958CEE /* NinePatch.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

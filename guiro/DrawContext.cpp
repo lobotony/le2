@@ -7,6 +7,7 @@
 #include "lost/TextRender.h"
 #include "lost/TextMesh.h"
 #include "lost/Bitmap.h"
+#include "lost/NinePatch.h"
 
 namespace lost
 {
@@ -56,33 +57,38 @@ DrawContext::DrawContext(Context* ctx)
   _flipX = false;
   _flipY = false;
   updateTexCoords();
+  
+  ninePatch.reset(new NinePatch);
+  ninePatch->flip = false;
+  ninePatch->material->shader = textureShader;
+  ninePatch->material->blendPremultiplied();
 }
 
 #pragma mark - resource management -
 
-string DrawContext::quarterDiscPath(u16 radius)
+string DrawContext::discPath(u16 radius)
 {
   StringStream ss;
-  ss << "qdisc-"<<radius;
+  ss << "disc-"<<radius;
   return ss.str();
 }
 
-string DrawContext::quarterRingPath(u16 radius, u16 thickness)
+string DrawContext::ringPath(u16 radius, u16 thickness)
 {
   StringStream ss;
-  ss << "qring-"<<radius<<"-"<<thickness;
+  ss << "ring-"<<radius<<"-"<<thickness;
   return ss.str();
 }
 
-TexturePtr DrawContext::quarterDisc(u16 radius)
+TexturePtr DrawContext::disc(u16 radius)
 {
   TexturePtr result;
   
-  string path = quarterDiscPath(radius);
+  string path = discPath(radius);
   if(!Application::instance()->resourceManager->hasTexture(path))
   {
-    BitmapPtr bitmap(new Bitmap(radius, radius, GL_RGBA));
-    bitmap->disc(radius-1, radius-1, radius);
+    BitmapPtr bitmap(new Bitmap(2*radius, 2*radius, GL_RGBA));
+    bitmap->disc(radius, radius, radius);
     bitmap->premultiplyAlpha();
     result.reset(new Texture(bitmap));
     Application::instance()->resourceManager->texture(path, result);
@@ -95,16 +101,16 @@ TexturePtr DrawContext::quarterDisc(u16 radius)
   return result;
 }
 
-TexturePtr DrawContext::quarterRing(u16 radius, u16 thickness)
+TexturePtr DrawContext::ring(u16 radius, u16 thickness)
 {
   TexturePtr result;
   
-  string path = quarterRingPath(radius, thickness);
+  string path = ringPath(radius, thickness);
   
   if(!Application::instance()->resourceManager->hasTexture(path))
   {
     BitmapPtr bitmap(new Bitmap(radius, radius, GL_RGBA));
-    bitmap->ring(radius-1, radius-1, radius, thickness);
+    bitmap->ring(radius, radius, radius, thickness);
     bitmap->premultiplyAlpha();
     result.reset(new Texture(bitmap));
     Application::instance()->resourceManager->texture(path, result);
@@ -196,37 +202,22 @@ void DrawContext::drawText(const string& text, const FontPtr& font, const Color&
 
 void DrawContext::drawRoundRect(const Rect& rect, u16 r, const Color& col)
 {
-  TexturePtr tex = quarterDisc(r);
+  TexturePtr tex = disc(r);
   drawRR(rect, r, tex, col);
 }
 
 void DrawContext::drawRoundRectFrame(const Rect& rect, u16 radius, u16 thickness, const Color& col)
 {
-  TexturePtr tex = quarterRing(radius, thickness);
+  TexturePtr tex = ring(radius, thickness);
   drawRR(rect, radius, tex, col);
 }
 
 void DrawContext::drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const Color& col)
 {
-  // round corners
-  Rect bl(rect.x, rect.y, r, r);
-  Rect br(rect.x+rect.width-r, rect.y, r, r);
-  Rect tr(rect.x+rect.width-r, rect.y+rect.height-r, r, r);
-  Rect tl(rect.x, rect.y+rect.height-r, r, r);
-  
-  // 3 horizontal in-between slices
-  Rect top(rect.x+r, rect.y+rect.height-r, rect.width-2*r, r);
-  Rect mid(rect.x, rect.y+r, rect.width, rect.height-2*r);
-  Rect bot(rect.x+r, rect.y, rect.width-2*r, r);
-  
-  drawTexturedRect(bl, tex, col, false, false);
-  drawTexturedRect(br, tex, col, true, false);
-  drawTexturedRect(tr, tex, col,true,true);
-  drawTexturedRect(tl, tex, col,false, true);
-  
-  drawSolidRect(top, col);
-  drawSolidRect(mid, col);
-  drawSolidRect(bot, col);
+  ninePatch->texture(tex);
+  ninePatch->update(rect.size(), r, r, r, r);
+  ninePatch->material->color = col.premultiplied();
+  glContext->draw(ninePatch);
 }
 
 }

@@ -22,11 +22,12 @@ struct DrawContext
   void drawRoundRect(const Rect& rect, u16 radius, const Color& col);
   void drawRoundRectFrame(const Rect& rect, u16 radius, u16 thickness, const Color& col);
   
-  string quarterDiscPath(u16 radius);
-  string quarterRingPath(u16 radius, u16 thickness);
   
-  TexturePtr quarterDisc(u16 radius);
-  TexturePtr quarterRing(u16 radius, u16 thickness);
+  string discPath(u16 radius);
+  string ringPath(u16 radius, u16 thickness);
+  
+  TexturePtr disc(u16 radius);
+  TexturePtr ring(u16 radius, u16 thickness);
   
   ShaderProgramPtr colorShader;
   ShaderProgramPtr textureShader;
@@ -34,6 +35,7 @@ struct DrawContext
   Context* glContext;
   MeshPtr bgquad;
   TextMeshPtr textMesh;
+  NinePatchPtr ninePatch;
   
 private:
   bool _flipX;

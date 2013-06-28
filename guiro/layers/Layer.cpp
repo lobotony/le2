@@ -146,6 +146,7 @@ void Layer::draw(DrawContext* ctx)
   // draw background if not clear color
   if(backgroundColor != clearColor)
   {
+//    ctx->drawSolidRect(Rect(0,0,_rect.size()), Color(1,0,0,.3));
     if(cornerRadius == 0)
     {
       ctx->drawSolidRect(Rect(0,0,_rect.size()), backgroundColor);

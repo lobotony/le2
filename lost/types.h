@@ -55,6 +55,7 @@ namespace lost
   LE_SP(ShaderProgram);
   LE_SP(Shader);
   LE_SP(Mesh);
+  LE_SP(NinePatch);
   LE_SP(Material);
   LE_SP(HostBuffer);
   LE_SP(HybridBuffer);
