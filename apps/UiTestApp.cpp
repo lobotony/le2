@@ -15,10 +15,10 @@ void UiTestApp::startup()
   ui->rootView->layer->name = "root";
   
   LayerPtr sl1(new Layer);
-  sl1->rect(Rect(50,50,200,20));
+  sl1->rect(Rect(50,50,50,50));
   sl1->backgroundColor = greenColor;
   sl1->name = "green";
-  sl1->cornerRadius = 8;
+  sl1->cornerRadius = 4;
   
   LayerPtr sl2(new Layer);
   sl2->rect(Rect(75,100,30,40));
@@ -33,10 +33,12 @@ void UiTestApp::startup()
   sl3->cornerRadius = 4;
 
   LayerPtr sl4(new Layer);
-  sl4->rect(Rect(280,50,200,60));
-  sl4->backgroundColor = Color(1,0,0,1);
+  sl4->rect(Rect(100,50,50,50));
+  sl4->backgroundColor = whiteColor;
   sl4->name = "reddy";
   sl4->cornerRadius = 20;
+  sl4->borderColor = blueColor;
+  sl4->borderWidth = 1;
 
   
   ui->rootView->layer->addSublayer(sl1);
@@ -113,7 +115,7 @@ void UiTestApp::startup()
 
 void UiTestApp::update()
 {
-  glContext->clearColor(Color(0,0,0,1));
+  glContext->clearColor(Color(.8,.8,.8,1));
   glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
   if(!first && !logged)
   {

@@ -47,9 +47,10 @@ struct Layer : enable_shared_from_this<Layer>
   string name;
   Frame frame;
   
-  u16 cornerRadius;
+  s16 cornerRadius;
   Color backgroundColor;
   Color borderColor;
+  f32 borderWidth;
   
   LayerPtr superlayer;
   vector<LayerPtr> sublayers;

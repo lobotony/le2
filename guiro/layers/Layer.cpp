@@ -10,10 +10,15 @@ namespace lost
 
 Layer::Layer()
 {
+  name = "";
+  frame = Frame();
+  
+  cornerRadius = 0;
   backgroundColor = clearColor;
   borderColor = clearColor;
+  borderWidth = 0;
+
   _visible = true;
-  cornerRadius = 0;
   
   needsRedraw();
 }
@@ -147,14 +152,21 @@ void Layer::draw(DrawContext* ctx)
   if(backgroundColor != clearColor)
   {
 //    ctx->drawSolidRect(Rect(0,0,_rect.size()), Color(1,0,0,.3));
-    if(cornerRadius == 0)
+    s16 effectiveCornerRadius = cornerRadius - borderWidth;
+
+    if(effectiveCornerRadius <= 0)
     {
+      DOUT("solid "<<cornerRadius << " : " << borderWidth);
       ctx->drawSolidRect(Rect(0,0,_rect.size()), backgroundColor);
     }
     else
     {
-      ctx->drawRoundRect(Rect(0,0,_rect.size()), cornerRadius, backgroundColor);
+      ctx->drawRoundRect(Rect(borderWidth,borderWidth,_rect.width-2*borderWidth, _rect.height-2*borderWidth), effectiveCornerRadius, backgroundColor);
     }
+  }
+  if((borderColor != clearColor) && (borderWidth > 0))
+  {
+    ctx->drawRoundRectFrame(Rect(0,0,_rect.size()), cornerRadius, borderWidth, borderColor);
   }
 }
 

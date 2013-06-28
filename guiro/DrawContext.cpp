@@ -88,7 +88,7 @@ TexturePtr DrawContext::disc(u16 radius)
   if(!Application::instance()->resourceManager->hasTexture(path))
   {
     BitmapPtr bitmap(new Bitmap(2*radius, 2*radius, GL_RGBA));
-    bitmap->disc(radius, radius, radius);
+    bitmap->disc(radius-.5, radius-.5, radius+.5);
     bitmap->premultiplyAlpha();
     result.reset(new Texture(bitmap));
     Application::instance()->resourceManager->texture(path, result);
@@ -109,9 +109,10 @@ TexturePtr DrawContext::ring(u16 radius, u16 thickness)
   
   if(!Application::instance()->resourceManager->hasTexture(path))
   {
-    BitmapPtr bitmap(new Bitmap(radius, radius, GL_RGBA));
-    bitmap->ring(radius, radius, radius, thickness);
+    BitmapPtr bitmap(new Bitmap(2*radius, 2*radius, GL_RGBA));
+    bitmap->ring(radius-.5, radius-.5, radius, thickness);
     bitmap->premultiplyAlpha();
+    bitmap->write("/Users/tony/"+path+".tga");
     result.reset(new Texture(bitmap));
     Application::instance()->resourceManager->texture(path, result);
   }
@@ -216,6 +217,7 @@ void DrawContext::drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const C
 {
   ninePatch->update(tex, rect.size(), r, r, r, r);
   ninePatch->material->color = col.premultiplied();
+  ninePatch->transform = Matrix::translate(Vec3(rect.x, rect.y, 0));
   glContext->draw(ninePatch);
 }
 
