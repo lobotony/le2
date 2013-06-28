@@ -34,13 +34,13 @@ NinePatch::NinePatch()
   init();
 }
 
-NinePatch::NinePatch(TexturePtr tex,
-          const Vec2& sz,
-          float l,
-          float r,
-          float t,
-          float b,
-          bool f) // flips texture coordinates vertically if true
+NinePatch::NinePatch(const TexturePtr& tex,
+                      const Vec2& sz,
+                      float l,
+                      float r,
+                      float t,
+                      float b,
+                      bool f) // flips texture coordinates vertically if true
 {
   size = sz;
   flip = f;
@@ -53,7 +53,7 @@ NinePatch::NinePatch(TexturePtr tex,
 
   this->material->textures.push_back(tex);
 
-  this->update(size, left, right, top, bottom);
+  this->update(tex, size, left, right, top, bottom);
 }
 
 void NinePatch::init()
@@ -76,12 +76,6 @@ void NinePatch::init()
 //  updateTexCoords();
   updateIndices();
 
-}
-
-void NinePatch::texture(const TexturePtr tex)
-{
-  material->setTexture(0, tex);
-  updateTexCoords();
 }
 
 void NinePatch::updateIndices()
@@ -202,18 +196,8 @@ void NinePatch::updateTexCoords()
   }
 }
 
-void NinePatch::update(const Vec2& inSize,
-                    float l,
-                    float r,
-                    float t,
-                    float b)
+void NinePatch::updateVertices()
 {
-  size = inSize;
-  left = l;
-  right = r;
-  top = t;
-  bottom = b;
-
   // vertices are created in this order:
   // 0  1  2  3
   // 4  5  6  7
@@ -223,11 +207,11 @@ void NinePatch::update(const Vec2& inSize,
   // 0,3,12,15 are the corners of the provided rect
   // all others are derived from the l/r/t/b measurement that were provided.
       
-  // first, we calculate the vertex coordinates relative to 0,0 since these are the pixel coordinates 
+  // first, we calculate the vertex coordinates relative to 0,0 since these are the pixel coordinates
   // we need to calculate the texel coordinates from the texture.
 
-  float w = inSize.x;
-  float h = inSize.y;
+  float w = size.x;
+  float h = size.y;
   this->setVertex(0, Vec2(0,h));
   this->setVertex(1, Vec2(left, h));
   this->setVertex(2, Vec2(w-right, h));
@@ -247,7 +231,23 @@ void NinePatch::update(const Vec2& inSize,
   this->setVertex(13, Vec2(left, 0));
   this->setVertex(14, Vec2(w-right, 0));
   this->setVertex(15, Vec2(w,0));
-  
+}
+
+void NinePatch::update(const TexturePtr& tex,
+                      const Vec2& inSize,
+                      float l,
+                      float r,
+                      float t,
+                      float b)
+{
+  size = inSize;
+  left = l;
+  right = r;
+  top = t;
+  bottom = b;
+  material->setTexture(0, tex);
+
+  updateVertices();
   updateTexCoords();  
 }
 

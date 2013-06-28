@@ -42,7 +42,7 @@ struct NinePatch : public Mesh
   
   NinePatch();
   
-  NinePatch(TexturePtr tex,
+  NinePatch(const TexturePtr& tex,
             const Vec2& size,
             float left,
             float right,
@@ -50,16 +50,15 @@ struct NinePatch : public Mesh
             float bottom,
             bool flip); // flips texture coordinates vertically if true
   
-  void update(const Vec2& inSize,
-                      float left,
-                      float right,
-                      float top,
-                      float bottom);
+  void update(const TexturePtr& tex,
+              const Vec2& inSize,
+              float left,
+              float right,
+              float top,
+              float bottom);
 
-  
-  void texture(const TexturePtr tex);
-  
 private:
+  void updateVertices();
   void updateTexCoords();
   void updateIndices();
   void init();

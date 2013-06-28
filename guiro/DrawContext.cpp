@@ -214,8 +214,7 @@ void DrawContext::drawRoundRectFrame(const Rect& rect, u16 radius, u16 thickness
 
 void DrawContext::drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const Color& col)
 {
-  ninePatch->texture(tex);
-  ninePatch->update(rect.size(), r, r, r, r);
+  ninePatch->update(tex, rect.size(), r, r, r, r);
   ninePatch->material->color = col.premultiplied();
   glContext->draw(ninePatch);
 }
