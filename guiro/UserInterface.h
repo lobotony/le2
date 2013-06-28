@@ -10,7 +10,7 @@ namespace lost
 struct Context;
 struct EventSystem;
 struct UpdateSystem;
-struct RenderSystem;
+struct Compositor;
 
 /** Main class for everything user interface related.
  * Every application has a UserInterface instance, but it is not enabled by default,
@@ -37,7 +37,7 @@ struct UserInterface
   
   EventSystem* eventSystem;
   UpdateSystem* updateSystem;
-  RenderSystem* renderSystem;
+  Compositor* compositor;
   
   ViewPtr rootView;
   

@@ -1,5 +1,5 @@
-#ifndef GUIRO_RENDERSYSTEM_H
-#define GUIRO_RENDERSYSTEM_H
+#ifndef GUIRO_COMPOSITOR_H
+#define GUIRO_COMPOSITOR_H
 
 #include "guiro/types.h"
 
@@ -9,10 +9,10 @@ namespace lost
 struct DrawContext;
 struct Layer;
 
-struct RenderSystem
+struct Compositor
 {
-  RenderSystem();
-  ~RenderSystem();
+  Compositor();
+  ~Compositor();
   
   void draw(const LayerPtr& rootLayer);
   

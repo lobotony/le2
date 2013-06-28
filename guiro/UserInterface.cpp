@@ -1,7 +1,7 @@
 #include "UserInterface.h"
 #include "guiro/EventSystem.h"
 #include "guiro/UpdateSystem.h"
-#include "guiro/RenderSystem.h"
+#include "guiro/Compositor.h"
 
 namespace lost
 {
@@ -10,12 +10,12 @@ UserInterface::UserInterface()
 {
   eventSystem = new EventSystem;
   updateSystem = new UpdateSystem;
-  renderSystem = new RenderSystem;
+  compositor = new Compositor;
 }
 
 UserInterface::~UserInterface()
 {
-  delete renderSystem;
+  delete compositor;
   delete updateSystem;
   delete eventSystem;
 }
@@ -45,20 +45,20 @@ void UserInterface::windowResized(f32 w, f32 h)
   {
     rootView->layer->rect(Rect(0,0,w,h));
   }
-  renderSystem->windowResized(Vec2(w, h));
+  compositor->windowResized(Vec2(w, h));
 }
 
 void UserInterface::draw()
 {
   if(rootView)
   {
-    renderSystem->draw(rootView->layer);
+    compositor->draw(rootView->layer);
   }
 }
 
 void UserInterface::needsRedraw(Layer* layer)
 {
-  renderSystem->needsRedraw(layer);
+  compositor->needsRedraw(layer);
 }
 
 void UserInterface::enable()

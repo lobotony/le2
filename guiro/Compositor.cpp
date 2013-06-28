@@ -1,4 +1,4 @@
-#include "guiro/RenderSystem.h"
+#include "guiro/Compositor.h"
 #include "lost/Canvas.h"
 #include "lost/Quad.h"
 #include "lost/Application.h"
@@ -14,7 +14,7 @@
 namespace lost
 {
 
-RenderSystem::RenderSystem()
+Compositor::Compositor()
 {
   drawContext = new DrawContext(Application::instance()->glContext);
   fb.reset(new FrameBuffer);
@@ -22,18 +22,18 @@ RenderSystem::RenderSystem()
   uicam.reset(new Camera2D(Rect(0, 0, 0, 0)));
 }
 
-RenderSystem::~RenderSystem()
+Compositor::~Compositor()
 {
 }
   
-void RenderSystem::windowResized(const Vec2& newSize)
+void Compositor::windowResized(const Vec2& newSize)
 {
   DOUT("");
   windowSize = newSize;
   uicam->viewport(Rect(0,0,windowSize));
 }
   
-void RenderSystem::draw(const LayerPtr& rootLayer)
+void Compositor::draw(const LayerPtr& rootLayer)
 {
   prepareRedraws(rootLayer);
   updateLayerCaches();
@@ -48,7 +48,7 @@ void RenderSystem::draw(const LayerPtr& rootLayer)
   redraws.clear();
 }
 
-void RenderSystem::prepareRedraws(const LayerPtr rootLayer)
+void Compositor::prepareRedraws(const LayerPtr rootLayer)
 {
   if(redrawCandidates.size()>0)
   {
@@ -67,7 +67,7 @@ void RenderSystem::prepareRedraws(const LayerPtr rootLayer)
   }  
 }
 
-void RenderSystem::updateLayerCaches()
+void Compositor::updateLayerCaches()
 {
   for(Layer* layer : redraws)
   {
@@ -104,7 +104,7 @@ void RenderSystem::updateLayerCaches()
   }
 }
 
-void RenderSystem::needsRedraw(Layer* layer)
+void Compositor::needsRedraw(Layer* layer)
 {
   auto pos = find(redrawCandidates.begin(), redrawCandidates.end(), layer);
   if(pos == redrawCandidates.end())

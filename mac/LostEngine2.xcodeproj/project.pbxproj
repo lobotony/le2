@@ -84,8 +84,8 @@
 		EAF3581D1728162200824CF2 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358171728162200824CF2 /* json_writer.cpp */; };
 		EAF3582A17287B1100824CF2 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF3582617287B1100824CF2 /* Layer.cpp */; };
 		EAF3582B17287B1100824CF2 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF3582817287B1100824CF2 /* View.cpp */; };
-		EAF3582E17287B4000824CF2 /* RenderSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF3582C17287B4000824CF2 /* RenderSystem.cpp */; };
 		EAF4A186177DC15100958CEE /* DrawContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF4A184177DC15000958CEE /* DrawContext.cpp */; };
+		EAF4A189177DC25E00958CEE /* Compositor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF4A187177DC25E00958CEE /* Compositor.cpp */; };
 		EAF87C7A15E903A900986F86 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF87C7815E903A900986F86 /* Buffer.cpp */; };
 		EAF87C7E15E903B800986F86 /* BufferLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF87C7C15E903B800986F86 /* BufferLayout.cpp */; };
 /* End PBXBuildFile section */
@@ -258,10 +258,10 @@
 		EAF3582717287B1100824CF2 /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Layer.h; path = ../guiro/layers/Layer.h; sourceTree = "<group>"; };
 		EAF3582817287B1100824CF2 /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = View.cpp; path = ../guiro/views/View.cpp; sourceTree = "<group>"; };
 		EAF3582917287B1100824CF2 /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = View.h; path = ../guiro/views/View.h; sourceTree = "<group>"; };
-		EAF3582C17287B4000824CF2 /* RenderSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RenderSystem.cpp; path = ../guiro/RenderSystem.cpp; sourceTree = "<group>"; };
-		EAF3582D17287B4000824CF2 /* RenderSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenderSystem.h; path = ../guiro/RenderSystem.h; sourceTree = "<group>"; };
 		EAF4A184177DC15000958CEE /* DrawContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DrawContext.cpp; path = ../guiro/DrawContext.cpp; sourceTree = "<group>"; };
 		EAF4A185177DC15100958CEE /* DrawContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawContext.h; path = ../guiro/DrawContext.h; sourceTree = "<group>"; };
+		EAF4A187177DC25E00958CEE /* Compositor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Compositor.cpp; path = ../guiro/Compositor.cpp; sourceTree = "<group>"; };
+		EAF4A188177DC25E00958CEE /* Compositor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Compositor.h; path = ../guiro/Compositor.h; sourceTree = "<group>"; };
 		EAF87C7815E903A900986F86 /* Buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Buffer.cpp; sourceTree = "<group>"; };
 		EAF87C7915E903A900986F86 /* Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buffer.h; sourceTree = "<group>"; };
 		EAF87C7C15E903B800986F86 /* BufferLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferLayout.cpp; sourceTree = "<group>"; };
@@ -526,14 +526,14 @@
 			children = (
 				EA898F1C172934C200C7B957 /* layers */,
 				EA898F1B172934BC00C7B957 /* views */,
+				EAF4A187177DC25E00958CEE /* Compositor.cpp */,
+				EAF4A188177DC25E00958CEE /* Compositor.h */,
 				EAF4A184177DC15000958CEE /* DrawContext.cpp */,
 				EAF4A185177DC15100958CEE /* DrawContext.h */,
 				EAF358071726DEC200824CF2 /* EventSystem.cpp */,
 				EAF358081726DEC200824CF2 /* EventSystem.h */,
 				EAF357FB1726C79200824CF2 /* Frame.cpp */,
 				EAF357FC1726C79200824CF2 /* Frame.h */,
-				EAF3582C17287B4000824CF2 /* RenderSystem.cpp */,
-				EAF3582D17287B4000824CF2 /* RenderSystem.h */,
 				EA52D53C176A083000BB3DC3 /* types.h */,
 				EAF3580A1726DECA00824CF2 /* UpdateSystem.cpp */,
 				EAF3580B1726DECA00824CF2 /* UpdateSystem.h */,
@@ -697,7 +697,6 @@
 				EAF3581D1728162200824CF2 /* json_writer.cpp in Sources */,
 				EAF3582A17287B1100824CF2 /* Layer.cpp in Sources */,
 				EAF3582B17287B1100824CF2 /* View.cpp in Sources */,
-				EAF3582E17287B4000824CF2 /* RenderSystem.cpp in Sources */,
 				EA6983BC172EF9BF00B4BA2E /* MeshAlgo.cpp in Sources */,
 				EA6B8A311742A88300733FA9 /* RunnerMac.mm in Sources */,
 				EA6B8A361742B16900733FA9 /* Clock.cpp in Sources */,
@@ -710,6 +709,7 @@
 				EAAFD8C1177215CB00C1D521 /* SunApp.cpp in Sources */,
 				EA95A49C1779F93B00087013 /* TextLayer.cpp in Sources */,
 				EAF4A186177DC15100958CEE /* DrawContext.cpp in Sources */,
+				EAF4A189177DC25E00958CEE /* Compositor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
