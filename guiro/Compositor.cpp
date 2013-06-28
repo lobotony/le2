@@ -40,8 +40,6 @@ void Compositor::draw(const LayerPtr& rootLayer)
 
   drawContext->glContext->bindDefaultFramebuffer();
   drawContext->glContext->camera(uicam);
-  drawContext->glContext->clearColor(Color(0,0,0,0));
-  drawContext->glContext->clear(GL_COLOR_BUFFER_BIT);
   drawContext->drawTexturedRect(rootLayer->rect(), layerCache[rootLayer.get()], whiteColor);
   
   redrawCandidates.clear();
