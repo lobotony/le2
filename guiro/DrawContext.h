@@ -1,5 +1,5 @@
-#ifndef GUIRO_RENDERCONTEXT_H
-#define GUIRO_RENDERCONTEXT_H
+#ifndef GUIRO_DRAWCONTEXT_H
+#define GUIRO_DRAWCONTEXT_H
 
 #include "lost/Rect.h"
 #include "lost/Color.h"
@@ -12,9 +12,9 @@ struct Context;
 /** Bundles common functions and resources for efficient 2D UI drawing.
  * Layers don't need to use this, but having this helps share some resources.
  */
-struct RenderContext
+struct DrawContext
 {
-  RenderContext(Context* ctx);
+  DrawContext(Context* ctx);
   
   void drawSolidRect(const Rect& rect, const Color& col);
   void drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col, bool flipX=false, bool flipY=false);

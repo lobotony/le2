@@ -1,7 +1,7 @@
 #include "guiro/layers/Layer.h"
 #include "guiro/UserInterface.h"
 #include "lost/Application.h"
-#include "guiro/RenderContext.h"
+#include "guiro/DrawContext.h"
 #include "lost/Context.h"
 #include <algorithm>
 
@@ -137,22 +137,22 @@ bool Layer::isSublayerOf(Layer* root)
   return result;
 }
 
-void Layer::draw(RenderContext* rc)
+void Layer::draw(DrawContext* ctx)
 {
   // clear buffer in any case
-  rc->glContext->clearColor(Color(0,0,0,0));
-  rc->glContext->clear(GL_COLOR_BUFFER_BIT);
+  ctx->glContext->clearColor(Color(0,0,0,0));
+  ctx->glContext->clear(GL_COLOR_BUFFER_BIT);
 
   // draw background if not clear color
   if(backgroundColor != clearColor)
   {
     if(cornerRadius == 0)
     {
-      rc->drawSolidRect(Rect(0,0,_rect.size()), backgroundColor);
+      ctx->drawSolidRect(Rect(0,0,_rect.size()), backgroundColor);
     }
     else
     {
-      rc->drawRoundRect(Rect(0,0,_rect.size()), cornerRadius, backgroundColor);
+      ctx->drawRoundRect(Rect(0,0,_rect.size()), cornerRadius, backgroundColor);
     }
   }
 }

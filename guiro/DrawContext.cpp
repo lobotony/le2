@@ -1,4 +1,4 @@
-#include "guiro/RenderContext.h"
+#include "guiro/DrawContext.h"
 #include "lost/Context.h"
 #include "lost/HybridIndexBuffer.h"
 #include "lost/Mesh.h"
@@ -13,7 +13,7 @@ namespace lost
 
 #pragma mark - de/construction -
 
-RenderContext::RenderContext(Context* ctx)
+DrawContext::DrawContext(Context* ctx)
 {
   glContext = ctx;
   // load some common shaders
@@ -60,21 +60,21 @@ RenderContext::RenderContext(Context* ctx)
 
 #pragma mark - resource management -
 
-string RenderContext::quarterDiscPath(u16 radius)
+string DrawContext::quarterDiscPath(u16 radius)
 {
   StringStream ss;
   ss << "qdisc-"<<radius;
   return ss.str();
 }
 
-string RenderContext::quarterRingPath(u16 radius, u16 thickness)
+string DrawContext::quarterRingPath(u16 radius, u16 thickness)
 {
   StringStream ss;
   ss << "qring-"<<radius<<"-"<<thickness;
   return ss.str();
 }
 
-TexturePtr RenderContext::quarterDisc(u16 radius)
+TexturePtr DrawContext::quarterDisc(u16 radius)
 {
   TexturePtr result;
   
@@ -95,7 +95,7 @@ TexturePtr RenderContext::quarterDisc(u16 radius)
   return result;
 }
 
-TexturePtr RenderContext::quarterRing(u16 radius, u16 thickness)
+TexturePtr DrawContext::quarterRing(u16 radius, u16 thickness)
 {
   TexturePtr result;
   
@@ -119,7 +119,7 @@ TexturePtr RenderContext::quarterRing(u16 radius, u16 thickness)
 
 #pragma mark - tex coord updates for image flipping - 
 
-void RenderContext::updateTexCoords()
+void DrawContext::updateTexCoords()
 {
   if(!_flipX && !_flipY)
   {
@@ -151,7 +151,7 @@ void RenderContext::updateTexCoords()
   }
 }
 
-void RenderContext::updateTexCoords(bool flipX, bool flipY)
+void DrawContext::updateTexCoords(bool flipX, bool flipY)
 {
   if((_flipX != flipX) || (_flipY != flipY))
   {
@@ -164,7 +164,7 @@ void RenderContext::updateTexCoords(bool flipX, bool flipY)
 
 #pragma mark - drawing -
 
-void RenderContext::drawSolidRect(const Rect& rect, const Color& col)
+void DrawContext::drawSolidRect(const Rect& rect, const Color& col)
 {
   bgquad->transform = Matrix::translate(Vec3(rect.x, rect.y, 0)) * Matrix::scale(Vec3(rect.width, rect.height, 1));
   bgquad->material->color = col.premultiplied();
@@ -173,7 +173,7 @@ void RenderContext::drawSolidRect(const Rect& rect, const Color& col)
   glContext->draw(bgquad);
 }
 
-void RenderContext::drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col, bool flipX, bool flipY)
+void DrawContext::drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col, bool flipX, bool flipY)
 {
   updateTexCoords(flipX, flipY);
   bgquad->transform = Matrix::translate(Vec3(rect.x, rect.y, 0)) * Matrix::scale(Vec3(rect.width, rect.height, 1));
@@ -185,7 +185,7 @@ void RenderContext::drawTexturedRect(const Rect& rect, const TexturePtr& tex, co
   glContext->draw(bgquad);
 }
 
-void RenderContext::drawText(const string& text, const FontPtr& font, const Color& col, const Vec2& pos, int alignment)
+void DrawContext::drawText(const string& text, const FontPtr& font, const Color& col, const Vec2& pos, int alignment)
 {
   render(text, font, textMesh, true, alignment);
   textMesh->transform = Matrix::translate(Vec3(pos.x, pos.y, 0));
@@ -194,19 +194,19 @@ void RenderContext::drawText(const string& text, const FontPtr& font, const Colo
   glContext->draw(textMesh);
 }
 
-void RenderContext::drawRoundRect(const Rect& rect, u16 r, const Color& col)
+void DrawContext::drawRoundRect(const Rect& rect, u16 r, const Color& col)
 {
   TexturePtr tex = quarterDisc(r);
   drawRR(rect, r, tex, col);
 }
 
-void RenderContext::drawRoundRectFrame(const Rect& rect, u16 radius, u16 thickness, const Color& col)
+void DrawContext::drawRoundRectFrame(const Rect& rect, u16 radius, u16 thickness, const Color& col)
 {
   TexturePtr tex = quarterRing(radius, thickness);
   drawRR(rect, radius, tex, col);
 }
 
-void RenderContext::drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const Color& col)
+void DrawContext::drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const Color& col)
 {
   // round corners
   Rect bl(rect.x, rect.y, r, r);

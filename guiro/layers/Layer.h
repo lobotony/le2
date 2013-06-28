@@ -8,7 +8,7 @@
 namespace lost
 {
 
-struct RenderContext;
+struct DrawContext;
 
 struct Layer : enable_shared_from_this<Layer>
 {
@@ -27,7 +27,7 @@ struct Layer : enable_shared_from_this<Layer>
   void visible(bool val); // sets this layers visibility flag
   bool visible(); // returns this layers visibility flag
   
-  virtual void draw(RenderContext* rc);
+  virtual void draw(DrawContext* ctx);
   
   void needsRedraw(); // invalidate texture cache in compositor, force content redraw and composition
 

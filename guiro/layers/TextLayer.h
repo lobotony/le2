@@ -19,7 +19,7 @@ struct TextLayer : public Layer
   
   string description();
   
-  virtual void draw(RenderContext* rc);
+  virtual void draw(DrawContext* rc);
 
 private:
   string  _text;

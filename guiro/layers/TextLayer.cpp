@@ -1,5 +1,5 @@
 #include "guiro/layers/TextLayer.h"
-#include "guiro/RenderContext.h"
+#include "guiro/DrawContext.h"
 
 namespace lost
 {
@@ -20,7 +20,7 @@ string TextLayer::description()
   return os.str();
 }
 
-void TextLayer::draw(RenderContext* rc)
+void TextLayer::draw(DrawContext* rc)
 {
   Layer::draw(rc);
   if(_font)

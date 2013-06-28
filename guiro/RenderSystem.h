@@ -6,7 +6,7 @@
 namespace lost
 {
 
-struct RenderContext;
+struct DrawContext;
 struct Layer;
 
 struct RenderSystem
@@ -29,7 +29,7 @@ private:
   Camera2DPtr fbcam;
   
   
-  RenderContext* rc;
+  DrawContext* drawContext;
     
   void prepareRedraws(const LayerPtr rootLayer);
   void updateLayerCaches();

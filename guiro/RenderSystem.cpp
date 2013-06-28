@@ -5,7 +5,7 @@
 #include "lost/ResourceManager.h"
 #include "lost/Camera2D.h"
 #include "lost/HybridIndexBuffer.h"
-#include "guiro/RenderContext.h"
+#include "guiro/DrawContext.h"
 #include "guiro/layers/Layer.h"
 #include "lost/FrameBuffer.h"
 #include "lost/Context.h"
@@ -16,7 +16,7 @@ namespace lost
 
 RenderSystem::RenderSystem()
 {
-  rc = new RenderContext(Application::instance()->glContext);
+  drawContext = new DrawContext(Application::instance()->glContext);
   fb.reset(new FrameBuffer);
   fbcam.reset(new Camera2D(Rect(0, 0, 0, 0)));
   uicam.reset(new Camera2D(Rect(0, 0, 0, 0)));
@@ -38,11 +38,11 @@ void RenderSystem::draw(const LayerPtr& rootLayer)
   prepareRedraws(rootLayer);
   updateLayerCaches();
 
-  rc->glContext->bindDefaultFramebuffer();
-  rc->glContext->camera(uicam);
-  rc->glContext->clearColor(Color(0,0,0,0));
-  rc->glContext->clear(GL_COLOR_BUFFER_BIT);
-  rc->drawTexturedRect(rootLayer->rect(), layerCache[rootLayer.get()], whiteColor);
+  drawContext->glContext->bindDefaultFramebuffer();
+  drawContext->glContext->camera(uicam);
+  drawContext->glContext->clearColor(Color(0,0,0,0));
+  drawContext->glContext->clear(GL_COLOR_BUFFER_BIT);
+  drawContext->drawTexturedRect(rootLayer->rect(), layerCache[rootLayer.get()], whiteColor);
   
   redrawCandidates.clear();
   redraws.clear();
@@ -92,14 +92,14 @@ void RenderSystem::updateLayerCaches()
     fb->attachColorBuffer(0, texture);
     fb->check();
     fbcam->viewport(Rect(0,0,layer->rect().size()));
-    rc->glContext->camera(fbcam);
+    drawContext->glContext->camera(fbcam);
     // draw current layer contents. does NOT draw sublayers
-    layer->draw(rc);
+    layer->draw(drawContext);
     
     // draw sublayer contents
     for(LayerPtr sublayer : layer->sublayers)
     {
-      rc->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], whiteColor);
+      drawContext->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], whiteColor);
     }
   }
 }
