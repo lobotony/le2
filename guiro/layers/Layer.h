@@ -43,21 +43,36 @@ struct Layer : enable_shared_from_this<Layer>
   void size(const Vec2& sz);
   Vec2 size() const;
   
+  void cornerRadius(s16 v);
+  s16 cornerRadius();
   
-  string name;
-  Frame frame;
+  void backgroundColor(const Color& v);
+  Color backgroundColor();
   
-  s16 cornerRadius;
-  Color backgroundColor;
-  Color borderColor;
-  f32 borderWidth;
+  void borderColor(const Color& v);
+  Color borderColor();
+  
+  void borderWidth(f32 v);
+  f32 borderWidth();
+  
+  void backgroundImage(const TexturePtr& v);
+  TexturePtr backgroundImage();
+  
+  string name; // for debugging only
+  Frame frame; // not yet implemented
   
   LayerPtr superlayer;
   vector<LayerPtr> sublayers;
 
 private:
-  Rect  _rect;
-  bool _visible;
+  s16         _cornerRadius;
+  Color       _backgroundColor;
+  TexturePtr  _backgroundImage;
+  Color       _borderColor;
+  f32         _borderWidth;
+
+  Rect        _rect;
+  bool        _visible;
 };
 }
 
