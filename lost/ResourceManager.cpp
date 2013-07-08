@@ -100,6 +100,7 @@ TexturePtr ResourceManager::texture(ResourceId rid)
     
     DataPtr data = mainBundle.load(hash2string[rid]);
     BitmapPtr bmp(new Bitmap(data));
+    bmp->premultiplyAlpha();
     result.reset(new Texture(bmp));
     hash2texture[rid] = result;
   }
