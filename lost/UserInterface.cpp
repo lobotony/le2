@@ -1,7 +1,8 @@
-#include "UserInterface.h"
-#include "guiro/EventSystem.h"
-#include "guiro/UpdateSystem.h"
-#include "guiro/RenderSystem.h"
+#include "lost/UserInterface.h"
+#include "lost/EventSystem.h"
+#include "lost/UpdateSystem.h"
+#include "lost/Compositor.h"
+#include "lost/Application.h"
 
 namespace lost
 {
@@ -10,12 +11,12 @@ UserInterface::UserInterface()
 {
   eventSystem = new EventSystem;
   updateSystem = new UpdateSystem;
-  renderSystem = new RenderSystem;
+  compositor = new Compositor;
 }
 
 UserInterface::~UserInterface()
 {
-  delete renderSystem;
+  delete compositor;
   delete updateSystem;
   delete eventSystem;
 }
@@ -26,9 +27,7 @@ void UserInterface::update(const EventQueue::Container& events)
   {
     if(event->base.type == ET_WindowResize)
     {
-      f32 w = event->windowResizeEvent.width;
-      f32 h = event->windowResizeEvent.height;
-      windowResized(w, h);
+      windowResized(Application::instance()->windowSize);
     }
     else if(event->base.type == ET_MouseMoveEvent)
     {
@@ -39,26 +38,26 @@ void UserInterface::update(const EventQueue::Container& events)
   // FIXME: layout system needs to layout any views and layers in queue
 }
 
-void UserInterface::windowResized(f32 w, f32 h)
+void UserInterface::windowResized(const Vec2& sz)
 {
   if(rootView)
   {
-    rootView->layer->rect(Rect(0,0,w,h));
+    rootView->layer->rect(Rect(0,0,sz));
   }
-  renderSystem->windowResized(Vec2(w, h));
+  compositor->windowResized(sz);
 }
 
 void UserInterface::draw()
 {
   if(rootView)
   {
-    renderSystem->draw(rootView->layer);
+    compositor->draw(rootView->layer);
   }
 }
 
 void UserInterface::needsRedraw(Layer* layer)
 {
-  renderSystem->needsRedraw(layer);
+  compositor->needsRedraw(layer);
 }
 
 void UserInterface::enable()
@@ -66,7 +65,8 @@ void UserInterface::enable()
   if(!rootView)
   {
     rootView.reset(new View);
-    rootView->layer->rect(0,0,1,1); // any size other than 0,0 to prevent unnecessary OpenGL framebuffer errors
+    rootView->layer->backgroundColor(clearColor);
+    windowResized(Application::instance()->windowSize);
   }
 }
 

@@ -17,7 +17,7 @@
 #include "lost/TextBuffer.h"
 #include <cmath>
 
-#include "guiro/UserInterface.h"
+#include "lost/UserInterface.h"
 #include "lost/ResourceManager.h"
 
 #include "lost/MeshAlgo.h"
@@ -283,11 +283,9 @@ void DemoApp::startup()
   ////////////////////////////////////////////
   ////////////////////////////////////////////
 
-  Vec2 fbsize(1024, 768);
-
-  fbcam = Camera2D::create(Rect(0,0,fbsize.width,fbsize.height));
+  fbcam = Camera2D::create(Rect(0,0,windowSize.width,windowSize.height));
   
-  fb0 = FrameBuffer::create(fbsize, GL_RGBA);
+  fb0 = FrameBuffer::create(windowSize, GL_RGBA);
   fb0->check();
   glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
   fb0quad = Quad::create(fb0->colorBuffers[0]->texture, false);
@@ -295,7 +293,7 @@ void DemoApp::startup()
   fb0quad->material->color = whiteColor;
   fb0quad->material->blendPremultiplied();
 
-  fb1 = FrameBuffer::create(fbsize, GL_RGBA);
+  fb1 = FrameBuffer::create(windowSize, GL_RGBA);
   fb1->check();
   glBindFramebuffer(GL_FRAMEBUFFER, 0); //  switch to default framebuffer again
   fb1quad = Quad::create(fb1->colorBuffers[0]->texture, false);
@@ -315,10 +313,8 @@ void DemoApp::update()
   {
     if(event->base.type == ET_WindowResize)
     {
-      f32 w = event->windowResizeEvent.width;
-      f32 h = event->windowResizeEvent.height;
 //      DOUT("updating viewport "<<int(w)<<"/"<<int(h));
-      cam->viewport(Rect(0,0,w,h));
+      cam->viewport(Rect(0,0,windowSize));
     }
     else if(event->base.type == ET_MouseMoveEvent)
     {

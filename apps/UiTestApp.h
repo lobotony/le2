@@ -8,6 +8,7 @@ namespace lost
 
 struct UiTestApp : Application
 {
+  UiTestApp();
   void startup();
   void update();
   void shutdown();

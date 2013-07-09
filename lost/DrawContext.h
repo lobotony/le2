@@ -1,5 +1,5 @@
-#ifndef GUIRO_RENDERCONTEXT_H
-#define GUIRO_RENDERCONTEXT_H
+#ifndef LOST_DRAWCONTEXT_H
+#define LOST_DRAWCONTEXT_H
 
 #include "lost/Rect.h"
 #include "lost/Color.h"
@@ -12,9 +12,9 @@ struct Context;
 /** Bundles common functions and resources for efficient 2D UI drawing.
  * Layers don't need to use this, but having this helps share some resources.
  */
-struct RenderContext
+struct DrawContext
 {
-  RenderContext(Context* ctx);
+  DrawContext(Context* ctx);
   
   void drawSolidRect(const Rect& rect, const Color& col);
   void drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col, bool flipX=false, bool flipY=false);
@@ -22,11 +22,12 @@ struct RenderContext
   void drawRoundRect(const Rect& rect, u16 radius, const Color& col);
   void drawRoundRectFrame(const Rect& rect, u16 radius, u16 thickness, const Color& col);
   
-  string quarterDiscPath(u16 radius);
-  string quarterRingPath(u16 radius, u16 thickness);
   
-  TexturePtr quarterDisc(u16 radius);
-  TexturePtr quarterRing(u16 radius, u16 thickness);
+  string discPath(u16 radius);
+  string ringPath(u16 radius, u16 thickness);
+  
+  TexturePtr disc(u16 radius);
+  TexturePtr ring(u16 radius, u16 thickness);
   
   ShaderProgramPtr colorShader;
   ShaderProgramPtr textureShader;
@@ -34,6 +35,7 @@ struct RenderContext
   Context* glContext;
   MeshPtr bgquad;
   TextMeshPtr textMesh;
+  NinePatchPtr ninePatch;
   
 private:
   bool _flipX;

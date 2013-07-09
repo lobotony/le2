@@ -3,7 +3,7 @@
 #include "lost/EventQueue.h"
 #include "lost/Context.h"
 #include "lost/ResourceManager.h"
-#include "guiro/UserInterface.h"
+#include "lost/UserInterface.h"
 
 extern lost::Application* _appInstance; // must be set by runner implementation
 
@@ -15,12 +15,19 @@ Application* Application::instance()
   return _appInstance;
 }
 
-Application::Application()
+Application::Application(const char* configPath)
 {
+  if(configPath)
+  {
+    DOUT("loading config from: '"<<configPath<<"'");
+    ResourceBundle mainBundle;
+    config = mainBundle.loadJson(configPath);
+  }
+  
   eventPool = new EventPool;
   eventQueue = new EventQueue;
   glContext = NULL; // created in startup, after OS specific GLcontext was created
-  resourceManager = NULL;// created in startup, after glContext was created, because it will use GL resources
+  resourceManager = NULL;
 }
 
 Application::~Application()

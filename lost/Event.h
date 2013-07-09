@@ -35,19 +35,12 @@ struct MouseEvent : BaseEvent
   s32 y;
 };
 
-struct WindowResizeEvent : BaseEvent
-{
-  u32 width;
-  u32 height;
-};
-
 // don't add default constructors to event classes, or the union won't compile
 union Event
 {
   BaseEvent         base;
   KeyEvent          keyEvent;
   MouseEvent        mouseEvent;
-  WindowResizeEvent windowResizeEvent;
 };
 
 }

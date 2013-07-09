@@ -1,7 +1,7 @@
-#include "guiro/layers/Layer.h"
-#include "guiro/UserInterface.h"
+#include "lost/layers/Layer.h"
+#include "lost/UserInterface.h"
 #include "lost/Application.h"
-#include "guiro/RenderContext.h"
+#include "lost/DrawContext.h"
 #include "lost/Context.h"
 #include <algorithm>
 
@@ -10,10 +10,15 @@ namespace lost
 
 Layer::Layer()
 {
-  backgroundColor = clearColor;
-  borderColor = clearColor;
+  name = "";
+  frame = Frame();
+  
+  _cornerRadius = 0;
+  _backgroundColor = whiteColor;
+  _borderColor = clearColor;
+  _borderWidth = 0;
+
   _visible = true;
-  cornerRadius = 0;
   
   needsRedraw();
 }
@@ -137,23 +142,44 @@ bool Layer::isSublayerOf(Layer* root)
   return result;
 }
 
-void Layer::draw(RenderContext* rc)
+void Layer::draw(DrawContext* ctx)
 {
   // clear buffer in any case
-  rc->glContext->clearColor(Color(0,0,0,0));
-  rc->glContext->clear(GL_COLOR_BUFFER_BIT);
+  ctx->glContext->clearColor(Color(0,0,0,0));
+  ctx->glContext->clear(GL_COLOR_BUFFER_BIT);
 
   // draw background if not clear color
-  if(backgroundColor != clearColor)
+  if(_backgroundColor != clearColor)
   {
-    if(cornerRadius == 0)
+//    ctx->drawSolidRect(Rect(0,0,_rect.size()), Color(1,0,0,.3));
+    s16 effectiveCornerRadius = _cornerRadius - _borderWidth;
+
+    if(effectiveCornerRadius <= 0)
     {
-      rc->drawSolidRect(Rect(0,0,_rect.size()), backgroundColor);
+      DOUT("solid "<<_cornerRadius << " : " << _borderWidth);
+      Rect r(0,0,_rect.size());
+      if(!_backgroundImage)
+      {
+        ctx->drawSolidRect(r, _backgroundColor);
+      }
+      else
+      {
+        ctx->drawTexturedRect(r, _backgroundImage, _backgroundColor, false, true);
+      }
     }
     else
     {
-      rc->drawRoundRect(Rect(0,0,_rect.size()), cornerRadius, backgroundColor);
+      ctx->drawRoundRect(Rect(_borderWidth,
+                              _borderWidth,
+                              _rect.width-2*_borderWidth,
+                              _rect.height-2*_borderWidth),
+                         effectiveCornerRadius,
+                         _backgroundColor);
     }
+  }
+  if((_borderColor != clearColor) && (_borderWidth > 0))
+  {
+    ctx->drawRoundRectFrame(Rect(0,0,_rect.size()), _cornerRadius, _borderWidth, _borderColor);
   }
 }
 
@@ -200,6 +226,22 @@ Vec2 Layer::size() const
 {
   return _rect.size();
 }
+
+void Layer::cornerRadius(s16 v) {_cornerRadius=v; needsRedraw(); }
+s16 Layer::cornerRadius() { return _cornerRadius; };
+
+void Layer::backgroundColor(const Color& v) {_backgroundColor = v; needsRedraw(); }
+Color Layer::backgroundColor() { return _backgroundColor; };
+
+void Layer::borderColor(const Color& v) { _borderColor=v;needsRedraw(); }
+Color Layer::borderColor() {return _borderColor; }
+
+void Layer::borderWidth(f32 v) { _borderWidth=v; needsRedraw(); }
+f32 Layer::borderWidth() { return _borderWidth; }
+
+void Layer::backgroundImage(const TexturePtr& v) { _backgroundImage=v; needsRedraw(); }
+TexturePtr Layer::backgroundImage() { return _backgroundImage; }
+
 
 }
 

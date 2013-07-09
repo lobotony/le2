@@ -1,7 +1,7 @@
-#ifndef GUIRO_UI_H
-#define GUIRO_UI_H
+#ifndef LOST_UI_H
+#define LOST_UI_H
 
-#include "guiro/views/View.h"
+#include "lost/views/View.h"
 #include "lost/EventQueue.h"
 
 namespace lost
@@ -10,7 +10,7 @@ namespace lost
 struct Context;
 struct EventSystem;
 struct UpdateSystem;
-struct RenderSystem;
+struct Compositor;
 
 /** Main class for everything user interface related.
  * Every application has a UserInterface instance, but it is not enabled by default,
@@ -37,11 +37,11 @@ struct UserInterface
   
   EventSystem* eventSystem;
   UpdateSystem* updateSystem;
-  RenderSystem* renderSystem;
+  Compositor* compositor;
   
   ViewPtr rootView;
   
-  void windowResized(f32 w, f32 h);
+  void windowResized(const Vec2& sz);
 };
 }
 

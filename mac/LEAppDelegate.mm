@@ -30,8 +30,8 @@ extern lost::Application* _appInstance;
 //  DOUT("w:"<<int(curFrame.size.width)<<" h:"<<int(curFrame.size.height));
   lost::Event* event = _appInstance->eventPool->borrowEvent();
   event->base.type = lost::ET_WindowResize;
-  event->windowResizeEvent.width = curFrame.size.width;
-  event->windowResizeEvent.height = curFrame.size.height;
+  _appInstance->windowSize.width = curFrame.size.width;
+  _appInstance->windowSize.height = curFrame.size.height;  
   _appInstance->eventQueue->addEventToNextQueue(event);
 }
 

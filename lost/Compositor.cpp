@@ -1,12 +1,12 @@
-#include "guiro/RenderSystem.h"
+#include "lost/Compositor.h"
 #include "lost/Canvas.h"
 #include "lost/Quad.h"
 #include "lost/Application.h"
 #include "lost/ResourceManager.h"
 #include "lost/Camera2D.h"
 #include "lost/HybridIndexBuffer.h"
-#include "guiro/RenderContext.h"
-#include "guiro/layers/Layer.h"
+#include "lost/DrawContext.h"
+#include "lost/layers/Layer.h"
 #include "lost/FrameBuffer.h"
 #include "lost/Context.h"
 #include <algorithm>
@@ -14,41 +14,39 @@
 namespace lost
 {
 
-RenderSystem::RenderSystem()
+Compositor::Compositor()
 {
-  rc = new RenderContext(Application::instance()->glContext);
+  drawContext = new DrawContext(Application::instance()->glContext);
   fb.reset(new FrameBuffer);
   fbcam.reset(new Camera2D(Rect(0, 0, 0, 0)));
   uicam.reset(new Camera2D(Rect(0, 0, 0, 0)));
 }
 
-RenderSystem::~RenderSystem()
+Compositor::~Compositor()
 {
 }
   
-void RenderSystem::windowResized(const Vec2& newSize)
+void Compositor::windowResized(const Vec2& newSize)
 {
   DOUT("");
   windowSize = newSize;
   uicam->viewport(Rect(0,0,windowSize));
 }
   
-void RenderSystem::draw(const LayerPtr& rootLayer)
+void Compositor::draw(const LayerPtr& rootLayer)
 {
   prepareRedraws(rootLayer);
   updateLayerCaches();
 
-  rc->glContext->bindDefaultFramebuffer();
-  rc->glContext->camera(uicam);
-  rc->glContext->clearColor(Color(0,0,0,0));
-  rc->glContext->clear(GL_COLOR_BUFFER_BIT);
-  rc->drawTexturedRect(rootLayer->rect(), layerCache[rootLayer.get()], whiteColor);
+  drawContext->glContext->bindDefaultFramebuffer();
+  drawContext->glContext->camera(uicam);
+  drawContext->drawTexturedRect(rootLayer->rect(), layerCache[rootLayer.get()], whiteColor);
   
   redrawCandidates.clear();
   redraws.clear();
 }
 
-void RenderSystem::prepareRedraws(const LayerPtr rootLayer)
+void Compositor::prepareRedraws(const LayerPtr rootLayer)
 {
   if(redrawCandidates.size()>0)
   {
@@ -67,7 +65,7 @@ void RenderSystem::prepareRedraws(const LayerPtr rootLayer)
   }  
 }
 
-void RenderSystem::updateLayerCaches()
+void Compositor::updateLayerCaches()
 {
   for(Layer* layer : redraws)
   {
@@ -92,19 +90,19 @@ void RenderSystem::updateLayerCaches()
     fb->attachColorBuffer(0, texture);
     fb->check();
     fbcam->viewport(Rect(0,0,layer->rect().size()));
-    rc->glContext->camera(fbcam);
+    drawContext->glContext->camera(fbcam);
     // draw current layer contents. does NOT draw sublayers
-    layer->draw(rc);
+    layer->draw(drawContext);
     
     // draw sublayer contents
     for(LayerPtr sublayer : layer->sublayers)
     {
-      rc->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], whiteColor);
+      drawContext->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], whiteColor);
     }
   }
 }
 
-void RenderSystem::needsRedraw(Layer* layer)
+void Compositor::needsRedraw(Layer* layer)
 {
   auto pos = find(redrawCandidates.begin(), redrawCandidates.end(), layer);
   if(pos == redrawCandidates.end())

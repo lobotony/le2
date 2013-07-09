@@ -74,15 +74,14 @@ CPPSOURCES=main.cpp \
 					../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_reader.cpp \
 					../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_value.cpp \
 					../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_writer.cpp \
-					../guiro/EventSystem.cpp \
-					../guiro/Frame.cpp \
-					../guiro/layers/Layer.cpp \
-					../guiro/layers/TextLayer.cpp \
-					../guiro/RenderContext.cpp \
-					../guiro/RenderSystem.cpp \
-					../guiro/UpdateSystem.cpp \
-					../guiro/UserInterface.cpp \
-					../guiro/views/View.cpp
+					../lost/EventSystem.cpp \
+					../lost/Frame.cpp \
+					../lost/layers/Layer.cpp \
+					../lost/RenderContext.cpp \
+					../lost/RenderSystem.cpp \
+					../lost/UpdateSystem.cpp \
+					../lost/UserInterface.cpp \
+					../lost/views/View.cpp
 
 CSOURCES=../thirdparty/stb_image.c
 

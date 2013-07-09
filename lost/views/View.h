@@ -1,14 +1,15 @@
-#ifndef GUIRO_VIEW_H
-#define GUIRO_VIEW_H
+#ifndef LOST_VIEW_H
+#define LOST_VIEW_H
 
-#include "guiro/Frame.h"
+#include "lost/Frame.h"
 #include "lost/Rect.h"
-#include "guiro/layers/Layer.h"
+#include "lost/layers/Layer.h"
+#include "lost/EventDispatcher.h"
 
 namespace lost
 {
 
-struct View : enable_shared_from_this<View>
+struct View : enable_shared_from_this<View>, EventDispatcher
 {
   View();
   virtual ~View();

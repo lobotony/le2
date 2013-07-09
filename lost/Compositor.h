@@ -1,18 +1,18 @@
-#ifndef GUIRO_RENDERSYSTEM_H
-#define GUIRO_RENDERSYSTEM_H
+#ifndef LOST_COMPOSITOR_H
+#define LOST_COMPOSITOR_H
 
-#include "guiro/types.h"
+#include "lost/types.h"
 
 namespace lost
 {
 
-struct RenderContext;
+struct DrawContext;
 struct Layer;
 
-struct RenderSystem
+struct Compositor
 {
-  RenderSystem();
-  ~RenderSystem();
+  Compositor();
+  ~Compositor();
   
   void draw(const LayerPtr& rootLayer);
   
@@ -29,7 +29,7 @@ private:
   Camera2DPtr fbcam;
   
   
-  RenderContext* rc;
+  DrawContext* drawContext;
     
   void prepareRedraws(const LayerPtr rootLayer);
   void updateLayerCaches();

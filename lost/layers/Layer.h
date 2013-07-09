@@ -1,14 +1,14 @@
-#ifndef GUIRO_LAYER_H
-#define GUIRO_LAYER_H
+#ifndef LOST_LAYER_H
+#define LOST_LAYER_H
 
-#include "guiro/Frame.h"
+#include "lost/Frame.h"
 #include "lost/Color.h"
-#include "guiro/types.h"
+#include "lost/types.h"
 
 namespace lost
 {
 
-struct RenderContext;
+struct DrawContext;
 
 struct Layer : enable_shared_from_this<Layer>
 {
@@ -27,7 +27,7 @@ struct Layer : enable_shared_from_this<Layer>
   void visible(bool val); // sets this layers visibility flag
   bool visible(); // returns this layers visibility flag
   
-  virtual void draw(RenderContext* rc);
+  virtual void draw(DrawContext* ctx);
   
   void needsRedraw(); // invalidate texture cache in compositor, force content redraw and composition
 
@@ -43,20 +43,36 @@ struct Layer : enable_shared_from_this<Layer>
   void size(const Vec2& sz);
   Vec2 size() const;
   
+  void cornerRadius(s16 v);
+  s16 cornerRadius();
   
-  string name;
-  Frame frame;
+  void backgroundColor(const Color& v);
+  Color backgroundColor();
   
-  u16 cornerRadius;
-  Color backgroundColor;
-  Color borderColor;
+  void borderColor(const Color& v);
+  Color borderColor();
+  
+  void borderWidth(f32 v);
+  f32 borderWidth();
+  
+  void backgroundImage(const TexturePtr& v);
+  TexturePtr backgroundImage();
+  
+  string name; // for debugging only
+  Frame frame; // not yet implemented
   
   LayerPtr superlayer;
   vector<LayerPtr> sublayers;
 
 private:
-  Rect  _rect;
-  bool _visible;
+  s16         _cornerRadius;
+  Color       _backgroundColor;
+  TexturePtr  _backgroundImage;
+  Color       _borderColor;
+  f32         _borderWidth;
+
+  Rect        _rect;
+  bool        _visible;
 };
 }
 
