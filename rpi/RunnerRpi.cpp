@@ -120,14 +120,10 @@ void run(Application* app)
   EGLASSERT((surface = eglCreateWindowSurface(display, config, (EGLNativeWindowType)&nativewindow, NULL)) != EGL_NO_SURFACE);
   EGLASSERT((context = eglCreateContext(display, config, EGL_NO_CONTEXT, contextAttribs)) != EGL_NO_CONTEXT);
   EGLASSERT(eglMakeCurrent(display, surface, surface, context));
-   
-  _appInstance->doStartup();
 
-  lost::Event* event = _appInstance->eventPool->borrowEvent();
-  event->base.type = lost::ET_WindowResize;
-  event->windowResizeEvent.width = display_width;
-  event->windowResizeEvent.height = display_height;
-  _appInstance->eventQueue->addEventToNextQueue(event);
+  _appInstance->windowSize = Vec2(display_width, display_height); 
+
+  _appInstance->doStartup();
 
   while(true)
   {

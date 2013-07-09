@@ -30,6 +30,7 @@ CPPSOURCES=main.cpp \
 					../lost/ContextRpi.cpp \
 					../lost/Data.cpp \
 					../lost/Event.cpp \
+					../lost/EventDispatcher.cpp \
 					../lost/EventPool.cpp \
 					../lost/EventQueue.cpp \
 					../lost/Font.cpp \
@@ -46,6 +47,7 @@ CPPSOURCES=main.cpp \
 					../lost/Matrix.cpp \
 					../lost/Mesh.cpp \
 					../lost/MeshAlgo.cpp \
+					../lost/NinePatch.cpp \
 					../lost/Path.cpp \
 					../lost/PlatformLinux.cpp \
 					../lost/Quad.cpp \
@@ -77,8 +79,9 @@ CPPSOURCES=main.cpp \
 					../lost/EventSystem.cpp \
 					../lost/Frame.cpp \
 					../lost/layers/Layer.cpp \
-					../lost/RenderContext.cpp \
-					../lost/RenderSystem.cpp \
+					../lost/layers/TextLayer.cpp \
+					../lost/DrawContext.cpp \
+					../lost/Compositor.cpp \
 					../lost/UpdateSystem.cpp \
 					../lost/UserInterface.cpp \
 					../lost/views/View.cpp
