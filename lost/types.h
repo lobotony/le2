@@ -75,6 +75,9 @@ namespace lost
   LE_SP(Quad);
   LE_SP(FrameBuffer);
   LE_SP(Canvas);
+  LE_SP(View);
+  LE_SP(Layer);
+  LE_SP(TextLayer);
 }
 
 #endif
