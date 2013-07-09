@@ -1,7 +1,7 @@
-#ifndef GUIRO_COMPOSITOR_H
-#define GUIRO_COMPOSITOR_H
+#ifndef LOST_COMPOSITOR_H
+#define LOST_COMPOSITOR_H
 
-#include "guiro/types.h"
+#include "lost/types.h"
 
 namespace lost
 {

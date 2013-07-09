@@ -1,7 +1,7 @@
 #include "apps/UiTestApp.h"
 #include "lost/Context.h"
-#include "guiro/UserInterface.h"
-#include "guiro/layers/TextLayer.h"
+#include "lost/UserInterface.h"
+#include "lost/layers/TextLayer.h"
 #include "lost/ResourceManager.h"
 
 namespace lost

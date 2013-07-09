@@ -1,7 +1,7 @@
-#include "UserInterface.h"
-#include "guiro/EventSystem.h"
-#include "guiro/UpdateSystem.h"
-#include "guiro/Compositor.h"
+#include "lost/UserInterface.h"
+#include "lost/EventSystem.h"
+#include "lost/UpdateSystem.h"
+#include "lost/Compositor.h"
 
 namespace lost
 {

@@ -17,7 +17,7 @@
 #include "lost/TextBuffer.h"
 #include <cmath>
 
-#include "guiro/UserInterface.h"
+#include "lost/UserInterface.h"
 #include "lost/ResourceManager.h"
 
 #include "lost/MeshAlgo.h"

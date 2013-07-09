@@ -1,7 +1,5 @@
-#ifndef GUIRO_UPDATESYSTEM_H
-#define GUIRO_UPDATESYSTEM_H
-
-#include "guiro/types.h"
+#ifndef LOST_UPDATESYSTEM_H
+#define LOST_UPDATESYSTEM_H
 
 namespace lost
 {

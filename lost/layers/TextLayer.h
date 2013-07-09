@@ -1,7 +1,7 @@
-#ifndef LOST_GUIRO_TEXTLAYER_H
-#define LOST_GUIRO_TEXTLAYER_H
+#ifndef LOST_TEXTLAYER_H
+#define LOST_TEXTLAYER_H
 
-#include "guiro/layers/Layer.h"
+#include "lost/layers/Layer.h"
 
 namespace lost
 {

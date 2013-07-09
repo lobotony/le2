@@ -3,7 +3,7 @@
 #include "lost/EventQueue.h"
 #include "lost/Context.h"
 #include "lost/ResourceManager.h"
-#include "guiro/UserInterface.h"
+#include "lost/UserInterface.h"
 
 extern lost::Application* _appInstance; // must be set by runner implementation
 

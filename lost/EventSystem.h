@@ -1,5 +1,5 @@
-#ifndef GUIRO_EVENTYSTEM_H
-#define GUIRO_EVENTYSTEM_H
+#ifndef LOST_EVENTYSTEM_H
+#define LOST_EVENTYSTEM_H
 
 namespace lost
 {

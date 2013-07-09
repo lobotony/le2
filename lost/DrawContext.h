@@ -1,5 +1,5 @@
-#ifndef GUIRO_DRAWCONTEXT_H
-#define GUIRO_DRAWCONTEXT_H
+#ifndef LOST_DRAWCONTEXT_H
+#define LOST_DRAWCONTEXT_H
 
 #include "lost/Rect.h"
 #include "lost/Color.h"

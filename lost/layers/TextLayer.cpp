@@ -1,5 +1,5 @@
-#include "guiro/layers/TextLayer.h"
-#include "guiro/DrawContext.h"
+#include "lost/layers/TextLayer.h"
+#include "lost/DrawContext.h"
 
 namespace lost
 {

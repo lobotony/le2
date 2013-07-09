@@ -1,7 +1,7 @@
-#include "guiro/layers/Layer.h"
-#include "guiro/UserInterface.h"
+#include "lost/layers/Layer.h"
+#include "lost/UserInterface.h"
 #include "lost/Application.h"
-#include "guiro/DrawContext.h"
+#include "lost/DrawContext.h"
 #include "lost/Context.h"
 #include <algorithm>
 

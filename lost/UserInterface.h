@@ -1,7 +1,7 @@
-#ifndef GUIRO_UI_H
-#define GUIRO_UI_H
+#ifndef LOST_UI_H
+#define LOST_UI_H
 
-#include "guiro/views/View.h"
+#include "lost/views/View.h"
 #include "lost/EventQueue.h"
 
 namespace lost

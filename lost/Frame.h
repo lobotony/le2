@@ -1,5 +1,5 @@
-#ifndef GUIRO_FRAME_H
-#define GUIRO_FRAME_H
+#ifndef LOST_FRAME_H
+#define LOST_FRAME_H
 
 #include "lost/Rect.h"
 

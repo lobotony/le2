@@ -1,9 +1,9 @@
-#ifndef GUIRO_LAYER_H
-#define GUIRO_LAYER_H
+#ifndef LOST_LAYER_H
+#define LOST_LAYER_H
 
-#include "guiro/Frame.h"
+#include "lost/Frame.h"
 #include "lost/Color.h"
-#include "guiro/types.h"
+#include "lost/types.h"
 
 namespace lost
 {
