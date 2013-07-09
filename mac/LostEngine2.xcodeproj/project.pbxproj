@@ -78,6 +78,7 @@
 		EAE79C83178C2EBF00A3C4B4 /* DrawContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE79C81178C2EBF00A3C4B4 /* DrawContext.cpp */; };
 		EAE79C86178C2ECA00A3C4B4 /* EventSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE79C84178C2ECA00A3C4B4 /* EventSystem.cpp */; };
 		EAE79C89178C2ED800A3C4B4 /* Frame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE79C87178C2ED800A3C4B4 /* Frame.cpp */; };
+		EAE79CAD178C41B300A3C4B4 /* EventDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE79CAB178C41B300A3C4B4 /* EventDispatcher.cpp */; };
 		EAF0438715F7A88E0095549F /* HostBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0815F7A87B004EE290 /* HostBuffer.cpp */; };
 		EAF0438815F7A88E0095549F /* HybridBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0A15F7A87B004EE290 /* HybridBuffer.cpp */; };
 		EAF0438915F7A88E0095549F /* HybridIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0C15F7A87B004EE290 /* HybridIndexBuffer.cpp */; };
@@ -257,6 +258,8 @@
 		EAE79C85178C2ECA00A3C4B4 /* EventSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSystem.h; sourceTree = "<group>"; };
 		EAE79C87178C2ED800A3C4B4 /* Frame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Frame.cpp; sourceTree = "<group>"; };
 		EAE79C88178C2ED800A3C4B4 /* Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Frame.h; sourceTree = "<group>"; };
+		EAE79CAB178C41B300A3C4B4 /* EventDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventDispatcher.cpp; sourceTree = "<group>"; };
+		EAE79CAC178C41B300A3C4B4 /* EventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDispatcher.h; sourceTree = "<group>"; };
 		EAF3580D17280F6700824CF2 /* ResourceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourceManager.cpp; sourceTree = "<group>"; };
 		EAF3580E17280F6700824CF2 /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
 		EAF358141728162200824CF2 /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = json_reader.cpp; path = "../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_reader.cpp"; sourceTree = "<group>"; };
@@ -405,6 +408,8 @@
 				EACD24AA15D8523300453F75 /* Disallow.h */,
 				EABB38E51600D42B0009D8F7 /* Event.cpp */,
 				EABB38E61600D42B0009D8F7 /* Event.h */,
+				EAE79CAB178C41B300A3C4B4 /* EventDispatcher.cpp */,
+				EAE79CAC178C41B300A3C4B4 /* EventDispatcher.h */,
 				EABB38EB1600D6FA0009D8F7 /* EventPool.cpp */,
 				EABB38EC1600D6FA0009D8F7 /* EventPool.h */,
 				EABB38E71600D42B0009D8F7 /* EventQueue.cpp */,
@@ -714,6 +719,7 @@
 				EAE79C83178C2EBF00A3C4B4 /* DrawContext.cpp in Sources */,
 				EAE79C86178C2ECA00A3C4B4 /* EventSystem.cpp in Sources */,
 				EAE79C89178C2ED800A3C4B4 /* Frame.cpp in Sources */,
+				EAE79CAD178C41B300A3C4B4 /* EventDispatcher.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
