@@ -112,7 +112,6 @@ TexturePtr DrawContext::ring(u16 radius, u16 thickness)
     BitmapPtr bitmap(new Bitmap(2*radius, 2*radius, GL_RGBA));
     bitmap->ring(radius-.5, radius-.5, radius, thickness);
     bitmap->premultiplyAlpha();
-    bitmap->write("/Users/tony/"+path+".tga");
     result.reset(new Texture(bitmap));
     Application::instance()->resourceManager->texture(path, result);
   }
