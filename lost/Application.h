@@ -2,6 +2,7 @@
 #define LOST_APPLICATION_H
 
 #include "lost/Clock.h"
+#include "json/json.h"
 
 namespace lost
 {
@@ -14,7 +15,7 @@ struct UserInterface;
 
 struct Application
 {
-  Application();
+  Application(const char* configPath = NULL);
   ~Application();
 
   virtual void startup();  // user provided, called by doStartup
@@ -27,6 +28,9 @@ struct Application
   
   static Application* instance(); 
   
+  Json::Value       config;
+  
+  Vec2              windowSize; // the current size of the applications operating system window
   Clock             clock;
   EventPool*        eventPool; // global event pool, thread safe
   EventQueue*       eventQueue; // global event queue, fed by OS specific part, thread safe, user code reads events

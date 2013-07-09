@@ -62,8 +62,8 @@ void run(Application* application)
   [app setDelegate: appDelegate];
 
   // setup window and GL view
-  CGFloat defaultWindowWidth = 800;
-  CGFloat defaultWindowHeight = 600;
+  CGFloat defaultWindowWidth = application->config.get("windowWidth", 640).asUInt();
+  CGFloat defaultWindowHeight = application->config.get("windowHeight", 480).asUInt();
   CGRect fr = CGRectMake(0, 0, defaultWindowWidth, defaultWindowHeight);
   const NSOpenGLPixelFormatAttribute windowedAttributes[] =
   {

@@ -6,6 +6,9 @@
 
 namespace lost
 {
+UiTestApp::UiTestApp() : Application("resources/le2config.json")
+{
+}
 
 void UiTestApp::startup()
 {
