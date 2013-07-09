@@ -65,6 +65,7 @@ void UserInterface::enable()
   if(!rootView)
   {
     rootView.reset(new View);
+    rootView->layer->backgroundColor(clearColor);
     windowResized(Application::instance()->windowSize);
   }
 }

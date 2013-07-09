@@ -14,7 +14,7 @@ Layer::Layer()
   frame = Frame();
   
   _cornerRadius = 0;
-  _backgroundColor = clearColor;
+  _backgroundColor = whiteColor;
   _borderColor = clearColor;
   _borderWidth = 0;
 
