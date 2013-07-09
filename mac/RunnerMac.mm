@@ -62,9 +62,9 @@ void run(Application* application)
   [app setDelegate: appDelegate];
 
   // setup window and GL view
-  CGFloat defaultWindowWidth = application->config.get("windowWidth", 640).asUInt();
-  CGFloat defaultWindowHeight = application->config.get("windowHeight", 480).asUInt();
-  CGRect fr = CGRectMake(0, 0, defaultWindowWidth, defaultWindowHeight);
+  application->windowSize.width = application->config.get("windowWidth", 640).asUInt();
+  application->windowSize.height = application->config.get("windowHeight", 480).asUInt();
+  CGRect fr = CGRectMake(0, 0, application->windowSize.width, application->windowSize.height);
   const NSOpenGLPixelFormatAttribute windowedAttributes[] =
   {
     NSOpenGLPFADoubleBuffer,
@@ -93,8 +93,8 @@ void run(Application* application)
   // add a resize event so engine gets correct window size on first update() call
   lost::Event* event = _appInstance->eventPool->borrowEvent();
   event->base.type = lost::ET_WindowResize;
-  event->windowResizeEvent.width = defaultWindowWidth;
-  event->windowResizeEvent.height = defaultWindowHeight;
+  event->windowResizeEvent.width = application->windowSize.width;
+  event->windowResizeEvent.height = application->windowSize.height;
   _appInstance->eventQueue->addEventToNextQueue(event);
   
   LEWindow* window = [[LEWindow alloc]
