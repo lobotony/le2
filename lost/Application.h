@@ -30,7 +30,7 @@ struct Application
   
   Json::Value       config;
   
-  Vec2              windowSize; // the current size of the applications operating system window
+  Vec2              windowSize; // the current size of the applications operating system window. This will be updated before startup and after windowResize events.
   Clock             clock;
   EventPool*        eventPool; // global event pool, thread safe
   EventQueue*       eventQueue; // global event queue, fed by OS specific part, thread safe, user code reads events

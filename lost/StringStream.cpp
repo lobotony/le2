@@ -138,5 +138,11 @@ lost::StringStream& operator<<(lost::StringStream& s, const lost::Matrix& v)
   return s;
 }
 
+lost::StringStream& operator<<(lost::StringStream& s, const lost::Rect& v)
+{
+  s << "( "<<v.x<<" / "<<v.y<<" / "<<v.width<<" / "<<v.height<<" )";
+  return s;
+}
+
 
 

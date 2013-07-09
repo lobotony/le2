@@ -21,7 +21,6 @@ struct SunApp : Application
   ShaderProgramPtr hblurShader;
   ShaderProgramPtr vblurShader;
   
-  Vec2 winSize;
   CameraPtr cam;
   
   TexturePtr splineTexture;

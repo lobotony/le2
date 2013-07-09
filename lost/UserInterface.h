@@ -41,7 +41,7 @@ struct UserInterface
   
   ViewPtr rootView;
   
-  void windowResized(f32 w, f32 h);
+  void windowResized(const Vec2& sz);
 };
 }
 

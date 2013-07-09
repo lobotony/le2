@@ -89,13 +89,6 @@ void run(Application* application)
   [[glview openGLContext] makeCurrentContext];
   _appInstance->doStartup();
   [NSOpenGLContext clearCurrentContext]; // then clear the context for this thread, so it's later only active on the render thread
-
-  // add a resize event so engine gets correct window size on first update() call
-  lost::Event* event = _appInstance->eventPool->borrowEvent();
-  event->base.type = lost::ET_WindowResize;
-  event->windowResizeEvent.width = application->windowSize.width;
-  event->windowResizeEvent.height = application->windowSize.height;
-  _appInstance->eventQueue->addEventToNextQueue(event);
   
   LEWindow* window = [[LEWindow alloc]
                       initWithContentRect: r

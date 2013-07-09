@@ -2,6 +2,7 @@
 #include "lost/EventSystem.h"
 #include "lost/UpdateSystem.h"
 #include "lost/Compositor.h"
+#include "lost/Application.h"
 
 namespace lost
 {
@@ -26,9 +27,7 @@ void UserInterface::update(const EventQueue::Container& events)
   {
     if(event->base.type == ET_WindowResize)
     {
-      f32 w = event->windowResizeEvent.width;
-      f32 h = event->windowResizeEvent.height;
-      windowResized(w, h);
+      windowResized(Application::instance()->windowSize);
     }
     else if(event->base.type == ET_MouseMoveEvent)
     {
@@ -39,13 +38,13 @@ void UserInterface::update(const EventQueue::Container& events)
   // FIXME: layout system needs to layout any views and layers in queue
 }
 
-void UserInterface::windowResized(f32 w, f32 h)
+void UserInterface::windowResized(const Vec2& sz)
 {
   if(rootView)
   {
-    rootView->layer->rect(Rect(0,0,w,h));
+    rootView->layer->rect(Rect(0,0,sz));
   }
-  compositor->windowResized(Vec2(w, h));
+  compositor->windowResized(sz);
 }
 
 void UserInterface::draw()
@@ -66,7 +65,7 @@ void UserInterface::enable()
   if(!rootView)
   {
     rootView.reset(new View);
-    rootView->layer->rect(0,0,1,1); // any size other than 0,0 to prevent unnecessary OpenGL framebuffer errors
+    windowResized(Application::instance()->windowSize);
   }
 }
 

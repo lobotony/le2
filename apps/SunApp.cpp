@@ -56,9 +56,9 @@ void SunApp::updateSpline(const vector<Vec2>& cp, u32 numPoints, MeshPtr& triang
 
 void SunApp::fbsetup()
 {
-  offscreenCanvas.reset(new Canvas(winSize));
-  hblurCanvas.reset(new Canvas(winSize));
-  vblurCanvas.reset(new Canvas(winSize));
+  offscreenCanvas.reset(new Canvas(windowSize));
+  hblurCanvas.reset(new Canvas(windowSize));
+  vblurCanvas.reset(new Canvas(windowSize));
 
   canvasQuad = Quad::create(offscreenCanvas->framebuffer->texture(0), false);
   canvasQuad->material->color = whiteColor;
@@ -74,8 +74,7 @@ void SunApp::startup()
   hblurShader = resourceManager->shader("resources/glsl/hblur");
   vblurShader = resourceManager->shader("resources/glsl/vblur");
 
-  winSize = Vec2(800, 600);
-  cam = Camera2D::create(Rect(0,0,winSize.width, winSize.height));
+  cam = Camera2D::create(Rect(0,0,windowSize.width, windowSize.height));
   
   
   //////////////////////////////////////////
@@ -165,7 +164,7 @@ void SunApp::setupSplines()
   numSplines = 20;
   minRadius = 5;
   maxRadius = 300;
-  circleCenter = Vec2(winSize.width/2, winSize.height/2);
+  circleCenter = Vec2(windowSize.width/2, windowSize.height/2);
   dotSize = 7;
   ASSERT(numCircles >= 2, "numCircles must be >= 2");
   circlePoints = new Vec2[numCircles*numSplines];
@@ -187,8 +186,8 @@ void SunApp::setupSplines()
 // continuous update
 void SunApp::updateSplines()
 {
-  maxRadius = min(winSize.width, winSize.height)/2;
-  circleCenter = Vec2(winSize.width/2, winSize.height/2);  
+  maxRadius = min(windowSize.width, windowSize.height)/2;
+  circleCenter = Vec2(windowSize.width/2, windowSize.height/2);  
   // precalculate radii
   for (u32 i=0; i<numCircles; ++i)
   {
@@ -257,11 +256,8 @@ void SunApp::update()
   {
     if(event->base.type == ET_WindowResize)
     {
-      f32 w = event->windowResizeEvent.width;
-      f32 h = event->windowResizeEvent.height;
-      DOUT("updating viewport "<<int(w)<<"/"<<int(h));
-      winSize = Vec2(w, h);
-      cam->viewport(Rect(0,0,w,h));
+      DOUT("updating viewport "<<windowSize);
+      cam->viewport(Rect(0,0,windowSize));
       fbsetup();
     }
     else if(event->base.type == ET_MouseMoveEvent)
