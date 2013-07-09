@@ -77,6 +77,7 @@ CPPSOURCES=main.cpp \
 					../guiro/EventSystem.cpp \
 					../guiro/Frame.cpp \
 					../guiro/layers/Layer.cpp \
+					../guiro/layers/TextLayer.cpp \
 					../guiro/RenderContext.cpp \
 					../guiro/RenderSystem.cpp \
 					../guiro/UpdateSystem.cpp \
