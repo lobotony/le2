@@ -14,6 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #define STB_TRUETYPE_IMPLEMENTATION
+#include "stb_truetype.h"
 #include "lost/TruetypeFont.h"
 
 #include "lost/BitmapPacker.h"
@@ -29,19 +30,20 @@ TruetypeFont::TruetypeFont(const DataPtr& inData,
                            uint32_t inSizeInPoints)
 {
   const unsigned char* data = reinterpret_cast<unsigned char*>(inData->bytes.get());
-  
+  _fontinfo = (stbtt_fontinfo*)malloc(sizeof(stbtt_fontinfo));
+  memset(_fontinfo, 0, sizeof(stbtt_fontinfo));
   _data = inData;
-  ASSERT(stbtt_InitFont(&_fontinfo, data, 0), "font init failed")
+  ASSERT(stbtt_InitFont(_fontinfo, data, 0), "font init failed")
   size = inSizeInPoints;
   atlasSize.width = 256;
   atlasSize.height = 256;
 
-  _vscale = stbtt_ScaleForPixelHeight(&_fontinfo, size);
+  _vscale = stbtt_ScaleForPixelHeight(_fontinfo, size);
   
   int ascent = 0;
   int descent = 0;
   int lineGap = 0;
-  stbtt_GetFontVMetrics(&_fontinfo, &ascent, &descent, &lineGap);
+  stbtt_GetFontVMetrics(_fontinfo, &ascent, &descent, &lineGap);
   
   ascender = floorf(ascent*_vscale);
   descender = floorf(descent*_vscale);
@@ -52,6 +54,7 @@ TruetypeFont::TruetypeFont(const DataPtr& inData,
 
 TruetypeFont::~TruetypeFont()
 {
+  free(_fontinfo);
 }
 
 bool TruetypeFont::renderGlyph(char32_t c)
@@ -65,14 +68,14 @@ bool TruetypeFont::renderGlyph(char32_t c)
 //    glyph->render(face, size, c);
     
     int advance, lsb;
-    stbtt_GetCodepointHMetrics(&_fontinfo, c, &advance, &lsb);
+    stbtt_GetCodepointHMetrics(_fontinfo, c, &advance, &lsb);
     
     int ix0, iy0, ix1, iy1;
-    stbtt_GetCodepointBitmapBox(&_fontinfo, c, _vscale, _vscale, &ix0, &iy0, &ix1, &iy1);
+    stbtt_GetCodepointBitmapBox(_fontinfo, c, _vscale, _vscale, &ix0, &iy0, &ix1, &iy1);
     int width = ix1-ix0;
     int height = iy1-iy0;
     unsigned char* bmpmem = (unsigned char*)malloc(width*height);
-    stbtt_MakeCodepointBitmapSubpixel(&_fontinfo, bmpmem, width, height, width, _vscale, _vscale, .0, .0, c);
+    stbtt_MakeCodepointBitmapSubpixel(_fontinfo, bmpmem, width, height, width, _vscale, _vscale, .0, .0, c);
     
     BitmapPtr result(new Bitmap(width,
                                 height,
@@ -172,8 +175,8 @@ GlyphPtr TruetypeFont::glyph(uint32_t utf32character)
 float TruetypeFont::kerningOffset(uint32_t previousChar, uint32_t currentChar)
 {
   float result = 0.0f;
-  if(_fontinfo.kern) {
-    result = stbtt_GetCodepointKernAdvance(&_fontinfo, previousChar, currentChar);
+  if(_fontinfo->kern) {
+    result = stbtt_GetCodepointKernAdvance(_fontinfo, previousChar, currentChar);
     result *= _vscale;
   }
   return result;
@@ -181,7 +184,7 @@ float TruetypeFont::kerningOffset(uint32_t previousChar, uint32_t currentChar)
 
 bool TruetypeFont::hasKerning()
 {
-  return _fontinfo.kern;
+  return _fontinfo->kern;
 }
 
 float TruetypeFont::characterAdvance(uint32_t previousChar, uint32_t currentChar)

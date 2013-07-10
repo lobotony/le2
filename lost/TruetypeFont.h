@@ -19,24 +19,25 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LOST_TRUETYPEFONT_H
 
 #include "lost/Font.h"
-#include "stb_truetype.h"
+
+struct stbtt_fontinfo;
 
 namespace lost
 {
+
 
 struct TruetypeFont : public Font
 {
   TruetypeFont(const DataPtr& inData,
               uint32_t inSizeInPoints);
   virtual ~TruetypeFont();
-  
   GlyphPtr glyph(uint32_t utf32character);
   bool hasKerning();
   float kerningOffset(uint32_t previousChar, uint32_t currentChar);
   float characterAdvance(uint32_t previousChar, uint32_t currentChar); // returns advance (if glyph available)+kerningOffset (if kerning available), 0 otherwise. Use 0 if there is no prevchar
   
   float             _vscale;
-  stbtt_fontinfo    _fontinfo;
+  struct stbtt_fontinfo*    _fontinfo;
   
   DataPtr _data;
   std::map<char32_t, GlyphPtr> char2glyph;
