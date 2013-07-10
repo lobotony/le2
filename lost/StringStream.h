@@ -18,11 +18,11 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_STRINGSTREAM_H
 #define LOST_STRINGSTREAM_H
 
-#include <stdint.h>
-
-#include "Vec2.h"
-#include "Vec3.h"
-#include "Matrix.h"
+#include "lost/types.h"
+#include "lost/Vec2.h"
+#include "lost/Vec3.h"
+#include "lost/Matrix.h"
+#include "lost/Path.h"
 
 namespace lost
 {
@@ -56,5 +56,6 @@ lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec3& v);
 lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec4& v);
 lost::StringStream& operator<<(lost::StringStream& s, const lost::Matrix& v);
 lost::StringStream& operator<<(lost::StringStream& s, const lost::Rect& v);
+lost::StringStream& operator<<(lost::StringStream& stream, const lost::Path& p);
 
 #endif

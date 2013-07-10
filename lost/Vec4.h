@@ -41,6 +41,4 @@ Vec4 operator-(const Vec4& inOp1, const Vec4& inOp2);
 bool compare(const Vec4& l, const Vec4& r, float epsilon);
 } // lost
 
-std::ostream& operator << (std::ostream& stream, const lost::Vec4& v);
-
 #endif

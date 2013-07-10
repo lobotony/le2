@@ -99,9 +99,3 @@ bool compare(const Vec4& l, const Vec4& r, float epsilon)
     return false;
 }
 }
-
-std::ostream& operator << (std::ostream& stream, const lost::Vec4& v)
-{
-  stream << "(" << v.x << "/" << v.y << "/" << v.z << "/" << v.w << ")";
-  return stream;
-}

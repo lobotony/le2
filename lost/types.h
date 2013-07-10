@@ -31,6 +31,8 @@ namespace lost
   using std::vector;
   using std::map;
   using std::list;
+  using std::pair;
+  using std::make_pair;
   
   typedef int8_t s8;
   typedef int16_t s16;

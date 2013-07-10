@@ -1,5 +1,6 @@
 #include "lost/layers/TextLayer.h"
 #include "lost/DrawContext.h"
+#include "lost/StringStream.h"
 
 namespace lost
 {

@@ -130,9 +130,3 @@ bool compare(const Vec3& l, const Vec3& r, float epsilon)
 
 }
 
-std::ostream& operator<<(std::ostream& s, const lost::Vec3& v)
-{
-    s << v.x << " " << v.y << " "<< v.z;
-    return s;
-}
-
