@@ -32,7 +32,6 @@
 		EA945F0615F7A503004EE290 /* VertexShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0115F7A430004EE290 /* VertexShader.cpp */; };
 		EA945F0715F7A53F004EE290 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945EFF15F7A428004EE290 /* ShaderProgram.cpp */; };
 		EAADB60F15FF97FD008F7450 /* BitmapPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB60D15FF97FD008F7450 /* BitmapPacker.cpp */; };
-		EAADB61915FFA391008F7450 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB61515FFA391008F7450 /* Font.cpp */; };
 		EAADB62215FFA3A2008F7450 /* TextBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB61C15FFA3A2008F7450 /* TextBuffer.cpp */; };
 		EAADB62315FFA3A2008F7450 /* TextMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB61E15FFA3A2008F7450 /* TextMesh.cpp */; };
 		EAADB62415FFA3A2008F7450 /* TextRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB62015FFA3A2008F7450 /* TextRender.cpp */; };
@@ -152,7 +151,6 @@
 		EA945F0F15F7A87C004EE290 /* HybridVertexBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HybridVertexBuffer.h; sourceTree = "<group>"; };
 		EAADB60D15FF97FD008F7450 /* BitmapPacker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitmapPacker.cpp; sourceTree = "<group>"; };
 		EAADB60E15FF97FD008F7450 /* BitmapPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapPacker.h; sourceTree = "<group>"; };
-		EAADB61515FFA391008F7450 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
 		EAADB61615FFA391008F7450 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
 		EAADB61B15FFA3A2008F7450 /* TextBreakmodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBreakmodes.h; sourceTree = "<group>"; };
 		EAADB61C15FFA3A2008F7450 /* TextBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBuffer.cpp; sourceTree = "<group>"; };
@@ -409,7 +407,6 @@
 				EABB38EC1600D6FA0009D8F7 /* EventPool.h */,
 				EABB38E71600D42B0009D8F7 /* EventQueue.cpp */,
 				EABB38E81600D42B0009D8F7 /* EventQueue.h */,
-				EAADB61515FFA391008F7450 /* Font.cpp */,
 				EAADB61615FFA391008F7450 /* Font.h */,
 				EA945F0315F7A43A004EE290 /* FragmentShader.cpp */,
 				EA945F0415F7A43A004EE290 /* FragmentShader.h */,
@@ -675,7 +672,6 @@
 				EAB2B90D15FE4703001CF4EF /* Context.cpp in Sources */,
 				EAB2B90F15FE470A001CF4EF /* ContextMac.mm in Sources */,
 				EAADB60F15FF97FD008F7450 /* BitmapPacker.cpp in Sources */,
-				EAADB61915FFA391008F7450 /* Font.cpp in Sources */,
 				EAADB62215FFA3A2008F7450 /* TextBuffer.cpp in Sources */,
 				EAADB62315FFA3A2008F7450 /* TextMesh.cpp in Sources */,
 				EAADB62415FFA3A2008F7450 /* TextRender.cpp in Sources */,

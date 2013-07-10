@@ -21,8 +21,8 @@ namespace lost
 {
 struct Font
 {
-  Font();
-  virtual ~Font();
+  Font() {};
+  virtual ~Font() {};
   
   virtual bool      hasKerning() = 0;
   virtual GlyphPtr  glyph(uint32_t utf32character) = 0;
