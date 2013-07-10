@@ -27,8 +27,6 @@
 		EA945EFA15F79F56004EE290 /* Uniform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945EF415F79F55004EE290 /* Uniform.cpp */; };
 		EA945EFB15F79F56004EE290 /* UniformBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945EF615F79F55004EE290 /* UniformBlock.cpp */; };
 		EA945EFE15F7A41B004EE290 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945EFC15F7A418004EE290 /* Shader.cpp */; };
-		EA945F0515F7A4C1004EE290 /* FragmentShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0315F7A43A004EE290 /* FragmentShader.cpp */; };
-		EA945F0615F7A503004EE290 /* VertexShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0115F7A430004EE290 /* VertexShader.cpp */; };
 		EA945F0715F7A53F004EE290 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945EFF15F7A428004EE290 /* ShaderProgram.cpp */; };
 		EAADB60F15FF97FD008F7450 /* BitmapPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB60D15FF97FD008F7450 /* BitmapPacker.cpp */; };
 		EAADB62215FFA3A2008F7450 /* TextBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB61C15FFA3A2008F7450 /* TextBuffer.cpp */; };
@@ -134,10 +132,6 @@
 		EA945EFD15F7A418004EE290 /* Shader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
 		EA945EFF15F7A428004EE290 /* ShaderProgram.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderProgram.cpp; sourceTree = "<group>"; };
 		EA945F0015F7A428004EE290 /* ShaderProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderProgram.h; sourceTree = "<group>"; };
-		EA945F0115F7A430004EE290 /* VertexShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VertexShader.cpp; sourceTree = "<group>"; };
-		EA945F0215F7A430004EE290 /* VertexShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VertexShader.h; sourceTree = "<group>"; };
-		EA945F0315F7A43A004EE290 /* FragmentShader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FragmentShader.cpp; sourceTree = "<group>"; };
-		EA945F0415F7A43A004EE290 /* FragmentShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FragmentShader.h; sourceTree = "<group>"; };
 		EA945F0815F7A87B004EE290 /* HostBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HostBuffer.cpp; sourceTree = "<group>"; };
 		EA945F0915F7A87B004EE290 /* HostBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostBuffer.h; sourceTree = "<group>"; };
 		EA945F0A15F7A87B004EE290 /* HybridBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HybridBuffer.cpp; sourceTree = "<group>"; };
@@ -404,8 +398,6 @@
 				EABB38E71600D42B0009D8F7 /* EventQueue.cpp */,
 				EABB38E81600D42B0009D8F7 /* EventQueue.h */,
 				EAADB61615FFA391008F7450 /* Font.h */,
-				EA945F0315F7A43A004EE290 /* FragmentShader.cpp */,
-				EA945F0415F7A43A004EE290 /* FragmentShader.h */,
 				EAD599E21756081E00E09947 /* FrameBuffer.cpp */,
 				EAD599E31756081E00E09947 /* FrameBuffer.h */,
 				EAADB62915FFA76B008F7450 /* Glyph.h */,
@@ -487,8 +479,6 @@
 				EA0EEAFC15E677F9000CBC13 /* Vec4.cpp */,
 				EA0EEAFD15E677F9000CBC13 /* Vec4.h */,
 				EA945EF115F79F4B004EE290 /* VertexAttribute.h */,
-				EA945F0115F7A430004EE290 /* VertexShader.cpp */,
-				EA945F0215F7A430004EE290 /* VertexShader.h */,
 			);
 			name = lost;
 			path = ../lost;
@@ -648,8 +638,6 @@
 				EA945EFA15F79F56004EE290 /* Uniform.cpp in Sources */,
 				EA945EFB15F79F56004EE290 /* UniformBlock.cpp in Sources */,
 				EA945EFE15F7A41B004EE290 /* Shader.cpp in Sources */,
-				EA945F0515F7A4C1004EE290 /* FragmentShader.cpp in Sources */,
-				EA945F0615F7A503004EE290 /* VertexShader.cpp in Sources */,
 				EA945F0715F7A53F004EE290 /* ShaderProgram.cpp in Sources */,
 				EAF0438715F7A88E0095549F /* HostBuffer.cpp in Sources */,
 				EAF0438815F7A88E0095549F /* HybridBuffer.cpp in Sources */,

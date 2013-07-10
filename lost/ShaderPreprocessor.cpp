@@ -1,9 +1,8 @@
 #include "lost/ShaderPreprocessor.h"
 #include "lost/StringAdditions.h"
-#include "lost/VertexShader.h"
-#include "lost/FragmentShader.h"
 #include "lost/Data.h"
 #include "lost/ShaderProgram.h"
+#include "lost/Shader.h"
 
 namespace lost
 {
@@ -130,8 +129,8 @@ ShaderProgramPtr buildShader(const Bundle& bundle,
 {
 //  DOUT("building shader: '"<<inName<<"'");
   ShaderProgramPtr  shaderProgram(new ShaderProgram());
-  ShaderPtr         vertexShader(new VertexShader());
-  ShaderPtr         fragmentShader(new FragmentShader());
+  ShaderPtr         vertexShader(new Shader(GL_VERTEX_SHADER));
+  ShaderPtr         fragmentShader(new Shader(GL_FRAGMENT_SHADER));
 
   string vsname = inName+".vs";
   string fsname = inName+".fs";
