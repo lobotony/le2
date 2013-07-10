@@ -17,10 +17,36 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_UNIFORMBLOCK_H
 #define LOST_UNIFORMBLOCK_H
 
-#include "lost/Variant.h"
-
 namespace lost
 {
+
+enum VariantType
+{
+  VT_undefined=0,
+  VT_int,
+  VT_float,
+  VT_bool,
+  VT_color,
+  VT_vec2,
+  VT_vec3,
+  VT_vec4,
+  VT_matrix
+};
+
+struct Variant
+{
+  // can't use union when members have constructors
+  GLint         i;
+  float         f;
+  bool          b;
+  Color color;
+  Vec2    vec2;
+  Vec3    vec3;
+  Vec4    vec4;
+  Matrix  matrix;
+  
+  VariantType type;
+};
 
 struct UniformBlock
 {
