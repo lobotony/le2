@@ -18,9 +18,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "lost/TextMesh.h"
 #include "lost/Font.h"
 #include "lost/Glyph.h"
-#include "lost/Vec2.h"
-#include "lost/Rect.h"
-#include <math.h>
 #include "StringAdditions.h"
 
 namespace lost

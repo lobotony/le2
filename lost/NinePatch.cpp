@@ -18,7 +18,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "lost/Texture.h"
 #include "lost/HybridIndexBuffer.h"
 #include "lost/HybridVertexBuffer.h"
-#include "lost/Rect.h"
 
 namespace lost
 {

@@ -1,5 +1,4 @@
 #include "lost/Texture.h"
-#include "lost/lmath.h"
 #include "lost/Data.h"
 #include "lost/Bitmap.h"
 

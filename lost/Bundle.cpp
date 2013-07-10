@@ -1,7 +1,5 @@
 #include "lost/Bundle.h"
 #include "lost/PlatformPaths.h"
-#include "lost/Log.h"
-#include <stdio.h>
 #include "lost/Data.h"
 #include "lost/ShaderPreprocessor.h"
 #include "lost/Texture.h"

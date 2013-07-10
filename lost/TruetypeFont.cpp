@@ -16,13 +16,11 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define STB_TRUETYPE_IMPLEMENTATION
 #include "lost/TruetypeFont.h"
 
-#include "lost/Log.h"
 #include "lost/BitmapPacker.h"
 #include "lost/Texture.h"
 #include "lost/Bitmap.h"
 #include "lost/Glyph.h"
 #include "lost/Data.h"
-#include <math.h>
 
 namespace lost
 {

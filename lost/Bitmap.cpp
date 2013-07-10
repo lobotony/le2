@@ -16,11 +16,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "lost/Data.h"
 #include "lost/Bitmap.h"
-#include "lost/Log.h"
-#include <stdexcept>
-#include <sstream>
-#include <math.h>
-#include <assert.h>
 #define STBI_HEADER_FILE_ONLY
 #include "thirdparty/stb_image.c"
 #define STB_IMAGE_WRITE_IMPLEMENTATION

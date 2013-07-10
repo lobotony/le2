@@ -14,9 +14,6 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "lost/Path.h"
-#include "lost/Log.h"
-
 #if defined WIN32
   #include <direct.h>
 #else

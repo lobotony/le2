@@ -15,9 +15,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include "lost/Camera2D.h"
-#include "lost/Matrix.h"
-#include "lost/Vec3.h"
-
 
 namespace lost
 {

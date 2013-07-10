@@ -16,7 +16,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "lost/HostBuffer.h"
 #include "lost/Data.h"
-#include <string.h>
 
 namespace lost
 {

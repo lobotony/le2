@@ -14,9 +14,6 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "lost/Color.h"
-#include <assert.h>
-
 namespace lost
 {
   const Color clearColor      (0.0f, 0.0f, 0.0f, 0.0f);

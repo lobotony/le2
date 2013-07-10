@@ -14,9 +14,6 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "lost/Vec2.h"
-#include "lost/Rect.h"
-
 namespace lost
 {
     Rect::Rect(float nx, float ny, float w, float h)

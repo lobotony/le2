@@ -1,5 +1,4 @@
 #include "lost/EventDispatcher.h"
-#include <algorithm>
 
 namespace lost
 {

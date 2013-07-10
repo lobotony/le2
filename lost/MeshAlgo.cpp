@@ -2,7 +2,6 @@
 #include "Mesh.h"
 #include "HybridIndexBuffer.h"
 #include "HybridVertexBuffer.h"
-#include <cmath>
 
 namespace lost
 {

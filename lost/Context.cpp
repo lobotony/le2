@@ -16,7 +16,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "lost/Context.h"
 #include "lost/Camera.h"
-#include <algorithm>
 #include "lost/ShaderProgram.h"
 #include "lost/Mesh.h"
 #include "lost/Bitmap.h"

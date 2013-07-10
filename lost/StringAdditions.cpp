@@ -1,6 +1,4 @@
 #include "lost/StringAdditions.h"
-#include <string>
-#include <iostream>
 #include "thirdparty/utf8.h"
 
 namespace lost

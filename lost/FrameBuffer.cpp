@@ -15,7 +15,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include "lost/FrameBuffer.h"
-#include "lost/lmath.h"
 
 namespace lost
 {
