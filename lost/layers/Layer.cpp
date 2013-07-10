@@ -13,6 +13,8 @@ Layer::Layer()
   name = "";
   frame = Frame();
   
+  superlayer = NULL;
+  
   _cornerRadius = 0;
   _backgroundColor = whiteColor;
   _borderColor = clearColor;
@@ -42,7 +44,7 @@ void Layer::addSublayer(const LayerPtr& layer)
     {
       WOUT("added layer that already had superlayer: "<<layer->description());
     }
-    layer->superlayer = shared_from_this();
+    layer->superlayer = this;
     sublayers.push_back(layer);
   }
   else
@@ -57,7 +59,7 @@ void Layer::removeSublayer(const LayerPtr& layer)
   if(pos != sublayers.end())
   {
     LayerPtr sublayer = *pos;
-    sublayer->superlayer.reset();
+    sublayer->superlayer = NULL;
     sublayers.erase(pos);
   }
   else
@@ -86,7 +88,7 @@ bool Layer::isSublayer(const LayerPtr& layer)
 u16 Layer::z()
 {
   u16 result = 0;
-  LayerPtr current = superlayer;
+  Layer* current = superlayer;
   while(current)
   {
     ++result;
@@ -108,7 +110,7 @@ bool Layer::isVisibleWithinSuperlayers()
   while (result && l)
   {
     result = l->visible();
-    l = l->superlayer.get();
+    l = l->superlayer;
   }
   
   return result;
@@ -128,7 +130,7 @@ bool Layer::isSublayerOf(Layer* root)
 {
   bool result = this == root ? true : false;
   
-  Layer* l = this->superlayer.get();
+  Layer* l = this->superlayer;
   while(l)
   {
     if(l == root)
@@ -136,7 +138,7 @@ bool Layer::isSublayerOf(Layer* root)
       result = true;
       break;
     }
-    l = l->superlayer.get();
+    l = l->superlayer;
   }
   
   return result;
