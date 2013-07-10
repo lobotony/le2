@@ -1,9 +1,6 @@
 #ifndef LOST_DRAWCONTEXT_H
 #define LOST_DRAWCONTEXT_H
 
-#include "lost/Rect.h"
-#include "lost/Color.h"
-
 namespace lost
 {
 

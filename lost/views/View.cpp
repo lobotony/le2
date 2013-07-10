@@ -1,5 +1,4 @@
 #include "lost/views/View.h"
-#include <algorithm>
 
 namespace lost
 {

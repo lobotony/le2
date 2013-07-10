@@ -1,8 +1,6 @@
 #ifndef LOST_COMPOSITOR_H
 #define LOST_COMPOSITOR_H
 
-#include "lost/types.h"
-
 namespace lost
 {
 

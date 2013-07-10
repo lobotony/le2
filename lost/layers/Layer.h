@@ -2,8 +2,6 @@
 #define LOST_LAYER_H
 
 #include "lost/Frame.h"
-#include "lost/Color.h"
-#include "lost/types.h"
 
 namespace lost
 {

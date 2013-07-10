@@ -2,7 +2,6 @@
 #define LOST_VIEW_H
 
 #include "lost/Frame.h"
-#include "lost/Rect.h"
 #include "lost/layers/Layer.h"
 #include "lost/EventDispatcher.h"
 

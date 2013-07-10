@@ -3,7 +3,6 @@
 #include "lost/Application.h"
 #include "lost/DrawContext.h"
 #include "lost/Context.h"
-#include <algorithm>
 
 namespace lost
 {

@@ -9,7 +9,6 @@
 #include "lost/layers/Layer.h"
 #include "lost/FrameBuffer.h"
 #include "lost/Context.h"
-#include <algorithm>
 
 namespace lost
 {
