@@ -136,7 +136,6 @@
 		EA945EF615F79F55004EE290 /* UniformBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UniformBlock.cpp; sourceTree = "<group>"; };
 		EA945EF715F79F56004EE290 /* UniformBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniformBlock.h; sourceTree = "<group>"; };
 		EA945EF815F79F56004EE290 /* Variant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Variant.h; sourceTree = "<group>"; };
-		EA945EF915F79F56004EE290 /* VariantType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariantType.h; sourceTree = "<group>"; };
 		EA945EFC15F7A418004EE290 /* Shader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		EA945EFD15F7A418004EE290 /* Shader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
 		EA945EFF15F7A428004EE290 /* ShaderProgram.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderProgram.cpp; sourceTree = "<group>"; };
@@ -494,7 +493,6 @@
 				EA945EF615F79F55004EE290 /* UniformBlock.cpp */,
 				EA945EF715F79F56004EE290 /* UniformBlock.h */,
 				EA945EF815F79F56004EE290 /* Variant.h */,
-				EA945EF915F79F56004EE290 /* VariantType.h */,
 				EACD24B115D8531200453F75 /* Vec2.cpp */,
 				EACD24B215D8531200453F75 /* Vec2.h */,
 				EA0EEAFA15E677F9000CBC13 /* Vec3.cpp */,

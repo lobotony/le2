@@ -17,10 +17,21 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_VARIANT_H
 #define LOST_VARIANT_H
 
-#include "lost/VariantType.h"
-
 namespace lost
 {
+enum VariantType
+{
+  VT_undefined=0,
+  VT_int,
+  VT_float,
+  VT_bool,
+  VT_color,
+  VT_vec2,
+  VT_vec3,
+  VT_vec4,
+  VT_matrix
+};
+
 struct Variant
 {
   // can't use union when members have constructors
