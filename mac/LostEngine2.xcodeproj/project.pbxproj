@@ -47,7 +47,6 @@
 		EAB2B90F15FE470A001CF4EF /* ContextMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B90E15FE470A001CF4EF /* ContextMac.mm */; };
 		EABB38E01600CC990009D8F7 /* LEAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = EABB38DF1600CC990009D8F7 /* LEAppDelegate.mm */; };
 		EABB38E41600CDD80009D8F7 /* LEWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = EABB38E31600CDD80009D8F7 /* LEWindow.mm */; };
-		EABB38E91600D42B0009D8F7 /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38E51600D42B0009D8F7 /* Event.cpp */; };
 		EABB38EA1600D42B0009D8F7 /* EventQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38E71600D42B0009D8F7 /* EventQueue.cpp */; };
 		EABB38ED1600D6FA0009D8F7 /* EventPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38EB1600D6FA0009D8F7 /* EventPool.cpp */; };
 		EABB38F21600DCF00009D8F7 /* tinythread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38F01600DCF00009D8F7 /* tinythread.cpp */; };
@@ -183,7 +182,6 @@
 		EABB38DF1600CC990009D8F7 /* LEAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LEAppDelegate.mm; sourceTree = SOURCE_ROOT; };
 		EABB38E21600CDD80009D8F7 /* LEWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEWindow.h; sourceTree = SOURCE_ROOT; };
 		EABB38E31600CDD80009D8F7 /* LEWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LEWindow.mm; sourceTree = SOURCE_ROOT; };
-		EABB38E51600D42B0009D8F7 /* Event.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
 		EABB38E61600D42B0009D8F7 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		EABB38E71600D42B0009D8F7 /* EventQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventQueue.cpp; sourceTree = "<group>"; };
 		EABB38E81600D42B0009D8F7 /* EventQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventQueue.h; sourceTree = "<group>"; };
@@ -404,7 +402,6 @@
 				EACD24A515D8333100453F75 /* Data.cpp */,
 				EACD24A615D8333100453F75 /* Data.h */,
 				EACD24AA15D8523300453F75 /* Disallow.h */,
-				EABB38E51600D42B0009D8F7 /* Event.cpp */,
 				EABB38E61600D42B0009D8F7 /* Event.h */,
 				EAE79CAB178C41B300A3C4B4 /* EventDispatcher.cpp */,
 				EAE79CAC178C41B300A3C4B4 /* EventDispatcher.h */,
@@ -687,7 +684,6 @@
 				EAADB62D15FFABC4008F7450 /* Quad.cpp in Sources */,
 				EABB38E01600CC990009D8F7 /* LEAppDelegate.mm in Sources */,
 				EABB38E41600CDD80009D8F7 /* LEWindow.mm in Sources */,
-				EABB38E91600D42B0009D8F7 /* Event.cpp in Sources */,
 				EABB38EA1600D42B0009D8F7 /* EventQueue.cpp in Sources */,
 				EABB38ED1600D6FA0009D8F7 /* EventPool.cpp in Sources */,
 				EABB38F21600DCF00009D8F7 /* tinythread.cpp in Sources */,
