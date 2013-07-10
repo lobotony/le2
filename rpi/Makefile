@@ -29,18 +29,12 @@ CPPSOURCES=main.cpp \
 					../lost/Context.cpp \
 					../lost/ContextRpi.cpp \
 					../lost/Data.cpp \
-					../lost/Event.cpp \
 					../lost/EventDispatcher.cpp \
 					../lost/EventPool.cpp \
 					../lost/EventQueue.cpp \
-					../lost/Font.cpp \
-					../lost/FragmentShader.cpp \
 					../lost/FrameBuffer.cpp \
-					../lost/Glyph.cpp \
 					../lost/HostBuffer.cpp \
 					../lost/HybridBuffer.cpp \
-					../lost/HybridIndexBuffer.cpp \
-					../lost/HybridVertexBuffer.cpp \
 					../lost/lgl.cpp \
 					../lost/Log.cpp \
 					../lost/Material.cpp \
@@ -70,8 +64,6 @@ CPPSOURCES=main.cpp \
 					../lost/Vec2.cpp \
 					../lost/Vec3.cpp \
 					../lost/Vec4.cpp \
-					../lost/VertexAttribute.cpp \
-					../lost/VertexShader.cpp \
 					../thirdparty/tinythread/source/tinythread.cpp \
 					../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_reader.cpp \
 					../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_value.cpp \
