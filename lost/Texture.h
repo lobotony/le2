@@ -140,7 +140,10 @@ namespace lost
     }
     
   private:
-    Texture(const Texture&) {} // forbidden
+    // no copy or assign
+    Texture(const Texture&) {}
+    void operator=(const Texture&) {};
+    
     void create();
   };
 }
