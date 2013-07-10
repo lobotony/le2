@@ -35,7 +35,6 @@
 		EAADB62315FFA3A2008F7450 /* TextMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB61E15FFA3A2008F7450 /* TextMesh.cpp */; };
 		EAADB62415FFA3A2008F7450 /* TextRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB62015FFA3A2008F7450 /* TextRender.cpp */; };
 		EAADB62715FFA3BA008F7450 /* TruetypeFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB62515FFA3BA008F7450 /* TruetypeFont.cpp */; };
-		EAADB62A15FFA76B008F7450 /* Glyph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB62815FFA76B008F7450 /* Glyph.cpp */; };
 		EAADB62D15FFABC4008F7450 /* Quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAADB62B15FFABC4008F7450 /* Quad.cpp */; };
 		EAAFD8B117720FDB00C1D521 /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAFD8AF17720FDB00C1D521 /* Application.cpp */; };
 		EAAFD8BB1772147800C1D521 /* UiTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAFD8B91772147800C1D521 /* UiTestApp.cpp */; };
@@ -159,7 +158,6 @@
 		EAADB62115FFA3A2008F7450 /* TextRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextRender.h; sourceTree = "<group>"; };
 		EAADB62515FFA3BA008F7450 /* TruetypeFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TruetypeFont.cpp; sourceTree = "<group>"; };
 		EAADB62615FFA3BA008F7450 /* TruetypeFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TruetypeFont.h; sourceTree = "<group>"; };
-		EAADB62815FFA76B008F7450 /* Glyph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Glyph.cpp; sourceTree = "<group>"; };
 		EAADB62915FFA76B008F7450 /* Glyph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Glyph.h; sourceTree = "<group>"; };
 		EAADB62B15FFABC4008F7450 /* Quad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Quad.cpp; sourceTree = "<group>"; };
 		EAADB62C15FFABC4008F7450 /* Quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quad.h; sourceTree = "<group>"; };
@@ -410,7 +408,6 @@
 				EA945F0415F7A43A004EE290 /* FragmentShader.h */,
 				EAD599E21756081E00E09947 /* FrameBuffer.cpp */,
 				EAD599E31756081E00E09947 /* FrameBuffer.h */,
-				EAADB62815FFA76B008F7450 /* Glyph.cpp */,
 				EAADB62915FFA76B008F7450 /* Glyph.h */,
 				EA945F0815F7A87B004EE290 /* HostBuffer.cpp */,
 				EA945F0915F7A87B004EE290 /* HostBuffer.h */,
@@ -672,7 +669,6 @@
 				EAADB62315FFA3A2008F7450 /* TextMesh.cpp in Sources */,
 				EAADB62415FFA3A2008F7450 /* TextRender.cpp in Sources */,
 				EAADB62715FFA3BA008F7450 /* TruetypeFont.cpp in Sources */,
-				EAADB62A15FFA76B008F7450 /* Glyph.cpp in Sources */,
 				EAADB62D15FFABC4008F7450 /* Quad.cpp in Sources */,
 				EABB38E01600CC990009D8F7 /* LEAppDelegate.mm in Sources */,
 				EABB38E41600CDD80009D8F7 /* LEWindow.mm in Sources */,

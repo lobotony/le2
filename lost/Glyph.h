@@ -22,7 +22,13 @@ namespace lost
 
 struct Glyph
 {
-  Glyph();
+  Glyph()
+  {
+    drawable = true;
+    xoffset = 0;
+    yoffset = 0;
+    advance = 0;
+  }
 
   Rect  rect; // the glyphs bitmaps rect inside the atlas texture
   s32   xoffset;
