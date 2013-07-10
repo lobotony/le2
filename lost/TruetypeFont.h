@@ -19,7 +19,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LOST_TRUETYPEFONT_H
 
 #include "lost/Font.h"
-#include "lost/Vec2.h"
 #include "stb_truetype.h"
 
 namespace lost

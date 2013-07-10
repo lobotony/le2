@@ -17,8 +17,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_RECTPACKER_H
 #define LOST_RECTPACKER_H
 
-#include "lost/Rect.h"
-
 namespace lost
 {
 

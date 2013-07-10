@@ -20,9 +20,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // don't call this header "Math.h" or it might conflict with standard library "math.h" depending 
 // on the order of includes in your current build setting and result in confusing errors.
 
-#include <cmath>
-#include <math.h>
-
 namespace lost
 {
 #if defined WIN32
@@ -59,7 +56,7 @@ namespace lost
     // this is necessary to compensate for floating point rounding errors that occur with 32bit floats.
     inline bool compare(float a, float b, float epsilon)
     {
-      float d = std::abs(a-b);
+      float d = fabs(a-b);
       if(d <= epsilon)
         return true;
       else

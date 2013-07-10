@@ -17,8 +17,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_PLATFORM_PATHS_H
 #define LOST_PLATFORM_PATHS_H
 
-#include "lost/Path.h"
-
 namespace lost 
 {
   //*** platform specific forwards, implemented in Platform_*.cpp
@@ -28,15 +26,15 @@ namespace lost
     //           the application bundle
     // Windows : the directory the main executable remains in
     // Linux   : not implemented
-    Path getResourcePath();
+    lost::Path getResourcePath();
 
     // the directory the main executable remains in
     // Mac OS X: not implemented
     // Windows : done
     // Linux   : not implemented
-    Path getApplicationDirectory();
+    lost::Path getApplicationDirectory();
     
-    Path getUserDataPath();
+    lost::Path getUserDataPath();
 }
 
 #endif

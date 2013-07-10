@@ -17,11 +17,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_VARIANT_H
 #define LOST_VARIANT_H
 
-#include "lost/Color.h"
-#include "lost/Vec2.h"
-#include "lost/Vec3.h"
-#include "lost/Vec4.h"
-#include "lost/Matrix.h"
 #include "lost/VariantType.h"
 
 namespace lost

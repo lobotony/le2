@@ -17,9 +17,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_BITMAPPACKER_H
 #define LOST_BITMAPPACKER_H
 
-#include "lost/Rect.h"
 #include "lost/RectPacker.h"
-#include "lost/Vec2.h"
 
 namespace lost
 {

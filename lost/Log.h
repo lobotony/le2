@@ -1,11 +1,6 @@
 #ifndef LOST_LOG_H
 #define LOST_LOG_H
 
-#include "lost/StringStream.h"
-#include "lost/Path.h"
-#include <assert.h>
-#include <stdlib.h>
-
 namespace lost
 {
   void log(const string& msg);

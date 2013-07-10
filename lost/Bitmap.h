@@ -17,10 +17,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_BITMAP_BITMAP_H
 #define LOST_BITMAP_BITMAP_H
 
-#include "lost/Disallow.h"
-#include "lost/Color.h"
-#include "lost/Rect.h"
-
 namespace lost
 {
   struct Bitmap

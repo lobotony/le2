@@ -14,10 +14,6 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "lost/Vec3.h"
-#include "lost/lmath.h"
-#include <iostream>
-
 namespace lost
 {
 
@@ -27,7 +23,7 @@ void Vec3::zero() { x = y = z = 0.0f; }
 
 float len(const Vec3& inOp)
 {
-    return std::sqrt(inOp.x*inOp.x + inOp.y*inOp.y + inOp.z*inOp.z);
+    return sqrt(inOp.x*inOp.x + inOp.y*inOp.y + inOp.z*inOp.z);
 }
 
 float squlen(const Vec3& inOp)

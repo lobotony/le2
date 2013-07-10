@@ -18,8 +18,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LOST_TEXTMESH_H
 
 #include "lost/Quad.h"
-#include "lost/Vec2.h"
-#include "lost/Rect.h"
 
 namespace lost
 {

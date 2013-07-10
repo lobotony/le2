@@ -20,9 +20,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "lost/Mesh.h"
 #include "lost/Data.h"
 #include "lost/Texture.h"
-#include "lost/Rect.h"
-#include "lost/Vec2.h"
-#include <vector>
 
 namespace lost
 {

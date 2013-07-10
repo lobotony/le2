@@ -18,9 +18,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LOST_CAMERA3D_H
 
 #include "lost/Camera.h"
-#include "lost/Vec2.h"
-#include "lost/Vec3.h"
-#include "lost/Matrix.h"
 
 namespace lost
 {

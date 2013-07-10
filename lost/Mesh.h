@@ -18,10 +18,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LOST_MESH
 
 #include "lost/Material.h"
-#include "lost/Vec2.h"
-#include "lost/Vec3.h"
-#include "lost/Vec4.h"
-#include "lost/Matrix.h"
 #include "lost/BufferLayout.h"
 
 namespace lost

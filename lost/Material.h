@@ -17,8 +17,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_MATERIAL_H
 #define LOST_MATERIAL_H
 
-#include "lost/Color.h"
-
 namespace lost
 {
 

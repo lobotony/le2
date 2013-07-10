@@ -1,9 +1,6 @@
 #ifndef LOST_APPLICATION_H
 #define LOST_APPLICATION_H
 
-#include "lost/Clock.h"
-#include "json/json.h"
-
 namespace lost
 {
 

@@ -18,12 +18,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_STRINGSTREAM_H
 #define LOST_STRINGSTREAM_H
 
-#include "lost/types.h"
-#include "lost/Vec2.h"
-#include "lost/Vec3.h"
-#include "lost/Matrix.h"
-#include "lost/Path.h"
-
 namespace lost
 {
 

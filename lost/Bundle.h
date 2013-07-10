@@ -1,9 +1,6 @@
 #ifndef LOST_BUNDLE_H
 #define LOST_BUNDLE_H
 
-#include "lost/Path.h"
-#include "json/json.h"
-
 namespace lost
 {
 

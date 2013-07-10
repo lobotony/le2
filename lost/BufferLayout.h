@@ -19,8 +19,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_BUFFERLAYOUT_H
 #define LOST_BUFFERLAYOUT_H
 
-#include "lost/lgl.h"
-
 namespace lost
 {
 

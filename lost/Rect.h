@@ -17,8 +17,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_RECT_H
 #define LOST_RECT_H
 
-#include "lost/Vec2.h"
-
 namespace lost
 {
   struct Rect

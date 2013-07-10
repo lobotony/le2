@@ -17,13 +17,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_UNIFORM_H
 #define LOST_UNIFORM_H
 
-#include "lost/Color.h"
-#include "lost/Vec2.h"
-#include "lost/Vec3.h"
-#include "lost/Vec4.h"
-#include "lost/Rect.h"
-#include "lost/Matrix.h"
-
 namespace lost
 {
 

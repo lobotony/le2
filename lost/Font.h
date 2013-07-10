@@ -17,8 +17,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_FONT_H
 #define LOST_FONT_H
 
-#include "lost/Vec2.h"
-
 namespace lost
 {
 struct Font

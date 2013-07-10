@@ -1,7 +1,6 @@
 #ifndef LOST_EVENTDISPATCHER_H
 #define LOST_EVENTDISPATCHER_H
 
-#include <functional>
 #include "lost/Event.h"
 
 namespace lost

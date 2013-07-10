@@ -30,10 +30,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_CONTEXT_H
 #define LOST_CONTEXT_H
 
-#include "lost/Matrix.h"
-#include "lost/Color.h"
-#include "lost/Rect.h"
-
 namespace lost
 {
 struct Context

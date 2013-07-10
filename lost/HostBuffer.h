@@ -18,12 +18,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LOST_GL_HOSTBUFFER_H
 
 #include "lost/BufferLayout.h"
-#include "lost/Vec2.h"
-#include "lost/Vec3.h"
-#include "lost/Vec4.h"
-#include "lost/Matrix.h"
-#include "lost/Color.h"
-#include "lost/Disallow.h"
 
 namespace lost
 {

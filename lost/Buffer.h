@@ -17,8 +17,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_BUFFER_H
 #define LOST_BUFFER_H
 
-#include "lost/lgl.h"
-
 namespace lost
 {
 struct Buffer

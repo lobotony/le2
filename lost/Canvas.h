@@ -1,8 +1,6 @@
 #ifndef LOST_CANVAS_H
 #define LOST_CANVAS_H
 
-#include "lost/Color.h"
-
 namespace lost
 {
 

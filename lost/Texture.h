@@ -1,8 +1,6 @@
 #ifndef LOST_TEXTURE_H
 #define LOST_TEXTURE_H
 
-#include "lost/Vec2.h"
-
 namespace lost
 {
   /** a 2D Texture helper class.

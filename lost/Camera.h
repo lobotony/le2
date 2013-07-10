@@ -17,10 +17,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_CAMERA_H
 #define LOST_CAMERA_H
 
-#include "lost/Rect.h"
-#include "lost/Matrix.h"
-#include "lost/Vec2.h"
-
 namespace lost
 {
 struct Camera

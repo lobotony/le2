@@ -14,10 +14,6 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "lost/Vec4.h"
-#include "lost/lmath.h"
-#include <iostream>
-
 namespace lost
 {  
 Vec4::Vec4()
