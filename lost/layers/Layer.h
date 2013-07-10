@@ -61,7 +61,7 @@ struct Layer : enable_shared_from_this<Layer>
   string name; // for debugging only
   Frame frame; // not yet implemented
   
-  LayerPtr superlayer;
+  Layer* superlayer;
   vector<LayerPtr> sublayers;
 
 private:

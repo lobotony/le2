@@ -19,12 +19,9 @@ struct View : enable_shared_from_this<View>, EventDispatcher
   void removeSubview(const ViewPtr& view);
   void removeFromSuperview();
   
-  Rect rect;
-  Frame frame;
   LayerPtr layer;
   View* superview;
-  lost::list<ViewPtr> subviews;
-  
+  lost::list<ViewPtr> subviews;  
 };
 
 }

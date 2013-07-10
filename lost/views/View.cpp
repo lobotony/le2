@@ -7,6 +7,7 @@ namespace lost
 View::View()
 {
   layer.reset(new Layer);
+  superview = NULL;
 }
 
 View::~View()
