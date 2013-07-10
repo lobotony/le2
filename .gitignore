@@ -15,4 +15,5 @@
 xcuserdata
 .DS_Store
 le2.out
+*.gch
 

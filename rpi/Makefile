@@ -2,7 +2,7 @@ SYSDIRS=-I/opt/vc/include -I/opt/vc/include/interface/vmcs_host/linux -I/opt/vc/
 
 THIRDPARTY=-I../thirdparty -I../thirdparty/utfcpp -I../thirdparty/tinythread/source/ -I../thirdparty/jsoncpp-src-0.5.0/include
 LOSTINCLUDE=-I..
-GLOBALINCLUDE=-include ../lost/prefix-shared.h
+GLOBALINCLUDE=-include rpiprefix.h
 
 INCDIR=${SYSDIRS} ${THIRDPARTY} ${LOSTINCLUDE} ${GLOBALINCLUDE}
 
@@ -100,7 +100,10 @@ CPPOBJECTS=$(CPPSOURCES:.cpp=.o)
 COBJECTS=$(CSOURCES:.c=.o)
 OBJECTS=$(CPPOBJECTS) $(COBJECTS)
 
-default: Makefile $(SOURCES) $(EXECUTABLE)
+default: rpiprefix.h.gch Makefile $(SOURCES) $(EXECUTABLE)
+
+rpiprefix.h.gch :
+	$(CPP) $(CPPFLAGS) rpiprefix.h -o rpiprefix.h.gch
 
 $(EXECUTABLE) : $(OBJECTS)
 	$(CPP) $(LDFLAGS) $(OBJECTS) -o $@
@@ -114,3 +117,4 @@ $(EXECUTABLE) : $(OBJECTS)
 clean:
 	rm -vf $(OBJECTS)
 	rm -vf $(EXECUTABLE)
+	rm -vf rpiprefix.h.gch
