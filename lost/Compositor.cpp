@@ -4,7 +4,7 @@
 #include "lost/Application.h"
 #include "lost/ResourceManager.h"
 #include "lost/Camera2D.h"
-#include "lost/HybridIndexBuffer.h"
+#include "lost/HybridBuffer.h"
 #include "lost/DrawContext.h"
 #include "lost/layers/Layer.h"
 #include "lost/FrameBuffer.h"

@@ -1,6 +1,6 @@
 #include "lost/DrawContext.h"
 #include "lost/Context.h"
-#include "lost/HybridIndexBuffer.h"
+#include "lost/HybridBuffer.h"
 #include "lost/Mesh.h"
 #include "lost/Application.h"
 #include "lost/ResourceManager.h"

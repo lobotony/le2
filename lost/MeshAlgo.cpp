@@ -1,7 +1,6 @@
 #include "lost/MeshAlgo.h"
 #include "Mesh.h"
-#include "HybridIndexBuffer.h"
-#include "HybridVertexBuffer.h"
+#include "lost/HybridBuffer.h"
 
 namespace lost
 {

@@ -67,6 +67,41 @@ struct HybridBuffer
   VertexAttributeMap vertexAttributeMap; // maps a usageType to a shader vertex attribute name
 };
 
+struct HybridIndexBuffer : HybridBuffer
+{
+  // since an IndexBuffer is only an array of integers, we can simplify the 
+  // layouting of the buffer by only requiring a single element type parameter.
+  HybridIndexBuffer(ElementType et)
+  {
+    // an indexbuffer only ever has one attribute with usage type index in a single partition
+    // only the element type can vary, to optimize the buffer for hardware requirements or
+    // mesh sizes.
+    BufferLayout layout;
+    layout.add(et, UT_index);
+    switch(et)
+    {
+      case ET_u8:type = GL_UNSIGNED_BYTE;break;
+      case ET_u16:type = GL_UNSIGNED_SHORT;break;
+      case ET_u32:type = GL_UNSIGNED_INT;break;
+      default:
+        ASSERT(false,"only u8, u16, u32 are allowed");
+    }
+    drawMode = GL_TRIANGLES;
+    init(GL_ELEMENT_ARRAY_BUFFER, layout);
+  }
+  
+  GLenum type; // required for the actual draw operation, derived in constructor
+  GLenum drawMode; // GL_LINES, GL_TRIANGLES etc.
+};
+
+struct HybridVertexBuffer : HybridBuffer
+{
+  HybridVertexBuffer(const BufferLayout& inLayout)
+  {
+    init(GL_ARRAY_BUFFER, inLayout);
+  }
+  
+};
 
 }
 

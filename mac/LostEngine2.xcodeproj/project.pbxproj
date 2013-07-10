@@ -75,8 +75,6 @@
 		EAE79CAD178C41B300A3C4B4 /* EventDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE79CAB178C41B300A3C4B4 /* EventDispatcher.cpp */; };
 		EAF0438715F7A88E0095549F /* HostBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0815F7A87B004EE290 /* HostBuffer.cpp */; };
 		EAF0438815F7A88E0095549F /* HybridBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0A15F7A87B004EE290 /* HybridBuffer.cpp */; };
-		EAF0438915F7A88E0095549F /* HybridIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0C15F7A87B004EE290 /* HybridIndexBuffer.cpp */; };
-		EAF0438A15F7A88E0095549F /* HybridVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945F0E15F7A87C004EE290 /* HybridVertexBuffer.cpp */; };
 		EAF3580F17280F6700824CF2 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF3580D17280F6700824CF2 /* ResourceManager.cpp */; };
 		EAF3581A1728162200824CF2 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358141728162200824CF2 /* json_reader.cpp */; };
 		EAF3581B1728162200824CF2 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358151728162200824CF2 /* json_value.cpp */; };
@@ -136,10 +134,6 @@
 		EA945F0915F7A87B004EE290 /* HostBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostBuffer.h; sourceTree = "<group>"; };
 		EA945F0A15F7A87B004EE290 /* HybridBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HybridBuffer.cpp; sourceTree = "<group>"; };
 		EA945F0B15F7A87B004EE290 /* HybridBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HybridBuffer.h; sourceTree = "<group>"; };
-		EA945F0C15F7A87B004EE290 /* HybridIndexBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HybridIndexBuffer.cpp; sourceTree = "<group>"; };
-		EA945F0D15F7A87C004EE290 /* HybridIndexBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HybridIndexBuffer.h; sourceTree = "<group>"; };
-		EA945F0E15F7A87C004EE290 /* HybridVertexBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HybridVertexBuffer.cpp; sourceTree = "<group>"; };
-		EA945F0F15F7A87C004EE290 /* HybridVertexBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HybridVertexBuffer.h; sourceTree = "<group>"; };
 		EAADB60D15FF97FD008F7450 /* BitmapPacker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitmapPacker.cpp; sourceTree = "<group>"; };
 		EAADB60E15FF97FD008F7450 /* BitmapPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapPacker.h; sourceTree = "<group>"; };
 		EAADB61615FFA391008F7450 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
@@ -405,10 +399,6 @@
 				EA945F0915F7A87B004EE290 /* HostBuffer.h */,
 				EA945F0A15F7A87B004EE290 /* HybridBuffer.cpp */,
 				EA945F0B15F7A87B004EE290 /* HybridBuffer.h */,
-				EA945F0C15F7A87B004EE290 /* HybridIndexBuffer.cpp */,
-				EA945F0D15F7A87C004EE290 /* HybridIndexBuffer.h */,
-				EA945F0E15F7A87C004EE290 /* HybridVertexBuffer.cpp */,
-				EA945F0F15F7A87C004EE290 /* HybridVertexBuffer.h */,
 				EA90FCC315E15C730071F358 /* lgl.cpp */,
 				EA90FCC215E15B4F0071F358 /* lgl.h */,
 				EACD24B515D853D300453F75 /* lmath.h */,
@@ -641,8 +631,6 @@
 				EA945F0715F7A53F004EE290 /* ShaderProgram.cpp in Sources */,
 				EAF0438715F7A88E0095549F /* HostBuffer.cpp in Sources */,
 				EAF0438815F7A88E0095549F /* HybridBuffer.cpp in Sources */,
-				EAF0438915F7A88E0095549F /* HybridIndexBuffer.cpp in Sources */,
-				EAF0438A15F7A88E0095549F /* HybridVertexBuffer.cpp in Sources */,
 				EA0C315415FCDBFE00661552 /* ShaderPreprocessor.cpp in Sources */,
 				EA0C315815FCE86E00661552 /* StringAdditions.cpp in Sources */,
 				EA0C316415FD25A200661552 /* Camera.cpp in Sources */,
