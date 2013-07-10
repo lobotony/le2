@@ -24,7 +24,6 @@
 		EA90FCB715DEB2690071F358 /* Bundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA90FCB415DEAF9D0071F358 /* Bundle.cpp */; };
 		EA90FCC115E151BD0071F358 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA90FCBF15E151600071F358 /* Texture.cpp */; };
 		EA90FCC415E15C740071F358 /* lgl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA90FCC315E15C730071F358 /* lgl.cpp */; };
-		EA945EF215F79F4B004EE290 /* VertexAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945EF015F79F4B004EE290 /* VertexAttribute.cpp */; };
 		EA945EFA15F79F56004EE290 /* Uniform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945EF415F79F55004EE290 /* Uniform.cpp */; };
 		EA945EFB15F79F56004EE290 /* UniformBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945EF615F79F55004EE290 /* UniformBlock.cpp */; };
 		EA945EFE15F7A41B004EE290 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA945EFC15F7A418004EE290 /* Shader.cpp */; };
@@ -127,7 +126,6 @@
 		EA90FCC015E151600071F358 /* Texture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
 		EA90FCC215E15B4F0071F358 /* lgl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lgl.h; sourceTree = "<group>"; };
 		EA90FCC315E15C730071F358 /* lgl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lgl.cpp; sourceTree = "<group>"; };
-		EA945EF015F79F4B004EE290 /* VertexAttribute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexAttribute.cpp; sourceTree = "<group>"; };
 		EA945EF115F79F4B004EE290 /* VertexAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexAttribute.h; sourceTree = "<group>"; };
 		EA945EF415F79F55004EE290 /* Uniform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Uniform.cpp; sourceTree = "<group>"; };
 		EA945EF515F79F55004EE290 /* Uniform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Uniform.h; sourceTree = "<group>"; };
@@ -491,7 +489,6 @@
 				EA0EEAFB15E677F9000CBC13 /* Vec3.h */,
 				EA0EEAFC15E677F9000CBC13 /* Vec4.cpp */,
 				EA0EEAFD15E677F9000CBC13 /* Vec4.h */,
-				EA945EF015F79F4B004EE290 /* VertexAttribute.cpp */,
 				EA945EF115F79F4B004EE290 /* VertexAttribute.h */,
 				EA945F0115F7A430004EE290 /* VertexShader.cpp */,
 				EA945F0215F7A430004EE290 /* VertexShader.h */,
@@ -651,7 +648,6 @@
 				EA0EEB0215E6785B000CBC13 /* Matrix.cpp in Sources */,
 				EAF87C7A15E903A900986F86 /* Buffer.cpp in Sources */,
 				EAF87C7E15E903B800986F86 /* BufferLayout.cpp in Sources */,
-				EA945EF215F79F4B004EE290 /* VertexAttribute.cpp in Sources */,
 				EA945EFA15F79F56004EE290 /* Uniform.cpp in Sources */,
 				EA945EFB15F79F56004EE290 /* UniformBlock.cpp in Sources */,
 				EA945EFE15F7A41B004EE290 /* Shader.cpp in Sources */,
