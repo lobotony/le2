@@ -200,7 +200,14 @@ void Layer::rect(const Rect& r)
 {
   if(r != _rect)
   {
-    needsRedraw();
+    if (r.size() != _rect.size())
+    {
+      needsRedraw();
+    }
+    if(superlayer)
+    {
+      superlayer->needsRedraw();
+    }
   }
   _rect = r;
 }
