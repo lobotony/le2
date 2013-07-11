@@ -15,6 +15,15 @@ enum EventType
   ET_WindowResize
 };
 
+// for ui
+enum EventPhase
+{
+  EP_None=0,
+  EP_Capture,
+  EP_Target,
+  EP_Bubble
+};
+
 struct EventPool;
 
 struct BaseEvent
@@ -22,6 +31,14 @@ struct BaseEvent
   EventType   type;
   bool        used;
   EventPool*  pool;
+  
+  // ui
+  bool        bubbles;
+  bool        stopDispatch;
+  bool        stopPropagation;
+  EventPhase  phase;
+  View*       target;
+  View*       currentTarget;
 };
 
 struct KeyEvent : BaseEvent
