@@ -31,6 +31,7 @@ void View::addSubview(const ViewPtr& view)
     if(!view->superview)
     {
       subviews.push_back(view);
+      layer->addSublayer(view->layer);
       view->superview = this;
     }
     else
@@ -51,6 +52,7 @@ void View::removeSubview(const ViewPtr& view)
     if(view->superview == this)
     {
       subviews.remove(view);
+      layer->removeSublayer(view->layer);
       view->superview = NULL;
     }
     else
@@ -93,6 +95,18 @@ bool View::containsPoint(const Vec2& point)
 {
   return layer->containsPoint(point);
 }
+
+#pragma mark - basic geometry -
+
+void View::rect(f32 x, f32 y, f32 w, f32 h) { layer->rect(x, y, w, h); }
+void View::rect(const Rect& r) { layer->rect(r); }
+const Rect& View::rect() const { return layer->rect(); }
+
+void View::pos(const Vec2& p) { layer->pos(p); }
+Vec2 View::pos() const { return layer->pos(); }
+
+void View::size(const Vec2& sz) { layer->size(sz); }
+Vec2 View::size() const { return layer->size(); }
 
 #pragma mark - event handing - 
 

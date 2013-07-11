@@ -22,6 +22,17 @@ struct View : enable_shared_from_this<View>
   bool isVisibleWithinSuperviews(); // returns visibility of this and all superlayers
   void visible(bool val); // sets this layers visibility flag
   bool visible(); // returns this layers visibility flag
+
+  // basic geometry
+  void rect(f32 x, f32 y, f32 w, f32 h);
+  void rect(const Rect& r);
+  const Rect& rect() const;
+  
+  void pos(const Vec2& p);
+  Vec2 pos() const;
+  
+  void size(const Vec2& sz);
+  Vec2 size() const;
   
   // hit test
   bool containsPoint(const Vec2& point);
@@ -34,6 +45,7 @@ struct View : enable_shared_from_this<View>
   LayerPtr layer;
   View* superview;
   lost::list<ViewPtr> subviews;
+  string name;
   
   EventDispatcher captureEventDispatcher;
   EventDispatcher targetEventDispatcher;
