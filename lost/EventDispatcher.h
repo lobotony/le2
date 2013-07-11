@@ -16,6 +16,8 @@ struct EDConnection
   EDConnection(EventType et, u32 t) : eventType(et), tag(t) {}
 };
 
+typedef std::function<void(Event*)> EventHandler;
+
 /** manages handlers (function objects/lambdas) that can be registered for specific event types
  *  * register a handler for a specific event type via addHandler. Keep track of the returned connection
  *    object if you need to remove the handler later on. Handlers are called in the order they were registered.
@@ -24,7 +26,6 @@ struct EDConnection
  */
 struct EventDispatcher
 {
-  typedef std::function<void(Event*)> EventHandler;
 
   struct TaggedHandler
   {
