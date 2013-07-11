@@ -11,8 +11,11 @@ struct EventSystem
   EventSystem();
   ~EventSystem();
   
+  void propagateEvent(Event* event);
+  
   
   vector<View*> findViewStack(Event* mouseEvent);
+  void logViewStack(const vector<View*>& vs);
   
   View* rootView;
   vector<View*> previousMouseMoveStack;

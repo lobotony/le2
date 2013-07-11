@@ -60,7 +60,7 @@ void Application::doUpdate()
 {
   clock.update();
   update();
-  ui->update(eventQueue->getCurrentQueue());
+  ui->processEvents(eventQueue->getCurrentQueue());
   ui->draw();
   eventQueue->swap();
 }

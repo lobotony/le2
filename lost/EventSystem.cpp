@@ -11,6 +11,22 @@ EventSystem::~EventSystem()
 {
 }
 
+void EventSystem::propagateEvent(Event* event)
+{
+  DOUT("++++++++++++++++++++++++++++++++++++++");
+  vector<View*> vs = findViewStack(event);
+  logViewStack(vs);
+  DOUT("--------------------------------------");
+}
+
+void EventSystem::logViewStack(const vector<View*>& vs)
+{
+  for(auto v : vs)
+  {
+    DOUT("-> "<<v->name);
+  }
+}
+
 vector<View*> EventSystem::findViewStack(Event* event)
 {
   vector<View*> viewStack;

@@ -21,20 +21,19 @@ UserInterface::~UserInterface()
   delete eventSystem;
 }
 
-void UserInterface::update(const EventQueue::Container& events)
+void UserInterface::processEvents(const EventQueue::Container& events)
 {
+  if(!rootView) return; // bail immediately if ui is disabled
+
   for(Event* event : events)
   {
     if(event->base.type == ET_WindowResize)
     {
       windowResized(Application::instance()->windowSize);
     }
-    else if(event->base.type == ET_MouseMoveEvent)
-    {
-    }
+    eventSystem->propagateEvent(event);
   }
 
-  // FIXME: event system needs to handle any incoming events
   // FIXME: layout system needs to layout any views and layers in queue
 }
 
@@ -65,14 +64,17 @@ void UserInterface::enable()
   if(!rootView)
   {
     rootView.reset(new View);
+    rootView->name = "rootView";
     rootView->layer->backgroundColor(clearColor);
     windowResized(Application::instance()->windowSize);
+    eventSystem->rootView = rootView.get();
   }
 }
 
 void UserInterface::disable()
 {
   rootView.reset();
+  eventSystem->rootView = NULL;
 }
 
 }

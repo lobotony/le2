@@ -29,7 +29,7 @@ struct UserInterface
   void disable(); // deletes the rootView
   
   // called by engine for basic updating and rendering
-  void update(const EventQueue::Container& events);
+  void processEvents(const EventQueue::Container& events);
   void draw();
   
   // helper methods for views/layers so they don't need to access low level systems directly
