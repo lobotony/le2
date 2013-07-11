@@ -8,7 +8,7 @@
 namespace lost
 {
 
-struct View : enable_shared_from_this<View>, EventDispatcher
+struct View : enable_shared_from_this<View>
 {
   View();
   virtual ~View();
@@ -18,9 +18,26 @@ struct View : enable_shared_from_this<View>, EventDispatcher
   void removeSubview(const ViewPtr& view);
   void removeFromSuperview();
   
+  // visibility
+  bool isVisibleWithinSuperviews(); // returns visibility of this and all superlayers
+  void visible(bool val); // sets this layers visibility flag
+  bool visible(); // returns this layers visibility flag
+  
+  // hit test
+  bool containsPoint(const Vec2& point);
+  
+  // event handling
+  EDConnection addEventHandler(EventType et, EventHandler handler, EventPhase phase = EP_Bubble);
+  void removeEventHandler(const EDConnection& connection);
+  void dispatchEvent(Event* event, EventPhase phase);
+  
   LayerPtr layer;
   View* superview;
-  lost::list<ViewPtr> subviews;  
+  lost::list<ViewPtr> subviews;
+  
+  EventDispatcher captureEventDispatcher;
+  EventDispatcher targetEventDispatcher;
+  EventDispatcher bubbleEventDispatcher;
 };
 
 }

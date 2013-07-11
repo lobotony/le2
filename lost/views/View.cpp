@@ -70,5 +70,57 @@ void View::removeFromSuperview()
   superview->removeSubview(shared_from_this());
 }
 
+#pragma mark - visibility - 
+
+bool View::isVisibleWithinSuperviews()
+{
+  return layer->isVisibleWithinSuperlayers();
+}
+
+void View::visible(bool val)
+{
+  layer->visible(val);
+}
+
+bool View::visible()
+{
+  return layer->visible();
+}
+
+#pragma mark - hit test - 
+
+bool View::containsPoint(const Vec2& point)
+{
+  return layer->containsPoint(point);
+}
+
+#pragma mark - event handing - 
+
+EDConnection View::addEventHandler(EventType et, EventHandler handler, EventPhase phase)
+{
+  if(phase == EP_Bubble)
+  {
+    return bubbleEventDispatcher.addHandler(et, handler);
+  }
+  else if(phase == EP_Target)
+  {
+    return targetEventDispatcher.addHandler(et, handler);
+  }
+  else if(phase == EP_Capture)
+  {
+    return captureEventDispatcher.addHandler(et, handler);
+  }
+  ASSERT(false, "unknown phase: "<<phase);
+  return EDConnection();
+}
+
+void View::removeEventHandler(const EDConnection& connection)
+{
+}
+
+void View::dispatchEvent(Event* event, EventPhase phase)
+{
+}
+
 }
 
