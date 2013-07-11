@@ -34,6 +34,8 @@ string Layer::description()
   return os.str();
 }
 
+#pragma mark - Layer Hierarchy -
+
 void Layer::addSublayer(const LayerPtr& layer)
 {
   if(!isSublayer(layer))
@@ -83,6 +85,24 @@ bool Layer::isSublayer(const LayerPtr& layer)
   return (find(sublayers.begin(), sublayers.end(), layer) != sublayers.end());
 }
 
+bool Layer::isSublayerOf(Layer* root)
+{
+  bool result = this == root ? true : false;
+  
+  Layer* l = this->superlayer;
+  while(l)
+  {
+    if(l == root)
+    {
+      result = true;
+      break;
+    }
+    l = l->superlayer;
+  }
+  
+  return result;
+}
+
 u16 Layer::z()
 {
   u16 result = 0;
@@ -95,10 +115,7 @@ u16 Layer::z()
   return result;
 }
 
-void Layer::needsRedraw()
-{
-  Application::instance()->ui->needsRedraw(this);
-}
+#pragma mark - Visibility -
 
 bool Layer::isVisibleWithinSuperlayers()
 {
@@ -124,22 +141,11 @@ bool Layer::visible()
   return _visible;
 }
 
-bool Layer::isSublayerOf(Layer* root)
+#pragma mark - Drawing -
+
+void Layer::needsRedraw()
 {
-  bool result = this == root ? true : false;
-  
-  Layer* l = this->superlayer;
-  while(l)
-  {
-    if(l == root)
-    {
-      result = true;
-      break;
-    }
-    l = l->superlayer;
-  }
-  
-  return result;
+  Application::instance()->ui->needsRedraw(this);
 }
 
 void Layer::draw(DrawContext* ctx)
@@ -183,11 +189,12 @@ void Layer::draw(DrawContext* ctx)
   }
 }
 
+#pragma mark - Basic Geometry -
+
 void Layer::rect(f32 x, f32 y, f32 w, f32 h)
 {
   rect(Rect(x,y,w,h));
 }
-
 
 void Layer::rect(const Rect& r)
 {
@@ -227,6 +234,8 @@ Vec2 Layer::size() const
   return _rect.size();
 }
 
+#pragma mark - Draw Properties -
+
 void Layer::cornerRadius(s16 v) {_cornerRadius=v; needsRedraw(); }
 s16 Layer::cornerRadius() { return _cornerRadius; };
 
@@ -243,11 +252,19 @@ void Layer::backgroundImage(const TexturePtr& v) { _backgroundImage=v; needsRedr
 TexturePtr Layer::backgroundImage() { return _backgroundImage; }
 
 
-#pragma kar - hit test -
+#pragma mark - hit test -
 
-bool Layer::containsPoint(const Vec2& point)
+bool Layer::containsPoint(const Vec2& gp)
 {
-  return _rect.contains(point);
+  Vec2 p = _rect.pos();
+  Layer* l = superlayer;
+  while(l)
+  {
+    p += l->_rect.pos();
+    l = l->superlayer;
+  }
+  Rect r(p, _rect.size());
+  return r.contains(gp);
 }
 
 

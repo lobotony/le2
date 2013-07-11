@@ -57,7 +57,7 @@ struct Layer : enable_shared_from_this<Layer>
   TexturePtr backgroundImage();
   
   // hit test
-  bool containsPoint(const Vec2& point);
+  bool containsPoint(const Vec2& gp); // gp in global window coordinates
   
   
   ////////////////////////////
