@@ -3,6 +3,7 @@
 #include "lost/UserInterface.h"
 #include "lost/layers/TextLayer.h"
 #include "lost/ResourceManager.h"
+#include "lost/Event.h"
 
 namespace lost
 {
@@ -140,6 +141,21 @@ void UiTestApp::startup()
   v3->name = "yellow";
   v3->rect(300, 500, 140, 80);
   v3->layer->backgroundColor(yellowColor);
+  
+  cursor.reset(new Layer);
+  cursor->pos(Vec2(0,0));
+  cursor->size(Vec2(20,20));
+  cursor->backgroundColor(whiteColor);
+  cursor->name="cursor";
+  ui->rootView->layer->addSublayer(cursor);
+  
+  auto poslogger = [this](Event* ev)
+  {
+    DOUT("move "<<ev->mouseEvent.x<<" "<<ev->mouseEvent.y);
+    cursor->pos(Vec2(ev->mouseEvent.x, ev->mouseEvent.y));
+  };
+  ui->rootView->addEventHandler(ET_MouseMoveEvent,poslogger,EP_Capture);
+  ui->rootView->addEventHandler(ET_MouseMoveEvent,poslogger,EP_Target);
 }
 
 void UiTestApp::update()

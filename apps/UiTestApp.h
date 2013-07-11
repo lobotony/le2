@@ -15,6 +15,8 @@ struct UiTestApp : Application
   
   bool first;
   bool logged;
+  
+  LayerPtr cursor;
 };
 
 }
