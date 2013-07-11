@@ -56,8 +56,12 @@ struct Layer : enable_shared_from_this<Layer>
   void backgroundImage(const TexturePtr& v);
   TexturePtr backgroundImage();
   
+  // hit test
+  bool containsPoint(const Vec2& point);
+  
+  
+  ////////////////////////////
   string name; // for debugging only
-  Frame frame; // not yet implemented
   
   Layer* superlayer;
   vector<LayerPtr> sublayers;

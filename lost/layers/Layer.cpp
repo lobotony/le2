@@ -10,7 +10,6 @@ namespace lost
 Layer::Layer()
 {
   name = "";
-  frame = Frame();
   
   superlayer = NULL;
   
@@ -242,6 +241,14 @@ f32 Layer::borderWidth() { return _borderWidth; }
 
 void Layer::backgroundImage(const TexturePtr& v) { _backgroundImage=v; needsRedraw(); }
 TexturePtr Layer::backgroundImage() { return _backgroundImage; }
+
+
+#pragma kar - hit test -
+
+bool Layer::containsPoint(const Vec2& point)
+{
+  return _rect.contains(point);
+}
 
 
 }
