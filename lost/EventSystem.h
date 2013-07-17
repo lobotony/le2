@@ -20,10 +20,10 @@ private:
   void updateCurrentViewStack(Event* mouseEvent);
   void logViewStack(const vector<View*>& vs);
 
-  void performFullDispatch(Event* event, s32 targetIndex);
-  void dispatchCaptureEvents(Event* event, s32 targetIndex);
-  void dispatchTargetEvent(Event* event, s32 targetIndex);
-  void dispatchBubbleEvents(Event* event, s32 targetIndex);
+  void propagateEvent(Event* event, s32 targetIndex);
+  void propagateCaptureEvents(Event* event, s32 targetIndex);
+  void propagateTargetEvent(Event* event, s32 targetIndex);
+  void propagateBubbleEvents(Event* event, s32 targetIndex);
   
   vector<View*> currentViewStack;
   vector<View*> previousMouseMoveStack;

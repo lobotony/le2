@@ -48,22 +48,22 @@ void EventSystem::propagateMouseEvent(Event* event)
     // propagate scroll/move
     event->base.target = currentViewStack.back();
     s32 targetIndex = s32(currentViewStack.size())-1;
-    performFullDispatch(event, targetIndex);
+    propagateEvent(event, targetIndex);
   }
 }
 
-void EventSystem::performFullDispatch(Event* event, s32 targetIndex)
+void EventSystem::propagateEvent(Event* event, s32 targetIndex)
 {
-  if(!event->base.stopPropagation) { dispatchCaptureEvents(event, targetIndex); }
-  if(!event->base.stopPropagation) { dispatchTargetEvent(event, targetIndex); }
-  if(!event->base.stopPropagation) { dispatchBubbleEvents(event, targetIndex); }
+  if(!event->base.stopPropagation) { propagateCaptureEvents(event, targetIndex); }
+  if(!event->base.stopPropagation) { propagateTargetEvent(event, targetIndex); }
+  if(!event->base.stopPropagation) { propagateBubbleEvents(event, targetIndex); }
 }
 
-void EventSystem::dispatchCaptureEvents(Event* event, s32 targetIndex)
+void EventSystem::propagateCaptureEvents(Event* event, s32 targetIndex)
 {
   // capture is only called on Views "before" the target,
   // i.e. in view hierarchies with only one view, no capture is called.
-  for(u32 i=0; (i<targetIndex) && !event->base.stopDispatch; ++i)
+  for(u32 i=0; (i<targetIndex) && !event->base.stopPropagation && !event->base.stopDispatch; ++i)
   {
     View* view = currentViewStack[i];
     event->base.currentTarget = view;
@@ -72,10 +72,10 @@ void EventSystem::dispatchCaptureEvents(Event* event, s32 targetIndex)
   }
 }
 
-void EventSystem::dispatchTargetEvent(Event* event, s32 targetIndex)
+void EventSystem::propagateTargetEvent(Event* event, s32 targetIndex)
 {
   // only called on lowermost view in the stack
-  if(!event->base.stopDispatch)
+  if(!event->base.stopDispatch && !event->base.stopPropagation)
   {
     View* view = currentViewStack[targetIndex];
     event->base.currentTarget = event->base.target;
@@ -84,11 +84,11 @@ void EventSystem::dispatchTargetEvent(Event* event, s32 targetIndex)
   }
 }
 
-void EventSystem::dispatchBubbleEvents(Event* event, s32 targetIndex)
+void EventSystem::propagateBubbleEvents(Event* event, s32 targetIndex)
 {
   // called on all views in the stack but the lowermost, in reverse order
   s32 i=targetIndex-1;
-  while((i>=0) && !event->base.stopDispatch)
+  while((i>=0) && !event->base.stopDispatch && !event->base.stopPropagation)
   {
     View* view = currentViewStack[i];
     event->base.currentTarget = view;
