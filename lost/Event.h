@@ -7,11 +7,11 @@ namespace lost
 enum EventType
 {
   ET_None=0,
-  ET_KeyDownEvent,
-  ET_KeyUpEvent,
-  ET_MouseDownEvent,
-  ET_MouseUpEvent,
-  ET_MouseMoveEvent,
+  ET_KeyDown,
+  ET_KeyUp,
+  ET_MouseDown,
+  ET_MouseUp,
+  ET_MouseMove,
   ET_MouseUpOutside,
   ET_MouseUpInside,
   ET_MouseEnter,
@@ -65,6 +65,45 @@ union Event
   KeyEvent          keyEvent;
   MouseEvent        mouseEvent;
 };
+
+static const char* eventTypeToString(EventType et)
+{
+  const char* result = "<event?>";
+  
+  switch(et)
+  {
+    case ET_None:result="ET_None";break;
+    case ET_KeyDown:result="ET_KeyDown";break;
+    case ET_KeyUp:result="ET_KeyUp";break;
+    case ET_MouseDown:result="ET_MouseDown";break;
+    case ET_MouseUp:result="ET_MouseUp";break;
+    case ET_MouseMove:result="ET_MouseMove";break;
+    case ET_MouseUpOutside:result="ET_MouseUpOutside";break;
+    case ET_MouseUpInside:result="ET_MouseUpInside";break;
+    case ET_MouseEnter:result="ET_MouseEnter";break;
+    case ET_MouseLeave:result="ET_MouseLeave";break;
+    case ET_FocusLost:result="ET_FocusLost";break;
+    case ET_FocusGained:result="ET_FocusGained";break;
+    case ET_WindowResize:result="ET_WindowResize";break;
+  }
+  
+  return result;
+}
+
+static const char* eventPhaseToString(EventPhase ep)
+{
+  const char* result = "<phase?>";
+  
+  switch(ep)
+  {
+    case EP_None:result="EP_None";break;
+    case EP_Capture:result="EP_Capture";break;
+    case EP_Target:result="EP_Target";break;
+    case EP_Bubble:result="EP_Bubble";break;
+  }
+  
+  return result;
+}
 
 }
 

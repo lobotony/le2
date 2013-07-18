@@ -44,9 +44,9 @@ void EventSystem::propagateEvent(Event* event)
 //  DOUT("++++++++++++++++++++++++++++++++++++++");
   switch (event->base.type)
   {
-    case ET_MouseUpEvent:
-    case ET_MouseDownEvent:
-    case ET_MouseMoveEvent:
+    case ET_MouseUp:
+    case ET_MouseDown:
+    case ET_MouseMove:
       propagateMouseEvent(event);
       break;
     case ET_WindowResize:
@@ -69,10 +69,10 @@ void EventSystem::propagateMouseEvent(Event* event)
   event->base.stopPropagation = false;
   EventType et = event->base.type;
   
-  if((et == ET_MouseUpEvent) || (et == ET_MouseDownEvent))
+  if((et == ET_MouseUp) || (et == ET_MouseDown))
   {
     propagateUpDownEvent(event);
-    if(et == ET_MouseDownEvent)
+    if(et == ET_MouseDown)
     {
       propagateFocusEvent(event);
     }
@@ -86,7 +86,7 @@ void EventSystem::propagateMouseEvent(Event* event)
   }
   
   // enter/leave
-  if(et == ET_MouseMoveEvent)
+  if(et == ET_MouseMove)
   {
     propagateEnterLeaveEvent(event);
     previousMouseMoveStack = currentViewStack;
@@ -127,7 +127,46 @@ void EventSystem::propagateEnterLeaveEvent(Event* event)
 
 void EventSystem::propagateUpDownEvent(Event* event)
 {
+  EventType et = event->base.type;
+  if(et == ET_MouseDown)
+  {
+    if(currentViewStack.size() == 0)
+    {
+      WOUT("currentViewStack was empty!");
+      return;
+    }
   
+    event->base.target = currentViewStack.back();
+    propagateEvent(currentViewStack, event, (s32)currentViewStack.size()-1);
+    previousMouseClickStack = currentViewStack;
+  }
+  else if(et == ET_MouseUp)
+  {
+    s32 oldIndex = previousMouseClickStack.size() > 0 ? (s32)previousMouseClickStack.size()-1 : -1;
+    s32 newIndex = currentViewStack.size() > 0 ? (s32)currentViewStack.size()-1 : -1;
+    View* oldView = oldIndex > 0 ? previousMouseClickStack[oldIndex] : NULL;
+    View* newView = newIndex > 0 ? currentViewStack[newIndex] : NULL;
+    if(oldView && (oldView != newView))
+    {
+      event->base.target = oldView;
+      event->base.type = ET_MouseUpOutside;
+      event->base.bubbles = true;
+      propagateEvent(previousMouseClickStack, event, oldIndex);
+      event->base.bubbles = true;
+      event->base.type = ET_MouseUp;
+      propagateEvent(previousMouseClickStack, event, oldIndex);
+    }
+    if(newView)
+    {
+      event->base.target = newView;
+      event->base.type = ET_MouseUpInside;
+      event->base.bubbles = true;
+      propagateEvent(currentViewStack, event, newIndex);
+      event->base.type = ET_MouseUp;
+      event->base.bubbles = true;
+    }
+    previousMouseClickStack = currentViewStack;
+  }
 }
 
 void EventSystem::propagateFocusEvent(Event* event)

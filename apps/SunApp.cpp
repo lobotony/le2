@@ -260,7 +260,7 @@ void SunApp::update()
       cam->viewport(Rect(0,0,windowSize));
       fbsetup();
     }
-    else if(event->base.type == ET_MouseMoveEvent)
+    else if(event->base.type == ET_MouseMove)
     {
     }
   }
