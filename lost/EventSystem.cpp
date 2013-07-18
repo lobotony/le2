@@ -111,14 +111,14 @@ void EventSystem::propagateEnterLeaveEvent(Event* event)
       {
         event->base.target = oldView;
         event->base.type = ET_MouseLeave;
-        DOUT("leaving "<<oldView->name());
+//        DOUT("leaving "<<oldView->name());
         propagateEvent(previousMouseMoveStack, event, i);
       }
       if(newView)
       {
         event->base.target = newView;
         event->base.type = ET_MouseEnter;
-        DOUT("entering "<<newView->name());
+//        DOUT("entering "<<newView->name());
         propagateEvent(currentViewStack, event, i);
       }
     }
