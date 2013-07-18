@@ -12,6 +12,12 @@ enum EventType
   ET_MouseDownEvent,
   ET_MouseUpEvent,
   ET_MouseMoveEvent,
+  ET_MouseUpOutside,
+  ET_MouseUpInside,
+  ET_MouseEnter,
+  ET_MouseLeave,
+  ET_FocusLost,
+  ET_FocusGained,
   ET_WindowResize
 };
 
