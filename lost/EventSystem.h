@@ -31,6 +31,7 @@ private:
   void propagateEnterLeaveEvent(Event* event);
   void propagateFocusEvent(Event* event);
   void updateCurrentViewStack(Event* mouseEvent);
+  void viewStackForView(ViewStack& vs, View* view);
   void logViewStack(const vector<View*>& vs);
 
   void propagateEvent(const ViewStack& vs, Event* event, s32 targetIndex);

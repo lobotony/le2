@@ -1,5 +1,7 @@
 #include "lost/EventSystem.h"
 #include "lost/views/View.h"
+#include "lost/Application.h"
+#include "lost/EventPool.h"
 
 namespace lost
 {
@@ -194,6 +196,7 @@ void EventSystem::propagateFocusEvent(Event* event)
       if(oldView && oldView->focusable)
       {
         oldView->focused = false;
+        event->base.bubbles = true;
         event->base.target = oldView;
         event->base.type = ET_FocusLost;
         propagateEvent(previousFocusStack, event, i);
@@ -201,6 +204,7 @@ void EventSystem::propagateFocusEvent(Event* event)
       if(newView && newView->focusable)
       {
         newView->focused = true;
+        event->base.bubbles = true;
         event->base.target = newView;
         event->base.type = ET_FocusGained;
         propagateEvent(currentFocusStack, event, i);
@@ -212,11 +216,53 @@ void EventSystem::propagateFocusEvent(Event* event)
 
 void EventSystem::loseFocus(View* view)
 {
+  // check if view is in focusStack and find index
+  s32 viewIndex =-1;
+  for(s32 i=0; i<previousFocusStack.size(); ++i)
+  {
+    if(previousFocusStack[i] == view)
+    {
+      viewIndex = i;
+      break;
+    }
+  }
   
+  // rootview can never lose focus, so we test for > 0
+  if(viewIndex > 0)
+  {
+    // if it was, send it a FocusLost event, and all focused views underneath it.
+    Event* event = Application::instance()->eventPool->borrowEvent();
+    event->base.bubbles = true;
+    event->base.stopDispatch = false;
+    event->base.stopPropagation = false;
+    event->base.type = ET_FocusLost;
+    for(s32 i=viewIndex; i<previousFocusStack.size(); ++i)
+    {
+      View* currentView = previousFocusStack[i];
+      if(currentView->focused)
+      {
+        currentView->focused = false;
+        event->base.target = currentView;
+        propagateEvent(previousFocusStack, event, i);
+      }
+    }
+    // remove the view and all focused views underneath from the currentViewStack
+    previousFocusStack.resize(viewIndex);
+  }
 }
 
 void EventSystem::gainFocus(View* view)
 {
+  if(view && view->focusable && view->isSubviewOf(rootView))
+  {
+    viewStackForView(currentViewStack, view);
+    Event* event = Application::instance()->eventPool->borrowEvent();
+    event->base.bubbles = true;
+    event->base.stopDispatch = false;
+    event->base.stopPropagation = false;
+    event->base.type = ET_FocusGained;
+    propagateFocusEvent(event);
+  }
 }
 
 View* EventSystem::focusedView()
@@ -292,6 +338,19 @@ void EventSystem::logViewStack(const vector<View*>& vs)
   {
     DOUT("-> "<<v->name());
   }
+}
+
+void EventSystem::viewStackForView(ViewStack& vs, View* view)
+{
+  vs.clear();
+  
+  while(view)
+  {
+    vs.push_back(view);
+    view = view->superview;
+  }
+  
+  std::reverse(vs.begin(), vs.end());
 }
 
 void EventSystem::updateCurrentViewStack(Event* event)

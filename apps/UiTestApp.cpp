@@ -199,6 +199,7 @@ void UiTestApp::startup()
   v3->addEventHandler(ET_MouseLeave, evLogger, EP_Bubble);
   v3->addEventHandler(ET_MouseLeave, evLogger, EP_Target);
 
+  DOUT("current focus: "<<ui->focusedView()->name());
 }
 
 void UiTestApp::update()
