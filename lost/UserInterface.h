@@ -42,6 +42,8 @@ struct UserInterface
   ViewPtr rootView;
   
   void windowResized(const Vec2& sz);
+  void viewDying(View* view);
+  void layerDying(Layer* layer);
 };
 }
 

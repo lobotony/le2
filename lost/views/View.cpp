@@ -1,4 +1,6 @@
 #include "lost/views/View.h"
+#include "lost/Application.h"
+#include "lost/UserInterface.h"
 
 namespace lost
 {
@@ -11,6 +13,7 @@ View::View()
 
 View::~View()
 {
+  Application::instance()->ui->viewDying(this);
 }
 
 bool View::containsSubview(const ViewPtr& view)
@@ -71,6 +74,19 @@ void View::removeFromSuperview()
   ASSERT(superview != NULL, "tried to remove subview without superview");
   superview->removeSubview(shared_from_this());
 }
+
+#pragma mark - debug -
+
+string View::name()
+{
+  return layer->name;
+}
+
+void View::name(const string& v)
+{
+  layer->name = v;
+}
+
 
 #pragma mark - visibility - 
 

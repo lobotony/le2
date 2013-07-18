@@ -130,15 +130,15 @@ void UiTestApp::startup()
   ui->rootView->addSubview(v1);
   ui->rootView->addSubview(v3);
   
-  v1->name="red";
+  v1->name("red");
   v1->rect(0, 500, 200, 100);
   v1->layer->backgroundColor(redColor);
   
-  v2->name="green";
+  v2->name("green");
   v2->rect(10, 10, 50, 50);
   v2->layer->backgroundColor(greenColor);
   
-  v3->name = "yellow";
+  v3->name("yellow");
   v3->rect(300, 500, 140, 80);
   v3->layer->backgroundColor(yellowColor);
   

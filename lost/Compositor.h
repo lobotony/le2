@@ -18,6 +18,7 @@ struct Compositor
   
   void needsRedraw(Layer* layer);
   
+  void layerDying(Layer* layer);
   
 private:
   Vec2 windowSize;

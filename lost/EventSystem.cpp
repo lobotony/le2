@@ -12,6 +12,13 @@ EventSystem::~EventSystem()
 {
 }
 
+void EventSystem::viewDying(View* view)
+{
+  // FIXME: remove from all members and re-establish consistent state afterwards
+  DOUT(view->name());
+}
+
+
 void EventSystem::propagateEvent(Event* event)
 {
   DOUT("++++++++++++++++++++++++++++++++++++++");
@@ -21,6 +28,8 @@ void EventSystem::propagateEvent(Event* event)
     case ET_MouseDownEvent:
     case ET_MouseMoveEvent:
       propagateMouseEvent(event);
+      break;
+    case ET_WindowResize:
       break;
     default:
       DOUT("don't know what to do with event of type: "<<event->base.type);
@@ -41,7 +50,11 @@ void EventSystem::propagateMouseEvent(Event* event)
   
   if((et == ET_MouseUpEvent) || (et == ET_MouseDownEvent))
   {
-    // FIXME: propagateUpDownEvents
+    propagateUpDownEvent(event);
+    if(et == ET_MouseDownEvent)
+    {
+      propagateFocusEvent(event);
+    }
   }
   else
   {
@@ -50,6 +63,16 @@ void EventSystem::propagateMouseEvent(Event* event)
     s32 targetIndex = s32(currentViewStack.size())-1;
     propagateEvent(event, targetIndex);
   }
+}
+
+void EventSystem::propagateUpDownEvent(Event* event)
+{
+  
+}
+
+void EventSystem::propagateFocusEvent(Event* event)
+{
+  
 }
 
 void EventSystem::propagateEvent(Event* event, s32 targetIndex)
@@ -102,7 +125,7 @@ void EventSystem::logViewStack(const vector<View*>& vs)
 {
   for(auto v : vs)
   {
-    DOUT("-> "<<v->name);
+    DOUT("-> "<<v->name());
   }
 }
 

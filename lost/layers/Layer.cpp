@@ -25,6 +25,7 @@ Layer::Layer()
 
 Layer::~Layer()
 {
+  Application::instance()->ui->layerDying(this);
 }
 
 string Layer::description()

@@ -33,6 +33,9 @@ struct View : enable_shared_from_this<View>
   
   void size(const Vec2& sz);
   Vec2 size() const;
+
+  string name();
+  void name(const string& v);
   
   // hit test
   bool containsPoint(const Vec2& point);
@@ -45,11 +48,12 @@ struct View : enable_shared_from_this<View>
   LayerPtr layer;
   View* superview;
   lost::list<ViewPtr> subviews;
-  string name;
   
   EventDispatcher captureEventDispatcher;
   EventDispatcher targetEventDispatcher;
   EventDispatcher bubbleEventDispatcher;
+
+private:
 };
 
 }

@@ -69,6 +69,7 @@ void Application::doShutdown()
 {
   // user shutdown
   shutdown();
+  ui->disable();
   // Application shutdown
   delete glContext;
 }

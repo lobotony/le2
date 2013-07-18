@@ -13,10 +13,14 @@ struct EventSystem
   
   void propagateEvent(Event* event);
 
+  void viewDying(View* view);
+
   View* rootView;
   
 private:
   void propagateMouseEvent(Event* event);
+  void propagateUpDownEvent(Event* event);
+  void propagateFocusEvent(Event* event);
   void updateCurrentViewStack(Event* mouseEvent);
   void logViewStack(const vector<View*>& vs);
 

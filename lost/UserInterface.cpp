@@ -64,7 +64,7 @@ void UserInterface::enable()
   if(!rootView)
   {
     rootView.reset(new View);
-    rootView->name = "rootView";
+    rootView->name("rootView");
     rootView->layer->backgroundColor(clearColor);
     windowResized(Application::instance()->windowSize);
     eventSystem->rootView = rootView.get();
@@ -76,5 +76,16 @@ void UserInterface::disable()
   rootView.reset();
   eventSystem->rootView = NULL;
 }
+
+void UserInterface::viewDying(View* view)
+{
+  eventSystem->viewDying(view);
+}
+
+void UserInterface::layerDying(Layer* layer)
+{
+  compositor->layerDying(layer);
+}
+
 
 }

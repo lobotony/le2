@@ -24,6 +24,11 @@ Compositor::Compositor()
 Compositor::~Compositor()
 {
 }
+
+void Compositor::layerDying(Layer* layer)
+{
+  DOUT(layer->name);
+}
   
 void Compositor::windowResized(const Vec2& newSize)
 {
