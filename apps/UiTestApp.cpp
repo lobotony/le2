@@ -159,8 +159,9 @@ void UiTestApp::startup()
 //  auto leaveLogger = [this](Event* ev) { DOUT(ev->base.currentTarget->name()<<": leave "<<ev->base.target->name()<<" phase: "<<ev->base.phase); };
   
 //  auto mouseDownLogger = [this](Event* ev) { //DOUT(DOUT(ev->base.currentTarget->name()
-  
-  auto evLogger = [this](Event* ev) {DOUT(ev->base.currentTarget->name()<<" "
+    
+  auto evLogger = [this](Event* ev) {if(!next) {DOUT("==================");next=true;}
+                                      DOUT(ev->base.currentTarget->name()<<" "
                                         <<ev->base.target->name()<<" "
                                         <<eventTypeToString(ev->base.type)<<" "
                                         <<eventPhaseToString(ev->base.phase)); };
@@ -203,6 +204,7 @@ void UiTestApp::update()
   {
     first = false;
   }
+  next = false;
 }
 
 void UiTestApp::shutdown()
