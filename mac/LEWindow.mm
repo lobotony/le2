@@ -35,6 +35,19 @@ extern lost::Application* _appInstance;
   _appInstance->eventQueue->addEventToNextQueue(event);
 }
 
+-(void)mouseDragged:(NSEvent *)theEvent
+{
+  NSPoint eventLocation = [theEvent locationInWindow];
+  NSPoint center = [self.contentView convertPoint:eventLocation fromView:nil];
+
+  lost::Event* event = _appInstance->eventPool->borrowEvent();
+  event->base.type = lost::ET_MouseMove;
+  event->mouseEvent.type = lost::ET_MouseMove;
+  event->mouseEvent.x = center.x;
+  event->mouseEvent.y = center.y;
+  _appInstance->eventQueue->addEventToNextQueue(event);
+}
+
 - (void)mouseMoved:(NSEvent *)theEvent
 {
   NSPoint eventLocation = [theEvent locationInWindow];
@@ -53,7 +66,6 @@ extern lost::Application* _appInstance;
 {
   return YES;
 }
-
 
 @end
 
