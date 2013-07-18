@@ -23,21 +23,23 @@ struct EventSystem
   View* rootView;
   
 private:
+  typedef vector<View*> ViewStack;
+
   void propagateMouseEvent(Event* event);
   void propagateUpDownEvent(Event* event);
   void propagateFocusEvent(Event* event);
   void updateCurrentViewStack(Event* mouseEvent);
   void logViewStack(const vector<View*>& vs);
 
-  void propagateEvent(Event* event, s32 targetIndex);
-  void propagateCaptureEvents(Event* event, s32 targetIndex);
-  void propagateTargetEvent(Event* event, s32 targetIndex);
-  void propagateBubbleEvents(Event* event, s32 targetIndex);
+  void propagateEvent(const ViewStack& vs, Event* event, s32 targetIndex);
+  void propagateCaptureEvents(const ViewStack& vs, Event* event, s32 targetIndex);
+  void propagateTargetEvent(const ViewStack& vs, Event* event, s32 targetIndex);
+  void propagateBubbleEvents(const ViewStack& vs, Event* event, s32 targetIndex);
   
-  vector<View*> currentViewStack;
-  vector<View*> previousMouseMoveStack;
-  vector<View*> previousMouseClickStack;
-  vector<View*> previousFocusStack;
+  ViewStack currentViewStack;
+  ViewStack previousMouseMoveStack;
+  ViewStack previousMouseClickStack;
+  ViewStack previousFocusStack;
 
   bool focusChanged;
   View* currentlyFocusedView;

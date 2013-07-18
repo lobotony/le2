@@ -82,7 +82,7 @@ void EventSystem::propagateMouseEvent(Event* event)
     // propagate scroll/move
     event->base.target = currentViewStack.back();
     s32 targetIndex = s32(currentViewStack.size())-1;
-    propagateEvent(event, targetIndex);
+    propagateEvent(currentViewStack, event, targetIndex);
   }
 }
 
@@ -106,45 +106,45 @@ void EventSystem::gainFocus(View* view)
 }
 
 
-void EventSystem::propagateEvent(Event* event, s32 targetIndex)
+void EventSystem::propagateEvent(const ViewStack& vs, Event* event, s32 targetIndex)
 {
-  if(!event->base.stopPropagation) { propagateCaptureEvents(event, targetIndex); }
-  if(!event->base.stopPropagation) { propagateTargetEvent(event, targetIndex); }
-  if(!event->base.stopPropagation && event->base.bubbles) { propagateBubbleEvents(event, targetIndex); }
+  if(!event->base.stopPropagation) { propagateCaptureEvents(vs, event, targetIndex); }
+  if(!event->base.stopPropagation) { propagateTargetEvent(vs, event, targetIndex); }
+  if(!event->base.stopPropagation && event->base.bubbles) { propagateBubbleEvents(vs, event, targetIndex); }
 }
 
-void EventSystem::propagateCaptureEvents(Event* event, s32 targetIndex)
+void EventSystem::propagateCaptureEvents(const ViewStack& vs, Event* event, s32 targetIndex)
 {
   // capture is only called on Views "before" the target,
   // i.e. in view hierarchies with only one view, no capture is called.
   for(u32 i=0; (i<targetIndex) && !event->base.stopPropagation && !event->base.stopDispatch; ++i)
   {
-    View* view = currentViewStack[i];
+    View* view = vs[i];
     event->base.currentTarget = view;
     event->base.phase = EP_Capture;
     view->captureEventDispatcher.dispatchEvent(event);
   }
 }
 
-void EventSystem::propagateTargetEvent(Event* event, s32 targetIndex)
+void EventSystem::propagateTargetEvent(const ViewStack& vs, Event* event, s32 targetIndex)
 {
   // only called on lowermost view in the stack
   if(!event->base.stopDispatch && !event->base.stopPropagation)
   {
-    View* view = currentViewStack[targetIndex];
+    View* view = vs[targetIndex];
     event->base.currentTarget = event->base.target;
     event->base.phase = EP_Target;
     view->targetEventDispatcher.dispatchEvent(event);
   }
 }
 
-void EventSystem::propagateBubbleEvents(Event* event, s32 targetIndex)
+void EventSystem::propagateBubbleEvents(const ViewStack& vs, Event* event, s32 targetIndex)
 {
   // called on all views in the stack but the lowermost, in reverse order
   s32 i=targetIndex-1;
   while((i>=0) && !event->base.stopDispatch && !event->base.stopPropagation && event->base.bubbles)
   {
-    View* view = currentViewStack[i];
+    View* view = vs[i];
     event->base.currentTarget = view;
     event->base.phase = EP_Bubble;
     view->bubbleEventDispatcher.dispatchEvent(event);
