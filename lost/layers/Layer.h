@@ -16,6 +16,7 @@ struct Layer : enable_shared_from_this<Layer>
   void addSublayer(const LayerPtr& layer);
   void removeSublayer(const LayerPtr& layer);
   void removeFromSuperlayer();
+  void removeAllSublayers();
   bool isSublayer(const LayerPtr& layer);
   bool isSublayerOf(Layer* root); // return true if root is one of the superlayers of this layer
   u16 z();

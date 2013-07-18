@@ -81,6 +81,14 @@ void Layer::removeFromSuperlayer()
   }
 }
 
+void Layer::removeAllSublayers()
+{
+  for(const LayerPtr& layer : sublayers)
+  {
+    removeSublayer(layer);
+  }
+}
+
 bool Layer::isSublayer(const LayerPtr& layer)
 {
   return (find(sublayers.begin(), sublayers.end(), layer) != sublayers.end());

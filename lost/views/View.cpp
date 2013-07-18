@@ -75,6 +75,14 @@ void View::removeFromSuperview()
   superview->removeSubview(shared_from_this());
 }
 
+void View::removeAllSubviews()
+{
+  for(const ViewPtr& view: subviews)
+  {
+    removeSubview(view);
+  }
+}
+
 #pragma mark - debug -
 
 string View::name()
