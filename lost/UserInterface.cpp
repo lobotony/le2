@@ -89,5 +89,14 @@ void UserInterface::layerDying(Layer* layer)
   compositor->layerDying(layer);
 }
 
+void UserInterface::gainFocus(View* view)
+{
+  eventSystem->gainFocus(view);
+}
+
+void UserInterface::loseFocus(View* view)
+{
+  eventSystem->loseFocus(view);
+}
 
 }

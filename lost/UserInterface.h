@@ -40,8 +40,12 @@ struct UserInterface
   ViewPtr rootView;
   
   void windowResized(const Vec2& sz);
+
+  // Layer/View internal hooks
   void viewDying(View* view);
   void layerDying(Layer* layer);
+  void gainFocus(View* view);
+  void loseFocus(View* view);
 };
 }
 
