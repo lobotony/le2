@@ -53,6 +53,10 @@ void EventSystem::propagateEvent(Event* event)
     case ET_MouseMove:
       propagateMouseEvent(event);
       break;
+    case ET_KeyDown:
+    case ET_KeyUp:
+      propagateKeyEvent(event);
+      break;
     case ET_WindowResize:
       break;
     default:
@@ -213,6 +217,14 @@ void EventSystem::propagateFocusEvent(Event* event)
   }
   previousFocusStack = currentViewStack;
 }
+
+void EventSystem::propagateKeyEvent(Event* event)
+{
+  event->base.bubbles = true;
+  event->base.target = focusedView();
+  propagateEvent(previousFocusStack, event, (s32)previousFocusStack.size()-1); // don't need to range check since rootView is always in focus
+}
+
 
 void EventSystem::loseFocus(View* view)
 {

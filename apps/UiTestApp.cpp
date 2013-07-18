@@ -184,6 +184,11 @@ void UiTestApp::startup()
   ui->rootView->addEventHandler(ET_FocusLost, evLogger, EP_Bubble);
   ui->rootView->addEventHandler(ET_FocusLost, evLogger, EP_Target);
 
+  ui->rootView->addEventHandler(ET_KeyUp, evLogger, EP_Bubble);
+  ui->rootView->addEventHandler(ET_KeyUp, evLogger, EP_Target);
+  ui->rootView->addEventHandler(ET_KeyDown, evLogger, EP_Bubble);
+  ui->rootView->addEventHandler(ET_KeyDown, evLogger, EP_Target);
+
   v1->addEventHandler(ET_MouseEnter, evLogger, EP_Bubble);
   v1->addEventHandler(ET_MouseEnter, evLogger, EP_Target);
   v1->addEventHandler(ET_MouseLeave, evLogger, EP_Bubble);
