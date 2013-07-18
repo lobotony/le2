@@ -9,6 +9,8 @@ View::View()
 {
   layer.reset(new Layer);
   superview = NULL;
+  focusable = true;
+  focused = false;
 }
 
 View::~View()
@@ -95,8 +97,19 @@ void View::name(const string& v)
   layer->name = v;
 }
 
+#pragma mark - focus handling -
 
-#pragma mark - visibility - 
+void View::gainFocus()
+{
+  Application::instance()->ui->gainFocus(this);
+}
+
+void View::loseFocus()
+{
+  Application::instance()->ui->loseFocus(this);
+}
+
+#pragma mark - visibility -
 
 bool View::isVisibleWithinSuperviews()
 {

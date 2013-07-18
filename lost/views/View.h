@@ -41,6 +41,12 @@ struct View : enable_shared_from_this<View>
   // hit test
   bool containsPoint(const Vec2& point);
   
+  // focus handling
+  void gainFocus();
+  void loseFocus();
+  bool focusable; // set this to true if you want this View to receive focus and focus events
+  bool focused; // will be set by EventSystem, should not be set otherwise
+  
   // event handling
   EDConnection addEventHandler(EventType et, EventHandler handler, EventPhase phase = EP_Bubble);
   void removeEventHandler(const EDConnection& connection);
@@ -53,8 +59,6 @@ struct View : enable_shared_from_this<View>
   EventDispatcher captureEventDispatcher;
   EventDispatcher targetEventDispatcher;
   EventDispatcher bubbleEventDispatcher;
-
-private:
 };
 
 }
