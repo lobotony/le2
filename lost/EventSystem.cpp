@@ -41,7 +41,7 @@ void EventSystem::reset()
 
 void EventSystem::propagateEvent(Event* event)
 {
-  DOUT("++++++++++++++++++++++++++++++++++++++");
+//  DOUT("++++++++++++++++++++++++++++++++++++++");
   switch (event->base.type)
   {
     case ET_MouseUpEvent:
@@ -54,7 +54,7 @@ void EventSystem::propagateEvent(Event* event)
     default:
       DOUT("don't know what to do with event of type: "<<event->base.type);
   }
-  DOUT("--------------------------------------");
+//  DOUT("--------------------------------------");
 }
 
 void EventSystem::propagateMouseEvent(Event* event)
@@ -62,7 +62,7 @@ void EventSystem::propagateMouseEvent(Event* event)
   updateCurrentViewStack(event);
   if(currentViewStack.size() == 0) { return; } // bail if no views, happens when mouse outside of window
 
-  logViewStack(currentViewStack);
+//  logViewStack(currentViewStack);
   
   event->base.bubbles = true;
   event->base.stopDispatch = false;
@@ -83,6 +83,45 @@ void EventSystem::propagateMouseEvent(Event* event)
     event->base.target = currentViewStack.back();
     s32 targetIndex = s32(currentViewStack.size())-1;
     propagateEvent(currentViewStack, event, targetIndex);
+  }
+  
+  // enter/leave
+  if(et == ET_MouseMoveEvent)
+  {
+    propagateEnterLeaveEvent(event);
+    previousMouseMoveStack = currentViewStack;
+  }
+}
+
+void EventSystem::propagateEnterLeaveEvent(Event* event)
+{
+  // "leave" events for old views, "enter" events for new views
+  s32 maxn = (s32)std::max(currentViewStack.size(), previousMouseMoveStack.size());
+  View* oldView = NULL;
+  View* newView = NULL;
+  event->base.bubbles = true;
+  for(s32 i=0; i<maxn; ++i)
+  {
+    oldView = i < previousMouseMoveStack.size() ? previousMouseMoveStack[i] : NULL;
+    newView = i < currentViewStack.size() ? currentViewStack[i] : NULL;
+    
+    if(oldView != newView)
+    {
+      if(oldView)
+      {
+        event->base.target = oldView;
+        event->base.type = ET_MouseLeave;
+        DOUT("leaving "<<oldView->name());
+        propagateEvent(previousMouseMoveStack, event, i);
+      }
+      if(newView)
+      {
+        event->base.target = newView;
+        event->base.type = ET_MouseEnter;
+        DOUT("entering "<<newView->name());
+        propagateEvent(currentViewStack, event, i);
+      }
+    }
   }
 }
 

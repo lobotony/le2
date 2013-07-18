@@ -27,6 +27,7 @@ private:
 
   void propagateMouseEvent(Event* event);
   void propagateUpDownEvent(Event* event);
+  void propagateEnterLeaveEvent(Event* event);
   void propagateFocusEvent(Event* event);
   void updateCurrentViewStack(Event* mouseEvent);
   void logViewStack(const vector<View*>& vs);

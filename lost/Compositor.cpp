@@ -96,7 +96,7 @@ void Compositor::prepareRedraws(const LayerPtr rootLayer)
   if(redrawCandidates.size()>0)
   {
     // remove all candidates that are currently set to invisible or not part of the main hierarchy that starts at root layer
-    DOUT("redraw candidates: "<<u64(redrawCandidates.size()));
+//    DOUT("redraw candidates: "<<u64(redrawCandidates.size()));
     for(auto layer : redrawCandidates)
     {
       if(layer->isVisibleWithinSuperlayers() && layer->isSublayerOf(rootLayer.get()))
@@ -114,7 +114,7 @@ void Compositor::updateLayerCaches()
 {
   for(Layer* layer : redraws)
   {
-    DOUT(layer->z() << " : " << layer->description());
+//    DOUT(layer->z() << " : " << layer->description());
     // find existing texture for layer or create new one and resize to current layer size
     TexturePtr texture;
     auto pos = layerCache.find(layer);

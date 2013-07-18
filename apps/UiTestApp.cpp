@@ -154,8 +154,33 @@ void UiTestApp::startup()
     DOUT("move "<<ev->mouseEvent.x<<" "<<ev->mouseEvent.y);
     cursor->pos(Vec2(ev->mouseEvent.x, ev->mouseEvent.y));
   };
+  
+  auto enterLogger = [this](Event* ev) { DOUT(ev->base.currentTarget->name()<<": enter "<<ev->base.target->name()<<" phase: "<<ev->base.phase); };
+  auto leaveLogger = [this](Event* ev) { DOUT(ev->base.currentTarget->name()<<": leave "<<ev->base.target->name()<<" phase: "<<ev->base.phase); };
+  
   ui->rootView->addEventHandler(ET_MouseMoveEvent,poslogger,EP_Capture);
   ui->rootView->addEventHandler(ET_MouseMoveEvent,poslogger,EP_Target);
+  
+  ui->rootView->addEventHandler(ET_MouseEnter, enterLogger, EP_Bubble);
+  ui->rootView->addEventHandler(ET_MouseEnter, enterLogger, EP_Target);
+  ui->rootView->addEventHandler(ET_MouseLeave, leaveLogger, EP_Bubble);
+  ui->rootView->addEventHandler(ET_MouseLeave, leaveLogger, EP_Target);
+
+  v1->addEventHandler(ET_MouseEnter, enterLogger, EP_Bubble);
+  v1->addEventHandler(ET_MouseEnter, enterLogger, EP_Target);
+  v1->addEventHandler(ET_MouseLeave, leaveLogger, EP_Bubble);
+  v1->addEventHandler(ET_MouseLeave, leaveLogger, EP_Target);
+
+  v2->addEventHandler(ET_MouseEnter, enterLogger, EP_Bubble);
+  v2->addEventHandler(ET_MouseEnter, enterLogger, EP_Target);
+  v2->addEventHandler(ET_MouseLeave, leaveLogger, EP_Bubble);
+  v2->addEventHandler(ET_MouseLeave, leaveLogger, EP_Target);
+
+  v3->addEventHandler(ET_MouseEnter, enterLogger, EP_Bubble);
+  v3->addEventHandler(ET_MouseEnter, enterLogger, EP_Target);
+  v3->addEventHandler(ET_MouseLeave, leaveLogger, EP_Bubble);
+  v3->addEventHandler(ET_MouseLeave, leaveLogger, EP_Target);
+
 }
 
 void UiTestApp::update()
