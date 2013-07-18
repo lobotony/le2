@@ -28,6 +28,37 @@ Compositor::~Compositor()
 void Compositor::layerDying(Layer* layer)
 {
   DOUT(layer->name);
+  
+  // remove from all containers that don't own layer to prevent dangling pointers
+  // remove cache to improve resource usage
+  
+  // redrawCandidates
+  auto pos = find(redrawCandidates.begin(), redrawCandidates.end(), layer);
+  if(pos != redrawCandidates.end())
+  {
+    redrawCandidates.erase(pos);
+    DOUT("removing layer from redrawCandidates: "<<layer->name);
+  }
+
+  // redraws
+  auto pos2 = find(redraws.begin(), redraws.end(), layer);
+  if(pos2 != redraws.end())
+  {
+    redraws.erase(pos2);
+    DOUT("removing layer from redraws: "<<layer->name);
+  }
+
+  clearCacheForLayer(layer);
+}
+ 
+void Compositor::clearCacheForLayer(Layer* layer)
+{
+  auto pos = layerCache.find(layer);
+  if(pos != layerCache.end())
+  {
+    layerCache.erase(pos);
+    DOUT("removing cache for layer: "<<layer->name);
+  }
 }
   
 void Compositor::windowResized(const Vec2& newSize)
