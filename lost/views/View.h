@@ -18,6 +18,7 @@ struct View : enable_shared_from_this<View>
   void removeSubview(const ViewPtr& view);
   void removeFromSuperview();
   void removeAllSubviews();
+  bool isSubviewOf(View* root);
   
   // visibility
   bool isVisibleWithinSuperviews(); // returns visibility of this and all superlayers

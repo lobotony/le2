@@ -85,6 +85,23 @@ void View::removeAllSubviews()
   }
 }
 
+bool View::isSubviewOf(View* root)
+{
+  bool result = false;
+  View* view = this;
+  while(view)
+  {
+    if(view == root)
+    {
+      result = true;
+      break;
+    }
+    view = view->superview;
+  }
+  return result;
+}
+
+
 #pragma mark - debug -
 
 string View::name()
