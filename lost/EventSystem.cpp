@@ -64,6 +64,7 @@ void EventSystem::propagateMouseEvent(Event* event)
 
   logViewStack(currentViewStack);
   
+  event->base.bubbles = true;
   event->base.stopDispatch = false;
   event->base.stopPropagation = false;
   EventType et = event->base.type;
@@ -109,7 +110,7 @@ void EventSystem::propagateEvent(Event* event, s32 targetIndex)
 {
   if(!event->base.stopPropagation) { propagateCaptureEvents(event, targetIndex); }
   if(!event->base.stopPropagation) { propagateTargetEvent(event, targetIndex); }
-  if(!event->base.stopPropagation) { propagateBubbleEvents(event, targetIndex); }
+  if(!event->base.stopPropagation && event->base.bubbles) { propagateBubbleEvents(event, targetIndex); }
 }
 
 void EventSystem::propagateCaptureEvents(Event* event, s32 targetIndex)
@@ -141,7 +142,7 @@ void EventSystem::propagateBubbleEvents(Event* event, s32 targetIndex)
 {
   // called on all views in the stack but the lowermost, in reverse order
   s32 i=targetIndex-1;
-  while((i>=0) && !event->base.stopDispatch && !event->base.stopPropagation)
+  while((i>=0) && !event->base.stopDispatch && !event->base.stopPropagation && event->base.bubbles)
   {
     View* view = currentViewStack[i];
     event->base.currentTarget = view;
