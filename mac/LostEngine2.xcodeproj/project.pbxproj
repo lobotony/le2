@@ -63,7 +63,6 @@
 		EAD336E1175B6D07001A4747 /* Canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD336DF175B6D07001A4747 /* Canvas.cpp */; };
 		EAD599E41756081E00E09947 /* FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD599E21756081E00E09947 /* FrameBuffer.cpp */; };
 		EAD599E71756082E00E09947 /* RenderBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD599E51756082E00E09947 /* RenderBuffer.cpp */; };
-		EAE79C71178C2E8900A3C4B4 /* UpdateSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE79C6D178C2E8900A3C4B4 /* UpdateSystem.cpp */; };
 		EAE79C72178C2E8900A3C4B4 /* UserInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE79C6F178C2E8900A3C4B4 /* UserInterface.cpp */; };
 		EAE79C76178C2E9200A3C4B4 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE79C74178C2E9200A3C4B4 /* View.cpp */; };
 		EAE79C7C178C2E9D00A3C4B4 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE79C78178C2E9D00A3C4B4 /* Layer.cpp */; };
@@ -218,8 +217,6 @@
 		EAD599E31756081E00E09947 /* FrameBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameBuffer.h; sourceTree = "<group>"; };
 		EAD599E51756082E00E09947 /* RenderBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderBuffer.cpp; sourceTree = "<group>"; };
 		EAD599E61756082E00E09947 /* RenderBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderBuffer.h; sourceTree = "<group>"; };
-		EAE79C6D178C2E8900A3C4B4 /* UpdateSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UpdateSystem.cpp; sourceTree = "<group>"; };
-		EAE79C6E178C2E8900A3C4B4 /* UpdateSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateSystem.h; sourceTree = "<group>"; };
 		EAE79C6F178C2E8900A3C4B4 /* UserInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserInterface.cpp; sourceTree = "<group>"; };
 		EAE79C70178C2E8900A3C4B4 /* UserInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInterface.h; sourceTree = "<group>"; };
 		EAE79C74178C2E9200A3C4B4 /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = View.cpp; sourceTree = "<group>"; };
@@ -487,8 +484,6 @@
 				EAE79C85178C2ECA00A3C4B4 /* EventSystem.h */,
 				EAE79C87178C2ED800A3C4B4 /* Frame.cpp */,
 				EAE79C88178C2ED800A3C4B4 /* Frame.h */,
-				EAE79C6D178C2E8900A3C4B4 /* UpdateSystem.cpp */,
-				EAE79C6E178C2E8900A3C4B4 /* UpdateSystem.h */,
 				EAE79C6F178C2E8900A3C4B4 /* UserInterface.cpp */,
 				EAE79C70178C2E8900A3C4B4 /* UserInterface.h */,
 			);
@@ -666,7 +661,6 @@
 				EAAFD8BE177215AA00C1D521 /* DemoApp.cpp in Sources */,
 				EAAFD8C1177215CB00C1D521 /* SunApp.cpp in Sources */,
 				EAF4A18C177DCAD300958CEE /* NinePatch.cpp in Sources */,
-				EAE79C71178C2E8900A3C4B4 /* UpdateSystem.cpp in Sources */,
 				EAE79C72178C2E8900A3C4B4 /* UserInterface.cpp in Sources */,
 				EAE79C76178C2E9200A3C4B4 /* View.cpp in Sources */,
 				EAE79C7C178C2E9D00A3C4B4 /* Layer.cpp in Sources */,

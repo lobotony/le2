@@ -9,7 +9,6 @@ namespace lost
 
 struct Context;
 struct EventSystem;
-struct UpdateSystem;
 struct Compositor;
 
 /** Main class for everything user interface related.
@@ -36,7 +35,6 @@ struct UserInterface
   void needsRedraw(Layer* layer);
   
   EventSystem* eventSystem;
-  UpdateSystem* updateSystem;
   Compositor* compositor;
   
   ViewPtr rootView;

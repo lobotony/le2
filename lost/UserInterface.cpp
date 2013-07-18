@@ -1,6 +1,5 @@
 #include "lost/UserInterface.h"
 #include "lost/EventSystem.h"
-#include "lost/UpdateSystem.h"
 #include "lost/Compositor.h"
 #include "lost/Application.h"
 
@@ -10,14 +9,12 @@ namespace lost
 UserInterface::UserInterface()
 {
   eventSystem = new EventSystem;
-  updateSystem = new UpdateSystem;
   compositor = new Compositor;
 }
 
 UserInterface::~UserInterface()
 {
   delete compositor;
-  delete updateSystem;
   delete eventSystem;
 }
 
@@ -73,8 +70,13 @@ void UserInterface::enable()
 
 void UserInterface::disable()
 {
-  rootView.reset();
-  eventSystem->rootView = NULL;
+  if(rootView)
+  {
+    rootView.reset();
+    eventSystem->rootView = NULL;
+    eventSystem->reset();
+    compositor->reset();
+  }
 }
 
 void UserInterface::viewDying(View* view)

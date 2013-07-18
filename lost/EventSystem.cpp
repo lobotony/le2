@@ -6,6 +6,8 @@ namespace lost
 
 EventSystem::EventSystem()
 {
+  rootView = NULL;
+  reset();
 }
   
 EventSystem::~EventSystem()
@@ -16,8 +18,26 @@ void EventSystem::viewDying(View* view)
 {
   // FIXME: remove from all members and re-establish consistent state afterwards
   DOUT(view->name());
+  
+#define rm(vec, elem) {auto pos = find(vec.begin(), vec.end(), elem); if(pos != vec.end()) { DOUT(#vec<<" removing "<<elem->name());vec.erase(pos);}}
+
+  loseFocus(view); // make sure current focus and its stack are consistent
+
+  rm(currentViewStack, view);
+  rm(previousMouseMoveStack, view);
+  rm(previousMouseClickStack, view);
+  rm(previousFocusStack, view);
 }
 
+void EventSystem::reset()
+{
+  currentViewStack.clear();
+  previousMouseMoveStack.clear();
+  previousMouseClickStack.clear();
+  previousFocusStack.clear();
+  focusChanged = false;
+  currentlyFocusedView = rootView;
+}
 
 void EventSystem::propagateEvent(Event* event)
 {
@@ -74,6 +94,16 @@ void EventSystem::propagateFocusEvent(Event* event)
 {
   
 }
+
+void EventSystem::loseFocus(View* view)
+{
+  
+}
+
+void EventSystem::gainFocus(View* view)
+{
+}
+
 
 void EventSystem::propagateEvent(Event* event, s32 targetIndex)
 {

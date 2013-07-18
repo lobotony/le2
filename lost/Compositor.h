@@ -20,7 +20,8 @@ struct Compositor
   
   void layerDying(Layer* layer);
   void clearCacheForLayer(Layer* layer);
-  
+  void reset(); // called when ui is disabled, clears and resets all state
+
 private:
   Vec2 windowSize;
   Camera2DPtr uicam;

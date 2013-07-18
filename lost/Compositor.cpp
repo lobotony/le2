@@ -50,7 +50,17 @@ void Compositor::layerDying(Layer* layer)
 
   clearCacheForLayer(layer);
 }
- 
+
+void Compositor::reset()
+{
+  redrawCandidates.clear();
+  redraws.clear();
+  layerCache.clear();
+  fb->bind();
+  fb->detachAll();
+  drawContext->glContext->bindDefaultFramebuffer();
+}
+
 void Compositor::clearCacheForLayer(Layer* layer)
 {
   auto pos = layerCache.find(layer);
