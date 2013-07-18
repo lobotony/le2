@@ -46,6 +46,7 @@ struct UserInterface
   void layerDying(Layer* layer);
   void gainFocus(View* view);
   void loseFocus(View* view);
+  View* focusedView();
 };
 }
 

@@ -15,6 +15,7 @@ struct EventSystem
   void propagateEvent(Event* event);
   void loseFocus(View* view);
   void gainFocus(View* view);
+  View* focusedView();
 
   void viewDying(View* view);
 
@@ -40,6 +41,7 @@ private:
   ViewStack currentViewStack;
   ViewStack previousMouseMoveStack;
   ViewStack previousMouseClickStack;
+  ViewStack currentFocusStack;
   ViewStack previousFocusStack;
 
   bool focusChanged;

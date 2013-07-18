@@ -26,6 +26,7 @@ void EventSystem::viewDying(View* view)
   rm(currentViewStack, view);
   rm(previousMouseMoveStack, view);
   rm(previousMouseClickStack, view);
+  rm(currentFocusStack, view);
   rm(previousFocusStack, view);
 }
 
@@ -35,6 +36,7 @@ void EventSystem::reset()
   previousMouseMoveStack.clear();
   previousMouseClickStack.clear();
   previousFocusStack.clear();
+  currentFocusStack.clear();
   focusChanged = false;
   currentlyFocusedView = rootView;
 }
@@ -171,7 +173,41 @@ void EventSystem::propagateUpDownEvent(Event* event)
 
 void EventSystem::propagateFocusEvent(Event* event)
 {
+  event->base.bubbles = true;
+  event->base.stopDispatch = false;
+  event->base.stopPropagation = false;
   
+  currentFocusStack = currentViewStack;
+  
+  s32 maxn = (s32)std::max(currentFocusStack.size(), previousFocusStack.size());
+  View* oldView = NULL;
+  View* newView = NULL;
+  
+  for(s32 i=0; i<maxn; ++i)
+  {
+    oldView = i < previousFocusStack.size() ? previousFocusStack[i] : NULL;
+    newView = i < currentFocusStack.size() ? currentFocusStack[i] : NULL;
+    
+    if(oldView != newView)
+    {
+      focusChanged = true;
+      if(oldView && oldView->focusable)
+      {
+        oldView->focused = false;
+        event->base.target = oldView;
+        event->base.type = ET_FocusLost;
+        propagateEvent(previousFocusStack, event, i);
+      }
+      if(newView && newView->focusable)
+      {
+        newView->focused = true;
+        event->base.target = newView;
+        event->base.type = ET_FocusGained;
+        propagateEvent(currentFocusStack, event, i);
+      }
+    }
+  }
+  previousFocusStack = currentViewStack;
 }
 
 void EventSystem::loseFocus(View* view)
@@ -183,6 +219,26 @@ void EventSystem::gainFocus(View* view)
 {
 }
 
+View* EventSystem::focusedView()
+{
+  if(focusChanged)
+  {
+    focusChanged = false;
+    currentlyFocusedView = NULL;
+    for(View* view : currentFocusStack)
+    {
+      if(view->focused)
+      {
+        currentlyFocusedView = view;
+      }
+      else
+      {
+        break;
+      }
+    }
+  }
+  return currentlyFocusedView;
+}
 
 void EventSystem::propagateEvent(const ViewStack& vs, Event* event, s32 targetIndex)
 {

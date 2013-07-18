@@ -61,10 +61,14 @@ void UserInterface::enable()
   if(!rootView)
   {
     rootView.reset(new View);
+    eventSystem->rootView = rootView.get();
+
     rootView->name("rootView");
     rootView->layer->backgroundColor(clearColor);
+    rootView->focusable = true;
+    rootView->gainFocus();
+    
     windowResized(Application::instance()->windowSize);
-    eventSystem->rootView = rootView.get();
   }
 }
 
@@ -97,6 +101,11 @@ void UserInterface::gainFocus(View* view)
 void UserInterface::loseFocus(View* view)
 {
   eventSystem->loseFocus(view);
+}
+
+View* UserInterface::focusedView()
+{
+  return eventSystem->focusedView();
 }
 
 }

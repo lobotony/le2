@@ -164,7 +164,13 @@ void UiTestApp::startup()
                                       DOUT(ev->base.currentTarget->name()<<" "
                                         <<ev->base.target->name()<<" "
                                         <<eventTypeToString(ev->base.type)<<" "
-                                        <<eventPhaseToString(ev->base.phase)); };
+                                        <<eventPhaseToString(ev->base.phase));
+                                      if((ev->base.type == ET_FocusGained) || (ev->base.type == ET_FocusLost))
+                                      {
+                                        View* cf = ui->focusedView();
+                                        DOUT("currently focused view: "<<(cf ? cf->name() : "NULL"));
+                                      }
+                                    };
   
   ui->rootView->addEventHandler(ET_MouseMove,poslogger,EP_Capture);
   ui->rootView->addEventHandler(ET_MouseMove,poslogger,EP_Target);
@@ -173,6 +179,10 @@ void UiTestApp::startup()
   ui->rootView->addEventHandler(ET_MouseEnter, evLogger, EP_Target);
   ui->rootView->addEventHandler(ET_MouseLeave, evLogger, EP_Bubble);
   ui->rootView->addEventHandler(ET_MouseLeave, evLogger, EP_Target);
+  ui->rootView->addEventHandler(ET_FocusGained, evLogger, EP_Bubble);
+  ui->rootView->addEventHandler(ET_FocusGained, evLogger, EP_Target);
+  ui->rootView->addEventHandler(ET_FocusLost, evLogger, EP_Bubble);
+  ui->rootView->addEventHandler(ET_FocusLost, evLogger, EP_Target);
 
   v1->addEventHandler(ET_MouseEnter, evLogger, EP_Bubble);
   v1->addEventHandler(ET_MouseEnter, evLogger, EP_Target);
