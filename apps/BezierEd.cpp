@@ -149,7 +149,7 @@ u32 BezierEd::indexFromView(View* v)
 void BezierEd::setupLabels()
 {
   resourceManager->registerFontBundle("resources/fonts/vera.lefont");
-  font = resourceManager->font("Vera", 20);
+  font = resourceManager->font("Vera", 30);
 
   labelWidth = floorf(areaSize.x / 4);
   labelHeight = 40;
@@ -261,7 +261,7 @@ void BezierEd::startup()
   cam = Camera2D::create(Rect(0,0,windowSize.width, windowSize.height));
 
   numInterpolatedPoints = 50;
-  splineWidth = 6;
+  splineWidth = 12;
 
   ip.resize(numInterpolatedPoints);
   nv.resize(numInterpolatedPoints);
