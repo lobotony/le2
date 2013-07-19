@@ -73,7 +73,6 @@ void Compositor::clearCacheForLayer(Layer* layer)
   
 void Compositor::windowResized(const Vec2& newSize)
 {
-  DOUT("");
   windowSize = newSize;
   uicam->viewport(Rect(0,0,windowSize));
 }

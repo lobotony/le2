@@ -2,11 +2,16 @@
 #include "apps/SunApp.h"
 #include "apps/DemoApp.h"
 #include "apps/UiTestApp.h"
+#include "apps/BezierEd.h"
 
 int main(int argc, char *argv[])
 {
 //  lost::run(new lost::DemoApp);
 //  lost::run(new lost::SunApp);
-  lost::run(new lost::UiTestApp);
+//  lost::run(new lost::UiTestApp);
+
+  lost::run(new lost::BezierEd);
+
+
   return EXIT_SUCCESS;
 }

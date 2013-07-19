@@ -63,6 +63,9 @@
 		EAD336E1175B6D07001A4747 /* Canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD336DF175B6D07001A4747 /* Canvas.cpp */; };
 		EAD599E41756081E00E09947 /* FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD599E21756081E00E09947 /* FrameBuffer.cpp */; };
 		EAD599E71756082E00E09947 /* RenderBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD599E51756082E00E09947 /* RenderBuffer.cpp */; };
+		EAD640491799898C00C7A456 /* AnimationSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD640471799898C00C7A456 /* AnimationSystem.cpp */; };
+		EAD6404C17998A4600C7A456 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD6404A17998A4600C7A456 /* Animation.cpp */; };
+		EAD6404F1799A0B900C7A456 /* BezierEd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAD6404D1799A0B900C7A456 /* BezierEd.cpp */; };
 		EAE79C72178C2E8900A3C4B4 /* UserInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE79C6F178C2E8900A3C4B4 /* UserInterface.cpp */; };
 		EAE79C76178C2E9200A3C4B4 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE79C74178C2E9200A3C4B4 /* View.cpp */; };
 		EAE79C7C178C2E9D00A3C4B4 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAE79C78178C2E9D00A3C4B4 /* Layer.cpp */; };
@@ -217,6 +220,12 @@
 		EAD599E31756081E00E09947 /* FrameBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameBuffer.h; sourceTree = "<group>"; };
 		EAD599E51756082E00E09947 /* RenderBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderBuffer.cpp; sourceTree = "<group>"; };
 		EAD599E61756082E00E09947 /* RenderBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderBuffer.h; sourceTree = "<group>"; };
+		EAD640471799898C00C7A456 /* AnimationSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimationSystem.cpp; sourceTree = "<group>"; };
+		EAD640481799898C00C7A456 /* AnimationSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationSystem.h; sourceTree = "<group>"; };
+		EAD6404A17998A4600C7A456 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
+		EAD6404B17998A4600C7A456 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		EAD6404D1799A0B900C7A456 /* BezierEd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BezierEd.cpp; path = ../apps/BezierEd.cpp; sourceTree = "<group>"; };
+		EAD6404E1799A0B900C7A456 /* BezierEd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BezierEd.h; path = ../apps/BezierEd.h; sourceTree = "<group>"; };
 		EAE79C6F178C2E8900A3C4B4 /* UserInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserInterface.cpp; sourceTree = "<group>"; };
 		EAE79C70178C2E8900A3C4B4 /* UserInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInterface.h; sourceTree = "<group>"; };
 		EAE79C74178C2E9200A3C4B4 /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = View.cpp; sourceTree = "<group>"; };
@@ -271,6 +280,8 @@
 				EAAFD8C0177215CB00C1D521 /* SunApp.h */,
 				EAAFD8B91772147800C1D521 /* UiTestApp.cpp */,
 				EAAFD8BA1772147800C1D521 /* UiTestApp.h */,
+				EAD6404D1799A0B900C7A456 /* BezierEd.cpp */,
+				EAD6404E1799A0B900C7A456 /* BezierEd.h */,
 			);
 			name = apps;
 			sourceTree = "<group>";
@@ -486,6 +497,10 @@
 				EAE79C88178C2ED800A3C4B4 /* Frame.h */,
 				EAE79C6F178C2E8900A3C4B4 /* UserInterface.cpp */,
 				EAE79C70178C2E8900A3C4B4 /* UserInterface.h */,
+				EAD640471799898C00C7A456 /* AnimationSystem.cpp */,
+				EAD640481799898C00C7A456 /* AnimationSystem.h */,
+				EAD6404A17998A4600C7A456 /* Animation.cpp */,
+				EAD6404B17998A4600C7A456 /* Animation.h */,
 			);
 			name = guiro;
 			sourceTree = "<group>";
@@ -670,6 +685,9 @@
 				EAE79C86178C2ECA00A3C4B4 /* EventSystem.cpp in Sources */,
 				EAE79C89178C2ED800A3C4B4 /* Frame.cpp in Sources */,
 				EAE79CAD178C41B300A3C4B4 /* EventDispatcher.cpp in Sources */,
+				EAD640491799898C00C7A456 /* AnimationSystem.cpp in Sources */,
+				EAD6404C17998A4600C7A456 /* Animation.cpp in Sources */,
+				EAD6404F1799A0B900C7A456 /* BezierEd.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

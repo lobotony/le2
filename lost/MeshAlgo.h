@@ -9,6 +9,8 @@ namespace lost
 
   Vec2 catmullRomInterpolate(f32 t, const Vec2& cp0, const Vec2& cp1, const Vec2& cp2, const Vec2& cp3);
 
+  Vec2 bezierInterpolate(f32 t, const Vec2& cp0, const Vec2& cp1, const Vec2& cp2, const Vec2& cp3);
+
   void catmullRomSegment(vector<Vec2>&        interpolated, // receives the interpolated points
                            uint32_t             pointOffset,  // offset write position into interpolated points. The current segment points will be written at pointOffset onwards
                            uint32_t             numPoints,    // number of points for this segment

@@ -96,6 +96,23 @@ Vec2 catmullRomInterpolate(f32 t, const Vec2& cp0, const Vec2& cp1, const Vec2& 
   return pt;
 }
 
+Vec2 bezierInterpolate(f32 t, const Vec2& p0, const Vec2& p1, const Vec2& p2, const Vec2& p3)
+{
+  f32 u = 1.0f - t;
+  f32 tt = t*t;
+  f32 uu = u*u;
+  f32 uuu = uu*u;
+  f32 ttt = tt*t;
+  
+  Vec2 p = uuu*p0;
+  p += 3*uu*t*p1;
+  p += 3*u*tt*p2;
+  p += ttt * p3;
+  
+  return p;
+}
+
+
 void catmullRomSegment(vector<Vec2>&        interpolated, // receives the interpolated points
                          uint32_t             pointOffset,  // offset write position into interpolated points. The current segment points will be written at pointOffset onwards
                          uint32_t             numPoints,    // number of points for this segment
