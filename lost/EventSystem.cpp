@@ -172,6 +172,7 @@ void EventSystem::propagateUpDownEvent(Event* event)
       propagateEvent(currentViewStack, event, newIndex);
       event->base.type = ET_MouseUp;
       event->base.bubbles = true;
+      propagateEvent(currentViewStack, event, newIndex);
     }
     previousMouseClickStack = currentViewStack;
   }
