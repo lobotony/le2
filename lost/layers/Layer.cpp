@@ -171,7 +171,7 @@ void Layer::draw(DrawContext* ctx)
 
     if(effectiveCornerRadius <= 0)
     {
-      DOUT("solid "<<_cornerRadius << " : " << _borderWidth);
+//      DOUT("solid "<<_cornerRadius << " : " << _borderWidth);
       Rect r(0,0,_rect.size());
       if(!_backgroundImage)
       {

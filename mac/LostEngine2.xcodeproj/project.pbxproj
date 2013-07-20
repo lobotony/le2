@@ -45,6 +45,8 @@
 		EABB38EA1600D42B0009D8F7 /* EventQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38E71600D42B0009D8F7 /* EventQueue.cpp */; };
 		EABB38ED1600D6FA0009D8F7 /* EventPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38EB1600D6FA0009D8F7 /* EventPool.cpp */; };
 		EABB38F21600DCF00009D8F7 /* tinythread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38F01600DCF00009D8F7 /* tinythread.cpp */; };
+		EABC647C179AAE9000B1A409 /* TimingFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABC647A179AAE9000B1A409 /* TimingFunction.cpp */; };
+		EABC647E179AAF7D00B1A409 /* lmath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABC647D179AAF7D00B1A409 /* lmath.cpp */; };
 		EACD243815D7E48D00453F75 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EACD243715D7E48D00453F75 /* Cocoa.framework */; };
 		EACD245A15D7E53300453F75 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EACD245915D7E53300453F75 /* OpenGL.framework */; };
 		EACD245C15D7E7E000453F75 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = EACD245B15D7E7E000453F75 /* main.mm */; };
@@ -174,6 +176,9 @@
 		EABB38EF1600DCF00009D8F7 /* fast_mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fast_mutex.h; path = ../thirdparty/tinythread/source/fast_mutex.h; sourceTree = "<group>"; };
 		EABB38F01600DCF00009D8F7 /* tinythread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinythread.cpp; path = ../thirdparty/tinythread/source/tinythread.cpp; sourceTree = "<group>"; };
 		EABB38F11600DCF00009D8F7 /* tinythread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinythread.h; path = ../thirdparty/tinythread/source/tinythread.h; sourceTree = "<group>"; };
+		EABC647A179AAE9000B1A409 /* TimingFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimingFunction.cpp; sourceTree = "<group>"; };
+		EABC647B179AAE9000B1A409 /* TimingFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimingFunction.h; sourceTree = "<group>"; };
+		EABC647D179AAF7D00B1A409 /* lmath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lmath.cpp; sourceTree = "<group>"; };
 		EACD243315D7E48D00453F75 /* LostEngine2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LostEngine2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACD243715D7E48D00453F75 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		EACD243F15D7E48D00453F75 /* LostEngine2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LostEngine2-Info.plist"; sourceTree = "<group>"; };
@@ -409,6 +414,7 @@
 				EA945F0B15F7A87B004EE290 /* HybridBuffer.h */,
 				EA90FCC315E15C730071F358 /* lgl.cpp */,
 				EA90FCC215E15B4F0071F358 /* lgl.h */,
+				EABC647D179AAF7D00B1A409 /* lmath.cpp */,
 				EACD24B515D853D300453F75 /* lmath.h */,
 				EACD248D15D81A6800453F75 /* Log.cpp */,
 				EACD248E15D81A6800453F75 /* Log.h */,
@@ -501,6 +507,8 @@
 				EAD640481799898C00C7A456 /* AnimationSystem.h */,
 				EAD6404A17998A4600C7A456 /* Animation.cpp */,
 				EAD6404B17998A4600C7A456 /* Animation.h */,
+				EABC647A179AAE9000B1A409 /* TimingFunction.cpp */,
+				EABC647B179AAE9000B1A409 /* TimingFunction.h */,
 			);
 			name = guiro;
 			sourceTree = "<group>";
@@ -688,6 +696,8 @@
 				EAD640491799898C00C7A456 /* AnimationSystem.cpp in Sources */,
 				EAD6404C17998A4600C7A456 /* Animation.cpp in Sources */,
 				EAD6404F1799A0B900C7A456 /* BezierEd.cpp in Sources */,
+				EABC647C179AAE9000B1A409 /* TimingFunction.cpp in Sources */,
+				EABC647E179AAF7D00B1A409 /* lmath.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

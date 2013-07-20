@@ -19,6 +19,7 @@
 #include "lost/Material.h"
 #include "lost/Bitmap.h"
 #include "lost/Texture.h"
+#include "lost/TimingFunction.h"
 
 namespace lost
 {
@@ -185,13 +186,12 @@ void BezierEd::setupSplineTexture()
 
 void BezierEd::startup()
 {
-  ui->enable();
-
   areaSize.x = config["areaWidth"].asInt();
   areaSize.y = config["areaHeight"].asInt();
   psize = config["pointSize"].asInt();
   offset.x = config["offsetX"].asInt();
   offset.y = config["offsetY"].asInt();
+  ui->enable();
 
   p.resize(4);
   p[0] = Vec2(0,0);
@@ -277,6 +277,15 @@ void BezierEd::startup()
   
   updateSpline();
   updateLabels();
+  
+  TimingFunction tf = TimingFunction::linear();
+  u32 steps = 30;
+  for(u32 i=0; i<steps; ++i)
+  {
+    f32 x = (1.0f/(steps-1))*i;
+    f32 y = tf.yAtX(x);
+    DOUT(i << " = ("<<x<<"/"<<y<<")");
+  }
 }
 
 void BezierEd::update()
