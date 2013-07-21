@@ -283,6 +283,47 @@ bool Layer::containsPoint(const Vec2& gp)
   return r.contains(gp);
 }
 
+#pragma mark - Animation -
+
+void Layer::addAnimation(const string& key, const AnimationPtr& animation)
+{
+  animations[key] = animation;
+  startAnimating();
+}
+
+AnimationPtr Layer::animation(const string& key)
+{
+  return animations[key];
+}
+
+void Layer::removeAnimation(const string& key)
+{
+  auto pos = animations.find(key);
+  if(pos != animations.end())
+  {
+    animations.erase(pos);
+    if(animations.size() == 0)
+    {
+      stopAnimating();
+    }
+  }
+}
+
+void Layer::removeAllAnimations()
+{
+  animations.clear();
+  stopAnimating();
+}
+
+void Layer::startAnimating()
+{
+  Application::instance()->ui->startAnimating(this);
+}
+
+void Layer::stopAnimating()
+{
+  Application::instance()->ui->stopAnimating(this);
+}
 
 }
 

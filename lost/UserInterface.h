@@ -10,6 +10,7 @@ namespace lost
 struct Context;
 struct EventSystem;
 struct Compositor;
+struct AnimationSystem;
 
 /** Main class for everything user interface related.
  * Every application has a UserInterface instance, but it is not enabled by default,
@@ -27,6 +28,7 @@ struct UserInterface
   void enable(); // creates an empty transparent rootView and keeps it stretched to main window size
   void disable(); // deletes the rootView
   
+  void update(const EventQueue::Container& events);
   // called by engine for basic updating and rendering
   void processEvents(const EventQueue::Container& events);
   void draw();
@@ -36,6 +38,7 @@ struct UserInterface
   
   EventSystem* eventSystem;
   Compositor* compositor;
+  AnimationSystem* animator;
   
   ViewPtr rootView;
   
@@ -44,6 +47,8 @@ struct UserInterface
   // Layer/View internal hooks
   void viewDying(View* view);
   void layerDying(Layer* layer);
+  void startAnimating(Layer* layer);
+  void stopAnimating(Layer* layer);
   void gainFocus(View* view);
   void loseFocus(View* view);
   View* focusedView();

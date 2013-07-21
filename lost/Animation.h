@@ -9,6 +9,8 @@
 #ifndef __LostEngine2__Animation__
 #define __LostEngine2__Animation__
 
+#include "lost/TimingFunction.h"
+
 namespace lost
 {
 struct Animation
@@ -22,7 +24,7 @@ struct Animation
   TimeInterval  duration;
   f32           speed;
   bool          autoreverses;
-
+  TimingFunction timingFunction;
 };
 }
 

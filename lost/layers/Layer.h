@@ -61,6 +61,12 @@ struct Layer : enable_shared_from_this<Layer>
   bool containsPoint(const Vec2& gp); // gp in global window coordinates
   
   
+  // animation
+  void addAnimation(const string& key, const AnimationPtr& animation);
+  AnimationPtr animation(const string& key);
+  void removeAnimation(const string& key);
+  void removeAllAnimations();
+  
   ////////////////////////////
   string name; // for debugging only
   
@@ -76,6 +82,10 @@ private:
 
   Rect        _rect;
   bool        _visible;
+  
+  map<string, AnimationPtr> animations;
+  void startAnimating();
+  void stopAnimating();
 };
 }
 

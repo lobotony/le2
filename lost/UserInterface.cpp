@@ -2,6 +2,7 @@
 #include "lost/EventSystem.h"
 #include "lost/Compositor.h"
 #include "lost/Application.h"
+#include "lost/AnimationSystem.h"
 
 namespace lost
 {
@@ -10,12 +11,21 @@ UserInterface::UserInterface()
 {
   eventSystem = new EventSystem;
   compositor = new Compositor;
+  animator = new AnimationSystem();
 }
 
 UserInterface::~UserInterface()
 {
   delete compositor;
   delete eventSystem;
+  delete animator;
+}
+
+void UserInterface::update(const EventQueue::Container& events)
+{
+  processEvents(events);
+  animator->update();
+  draw();
 }
 
 void UserInterface::processEvents(const EventQueue::Container& events)
@@ -91,6 +101,8 @@ void UserInterface::viewDying(View* view)
 void UserInterface::layerDying(Layer* layer)
 {
   compositor->layerDying(layer);
+  animator->stopAnimating(layer);
+  animator->reset();
 }
 
 void UserInterface::gainFocus(View* view)
@@ -106,6 +118,16 @@ void UserInterface::loseFocus(View* view)
 View* UserInterface::focusedView()
 {
   return eventSystem->focusedView();
+}
+
+void UserInterface::startAnimating(Layer* layer)
+{
+  animator->startAnimating(layer);
+}
+
+void UserInterface::stopAnimating(Layer* layer)
+{
+  animator->stopAnimating(layer);
 }
 
 }
