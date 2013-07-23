@@ -51,5 +51,6 @@ lost::StringStream& operator<<(lost::StringStream& s, const lost::Vec4& v);
 lost::StringStream& operator<<(lost::StringStream& s, const lost::Matrix& v);
 lost::StringStream& operator<<(lost::StringStream& s, const lost::Rect& v);
 lost::StringStream& operator<<(lost::StringStream& stream, const lost::Path& p);
+lost::StringStream& operator<<(lost::StringStream& stream, const lost::Color& p);
 
 #endif
