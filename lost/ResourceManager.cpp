@@ -2,6 +2,7 @@
 #include "lost/Bitmap.h"
 #include "lost/Texture.h"
 #include "lost/TruetypeFont.h"
+#include "lost/StringAdditions.h"
 
 namespace lost
 {
@@ -14,19 +15,7 @@ ResourceManager::~ResourceManager()
 {
 }
 
-u32 djb2Hash(const char* data)
-{
-  u32 hash = 5381;
-  s32 c;
 
-  const unsigned char* str = reinterpret_cast<const unsigned char*> (data);
-  while ((c = *str++))
-  {
-      hash = ((hash << 5) + hash) + c;
-  }
-
-  return hash;  
-}
 
 ResourceId ResourceManager::stringToHash(const string& resourcePath)
 {

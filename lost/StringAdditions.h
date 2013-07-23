@@ -4,6 +4,8 @@
 namespace lost
 {
 
+u32 djb2Hash(const char* data);
+
 bool replace(string& value,
              string const& search,
              string const& replace);
