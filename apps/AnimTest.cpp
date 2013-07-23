@@ -32,9 +32,10 @@ void AnimTest::startup()
 
   f32 offset = 20;
   f32 spacing = 4;
-  Vec2 sz(50,50);
+  Vec2 sz(100,100);
 //  Vec2 num(23,14);
-  Vec2 num(1,1);
+  Vec2 num(10,7);
+//  Vec2 num(1,1);
   
   for(u32 y=0; y<num.y; ++y)
   {
@@ -63,8 +64,9 @@ void AnimTest::startup()
   DOUT("totalDuration: "<<a1.totalDuration());
   
   f32 duration = 3;
-  f32 speed = 12;
-  
+  f32 speed = 1;
+  f32 repeatCount = 100;
+
   AnimationPtr fadeIn(new Animation);
   fadeIn->key = "opacity";
   fadeIn->beginTime = currentTimeSeconds();
@@ -73,7 +75,7 @@ void AnimTest::startup()
   fadeIn->startValue = Variant(f32(0));
   fadeIn->endValue = Variant(f32(1));
   fadeIn->autoreverses = true;
-  fadeIn->repeatCount = 4;
+  fadeIn->repeatCount = repeatCount;
   
   AnimationPtr resize(new Animation);
   resize->key = "size";
@@ -83,8 +85,8 @@ void AnimTest::startup()
   resize->startValue = Variant(Vec2(50,50));
   resize->endValue = Variant(Vec2(600,176));
   resize->autoreverses = true;
-  resize->repeatCount = 4;
-  resize->timeOffset = 5;
+  resize->repeatCount = repeatCount;
+  resize->timeOffset = 0;
   
   layers[0]->addAnimation(fadeIn->key, fadeIn);
   layers[0]->addAnimation(resize->key, resize);
