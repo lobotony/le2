@@ -80,10 +80,10 @@ CPPSOURCES=main.cpp \
 
 CSOURCES=../thirdparty/stb_image.c
 
-CPP=g++
-CC=gcc
+CPP=g++-4.7
+CC=gcc-4.7
 COMMONFLAGS=
-CPPFLAGS=${LOSTENGINE_DEFS} ${INCDIR} -std=c++0x -c
+CPPFLAGS=${LOSTENGINE_DEFS} ${INCDIR} -std=c++11 -c
 CFLAGS=${LOSTENGINE_DEFS} ${INCDIR} -c
 LDFLAGS=-lGLESv2 -lEGL -lm -lbcm_host -L/opt/vc/lib
 EXECUTABLE=le2.out
