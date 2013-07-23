@@ -20,11 +20,6 @@ TimingFunction::TimingFunction(const Vec2& p1, const Vec2& p2)
   epsilon = .001;
 }
 
-TimingFunction::TimingFunction()
-{
-  cp = defaultFunc().cp;
-}
-
 f32 TimingFunction::clamp(f32 v)
 {
   v = fminf(v, 1.0f);
@@ -76,7 +71,7 @@ f32 TimingFunction::yAtX(f32 x)
     p = pointAt(current);
 //    DOUT(lower << " " << current << " " << upper << " = "<<p.x);
   }
-  DOUT(p.y<< " ("<<numIterations<<")");
+//  DOUT(p.y<< " ("<<numIterations<<")");
   return p.y;
 }
 
