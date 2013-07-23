@@ -86,6 +86,7 @@
 		EAF4A18C177DCAD300958CEE /* NinePatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF4A18A177DCAD200958CEE /* NinePatch.cpp */; };
 		EAF87C7A15E903A900986F86 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF87C7815E903A900986F86 /* Buffer.cpp */; };
 		EAF87C7E15E903B800986F86 /* BufferLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF87C7C15E903B800986F86 /* BufferLayout.cpp */; };
+		EAF8EDE4179D69B6004E53FC /* AnimTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF8EDE2179D69B6004E53FC /* AnimTest.cpp */; };
 		EAF92C91179ACF13006BB76A /* AnimationGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF92C8F179ACF13006BB76A /* AnimationGroup.cpp */; };
 /* End PBXBuildFile section */
 
@@ -261,6 +262,9 @@
 		EAF87C7915E903A900986F86 /* Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buffer.h; sourceTree = "<group>"; };
 		EAF87C7C15E903B800986F86 /* BufferLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferLayout.cpp; sourceTree = "<group>"; };
 		EAF87C7D15E903B800986F86 /* BufferLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferLayout.h; sourceTree = "<group>"; };
+		EAF8EDE1179D6740004E53FC /* Variant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Variant.h; sourceTree = "<group>"; };
+		EAF8EDE2179D69B6004E53FC /* AnimTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AnimTest.cpp; path = ../apps/AnimTest.cpp; sourceTree = "<group>"; };
+		EAF8EDE3179D69B6004E53FC /* AnimTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimTest.h; path = ../apps/AnimTest.h; sourceTree = "<group>"; };
 		EAF92C8F179ACF13006BB76A /* AnimationGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimationGroup.cpp; sourceTree = "<group>"; };
 		EAF92C90179ACF13006BB76A /* AnimationGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationGroup.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -282,6 +286,8 @@
 		EAAFD8B21772118300C1D521 /* apps */ = {
 			isa = PBXGroup;
 			children = (
+				EAF8EDE2179D69B6004E53FC /* AnimTest.cpp */,
+				EAF8EDE3179D69B6004E53FC /* AnimTest.h */,
 				EAAFD8BC177215AA00C1D521 /* DemoApp.cpp */,
 				EAAFD8BD177215AA00C1D521 /* DemoApp.h */,
 				EAAFD8BF177215CB00C1D521 /* SunApp.cpp */,
@@ -479,6 +485,7 @@
 				EA945EF515F79F55004EE290 /* Uniform.h */,
 				EA945EF615F79F55004EE290 /* UniformBlock.cpp */,
 				EA945EF715F79F56004EE290 /* UniformBlock.h */,
+				EAF8EDE1179D6740004E53FC /* Variant.h */,
 				EACD24B115D8531200453F75 /* Vec2.cpp */,
 				EACD24B215D8531200453F75 /* Vec2.h */,
 				EA0EEAFA15E677F9000CBC13 /* Vec3.cpp */,
@@ -704,6 +711,7 @@
 				EABC647C179AAE9000B1A409 /* TimingFunction.cpp in Sources */,
 				EABC647E179AAF7D00B1A409 /* lmath.cpp in Sources */,
 				EAF92C91179ACF13006BB76A /* AnimationGroup.cpp in Sources */,
+				EAF8EDE4179D69B6004E53FC /* AnimTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

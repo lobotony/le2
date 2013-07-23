@@ -2,6 +2,7 @@
 #define LOST_LAYER_H
 
 #include "lost/Frame.h"
+#include "lost/Variant.h"
 
 namespace lost
 {
@@ -47,12 +48,15 @@ struct Layer : enable_shared_from_this<Layer>
   
   void backgroundColor(const Color& v);
   Color backgroundColor();
-  
+
   void borderColor(const Color& v);
   Color borderColor();
   
   void borderWidth(f32 v);
   f32 borderWidth();
+  
+  void opacity(f32 v);
+  f32 opacity();
   
   void backgroundImage(const TexturePtr& v);
   TexturePtr backgroundImage();
@@ -66,6 +70,11 @@ struct Layer : enable_shared_from_this<Layer>
   AnimationPtr animation(const string& key);
   void removeAnimation(const string& key);
   void removeAllAnimations();
+  bool hasAnimations();
+  void updateAnimations(TimeInterval now);
+  void setValue(const string& key, const Variant& v);
+  Variant getValue(const string& key);
+
   
   ////////////////////////////
   string name; // for debugging only
@@ -79,13 +88,20 @@ private:
   TexturePtr  _backgroundImage;
   Color       _borderColor;
   f32         _borderWidth;
+  f32         _opacity;
 
   Rect        _rect;
   bool        _visible;
   
   map<string, AnimationPtr> animations;
+  vector<string> removeKeys;
+  
   void startAnimating();
   void stopAnimating();
+  void addDefaultKeyAccessors();
+  
+  map<string, std::function<void(const Variant& v)>> key2setter;
+  map<string, std::function<Variant()>> key2getter;
 };
 }
 

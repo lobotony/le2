@@ -10,21 +10,36 @@
 #define __LostEngine2__Animation__
 
 #include "lost/TimingFunction.h"
+#include "lost/Variant.h"
 
 namespace lost
 {
 struct Animation
 {
-  void update();
+  TimeInterval    beginTime;
+  TimeInterval    timeOffset;
+  TimeInterval    duration;
+  f32             speed;
 
-  TimeInterval  beginTime;
-  TimeInterval  timeOffset;
-  u32           repeatCount;
-  TimeInterval  repeatDuration;
-  TimeInterval  duration;
-  f32           speed;
-  bool          autoreverses;
-  TimingFunction timingFunction;
+  f32             repeatCount; // 0 = ignore
+  TimeInterval    repeatDuration; // 0 = ignore
+  void            repeatForever(); // sets repeatCount to infinity
+
+  bool            autoreverses;
+
+  TimingFunction  timingFunction;
+  
+  Variant         startValue;
+  Variant         endValue;
+  string          key;
+  
+  Animation();
+  virtual ~Animation();
+  bool stopped(TimeInterval now);
+  f32 periodLength(); // in local time, unscaled by speed
+  f32 totalDuration(); // returns total duration in local time, taking autoreverse and repeats into account. Speed is not applied yet.
+  f32 currentAbsoluteTime(TimeInterval now); // returns the absolute time within the period
+  Variant currentValue(TimeInterval now);
 };
 }
 

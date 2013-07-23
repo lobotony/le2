@@ -3,6 +3,7 @@
 #include "lost/Application.h"
 #include "lost/DrawContext.h"
 #include "lost/Context.h"
+#include "lost/Animation.h"
 
 namespace lost
 {
@@ -17,9 +18,10 @@ Layer::Layer()
   _backgroundColor = whiteColor;
   _borderColor = clearColor;
   _borderWidth = 0;
+  _opacity = 1.0f;
 
   _visible = true;
-  
+  addDefaultKeyAccessors();
   needsRedraw();
 }
 
@@ -267,6 +269,9 @@ f32 Layer::borderWidth() { return _borderWidth; }
 void Layer::backgroundImage(const TexturePtr& v) { _backgroundImage=v; needsRedraw(); }
 TexturePtr Layer::backgroundImage() { return _backgroundImage; }
 
+void Layer::opacity(f32 v) { _opacity=v; if(superlayer) { superlayer->needsRedraw(); } };
+f32 Layer::opacity() {return _opacity; }
+
 
 #pragma mark - hit test -
 
@@ -315,6 +320,11 @@ void Layer::removeAllAnimations()
   stopAnimating();
 }
 
+bool Layer::hasAnimations()
+{
+  return animations.size() > 0;
+}
+
 void Layer::startAnimating()
 {
   Application::instance()->ui->startAnimating(this);
@@ -324,6 +334,81 @@ void Layer::stopAnimating()
 {
   Application::instance()->ui->stopAnimating(this);
 }
+
+void Layer::updateAnimations(TimeInterval now)
+{
+  // run all animations if not stopped
+  for(const auto& entry : animations)
+  {
+    const AnimationPtr& animation = entry.second;
+    if(!animation->stopped(now))
+    {
+      auto pos = key2setter.find(animation->key);
+      if(pos != key2setter.end())
+      {
+        pos->second(animation->currentValue(now));
+      }
+      else
+      {
+        EOUT("can't find setter for animation key "<<animation->key);
+      }
+      
+    }
+    else
+    {
+      removeKeys.push_back(entry.first);
+    }
+  }
+  
+  // remove stopped animations
+  for(auto key : removeKeys)
+  {
+    DOUT("removing animation '"<<key<<"' from layer '"<<name<<"'");
+    animations.erase(key);
+  }
+  removeKeys.clear();
+}
+
+void Layer::addDefaultKeyAccessors()
+{
+  key2setter["opacity"] = [this](const Variant& v)
+  {
+    ASSERT(v.type==VT_float, "opacity must be float");
+    opacity(v.f);
+  };
+  
+  key2getter["opacity"] = [this]() { return Variant(_opacity); };
+
+  key2setter["size"] = [this](const Variant& v)
+  {
+    ASSERT(v.type==VT_vec2, "size must be Vec2");
+    size(v.vec2);
+  };
+  
+  key2getter["size"] = [this]() { return Variant(size()); };
+
+}
+
+void Layer::setValue(const string& key, const Variant& v)
+{
+  auto pos = key2setter.find(key);
+  if(pos != key2setter.end())
+  {
+    pos->second(v);
+  }
+  else
+  {
+    WOUT("couldn't find setter for key '"<<key<<"'");
+  }
+}
+
+Variant Layer::getValue(const string& key)
+{
+  auto pos = key2getter.find(key);
+  ASSERT(pos != key2getter.end(), "can't find getter for key "<<key);
+  return pos->second();
+}
+
 
 }
 

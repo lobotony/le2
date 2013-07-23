@@ -27,7 +27,7 @@ Compositor::~Compositor()
 
 void Compositor::layerDying(Layer* layer)
 {
-  DOUT(layer->name);
+//  DOUT(layer->name);
   
   // remove from all containers that don't own layer to prevent dangling pointers
   // remove cache to improve resource usage
@@ -67,7 +67,7 @@ void Compositor::clearCacheForLayer(Layer* layer)
   if(pos != layerCache.end())
   {
     layerCache.erase(pos);
-    DOUT("removing cache for layer: "<<layer->name);
+//    DOUT("removing cache for layer: "<<layer->name);
   }
 }
   
@@ -84,7 +84,8 @@ void Compositor::draw(const LayerPtr& rootLayer)
 
   drawContext->glContext->bindDefaultFramebuffer();
   drawContext->glContext->camera(uicam);
-  drawContext->drawTexturedRect(rootLayer->rect(), layerCache[rootLayer.get()], whiteColor);
+  Color drawColor(1.0f, 1.0f, 1.0f, rootLayer->opacity());
+  drawContext->drawTexturedRect(rootLayer->rect(), layerCache[rootLayer.get()], drawColor);
   
   redrawCandidates.clear();
   redraws.clear();
@@ -141,7 +142,8 @@ void Compositor::updateLayerCaches()
     // draw sublayer contents
     for(LayerPtr sublayer : layer->sublayers)
     {
-      drawContext->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], whiteColor);
+      Color drawColor(1.0f,1.0f,1.0f, sublayer->opacity());
+      drawContext->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], drawColor);
     }
   }
 }

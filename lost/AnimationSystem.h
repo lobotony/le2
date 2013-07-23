@@ -20,6 +20,7 @@ struct AnimationSystem
   void stopAnimating(Layer* layer);
 
   vector<Layer*> layers;
+  vector<Layer*> removeLayers;
 };
 }
 
