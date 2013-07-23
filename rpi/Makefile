@@ -14,6 +14,10 @@ CPPSOURCES=main.cpp \
 					../apps/DemoApp.cpp \
 					../apps/SunApp.cpp \
 					../apps/UiTestApp.cpp \
+					../apps/BezierEd.cpp \
+					../apps/AnimTest.cpp \
+					../lost/Animation.cpp \
+					../lost/AnimationSystem.cpp \
 					../lost/Application.cpp \
 					../lost/Bitmap.cpp \
 					../lost/BitmapPacker.cpp \
@@ -36,6 +40,7 @@ CPPSOURCES=main.cpp \
 					../lost/HostBuffer.cpp \
 					../lost/HybridBuffer.cpp \
 					../lost/lgl.cpp \
+					../lost/lmath.cpp \
 					../lost/Log.cpp \
 					../lost/Material.cpp \
 					../lost/Matrix.cpp \
@@ -58,6 +63,7 @@ CPPSOURCES=main.cpp \
 					../lost/TextMesh.cpp \
 					../lost/TextRender.cpp \
 					../lost/Texture.cpp \
+					../lost/TimingFunction.cpp \
 					../lost/TruetypeFont.cpp \
 					../lost/Uniform.cpp \
 					../lost/UniformBlock.cpp \
@@ -74,7 +80,6 @@ CPPSOURCES=main.cpp \
 					../lost/layers/TextLayer.cpp \
 					../lost/DrawContext.cpp \
 					../lost/Compositor.cpp \
-					../lost/UpdateSystem.cpp \
 					../lost/UserInterface.cpp \
 					../lost/views/View.cpp
 
