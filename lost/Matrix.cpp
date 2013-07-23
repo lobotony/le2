@@ -209,6 +209,20 @@ Matrix operator*(const Matrix& lhs, const Matrix& rhs)
 
   return result;
 }
+
+Matrix operator*(const Matrix& lhs, f32 rhs)
+{
+  Matrix result = lhs;
+  
+  for(u32 i=0; i<Matrix::numvals; ++i)
+  {
+    result.m[i] *= rhs;
+  }
+  
+  return result;
+}
+
+
 Vec3 operator*(const Matrix& lhs, const Vec3& rhs)
 {
   Vec4 result;
