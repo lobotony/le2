@@ -20,6 +20,11 @@ TimingFunction::TimingFunction(const Vec2& p1, const Vec2& p2)
   epsilon = .001;
 }
 
+TimingFunction::TimingFunction()
+{
+  cp = defaultFunc().cp;
+}
+
 f32 TimingFunction::clamp(f32 v)
 {
   v = fminf(v, 1.0f);

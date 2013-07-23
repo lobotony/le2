@@ -14,6 +14,7 @@ namespace lost
 struct TimingFunction
 {
   // fixed: p0(0,0), p3(1,1)
+  TimingFunction(); // will be defaultFunc() 
   TimingFunction(const Vec2& p1, const Vec2& p2);
 
   static TimingFunction linear();
