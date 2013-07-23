@@ -137,6 +137,7 @@ struct Matrix
 };
 
 Matrix operator*(const Matrix& lhs, const Matrix& rhs);
+Matrix operator*(const Matrix& lhs, f32 rhs);
 Vec3 operator*(const Matrix& lhs, const Vec3& rhs);
 Vec4 operator*(const Matrix& lhs, const Vec4& rhs);
 

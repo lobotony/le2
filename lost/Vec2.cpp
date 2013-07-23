@@ -96,6 +96,11 @@ namespace lost
     return (inOp1.x == inOp2.x && inOp1.y == inOp2.y);
   }
 
+  bool operator!=(const Vec2& inOp1, const Vec2& inOp2)
+  {
+    return (inOp1.x != inOp2.x && inOp1.y != inOp2.y);
+  }
+
   float angle(const Vec2& inOp1, const Vec2& inOp2)
   {
     float result = 0.0f;

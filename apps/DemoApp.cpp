@@ -315,7 +315,7 @@ void DemoApp::update()
 //      DOUT("updating viewport "<<int(w)<<"/"<<int(h));
       cam->viewport(Rect(0,0,windowSize));
     }
-    else if(event->base.type == ET_MouseMoveEvent)
+    else if(event->base.type == ET_MouseMove)
     {
       controlPoints[mp].x = event->mouseEvent.x;
       controlPoints[mp].y = event->mouseEvent.y;

@@ -47,6 +47,8 @@ namespace lost
   typedef float f32;
   typedef double f64;
 
+  typedef f64 TimeInterval;
+
   #define LE_SP(structname) struct structname;typedef shared_ptr<structname> structname##Ptr;
   
   typedef u32 ResourceId;
@@ -80,6 +82,7 @@ namespace lost
   LE_SP(View);
   LE_SP(Layer);
   LE_SP(TextLayer);
+  LE_SP(Animation);
 }
 
 #endif

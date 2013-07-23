@@ -9,7 +9,6 @@
 #include "lost/layers/Layer.h"
 #include "lost/FrameBuffer.h"
 #include "lost/Context.h"
-#include <algorithm>
 
 namespace lost
 {
@@ -25,10 +24,55 @@ Compositor::Compositor()
 Compositor::~Compositor()
 {
 }
+
+void Compositor::layerDying(Layer* layer)
+{
+//  DOUT(layer->name);
+  
+  // remove from all containers that don't own layer to prevent dangling pointers
+  // remove cache to improve resource usage
+  
+  // redrawCandidates
+  auto pos = find(redrawCandidates.begin(), redrawCandidates.end(), layer);
+  if(pos != redrawCandidates.end())
+  {
+    redrawCandidates.erase(pos);
+    DOUT("removing layer from redrawCandidates: "<<layer->name);
+  }
+
+  // redraws
+  auto pos2 = find(redraws.begin(), redraws.end(), layer);
+  if(pos2 != redraws.end())
+  {
+    redraws.erase(pos2);
+    DOUT("removing layer from redraws: "<<layer->name);
+  }
+
+  clearCacheForLayer(layer);
+}
+
+void Compositor::reset()
+{
+  redrawCandidates.clear();
+  redraws.clear();
+  layerCache.clear();
+  fb->bind();
+  fb->detachAll();
+  drawContext->glContext->bindDefaultFramebuffer();
+}
+
+void Compositor::clearCacheForLayer(Layer* layer)
+{
+  auto pos = layerCache.find(layer);
+  if(pos != layerCache.end())
+  {
+    layerCache.erase(pos);
+//    DOUT("removing cache for layer: "<<layer->name);
+  }
+}
   
 void Compositor::windowResized(const Vec2& newSize)
 {
-  DOUT("");
   windowSize = newSize;
   uicam->viewport(Rect(0,0,windowSize));
 }
@@ -40,7 +84,8 @@ void Compositor::draw(const LayerPtr& rootLayer)
 
   drawContext->glContext->bindDefaultFramebuffer();
   drawContext->glContext->camera(uicam);
-  drawContext->drawTexturedRect(rootLayer->rect(), layerCache[rootLayer.get()], whiteColor);
+  Color drawColor(1.0f, 1.0f, 1.0f, rootLayer->opacity());
+  drawContext->drawTexturedRect(rootLayer->rect(), layerCache[rootLayer.get()], drawColor);
   
   redrawCandidates.clear();
   redraws.clear();
@@ -51,7 +96,7 @@ void Compositor::prepareRedraws(const LayerPtr rootLayer)
   if(redrawCandidates.size()>0)
   {
     // remove all candidates that are currently set to invisible or not part of the main hierarchy that starts at root layer
-    DOUT("redraw candidates: "<<u64(redrawCandidates.size()));
+//    DOUT("redraw candidates: "<<u64(redrawCandidates.size()));
     for(auto layer : redrawCandidates)
     {
       if(layer->isVisibleWithinSuperlayers() && layer->isSublayerOf(rootLayer.get()))
@@ -69,7 +114,7 @@ void Compositor::updateLayerCaches()
 {
   for(Layer* layer : redraws)
   {
-    DOUT(layer->z() << " : " << layer->description());
+//    DOUT(layer->z() << " : " << layer->description());
     // find existing texture for layer or create new one and resize to current layer size
     TexturePtr texture;
     auto pos = layerCache.find(layer);
@@ -97,7 +142,8 @@ void Compositor::updateLayerCaches()
     // draw sublayer contents
     for(LayerPtr sublayer : layer->sublayers)
     {
-      drawContext->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], whiteColor);
+      Color drawColor(1.0f,1.0f,1.0f, sublayer->opacity());
+      drawContext->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], drawColor);
     }
   }
 }

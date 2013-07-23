@@ -1,8 +1,8 @@
 #include "lost/UserInterface.h"
 #include "lost/EventSystem.h"
-#include "lost/UpdateSystem.h"
 #include "lost/Compositor.h"
 #include "lost/Application.h"
+#include "lost/AnimationSystem.h"
 
 namespace lost
 {
@@ -10,31 +10,37 @@ namespace lost
 UserInterface::UserInterface()
 {
   eventSystem = new EventSystem;
-  updateSystem = new UpdateSystem;
   compositor = new Compositor;
+  animator = new AnimationSystem();
 }
 
 UserInterface::~UserInterface()
 {
   delete compositor;
-  delete updateSystem;
   delete eventSystem;
+  delete animator;
 }
 
 void UserInterface::update(const EventQueue::Container& events)
 {
+  processEvents(events);
+  animator->update();
+  draw();
+}
+
+void UserInterface::processEvents(const EventQueue::Container& events)
+{
+  if(!rootView) return; // bail immediately if ui is disabled
+
   for(Event* event : events)
   {
     if(event->base.type == ET_WindowResize)
     {
       windowResized(Application::instance()->windowSize);
     }
-    else if(event->base.type == ET_MouseMoveEvent)
-    {
-    }
+    eventSystem->propagateEvent(event);
   }
 
-  // FIXME: event system needs to handle any incoming events
   // FIXME: layout system needs to layout any views and layers in queue
 }
 
@@ -65,14 +71,63 @@ void UserInterface::enable()
   if(!rootView)
   {
     rootView.reset(new View);
+    eventSystem->rootView = rootView.get();
+
+    rootView->name("rootView");
     rootView->layer->backgroundColor(clearColor);
+    rootView->focusable = true;
+    rootView->gainFocus();
+    
     windowResized(Application::instance()->windowSize);
   }
 }
 
 void UserInterface::disable()
 {
-  rootView.reset();
+  if(rootView)
+  {
+    rootView.reset();
+    eventSystem->rootView = NULL;
+    eventSystem->reset();
+    compositor->reset();
+  }
+}
+
+void UserInterface::viewDying(View* view)
+{
+  eventSystem->viewDying(view);
+}
+
+void UserInterface::layerDying(Layer* layer)
+{
+  compositor->layerDying(layer);
+  animator->stopAnimating(layer);
+  animator->reset();
+}
+
+void UserInterface::gainFocus(View* view)
+{
+  eventSystem->gainFocus(view);
+}
+
+void UserInterface::loseFocus(View* view)
+{
+  eventSystem->loseFocus(view);
+}
+
+View* UserInterface::focusedView()
+{
+  return eventSystem->focusedView();
+}
+
+void UserInterface::startAnimating(Layer* layer)
+{
+  animator->startAnimating(layer);
+}
+
+void UserInterface::stopAnimating(Layer* layer)
+{
+  animator->stopAnimating(layer);
 }
 
 }

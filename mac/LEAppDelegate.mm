@@ -27,7 +27,7 @@ extern lost::Application* _appInstance;
 -(void)sendWindowResizeEvent
 {
   NSRect curFrame = [self.window contentRectForFrameRect:self.window.frame];
-//  DOUT("w:"<<int(curFrame.size.width)<<" h:"<<int(curFrame.size.height));
+  DOUT("w:"<<int(curFrame.size.width)<<" h:"<<int(curFrame.size.height));
   lost::Event* event = _appInstance->eventPool->borrowEvent();
   event->base.type = lost::ET_WindowResize;
   _appInstance->windowSize.width = curFrame.size.width;

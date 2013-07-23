@@ -23,6 +23,7 @@ namespace lost
   {
     Rect(float nx, float ny, float w, float h);
     Rect(float nx, float ny, const Vec2& sz);
+    Rect(const Vec2& pos, const Vec2& size);
     Rect();
 
     void operator +=( const Vec2& parentPos );

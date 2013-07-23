@@ -1,8 +1,6 @@
 #ifndef LOST_COMPOSITOR_H
 #define LOST_COMPOSITOR_H
 
-#include "lost/types.h"
-
 namespace lost
 {
 
@@ -20,7 +18,10 @@ struct Compositor
   
   void needsRedraw(Layer* layer);
   
-  
+  void layerDying(Layer* layer);
+  void clearCacheForLayer(Layer* layer);
+  void reset(); // called when ui is disabled, clears and resets all state
+
 private:
   Vec2 windowSize;
   Camera2DPtr uicam;

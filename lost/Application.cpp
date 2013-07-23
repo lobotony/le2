@@ -61,7 +61,6 @@ void Application::doUpdate()
   clock.update();
   update();
   ui->update(eventQueue->getCurrentQueue());
-  ui->draw();
   eventQueue->swap();
 }
 
@@ -69,6 +68,7 @@ void Application::doShutdown()
 {
   // user shutdown
   shutdown();
+  ui->disable();
   // Application shutdown
   delete glContext;
 }

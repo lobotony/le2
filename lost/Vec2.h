@@ -45,6 +45,7 @@ namespace lost
   void operator +=(Vec2& inOp1, const Vec2& inOp2);
   Vec2 operator-(const Vec2& inOp1, const Vec2& inOp2);
   bool operator==(const Vec2& inOp1, const Vec2& inOp2);
+  bool operator!=(const Vec2& inOp1, const Vec2& inOp2);
   float angle(const Vec2& inOp1, const Vec2& inOp2);
 
   // compares two vectors, taking epsilon into account for rounding errors

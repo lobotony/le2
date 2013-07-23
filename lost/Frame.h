@@ -1,8 +1,6 @@
 #ifndef LOST_FRAME_H
 #define LOST_FRAME_H
 
-#include "lost/Rect.h"
-
 namespace lost
 {
 

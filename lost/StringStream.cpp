@@ -141,5 +141,11 @@ lost::StringStream& operator<<(lost::StringStream& s, const lost::Rect& v)
   return s;
 }
 
+lost::StringStream& operator<<(lost::StringStream& s, const lost::Color& v)
+{
+  s << "( "<<v.fv[0]<<" / "<<v.fv[1]<<" / "<<v.fv[2]<<" / "<<v.fv[3]<<" )";
+  return s;
+}
+
 
 

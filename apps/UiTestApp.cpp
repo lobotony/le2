@@ -3,6 +3,7 @@
 #include "lost/UserInterface.h"
 #include "lost/layers/TextLayer.h"
 #include "lost/ResourceManager.h"
+#include "lost/Event.h"
 
 namespace lost
 {
@@ -120,6 +121,90 @@ void UiTestApp::startup()
   }
   first = true;
   logged = false;
+  
+  
+  ViewPtr v1(new View);
+  ViewPtr v2(new View);
+  v1->addSubview(v2);
+  ViewPtr v3(new View);
+  ui->rootView->addSubview(v1);
+  ui->rootView->addSubview(v3);
+  
+  v1->name("red");
+  v1->rect(0, 500, 200, 100);
+  v1->layer->backgroundColor(redColor);
+  
+  v2->name("green");
+  v2->rect(10, 10, 50, 50);
+  v2->layer->backgroundColor(greenColor);
+  
+  v3->name("yellow");
+  v3->rect(300, 500, 140, 80);
+  v3->layer->backgroundColor(yellowColor);
+  
+  cursor.reset(new Layer);
+  cursor->pos(Vec2(0,0));
+  cursor->size(Vec2(20,20));
+  cursor->backgroundColor(whiteColor);
+  cursor->name="cursor";
+  ui->rootView->layer->addSublayer(cursor);
+  
+  auto poslogger = [this](Event* ev)
+  {
+//    DOUT("move "<<ev->mouseEvent.x<<" "<<ev->mouseEvent.y);
+    cursor->pos(Vec2(ev->mouseEvent.x, ev->mouseEvent.y));
+  };
+  
+//  auto enterLogger = [this](Event* ev) { DOUT(ev->base.currentTarget->name()<<": enter "<<ev->base.target->name()<<" phase: "<<ev->base.phase); };
+//  auto leaveLogger = [this](Event* ev) { DOUT(ev->base.currentTarget->name()<<": leave "<<ev->base.target->name()<<" phase: "<<ev->base.phase); };
+  
+//  auto mouseDownLogger = [this](Event* ev) { //DOUT(DOUT(ev->base.currentTarget->name()
+    
+  auto evLogger = [this](Event* ev) {if(!next) {DOUT("==================");next=true;}
+                                      DOUT(ev->base.currentTarget->name()<<" "
+                                        <<ev->base.target->name()<<" "
+                                        <<eventTypeToString(ev->base.type)<<" "
+                                        <<eventPhaseToString(ev->base.phase));
+                                      if((ev->base.type == ET_FocusGained) || (ev->base.type == ET_FocusLost))
+                                      {
+                                        View* cf = ui->focusedView();
+                                        DOUT("currently focused view: "<<(cf ? cf->name() : "NULL"));
+                                      }
+                                    };
+  
+  ui->rootView->addEventHandler(ET_MouseMove,poslogger,EP_Capture);
+  ui->rootView->addEventHandler(ET_MouseMove,poslogger,EP_Target);
+  
+  ui->rootView->addEventHandler(ET_MouseEnter, evLogger, EP_Bubble);
+  ui->rootView->addEventHandler(ET_MouseEnter, evLogger, EP_Target);
+  ui->rootView->addEventHandler(ET_MouseLeave, evLogger, EP_Bubble);
+  ui->rootView->addEventHandler(ET_MouseLeave, evLogger, EP_Target);
+  ui->rootView->addEventHandler(ET_FocusGained, evLogger, EP_Bubble);
+  ui->rootView->addEventHandler(ET_FocusGained, evLogger, EP_Target);
+  ui->rootView->addEventHandler(ET_FocusLost, evLogger, EP_Bubble);
+  ui->rootView->addEventHandler(ET_FocusLost, evLogger, EP_Target);
+
+  ui->rootView->addEventHandler(ET_KeyUp, evLogger, EP_Bubble);
+  ui->rootView->addEventHandler(ET_KeyUp, evLogger, EP_Target);
+  ui->rootView->addEventHandler(ET_KeyDown, evLogger, EP_Bubble);
+  ui->rootView->addEventHandler(ET_KeyDown, evLogger, EP_Target);
+
+  v1->addEventHandler(ET_MouseEnter, evLogger, EP_Bubble);
+  v1->addEventHandler(ET_MouseEnter, evLogger, EP_Target);
+  v1->addEventHandler(ET_MouseLeave, evLogger, EP_Bubble);
+  v1->addEventHandler(ET_MouseLeave, evLogger, EP_Target);
+
+  v2->addEventHandler(ET_MouseEnter, evLogger, EP_Bubble);
+  v2->addEventHandler(ET_MouseEnter, evLogger, EP_Target);
+  v2->addEventHandler(ET_MouseLeave, evLogger, EP_Bubble);
+  v2->addEventHandler(ET_MouseLeave, evLogger, EP_Target);
+
+  v3->addEventHandler(ET_MouseEnter, evLogger, EP_Bubble);
+  v3->addEventHandler(ET_MouseEnter, evLogger, EP_Target);
+  v3->addEventHandler(ET_MouseLeave, evLogger, EP_Bubble);
+  v3->addEventHandler(ET_MouseLeave, evLogger, EP_Target);
+
+  DOUT("current focus: "<<ui->focusedView()->name());
 }
 
 void UiTestApp::update()
@@ -135,6 +220,7 @@ void UiTestApp::update()
   {
     first = false;
   }
+  next = false;
 }
 
 void UiTestApp::shutdown()

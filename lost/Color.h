@@ -53,12 +53,14 @@ namespace lost
 
 
   lost::Color operator*(const Color& l, const Color& r);
+  lost::Color operator-(const Color& l, const Color& r);
+  lost::Color operator+(const Color& l, const Color& r);
   lost::Color operator*(const Color& l, float);
   bool operator ==(const Color& l, const Color& r);
   bool operator !=(const Color& l, const Color& r);
-  void operator+=(Color& l, const Color& r);
-  void operator-=(Color& l, const Color& r);
-  void operator/=(Color& l, float);
+  void operator+=(Color& l, const Color& r); // clamps FIXME: remove?
+  void operator-=(Color& l, const Color& r);// clamps FIXME: remove?
+  void operator/=(Color& l, float); // asserts FIXME: remove?
 
   extern const lost::Color clearColor      ;
   extern const lost::Color whiteColor      ;

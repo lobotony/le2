@@ -22,6 +22,9 @@ namespace lost
     Rect::Rect(float nx, float ny, const Vec2& sz)
     : x(nx), y(ny), width(sz.width), height(sz.height) {}
 
+    Rect::Rect(const Vec2& pos, const Vec2& size)
+    : x(pos.x), y(pos.y), width(size.width), height(size.height) {}
+
     Rect::Rect() : x(0), y(0), width(0), height(0) {}
 
     void Rect::operator +=( const Vec2& parentPos )

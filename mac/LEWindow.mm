@@ -10,28 +10,41 @@ extern lost::Application* _appInstance;
 -(void)keyDown:(NSEvent *)theEvent
 {
   lost::Event* event = _appInstance->eventPool->borrowEvent();
-  event->base.type = lost::ET_KeyDownEvent;
+  event->base.type = lost::ET_KeyDown;
   _appInstance->eventQueue->addEventToNextQueue(event);
 }
 
 -(void)keyUp:(NSEvent *)theEvent
 {
   lost::Event* event = _appInstance->eventPool->borrowEvent();
-  event->base.type = lost::ET_KeyUpEvent;
+  event->base.type = lost::ET_KeyUp;
   _appInstance->eventQueue->addEventToNextQueue(event);
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
   lost::Event* event = _appInstance->eventPool->borrowEvent();
-  event->base.type = lost::ET_MouseDownEvent;
+  event->base.type = lost::ET_MouseDown;
   _appInstance->eventQueue->addEventToNextQueue(event);
 }
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
   lost::Event* event = _appInstance->eventPool->borrowEvent();
-  event->base.type = lost::ET_MouseUpEvent;
+  event->base.type = lost::ET_MouseUp;
+  _appInstance->eventQueue->addEventToNextQueue(event);
+}
+
+-(void)mouseDragged:(NSEvent *)theEvent
+{
+  NSPoint eventLocation = [theEvent locationInWindow];
+  NSPoint center = [self.contentView convertPoint:eventLocation fromView:nil];
+
+  lost::Event* event = _appInstance->eventPool->borrowEvent();
+  event->base.type = lost::ET_MouseMove;
+  event->mouseEvent.type = lost::ET_MouseMove;
+  event->mouseEvent.x = center.x;
+  event->mouseEvent.y = center.y;
   _appInstance->eventQueue->addEventToNextQueue(event);
 }
 
@@ -42,8 +55,8 @@ extern lost::Application* _appInstance;
 //  DOUT("move pos "<<center.x<<" "<<center.y);
 
   lost::Event* event = _appInstance->eventPool->borrowEvent();
-  event->base.type = lost::ET_MouseMoveEvent;
-  event->mouseEvent.type = lost::ET_MouseMoveEvent;
+  event->base.type = lost::ET_MouseMove;
+  event->mouseEvent.type = lost::ET_MouseMove;
   event->mouseEvent.x = center.x;
   event->mouseEvent.y = center.y;
   _appInstance->eventQueue->addEventToNextQueue(event);
@@ -53,7 +66,6 @@ extern lost::Application* _appInstance;
 {
   return YES;
 }
-
 
 @end
 

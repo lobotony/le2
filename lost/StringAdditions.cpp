@@ -6,6 +6,20 @@ namespace lost
 
 using namespace std;
 
+u32 djb2Hash(const char* data)
+{
+  u32 hash = 5381;
+  s32 c;
+
+  const unsigned char* str = reinterpret_cast<const unsigned char*> (data);
+  while ((c = *str++))
+  {
+      hash = ((hash << 5) + hash) + c;
+  }
+
+  return hash;  
+}
+
 bool replace(string& value,
              string const& search,
              string const& replace)

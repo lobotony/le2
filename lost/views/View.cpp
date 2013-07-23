@@ -1,5 +1,6 @@
 #include "lost/views/View.h"
-#include <algorithm>
+#include "lost/Application.h"
+#include "lost/UserInterface.h"
 
 namespace lost
 {
@@ -8,10 +9,13 @@ View::View()
 {
   layer.reset(new Layer);
   superview = NULL;
+  focusable = true;
+  focused = false;
 }
 
 View::~View()
 {
+  Application::instance()->ui->viewDying(this);
 }
 
 bool View::containsSubview(const ViewPtr& view)
@@ -32,6 +36,7 @@ void View::addSubview(const ViewPtr& view)
     if(!view->superview)
     {
       subviews.push_back(view);
+      layer->addSublayer(view->layer);
       view->superview = this;
     }
     else
@@ -52,6 +57,7 @@ void View::removeSubview(const ViewPtr& view)
     if(view->superview == this)
     {
       subviews.remove(view);
+      layer->removeSublayer(view->layer);
       view->superview = NULL;
     }
     else
@@ -69,6 +75,119 @@ void View::removeFromSuperview()
 {
   ASSERT(superview != NULL, "tried to remove subview without superview");
   superview->removeSubview(shared_from_this());
+}
+
+void View::removeAllSubviews()
+{
+  for(const ViewPtr& view: subviews)
+  {
+    removeSubview(view);
+  }
+}
+
+bool View::isSubviewOf(View* root)
+{
+  bool result = false;
+  View* view = this;
+  while(view)
+  {
+    if(view == root)
+    {
+      result = true;
+      break;
+    }
+    view = view->superview;
+  }
+  return result;
+}
+
+
+#pragma mark - debug -
+
+string View::name()
+{
+  return layer->name;
+}
+
+void View::name(const string& v)
+{
+  layer->name = v;
+}
+
+#pragma mark - focus handling -
+
+void View::gainFocus()
+{
+  Application::instance()->ui->gainFocus(this);
+}
+
+void View::loseFocus()
+{
+  Application::instance()->ui->loseFocus(this);
+}
+
+#pragma mark - visibility -
+
+bool View::isVisibleWithinSuperviews()
+{
+  return layer->isVisibleWithinSuperlayers();
+}
+
+void View::visible(bool val)
+{
+  layer->visible(val);
+}
+
+bool View::visible()
+{
+  return layer->visible();
+}
+
+#pragma mark - hit test - 
+
+bool View::containsPoint(const Vec2& point)
+{
+  return layer->containsPoint(point);
+}
+
+#pragma mark - basic geometry -
+
+void View::rect(f32 x, f32 y, f32 w, f32 h) { layer->rect(x, y, w, h); }
+void View::rect(const Rect& r) { layer->rect(r); }
+const Rect& View::rect() const { return layer->rect(); }
+
+void View::pos(const Vec2& p) { layer->pos(p); }
+Vec2 View::pos() const { return layer->pos(); }
+
+void View::size(const Vec2& sz) { layer->size(sz); }
+Vec2 View::size() const { return layer->size(); }
+
+#pragma mark - event handing - 
+
+EDConnection View::addEventHandler(EventType et, EventHandler handler, EventPhase phase)
+{
+  if(phase == EP_Bubble)
+  {
+    return bubbleEventDispatcher.addHandler(et, handler);
+  }
+  else if(phase == EP_Target)
+  {
+    return targetEventDispatcher.addHandler(et, handler);
+  }
+  else if(phase == EP_Capture)
+  {
+    return captureEventDispatcher.addHandler(et, handler);
+  }
+  ASSERT(false, "unknown phase: "<<phase);
+  return EDConnection();
+}
+
+void View::removeEventHandler(const EDConnection& connection)
+{
+}
+
+void View::dispatchEvent(Event* event, EventPhase phase)
+{
 }
 
 }

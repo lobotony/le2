@@ -3,7 +3,7 @@
 #include "lost/Application.h"
 #include "lost/DrawContext.h"
 #include "lost/Context.h"
-#include <algorithm>
+#include "lost/Animation.h"
 
 namespace lost
 {
@@ -11,7 +11,6 @@ namespace lost
 Layer::Layer()
 {
   name = "";
-  frame = Frame();
   
   superlayer = NULL;
   
@@ -19,14 +18,16 @@ Layer::Layer()
   _backgroundColor = whiteColor;
   _borderColor = clearColor;
   _borderWidth = 0;
+  _opacity = 1.0f;
 
   _visible = true;
-  
+  addDefaultKeyAccessors();
   needsRedraw();
 }
 
 Layer::~Layer()
 {
+  Application::instance()->ui->layerDying(this);
 }
 
 string Layer::description()
@@ -35,6 +36,8 @@ string Layer::description()
   os << "[Layer "<<(u64)this<<" '"<<name<<"']";
   return os.str();
 }
+
+#pragma mark - Layer Hierarchy -
 
 void Layer::addSublayer(const LayerPtr& layer)
 {
@@ -80,9 +83,35 @@ void Layer::removeFromSuperlayer()
   }
 }
 
+void Layer::removeAllSublayers()
+{
+  for(const LayerPtr& layer : sublayers)
+  {
+    removeSublayer(layer);
+  }
+}
+
 bool Layer::isSublayer(const LayerPtr& layer)
 {
   return (find(sublayers.begin(), sublayers.end(), layer) != sublayers.end());
+}
+
+bool Layer::isSublayerOf(Layer* root)
+{
+  bool result = this == root ? true : false;
+  
+  Layer* l = this->superlayer;
+  while(l)
+  {
+    if(l == root)
+    {
+      result = true;
+      break;
+    }
+    l = l->superlayer;
+  }
+  
+  return result;
 }
 
 u16 Layer::z()
@@ -97,10 +126,7 @@ u16 Layer::z()
   return result;
 }
 
-void Layer::needsRedraw()
-{
-  Application::instance()->ui->needsRedraw(this);
-}
+#pragma mark - Visibility -
 
 bool Layer::isVisibleWithinSuperlayers()
 {
@@ -126,22 +152,11 @@ bool Layer::visible()
   return _visible;
 }
 
-bool Layer::isSublayerOf(Layer* root)
+#pragma mark - Drawing -
+
+void Layer::needsRedraw()
 {
-  bool result = this == root ? true : false;
-  
-  Layer* l = this->superlayer;
-  while(l)
-  {
-    if(l == root)
-    {
-      result = true;
-      break;
-    }
-    l = l->superlayer;
-  }
-  
-  return result;
+  Application::instance()->ui->needsRedraw(this);
 }
 
 void Layer::draw(DrawContext* ctx)
@@ -158,7 +173,7 @@ void Layer::draw(DrawContext* ctx)
 
     if(effectiveCornerRadius <= 0)
     {
-      DOUT("solid "<<_cornerRadius << " : " << _borderWidth);
+//      DOUT("solid "<<_cornerRadius << " : " << _borderWidth);
       Rect r(0,0,_rect.size());
       if(!_backgroundImage)
       {
@@ -185,17 +200,25 @@ void Layer::draw(DrawContext* ctx)
   }
 }
 
+#pragma mark - Basic Geometry -
+
 void Layer::rect(f32 x, f32 y, f32 w, f32 h)
 {
   rect(Rect(x,y,w,h));
 }
 
-
 void Layer::rect(const Rect& r)
 {
   if(r != _rect)
   {
-    needsRedraw();
+    if (r.size() != _rect.size())
+    {
+      needsRedraw();
+    }
+    if(superlayer)
+    {
+      superlayer->needsRedraw();
+    }
   }
   _rect = r;
 }
@@ -229,6 +252,8 @@ Vec2 Layer::size() const
   return _rect.size();
 }
 
+#pragma mark - Draw Properties -
+
 void Layer::cornerRadius(s16 v) {_cornerRadius=v; needsRedraw(); }
 s16 Layer::cornerRadius() { return _cornerRadius; };
 
@@ -243,6 +268,146 @@ f32 Layer::borderWidth() { return _borderWidth; }
 
 void Layer::backgroundImage(const TexturePtr& v) { _backgroundImage=v; needsRedraw(); }
 TexturePtr Layer::backgroundImage() { return _backgroundImage; }
+
+void Layer::opacity(f32 v) { _opacity=v; if(superlayer) { superlayer->needsRedraw(); } };
+f32 Layer::opacity() {return _opacity; }
+
+
+#pragma mark - hit test -
+
+bool Layer::containsPoint(const Vec2& gp)
+{
+  Vec2 p = _rect.pos();
+  Layer* l = superlayer;
+  while(l)
+  {
+    p += l->_rect.pos();
+    l = l->superlayer;
+  }
+  Rect r(p, _rect.size());
+  return r.contains(gp);
+}
+
+#pragma mark - Animation -
+
+void Layer::addAnimation(const string& key, const AnimationPtr& animation)
+{
+  animations[key] = animation;
+  startAnimating();
+}
+
+AnimationPtr Layer::animation(const string& key)
+{
+  return animations[key];
+}
+
+void Layer::removeAnimation(const string& key)
+{
+  auto pos = animations.find(key);
+  if(pos != animations.end())
+  {
+    animations.erase(pos);
+    if(animations.size() == 0)
+    {
+      stopAnimating();
+    }
+  }
+}
+
+void Layer::removeAllAnimations()
+{
+  animations.clear();
+  stopAnimating();
+}
+
+bool Layer::hasAnimations()
+{
+  return animations.size() > 0;
+}
+
+void Layer::startAnimating()
+{
+  Application::instance()->ui->startAnimating(this);
+}
+
+void Layer::stopAnimating()
+{
+  Application::instance()->ui->stopAnimating(this);
+}
+
+void Layer::updateAnimations(TimeInterval now)
+{
+  // run all animations if not stopped
+  for(const auto& entry : animations)
+  {
+    const AnimationPtr& animation = entry.second;
+    if(!animation->stopped(now))
+    {
+      auto pos = key2setter.find(animation->key);
+      if(pos != key2setter.end())
+      {
+        pos->second(animation->currentValue(now));
+      }
+      else
+      {
+        EOUT("can't find setter for animation key "<<animation->key);
+      }
+      
+    }
+    else
+    {
+      removeKeys.push_back(entry.first);
+    }
+  }
+  
+  // remove stopped animations
+  for(auto key : removeKeys)
+  {
+    DOUT("removing animation '"<<key<<"' from layer '"<<name<<"'");
+    animations.erase(key);
+  }
+  removeKeys.clear();
+}
+
+void Layer::addDefaultKeyAccessors()
+{
+  key2setter["opacity"] = [this](const Variant& v)
+  {
+    ASSERT(v.type==VT_float, "opacity must be float");
+    opacity(v.f);
+  };
+  
+  key2getter["opacity"] = [this]() { return Variant(_opacity); };
+
+  key2setter["size"] = [this](const Variant& v)
+  {
+    ASSERT(v.type==VT_vec2, "size must be Vec2");
+    size(v.vec2);
+  };
+  
+  key2getter["size"] = [this]() { return Variant(size()); };
+
+}
+
+void Layer::setValue(const string& key, const Variant& v)
+{
+  auto pos = key2setter.find(key);
+  if(pos != key2setter.end())
+  {
+    pos->second(v);
+  }
+  else
+  {
+    WOUT("couldn't find setter for key '"<<key<<"'");
+  }
+}
+
+Variant Layer::getValue(const string& key)
+{
+  auto pos = key2getter.find(key);
+  ASSERT(pos != key2getter.end(), "can't find getter for key "<<key);
+  return pos->second();
+}
 
 
 }

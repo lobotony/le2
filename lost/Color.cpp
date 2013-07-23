@@ -70,6 +70,30 @@ namespace lost
     return result;
   }
 
+  lost::Color operator-(const Color& l, const Color& r)
+  {
+    Color result;
+
+    result.fv[0] = l.fv[0] - r.fv[0];
+    result.fv[1] = l.fv[1] - r.fv[1];
+    result.fv[2] = l.fv[2] - r.fv[2];
+    result.fv[3] = l.fv[3] - r.fv[3];
+
+    return result;
+  }
+
+  lost::Color operator+(const Color& l, const Color& r)
+  {
+    Color result;
+
+    result.fv[0] = l.fv[0] + r.fv[0];
+    result.fv[1] = l.fv[1] + r.fv[1];
+    result.fv[2] = l.fv[2] + r.fv[2];
+    result.fv[3] = l.fv[3] + r.fv[3];
+
+    return result;
+  }
+
   Color operator*(const Color& l, float f)
   {
     Color result;
