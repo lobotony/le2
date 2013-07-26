@@ -44,7 +44,6 @@
 		EABB38E41600CDD80009D8F7 /* LEWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = EABB38E31600CDD80009D8F7 /* LEWindow.mm */; };
 		EABB38EA1600D42B0009D8F7 /* EventQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38E71600D42B0009D8F7 /* EventQueue.cpp */; };
 		EABB38ED1600D6FA0009D8F7 /* EventPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38EB1600D6FA0009D8F7 /* EventPool.cpp */; };
-		EABB38F21600DCF00009D8F7 /* tinythread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38F01600DCF00009D8F7 /* tinythread.cpp */; };
 		EABC647C179AAE9000B1A409 /* TimingFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABC647A179AAE9000B1A409 /* TimingFunction.cpp */; };
 		EABC647E179AAF7D00B1A409 /* lmath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABC647D179AAF7D00B1A409 /* lmath.cpp */; };
 		EACD243815D7E48D00453F75 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EACD243715D7E48D00453F75 /* Cocoa.framework */; };
@@ -175,9 +174,6 @@
 		EABB38E81600D42B0009D8F7 /* EventQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventQueue.h; sourceTree = "<group>"; };
 		EABB38EB1600D6FA0009D8F7 /* EventPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventPool.cpp; sourceTree = "<group>"; };
 		EABB38EC1600D6FA0009D8F7 /* EventPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventPool.h; sourceTree = "<group>"; };
-		EABB38EF1600DCF00009D8F7 /* fast_mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fast_mutex.h; path = ../thirdparty/tinythread/source/fast_mutex.h; sourceTree = "<group>"; };
-		EABB38F01600DCF00009D8F7 /* tinythread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinythread.cpp; path = ../thirdparty/tinythread/source/tinythread.cpp; sourceTree = "<group>"; };
-		EABB38F11600DCF00009D8F7 /* tinythread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinythread.h; path = ../thirdparty/tinythread/source/tinythread.h; sourceTree = "<group>"; };
 		EABC647A179AAE9000B1A409 /* TimingFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimingFunction.cpp; sourceTree = "<group>"; };
 		EABC647B179AAE9000B1A409 /* TimingFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimingFunction.h; sourceTree = "<group>"; };
 		EABC647D179AAF7D00B1A409 /* lmath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lmath.cpp; sourceTree = "<group>"; };
@@ -300,16 +296,6 @@
 			name = apps;
 			sourceTree = "<group>";
 		};
-		EABB38EE1600DCE10009D8F7 /* tinythread */ = {
-			isa = PBXGroup;
-			children = (
-				EABB38EF1600DCF00009D8F7 /* fast_mutex.h */,
-				EABB38F01600DCF00009D8F7 /* tinythread.cpp */,
-				EABB38F11600DCF00009D8F7 /* tinythread.h */,
-			);
-			name = tinythread;
-			sourceTree = "<group>";
-		};
 		EACD242815D7E48D00453F75 = {
 			isa = PBXGroup;
 			children = (
@@ -364,7 +350,6 @@
 			isa = PBXGroup;
 			children = (
 				EAF358101728161300824CF2 /* json-cpp */,
-				EABB38EE1600DCE10009D8F7 /* tinythread */,
 				EACD247015D7F82100453F75 /* stb_image_write.h */,
 				EACD247115D7F82100453F75 /* stb_image.c */,
 				EACD247215D7F82100453F75 /* stb_truetype.h */,
@@ -680,7 +665,6 @@
 				EABB38E41600CDD80009D8F7 /* LEWindow.mm in Sources */,
 				EABB38EA1600D42B0009D8F7 /* EventQueue.cpp in Sources */,
 				EABB38ED1600D6FA0009D8F7 /* EventPool.cpp in Sources */,
-				EABB38F21600DCF00009D8F7 /* tinythread.cpp in Sources */,
 				EAF3580F17280F6700824CF2 /* ResourceManager.cpp in Sources */,
 				EAF3581A1728162200824CF2 /* json_reader.cpp in Sources */,
 				EAF3581B1728162200824CF2 /* json_value.cpp in Sources */,

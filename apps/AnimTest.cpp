@@ -49,20 +49,7 @@ void AnimTest::startup()
   
   #define SZDOUT(c) DOUT("sizeof("<<#c<<") = "<<u64(sizeof(c)));
   SZDOUT(Animation);
-  
-  Animation a1;
-  DOUT("periodLength: "<<a1.periodLength());
-  DOUT("totalDuration: "<<a1.totalDuration());
-  a1.repeatCount = 2;
-  DOUT("periodLength: "<<a1.periodLength());
-  DOUT("totalDuration: "<<a1.totalDuration());
-  a1.repeatCount = 0;
-  DOUT("periodLength: "<<a1.periodLength());
-  DOUT("totalDuration: "<<a1.totalDuration());
-  a1.autoreverses = true;
-  DOUT("periodLength: "<<a1.periodLength());
-  DOUT("totalDuration: "<<a1.totalDuration());
-  
+    
   f32 duration = 3;
   f32 speed = 1;
   f32 repeatCount = 100;

@@ -2,8 +2,7 @@
 #define LOST_EVENTQUEUE_H
 
 #include "lost/Event.h"
-
-namespace tthread { class mutex; }
+#include <thread>
 
 namespace lost
 {
@@ -35,7 +34,7 @@ struct EventQueue
   
 
 private:
-  tthread::mutex* _mutex;
+  std::mutex mutex;
   Container* currentQ;
   Container* nextQ;
   Container q0;

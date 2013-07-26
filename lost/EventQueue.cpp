@@ -1,27 +1,24 @@
 #include "lost/EventQueue.h"
 #include "lost/EventPool.h"
-#include "tinythread.h"
 
 namespace lost
 {
 
 EventQueue::EventQueue()
 {
-  _mutex = new tthread::mutex;
   currentQ = &q0;
   nextQ = &q1;
 }
 
 EventQueue::~EventQueue()
 {
-  delete _mutex;
 }
 
 void EventQueue::addEventToNextQueue(Event* event)
 {
-  _mutex->lock();
+  std::lock_guard<std::mutex> lock(mutex);
+
   nextQ->push_back(event);
-  _mutex->unlock();
 }
 
 const EventQueue::Container& EventQueue::getCurrentQueue()
@@ -31,7 +28,7 @@ const EventQueue::Container& EventQueue::getCurrentQueue()
 
 void EventQueue::swap()
 {
-  _mutex->lock();
+  std::lock_guard<std::mutex> lock(mutex);
 
   
   // return all events to their respective pools and clear pointer list
@@ -51,8 +48,6 @@ void EventQueue::swap()
   cnt.clear();
   
   std::swap(currentQ, nextQ);
-
-  _mutex->unlock();
 }
 
 }

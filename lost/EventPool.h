@@ -2,8 +2,7 @@
 #define LOST_EVENTPOOL_H
 
 #include "lost/Event.h"
-
-namespace tthread { class mutex; }
+#include <thread>
 
 namespace lost
 {
@@ -18,7 +17,7 @@ struct EventPool
   
   size_t          _numEvents;
   Event*          _events;
-  tthread::mutex* _mutex;
+  std::mutex      _mutex;
 };
 
 }

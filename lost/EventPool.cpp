@@ -1,13 +1,10 @@
 #include "lost/EventPool.h"
-#include "tinythread.h"
 
 namespace lost
 {
 
 EventPool::EventPool()
 {
-  _mutex = new tthread::mutex;
-
   _numEvents = 128;
   size_t bytes = _numEvents*sizeof(Event);
   _events = (Event*)malloc(bytes);
@@ -21,13 +18,12 @@ EventPool::EventPool()
 
 EventPool::~EventPool()
 {
-  delete _mutex;
   free(_events);
 }
 
 Event* EventPool::borrowEvent()
 {
-  _mutex->lock();
+  std::lock_guard<std::mutex> lock(_mutex);
   Event* result = NULL;
   
   for(size_t i=0; i<_numEvents; ++i)
@@ -40,15 +36,13 @@ Event* EventPool::borrowEvent()
     }
   }
   ASSERT(result, "no free event found");
-  _mutex->unlock();
   return result;
 }
 
 void EventPool::returnEvent(Event* event)
 {
-  _mutex->lock();
+  std::lock_guard<std::mutex> lock(_mutex);
   event->base.used = false;
-  _mutex->unlock();
 }
 
 }
