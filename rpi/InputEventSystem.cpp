@@ -15,6 +15,13 @@
 #include <termios.h>
 #include <signal.h>
 
+#include "lost/Application.h"
+#include "lost/Event.h"
+#include "lost/EventPool.h"
+#include "lost/EventQueue.h"
+
+extern lost::Application* _appInstance;
+
 namespace lost
 {
 
@@ -272,8 +279,8 @@ void InputEventSystem::parse(struct input_event* events, u32 num)
       {
         switch(ev->code)
         {
-          case ABS_X:currentX = (ev->value/dx)*displayWidth;break;
-          case ABS_Y:currentY = (ev->value/dy)*displayHeight;break;
+          case ABS_X:currentX = floorf((ev->value/dx)*displayWidth);break;
+          case ABS_Y:currentY = floorf(displayHeight - (ev->value/dy)*displayHeight);break;
           default:
             //DOUT("tf");
 //            DOUT(code2string(ev->type, ev->code, "?"));
@@ -346,7 +353,30 @@ void InputEventSystem::emitEvent(struct input_event* ev)
 
   if(doEmit)
   {
-    DOUT(state2string() << " " << (s32)currentX  << " " << (s32)currentY << " time: "<<(s64)ev->time.tv_sec<<" "<<(s64)ev->time.tv_usec);
+//    DOUT(state2string() << " " << (s32)currentX  << " " << (s32)currentY << " time: "<<(s64)ev->time.tv_sec<<" "<<(s64)ev->time.tv_usec);
+
+    lost::Event* event = _appInstance->eventPool->borrowEvent();
+
+    switch(currentState)
+    {
+      case ST_TOUCH_UP:
+        event->base.type = lost::ET_MouseUp;
+        event->mouseEvent.x = currentX;
+        event->mouseEvent.y = currentY;       
+        break; 
+      case ST_TOUCH_DOWN:
+        event->base.type = lost::ET_MouseDown;
+        event->mouseEvent.x = currentX;
+        event->mouseEvent.y = currentY;        
+        break; 
+      case ST_TOUCH_UPDATE:      
+        event->base.type = lost::ET_MouseMove;
+        event->mouseEvent.x = currentX;
+        event->mouseEvent.y = currentY;        
+        break;
+    }
+
+    _appInstance->eventQueue->addEventToNextQueue(event);    
   }
   else
   {

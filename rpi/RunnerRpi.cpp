@@ -12,6 +12,7 @@
 #include "lost/EventQueue.h"
 #include "lost/EventPool.h"
 #include "InputEventSystem.h"
+#include <thread>
 
 lost::Application* _appInstance = NULL;
 
@@ -126,8 +127,12 @@ void run(Application* app)
 
   _appInstance->doStartup();
 
+
   InputEventSystem ies;
-  ies.run("/dev/input/event1");
+  std::thread inputThread([&]() {
+    ies.run("/dev/input/event1");
+  });
+  inputThread.detach();
 
   while(true)
   {
