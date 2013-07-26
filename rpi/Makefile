@@ -11,6 +11,7 @@ LOSTENGINE_DEFS=-DLOST_PLATFORM_RPI
 
 CPPSOURCES=main.cpp \
 					RunnerRpi.cpp \
+					InputEventSystem.cpp \
 					../apps/DemoApp.cpp \
 					../apps/SunApp.cpp \
 					../apps/UiTestApp.cpp \

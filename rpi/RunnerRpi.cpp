@@ -11,6 +11,7 @@
 #include <sstream>
 #include "lost/EventQueue.h"
 #include "lost/EventPool.h"
+#include "InputEventSystem.h"
 
 lost::Application* _appInstance = NULL;
 
@@ -124,6 +125,9 @@ void run(Application* app)
   _appInstance->windowSize = Vec2(display_width, display_height); 
 
   _appInstance->doStartup();
+
+  InputEventSystem ies;
+  ies.run("/dev/input/event1");
 
   while(true)
   {
