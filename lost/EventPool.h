@@ -2,7 +2,7 @@
 #define LOST_EVENTPOOL_H
 
 #include "lost/Event.h"
-#include <thread>
+#include <mutex>
 
 namespace lost
 {
