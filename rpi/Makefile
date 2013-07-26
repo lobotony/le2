@@ -1,6 +1,6 @@
 SYSDIRS=-I/opt/vc/include -I/opt/vc/include/interface/vmcs_host/linux -I/opt/vc/include/interface/vmcs_host/ -I/opt/vc/include/interface/vcos/pthreads
 
-THIRDPARTY=-I../thirdparty -I../thirdparty/utfcpp -I../thirdparty/tinythread/source/ -I../thirdparty/jsoncpp-src-0.5.0/include
+THIRDPARTY=-I../thirdparty -I../thirdparty/utfcpp -I../thirdparty/jsoncpp-src-0.5.0/include
 LOSTINCLUDE=-I..
 GLOBALINCLUDE=-include rpiprefix.h
 
@@ -70,7 +70,6 @@ CPPSOURCES=main.cpp \
 					../lost/Vec2.cpp \
 					../lost/Vec3.cpp \
 					../lost/Vec4.cpp \
-					../thirdparty/tinythread/source/tinythread.cpp \
 					../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_reader.cpp \
 					../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_value.cpp \
 					../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_writer.cpp \
