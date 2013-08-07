@@ -39,7 +39,6 @@
 		EAAFD8BE177215AA00C1D521 /* DemoApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAFD8BC177215AA00C1D521 /* DemoApp.cpp */; };
 		EAAFD8C1177215CB00C1D521 /* SunApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAAFD8BF177215CB00C1D521 /* SunApp.cpp */; };
 		EAB2B90D15FE4703001CF4EF /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B90C15FE4703001CF4EF /* Context.cpp */; };
-		EAB2B90F15FE470A001CF4EF /* ContextMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB2B90E15FE470A001CF4EF /* ContextMac.mm */; };
 		EABB38E01600CC990009D8F7 /* LEAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = EABB38DF1600CC990009D8F7 /* LEAppDelegate.mm */; };
 		EABB38E41600CDD80009D8F7 /* LEWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = EABB38E31600CDD80009D8F7 /* LEWindow.mm */; };
 		EABB38EA1600D42B0009D8F7 /* EventQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EABB38E71600D42B0009D8F7 /* EventQueue.cpp */; };
@@ -165,7 +164,6 @@
 		EAAFD8C0177215CB00C1D521 /* SunApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SunApp.h; path = ../apps/SunApp.h; sourceTree = "<group>"; };
 		EAB2B8FE15FE3DEE001CF4EF /* Context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Context.h; sourceTree = "<group>"; };
 		EAB2B90C15FE4703001CF4EF /* Context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Context.cpp; sourceTree = "<group>"; };
-		EAB2B90E15FE470A001CF4EF /* ContextMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContextMac.mm; sourceTree = "<group>"; };
 		EABB38DF1600CC990009D8F7 /* LEAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LEAppDelegate.mm; sourceTree = SOURCE_ROOT; };
 		EABB38E21600CDD80009D8F7 /* LEWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEWindow.h; sourceTree = SOURCE_ROOT; };
 		EABB38E31600CDD80009D8F7 /* LEWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LEWindow.mm; sourceTree = SOURCE_ROOT; };
@@ -387,7 +385,6 @@
 				EACD24AB15D8528400453F75 /* Color.h */,
 				EAB2B90C15FE4703001CF4EF /* Context.cpp */,
 				EAB2B8FE15FE3DEE001CF4EF /* Context.h */,
-				EAB2B90E15FE470A001CF4EF /* ContextMac.mm */,
 				EACD24A515D8333100453F75 /* Data.cpp */,
 				EACD24A615D8333100453F75 /* Data.h */,
 				EACD24AA15D8523300453F75 /* Disallow.h */,
@@ -654,7 +651,6 @@
 				EA0C316915FD28E000661552 /* Material.cpp in Sources */,
 				EA0C316C15FD28E700661552 /* Mesh.cpp in Sources */,
 				EAB2B90D15FE4703001CF4EF /* Context.cpp in Sources */,
-				EAB2B90F15FE470A001CF4EF /* ContextMac.mm in Sources */,
 				EAADB60F15FF97FD008F7450 /* BitmapPacker.cpp in Sources */,
 				EAADB62215FFA3A2008F7450 /* TextBuffer.cpp in Sources */,
 				EAADB62315FFA3A2008F7450 /* TextMesh.cpp in Sources */,
