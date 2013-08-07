@@ -24,6 +24,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "lost/Texture.h"
 #include "lost/HostBuffer.h"
 #include "lost/Buffer.h"
+#include "lost/Application.h"
 
 namespace lost
 {
@@ -107,6 +108,7 @@ if(member != newstate) \
       currentScissorRect = getParam<Rect>(GL_SCISSOR_BOX);
       cullEnabled = getParam<bool>(GL_CULL_FACE);
       cullFaceMode = getParam<int>(GL_CULL_FACE_MODE);
+      currentShader = NULL;
       
       // reset active textures
       for(uint32_t i=0; i<_maxTextures; ++i)
@@ -121,6 +123,11 @@ if(member != newstate) \
     
     Context::~Context()
     {
+    }
+
+    Context* Context::instance()
+    {
+      return Application::instance()->glContext;
     }
 
     void Context::bindDefaultFramebuffer()
@@ -236,7 +243,9 @@ if(member != newstate) \
         if (currentCam != cam) currentCam = cam;
       }
     }
-        
+
+#pragma mark - Texture -
+  
     void Context::clear(GLbitfield flags) { glClear(flags);GLDEBUG; }
     
     void Context::activeTexture(GLenum tex)
@@ -252,20 +261,22 @@ if(member != newstate) \
     {
       uint32_t idx = currentActiveTexture - GL_TEXTURE0; // have to subtract since GL_TEXTURE0 is some arbitrary hex value and not zero based
       assert((idx>=0) && (idx<_maxTextures));
-      if(override) // set current entry to something other than incoming value so it gets set
-      {
-        activeTextures[idx] = (tex-1);
-      }
-      if(activeTextures[idx] != tex)
+      if(override || (activeTextures[idx] != tex))
       {
         glBindTexture(GL_TEXTURE_2D, tex); GLASSERT;
         activeTextures[idx] = tex;
       }
     }
-    
+
+    void Context::bindTexture(Texture* texture)
+    {
+      bindTexture(texture->texture, texture->neverBeenBound);
+      texture->neverBeenBound = false;
+    }
+  
     void Context::bindTextures(const vector<TexturePtr>& textures)
     {
-/*      if(textures.size() > 0)
+      if(textures.size() > 0)
       {
         size_t num = textures.size();
         for(size_t i=0; i<num; ++i)
@@ -273,35 +284,37 @@ if(member != newstate) \
           activeTexture((uint32_t)(GL_TEXTURE0+i)); // the standard guarantees GL_TEXTUREi = GL_TEXTURE0+i
           Texture* texture = textures[i].get();
           bindTexture(texture->texture, texture->neverBeenBound);
-          if(texture->neverBeenBound)
-          {
-            texture->neverBeenBound = false;
-          }
+          texture->neverBeenBound = false;
         }
         activeTexture(GL_TEXTURE0); // reset 
-      }*/
-      
-      u32 numTextures = (u32)textures.size();
-      for(u32 i=0; i<numTextures; ++i)
-      {
-        glActiveTexture(GL_TEXTURE0+i);GLASSERT;
-        glBindTexture(GL_TEXTURE_2D, textures[i]->texture);GLASSERT;
-      }
+      }      
     }
-    
-    void Context::shader(const ShaderProgramPtr& prog)
+
+#pragma mark - Shader -
+
+    void Context::enableShader(ShaderProgram* prog)
     {
-      if(currentShader && !prog) {currentShader->disable();}
-//      if(currentShader != prog) 
-//      {
+      if(currentShader && !prog)
+      {
+        currentShader->disable();
+      }
+      
+      if(currentShader != prog)
+      {
         currentShader = prog;
         if(currentShader)
         {
-          currentShader->enable();
+          glUseProgram(currentShader->program);GLASSERT;
         }
-//      }
+      }
     }
-    
+
+    void Context::disableShader()
+    {
+      glUseProgram(0); // don't check for error here because calling it with 0 always results in an error, which is perfectly ok
+      currentShader = NULL;
+    }
+  
     void Context::material(const MaterialPtr& mat)
     {
       if(mat->textures.size()>0)
@@ -326,7 +339,7 @@ if(member != newstate) \
       {
         cull(false);
       }
-      shader(mat->shader);
+      enableShader(mat->shader.get());
     }
 
     void Context::applyUniforms(UniformBlock* ub)

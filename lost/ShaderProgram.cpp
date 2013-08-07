@@ -17,6 +17,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "lost/ShaderProgram.h"
 #include "lost/Shader.h"
 #include "lost/Uniform.h"
+#include "lost/Context.h"
 
 namespace lost
 {
@@ -78,12 +79,12 @@ bool ShaderProgram::linked()
 
 void ShaderProgram::enable()
 {
-  glUseProgram(program);GLASSERT;
+  Context::instance()->enableShader(this);
 }
 
 void ShaderProgram::disable()
 {
-  glUseProgram(0); // don't check for error here because calling it with 0 always results in an error, which is perfectly ok
+  Context::instance()->disableShader();
 }
 
 // returns information about the current program state

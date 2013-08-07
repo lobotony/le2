@@ -1,6 +1,7 @@
 #include "lost/Texture.h"
 #include "lost/Data.h"
 #include "lost/Bitmap.h"
+#include "lost/Context.h"
 
 namespace lost
 {
@@ -64,8 +65,7 @@ void Texture::destroy()
 
 void Texture::bind() 
 {
-  glBindTexture(GL_TEXTURE_2D, texture);GLASSERT;
-  neverBeenBound = false;
+  Context::instance()->bindTexture(this);
 }
 
 void Texture::init(const DataPtr& inData,  const Params& inParams)

@@ -51,7 +51,7 @@ private:
   CameraPtr currentCam;
   Rect currentViewport;
   GLenum currentActiveTexture;
-  ShaderProgramPtr currentShader;
+  ShaderProgram* currentShader;
   bool cullEnabled;
   GLenum cullFaceMode;
   static const uint32_t _maxTextures = 32;
@@ -104,14 +104,16 @@ public:
   void clear(GLbitfield flags);    
   
   void activeTexture(GLenum tex); // sets the currently active texture unit
-  void bindTexture(GLuint tex, bool override); // binds tex to currently active texture unit. Override is required to rebind destroyed and immediately recreated texture objects 
+  void bindTexture(GLuint tex, bool override); // binds tex to currently active texture unit. Override is required to rebind destroyed and immediately recreated texture objects
+  void bindTexture(Texture* const texture);
   void bindTextures(const vector<TexturePtr>& textures); // binds textures to the units equivalent to the index in the vector
   void material(const MaterialPtr& mat); // applies the Material parameters to the state
+
+  void enableShader(ShaderProgram* prog); // makes prog the active shader, switching the previous active shader off. null values are ok.
+  void disableShader(); // sets the currently active shader program to zero
   
   void draw(const MeshPtr& mesh);
-  void shader(const ShaderProgramPtr& prog); // makes prog the active shader, switching the previous active shader off. null values are ok.
-  // writes the current framebuffer with the current viewport configurtaion to a file as a tga, with optional alpha channel.
-  void writeScreenshot(const string& fullPathName, bool withAlphaChannel);
+  void writeScreenshot(const string& fullPathName, bool withAlphaChannel); // writes the current framebuffer with the current viewport configurtaion to a file as a tga, with optional alpha channel.
     
   void bind(Buffer* buffer);
   void applyUniforms(UniformBlock* ub); // applies a uniform block to the current shader
