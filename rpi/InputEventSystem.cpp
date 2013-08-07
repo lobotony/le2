@@ -162,7 +162,7 @@ void logEvent(struct input_event* ev)
   sprintf(defaultCodeString, "%X", ev->code);
 
   const char* scode = code2string(ev->type, ev->code, defaultCodeString);
-  printf("%d %d %s code:%s  val:%d  \n", ev->time.tv_sec, ev->time.tv_usec, type2string(ev->type), scode, ev->value);
+  DOUT((s64)ev->time.tv_sec << " " << (s64)ev->time.tv_usec << " " << type2string(ev->type) << " code:" << scode << " val:" << ev->value);
 
 /*  if(ev->type != EV_ABS)
   {
@@ -202,25 +202,25 @@ void InputEventSystem::getTouchBounds(int fd)
   if (!(test_bit (ABS_MT_POSITION_X, bits) &&
         test_bit (ABS_MT_POSITION_Y, bits)))
     {
-      printf("absolute events\n");
+      DOUT("absolute events");
       ioctl (fd, EVIOCGABS (ABS_X), &abs);
       minX  = abs.minimum;
       maxX  = abs.maximum;
       ioctl (fd, EVIOCGABS (ABS_Y), &abs);
       minY = abs.minimum;
       maxY = abs.maximum;
-      printf("NO multitouch\n");
+      DOUT("NO multitouch");
     }
   else
   {
-    printf("absolute multitouch events\n");
+    DOUT("absolute multitouch events");
     ioctl (fd, EVIOCGABS (ABS_MT_POSITION_X), &abs);
     minX = abs.minimum;
     maxX = abs.maximum;
     ioctl (fd, EVIOCGABS (ABS_MT_POSITION_Y), &abs);
     minY = abs.minimum;
     maxY = abs.maximum;
-    printf("HAS multitouch\n");
+    DOUT("HAS multitouch");
   }
   dx = maxX - minX;
   dy = maxY - minY;    
@@ -228,7 +228,6 @@ void InputEventSystem::getTouchBounds(int fd)
 
 InputEventSystem::InputEventSystem()
 {
-  DOUT("!!!");
   minX = 0;
   maxX = 0;
   dx = 0;
@@ -390,40 +389,38 @@ void InputEventSystem::run(const char* deviceName)
   int fd, rd, value, size = sizeof (struct input_event);
   char name[256] = "Unknown";
 
-  printf("++ starting\n");
-  printf("++ getuid\n");
   if ((getuid ()) != 0)
-    printf ("You are not root! This may not work...\n");
+  {
+    DOUT("You are not root! This may not work...");
+  }
 
   //Open Device
-  printf("++ opening\n");
   if ((fd = open (deviceName, O_RDONLY)) == -1)
   {
-    printf ("%s is not a vaild device.\n", deviceName);
+    DOUT(deviceName << "is not a vaild device.");
     exit(1);
   }
 
   if(hasAbsolutEvents(fd))
   {
-    printf("input device provides absolute events\n");
+    DOUT("input device provides absolute events");
   }
   else
   {
-    printf("input device does NOT provide absolute events\n");
+    DOUT("input device does NOT provide absolute events");
   }
 
   getTouchBounds(fd);
-  printf("%f %f %f %f\n",minX, maxX, minY, maxY);
+  DOUT("touch bounds: " << minX << " " << maxX << " " << minY << " " << maxY);
 
   //Print Device Name
-  printf("++ ioctl\n");
   ioctl (fd, EVIOCGNAME (sizeof (name)), name);
-  printf ("Reading From : %s (%s)\n", deviceName, name);
-  printf("reading , elem size: %d  max buffer: %d\n", size, size*64);
+  DOUT ("Reading From : " << deviceName << "(" << name << ")");
+  DOUT("reading , elem size: " << size << " max buffer: " << size << " " << size*64);
   while (1){
       if ((rd = read (fd, &ev, size*64 )) < size)
       {
-        printf("read()\n");
+        DOUT("read()");
         exit(0);
       }
       //printf("read bytes: %d elems: %d\n", rd, rd/size);

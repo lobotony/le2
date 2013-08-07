@@ -32,7 +32,6 @@ CPPSOURCES=main.cpp \
 					../lost/Clock.cpp \
 					../lost/Color.cpp \
 					../lost/Context.cpp \
-					../lost/ContextRpi.cpp \
 					../lost/Data.cpp \
 					../lost/EventDispatcher.cpp \
 					../lost/EventPool.cpp \
