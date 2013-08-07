@@ -127,6 +127,8 @@ if(member != newstate) \
 
     Context* Context::instance()
     {
+      // deliberately NOT thread_local since context creation can happen on any thread
+      // accessing it through Application singleton was easiest, albeit a bit weird. 
       return Application::instance()->glContext;
     }
 
