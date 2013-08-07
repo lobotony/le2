@@ -15,7 +15,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include "lost/Buffer.h"
-
+#include "lost/Context.h"
 
 namespace lost
 {
@@ -62,7 +62,8 @@ namespace lost
 
   void Buffer::bind(GLenum inTarget)
   {
-    glBindBuffer(inTarget, buffer);GLASSERT;
+    //glBindBuffer(inTarget, buffer);GLASSERT;
+    Context::instance()->bind(this);
   }
 
    void Buffer::bufferData(GLenum target, GLsizeiptr size, const GLvoid* data, GLenum usage)

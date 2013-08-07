@@ -151,11 +151,6 @@ bool HybridBuffer::hasUsageType(UsageType ut)
   return hostBuffer->hasUsageType(ut);
 }
 
-Buffer* HybridBuffer::bufferForUsageType(UsageType ut)
-{
-  return gpuBuffer.get();
-}
-
 const AttributePointerConfig& HybridBuffer::pointerConfigForUsageType(UsageType ut)
 {
   return hostBuffer->layout.pointerConfigForUsageType(ut);

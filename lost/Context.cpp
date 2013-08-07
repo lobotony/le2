@@ -263,7 +263,7 @@ if(member != newstate) \
       assert((idx>=0) && (idx<_maxTextures));
       if(override || (activeTextures[idx] != tex))
       {
-        glBindTexture(GL_TEXTURE_2D, tex); GLASSERT;
+        glBindTexture(GL_TEXTURE_2D, tex);GLASSERT;
         activeTextures[idx] = tex;
       }
     }
@@ -416,8 +416,7 @@ if(member != newstate) \
       if(ib->dirty) {ib->upload();}
       if(vb->dirty) {vb->upload();}
 
-      Buffer* vertexBuffer = vb->bufferForUsageType(UT_position);
-      bind(vertexBuffer);
+      bind(vb->gpuBuffer.get());
       bind(ib->gpuBuffer.get());
       
       if(mesh->material)
@@ -492,7 +491,7 @@ if(member != newstate) \
 
     void Context::bind(Buffer* buffer)
     {
-      glBindBuffer(buffer->target, buffer->buffer);GLDEBUG;
+      glBindBuffer(buffer->target, buffer->buffer);GLASSERT;
     }
   
     void Context::pushModelViewMatrix(const Matrix& matrix)
