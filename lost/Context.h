@@ -59,11 +59,6 @@ private:
   static const uint32_t _maxVertexAttributes = 32;
   bool _vertexAttributeEnabled[_maxVertexAttributes]; // true if glEnableVertexAttribArray was called for index i
   bool _vertexAttributeRequired[_maxVertexAttributes]; // true if the vertex attribute enable state changed
-  /**
-   * forward declaration for platform specific stuff
-   */
-  struct ContextHiddenMembers;
-  ContextHiddenMembers* hiddenMembers;
 
   /**
    * hidden ctor/dtor utility methods for platform specific stuff
@@ -80,14 +75,7 @@ public:
   Context();
   ~Context();
 
-  void cleanup(); // cleanup all resources
-
-  void makeCurrent(); // make this context the current context, platform specific
-  void clearCurrent(); // reset current context, platform specific
-  void swapBuffers();
-
-  void vsync(bool enable); // true to enable vsync to prevent tearing
-  void multithreaded(bool enable); // true to enable multithreaded OpenGL execution on Mac
+  static Context* instance(); // returns the context instance created by the application. 
 
   void bindDefaultFramebuffer();
   void defaultFramebuffer(GLuint fbo);
@@ -106,7 +94,6 @@ public:
   void pushClippedScissorRect(const Rect& v); // same as pushScissorRect, but clips the new rect against a previews one if one exists.
   void popScissorRect(); // pops the current scissor rect fro the stack, disabling scissoring if it was the last one.
   
-
   void cull(bool enable);
   void cullFace(GLenum v);
   
@@ -125,11 +112,7 @@ public:
   void shader(const ShaderProgramPtr& prog); // makes prog the active shader, switching the previous active shader off. null values are ok.
   // writes the current framebuffer with the current viewport configurtaion to a file as a tga, with optional alpha channel.
   void writeScreenshot(const string& fullPathName, bool withAlphaChannel);
-  
-  static void* getCurrentOsSpecific();
-  static void setCurrentOsSpecififc(void* ctx);
-  static Context* getCurrent();
-  
+    
   void bind(Buffer* buffer);
   void applyUniforms(UniformBlock* ub); // applies a uniform block to the current shader
   void vertexAttributeEnable(uint32_t idx, bool enable);

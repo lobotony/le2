@@ -89,13 +89,9 @@ if(member != newstate) \
   member = newstate; \
 }
 
-
-map<void*, Context*> glContext2lostGlContext;
-
     Context::Context()
     {
-      initialize();
-      // this is only true on desktop systems. 
+      // this is only true on desktop systems.
       // on systems like the iPhone, where you have to create the default buffer yourself, you
       // have to set the default in the context, after creation
       m_defaultFrameBuffer = 0; 
@@ -125,20 +121,6 @@ map<void*, Context*> glContext2lostGlContext;
     
     Context::~Context()
     {
-      clearCurrent();
-      finalize();
-      map<void*, Context*>::iterator pos;
-      pos = glContext2lostGlContext.find(Context::getCurrentOsSpecific());
-      if(pos != glContext2lostGlContext.end())
-      {
-        glContext2lostGlContext.erase(pos);      
-      }
-    }
-
-    void Context::cleanup()
-    {
-      currentCam.reset();
-      currentShader.reset();
     }
 
     void Context::bindDefaultFramebuffer()

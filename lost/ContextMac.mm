@@ -20,12 +20,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace lost
 {
-struct Context::ContextHiddenMembers
+
+/*struct Context::ContextHiddenMembers
 {
   NSOpenGLContext* glContext;
-};
+};*/
 
-void Context::initialize()
+/*void Context::initialize()
 {
   hiddenMembers = new ContextHiddenMembers;
   hiddenMembers->glContext = [NSOpenGLContext currentContext];
@@ -70,9 +71,9 @@ void Context::multithreaded(bool enable)
   {
     EOUT("couldn't enable multithreaded OpenGL");
   }          
-}
+}*/
 
-void* Context::getCurrentOsSpecific()
+/*void* Context::getCurrentOsSpecific()
 {
   return [NSOpenGLContext currentContext];
 }
@@ -80,5 +81,5 @@ void* Context::getCurrentOsSpecific()
 void Context::setCurrentOsSpecififc(void* ctx)
 {
   [((NSOpenGLContext*)ctx) makeCurrentContext];
-}
+}*/
 }
