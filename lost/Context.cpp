@@ -493,7 +493,15 @@ if(member != newstate) \
 
     void Context::bind(Buffer* buffer)
     {
-      glBindBuffer(buffer->target, buffer->buffer);GLASSERT;
+      auto pos = target2buffer.find(buffer->target);
+      if((pos == target2buffer.end()) || (pos->second != buffer->buffer))
+      {
+        glBindBuffer(buffer->target, buffer->buffer);GLASSERT;
+        target2buffer[buffer->target] = buffer->buffer;
+      }
+      else
+      {
+      }
     }
   
     void Context::pushModelViewMatrix(const Matrix& matrix)

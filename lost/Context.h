@@ -71,6 +71,8 @@ private:
   
   vector<Matrix> modelViewStack;
   
+  map<GLenum, GLuint> target2buffer;
+  
 public:
   Context();
   ~Context();
