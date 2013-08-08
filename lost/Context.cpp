@@ -515,5 +515,44 @@ if(member != newstate) \
         modelViewStack.pop_back();
       }
     }
+
+#pragma mark - Resource Lifecycle & Cache Sync -
+
+void Context::textureDying(Texture* tex)
+{
+  DOUT("");
+  for(u32 i=0; i<_maxTextures; ++i)
+  {
+    if(activeTextures[i] == tex->texture)
+    {
+      activeTextures[i] = 0;
+      DOUT("removing dying texture "<<tex->texture);
+    }
+  }
+}
+
+void Context::bufferDying(Buffer* buffer)
+{
+  DOUT("");
+  for(auto i : target2buffer)
+  {
+    if(i.second == buffer->buffer)
+    {
+      i.second = 0;
+      DOUT("removing dying Buffer "<<buffer->buffer);
+    }
+  }
+}
+
+void Context::shaderprogramDying(ShaderProgram* prog)
+{
+  DOUT("");
+  if(currentShader == prog)
+  {
+    disableShader();
+    currentShader = NULL;
+    DOUT("removing dying shader "<<prog->program);
+  }
+}
   
 }

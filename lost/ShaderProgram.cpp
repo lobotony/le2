@@ -29,6 +29,7 @@ ShaderProgram::ShaderProgram()
 
 ShaderProgram::~ShaderProgram()
 {
+  Context::instance()->shaderprogramDying(this);
   glDeleteProgram(program);
 }
 

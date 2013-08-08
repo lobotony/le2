@@ -28,6 +28,7 @@ namespace lost
 
    Buffer::~Buffer()
   {
+    Context::instance()->bufferDying(this);
     glDeleteBuffers(1, &buffer);GLDEBUG;// must not throw
   }
 

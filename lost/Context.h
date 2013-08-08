@@ -115,6 +115,11 @@ public:
   void clearVertexAttributeEnabled();
   void clearVertexAttributeRequired();
   void disableUnrequiredVertexAttributes();
+  
+  // resource lifecycle & cache sync
+  void textureDying(Texture* tex);
+  void bufferDying(Buffer* buffer);
+  void shaderprogramDying(ShaderProgram* prog);
 };
 }
 

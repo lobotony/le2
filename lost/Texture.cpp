@@ -54,6 +54,7 @@ Texture::Texture(const BitmapPtr& inBitmap, const Params& inParams)
 
 Texture::~Texture()
 {
+  Context::instance()->textureDying(this);
   destroy();
 }
 
