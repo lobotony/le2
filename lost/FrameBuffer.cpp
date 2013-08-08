@@ -15,6 +15,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include "lost/FrameBuffer.h"
+#include "lost/Context.h"
 
 namespace lost
 {
@@ -248,6 +249,7 @@ namespace lost
   
     FrameBuffer::~FrameBuffer()
     {
+      Context::instance()->framebufferDying(this);
       glDeleteFramebuffers(1, &buffer); GLASSERT;
     }
 
@@ -337,6 +339,6 @@ namespace lost
   
     void FrameBuffer::bind()
     {
-      glBindFramebuffer(GL_FRAMEBUFFER, buffer);GLASSERT;
+      Context::instance()->bindFrameBuffer(this);
     }
 }

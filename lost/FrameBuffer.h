@@ -76,10 +76,9 @@ namespace lost
       
     };
     
-  private:
-    GLuint buffer;
 
   public:
+    GLuint buffer;
     Vec2 size;
 
     map<uint8_t, AttachmentPtr> colorBuffers;

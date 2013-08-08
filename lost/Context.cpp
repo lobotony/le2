@@ -25,6 +25,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "lost/HostBuffer.h"
 #include "lost/Buffer.h"
 #include "lost/Application.h"
+#include "lost/FrameBuffer.h"
 
 namespace lost
 {
@@ -95,7 +96,8 @@ if(member != newstate) \
       // this is only true on desktop systems.
       // on systems like the iPhone, where you have to create the default buffer yourself, you
       // have to set the default in the context, after creation
-      m_defaultFrameBuffer = 0; 
+      _defaultFrameBuffer = 0;
+      _currentFrameBuffer = _defaultFrameBuffer;
 
       depthTestEnabled = getParam<bool>(GL_DEPTH_TEST);  
       blendEnabled = getParam<bool>(GL_BLEND);
@@ -134,18 +136,37 @@ if(member != newstate) \
 
     void Context::bindDefaultFramebuffer()
     {
-      glBindFramebuffer(GL_FRAMEBUFFER, m_defaultFrameBuffer); GLASSERT;
+      bindFrameBuffer(_defaultFrameBuffer);
     }
 
     void Context::defaultFramebuffer(GLuint fbo)
     {
-      m_defaultFrameBuffer = fbo;
+      _defaultFrameBuffer = fbo;
     }
     
     GLuint Context::defaultFramebuffer()
     {
-      return m_defaultFrameBuffer;
+      return _defaultFrameBuffer;
     }
+
+    void Context::bindFrameBuffer(FrameBuffer* fb)
+    {
+      if(fb)
+      {
+        bindFrameBuffer(fb->buffer);
+      }
+      else
+      {
+        EOUT("tried to bind NULL framebuffer");
+      }
+    }
+
+    void Context::bindFrameBuffer(GLuint fb)
+    {
+      glBindFramebuffer(GL_FRAMEBUFFER, fb); GLASSERT;
+      _currentFrameBuffer = fb;
+    }
+
 
     void Context::depthTest(bool enable) { SERVERSTATE(depthTestEnabled, enable, GL_DEPTH_TEST); }
     void Context::blend(bool enable) { SERVERSTATE(blendEnabled, enable, GL_BLEND);}
@@ -552,6 +573,19 @@ void Context::shaderprogramDying(ShaderProgram* prog)
     disableShader();
     currentShader = NULL;
     DOUT("removing dying shader "<<prog->program);
+  }
+}
+
+void Context::framebufferDying(FrameBuffer* fb)
+{
+  DOUT("");
+  if(_currentFrameBuffer == fb->buffer)
+  {
+    DOUT("removing dying framebuffer");
+    if(fb->buffer != _defaultFrameBuffer)
+    {
+      bindDefaultFramebuffer();
+    }
   }
 }
   

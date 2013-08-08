@@ -58,7 +58,9 @@ private:
   bool            _vertexAttributeEnabled[_maxVertexAttributes]; // true if glEnableVertexAttribArray was called for index i
   bool            _vertexAttributeRequired[_maxVertexAttributes]; // true if the vertex attribute enable state changed
 
-  GLuint          m_defaultFrameBuffer;
+  GLuint          _defaultFrameBuffer;
+  GLuint          _currentFrameBuffer;
+  
   vector<Rect>    _scissorRectStack;
   
   vector<Matrix>  modelViewStack;
@@ -74,6 +76,8 @@ public:
   void bindDefaultFramebuffer();
   void defaultFramebuffer(GLuint fbo);
   GLuint defaultFramebuffer();
+  void bindFrameBuffer(FrameBuffer* fb);
+  void bindFrameBuffer(GLuint fb);
   
   void pushModelViewMatrix(const Matrix& matrix);
   void popModelViewMatrix();
@@ -120,6 +124,7 @@ public:
   void textureDying(Texture* tex);
   void bufferDying(Buffer* buffer);
   void shaderprogramDying(ShaderProgram* prog);
+  void framebufferDying(FrameBuffer* fb);
 };
 }
 
