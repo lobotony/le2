@@ -36,11 +36,13 @@ GLint RenderBuffer::stencilSize() { return param(GL_RENDERBUFFER_STENCIL_SIZE); 
 
 void RenderBuffer::enable()
 {
+  // FIXME: should bind via Context
   glBindRenderbuffer(GL_RENDERBUFFER, buffer);GLASSERT;
 }
 
 void RenderBuffer::disable()
 {
+  // FIXME: should bind via Context
   glBindRenderbuffer(GL_RENDERBUFFER, 0);GLASSERT;
 }
 
@@ -58,6 +60,7 @@ GLint RenderBuffer::param(GLenum paramName)
 
 RenderBuffer::~RenderBuffer()
 {
+  // FIXME: should notify Context of imminent destruction
   glDeleteRenderbuffers(1, &buffer);GLASSERT;
 }
 
