@@ -133,7 +133,7 @@ void Compositor::updateLayerCaches()
     fb->bind();
     fb->detachAll();
     fb->attachColorBuffer(0, texture);
-    fb->check();
+    fb->check(); // FIXME: remove this once it is not needed anymore for debugging
     fbcam->viewport(Rect(0,0,layer->rect().size()));
     drawContext->glContext->camera(fbcam);
     // draw current layer contents. does NOT draw sublayers
