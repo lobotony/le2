@@ -23,7 +23,6 @@ Texture::Params::Params()
 void Texture::create()
 {
   glGenTextures(1, &texture);GLASSERT;
-  neverBeenBound = true;
 }
 
 

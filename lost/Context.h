@@ -36,40 +36,32 @@ struct Context
 {
 // private for now, deliberately no getters
 private:  
-  bool vertexArrayEnabled;
-  bool normalArrayEnabled;
-  bool colorArrayEnabled;
-  bool texCoordArrayEnabled;
-  bool depthTestEnabled;
-  bool blendEnabled;
-  GLenum currentBlendFuncSource;
-  GLenum currentBlendFuncDestination;
-  bool scissorEnabled;
-  Rect currentScissorRect;
-  bool texture2DEnabled;
-  Color currentClearColor;
-  CameraPtr currentCam;
-  Rect currentViewport;
-  GLenum currentActiveTexture;
-  ShaderProgram* currentShader;
-  bool cullEnabled;
-  GLenum cullFaceMode;
-  static const uint32_t _maxTextures = 32;
-  GLuint activeTextures[_maxTextures]; // hardcoded 32 texture limit, index represents value set with glActiveTexture
-  static const uint32_t _maxVertexAttributes = 32;
-  bool _vertexAttributeEnabled[_maxVertexAttributes]; // true if glEnableVertexAttribArray was called for index i
-  bool _vertexAttributeRequired[_maxVertexAttributes]; // true if the vertex attribute enable state changed
+  bool            depthTestEnabled;
+  bool            blendEnabled;
+  GLenum          currentBlendFuncSource;
+  GLenum          currentBlendFuncDestination;
+  bool            scissorEnabled;
+  Rect            currentScissorRect;
+  bool            texture2DEnabled;
+  Color           currentClearColor;
+  CameraPtr       currentCam;
+  Rect            currentViewport;
+  GLenum          currentActiveTexture;
+  ShaderProgram*  currentShader;
+  bool            cullEnabled;
+  GLenum          cullFaceMode;
 
-  /**
-   * hidden ctor/dtor utility methods for platform specific stuff
-   */
-  void initialize();
-  void finalize();
+  static const u32 _maxTextures = 32;
+  GLuint          activeTextures[_maxTextures]; // hardcoded 32 texture limit, index represents value set with glActiveTexture
 
-  GLuint m_defaultFrameBuffer;
-  vector<Rect> _scissorRectStack;
+  static const u32 _maxVertexAttributes = 32;
+  bool            _vertexAttributeEnabled[_maxVertexAttributes]; // true if glEnableVertexAttribArray was called for index i
+  bool            _vertexAttributeRequired[_maxVertexAttributes]; // true if the vertex attribute enable state changed
+
+  GLuint          m_defaultFrameBuffer;
+  vector<Rect>    _scissorRectStack;
   
-  vector<Matrix> modelViewStack;
+  vector<Matrix>  modelViewStack;
   
   map<GLenum, GLuint> target2buffer;
   
@@ -106,7 +98,7 @@ public:
   void clear(GLbitfield flags);    
   
   void activeTexture(GLenum tex); // sets the currently active texture unit
-  void bindTexture(GLuint tex, bool override); // binds tex to currently active texture unit. Override is required to rebind destroyed and immediately recreated texture objects
+  void bindTexture(GLuint tex); // binds tex to currently active texture unit. Override is required to rebind destroyed and immediately recreated texture objects
   void bindTexture(Texture* const texture);
   void bindTextures(const vector<TexturePtr>& textures); // binds textures to the units equivalent to the index in the vector
   void material(const MaterialPtr& mat); // applies the Material parameters to the state

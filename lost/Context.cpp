@@ -259,11 +259,11 @@ if(member != newstate) \
       }
     }
     
-    void Context::bindTexture(GLuint tex, bool override)
+    void Context::bindTexture(GLuint tex)
     {
       uint32_t idx = currentActiveTexture - GL_TEXTURE0; // have to subtract since GL_TEXTURE0 is some arbitrary hex value and not zero based
       assert((idx>=0) && (idx<_maxTextures));
-      if(override || (activeTextures[idx] != tex))
+      if(activeTextures[idx] != tex)
       {
         glBindTexture(GL_TEXTURE_2D, tex);GLASSERT;
         activeTextures[idx] = tex;
@@ -272,8 +272,7 @@ if(member != newstate) \
 
     void Context::bindTexture(Texture* texture)
     {
-      bindTexture(texture->texture, texture->neverBeenBound);
-      texture->neverBeenBound = false;
+      bindTexture(texture->texture);
     }
   
     void Context::bindTextures(const vector<TexturePtr>& textures)
@@ -285,8 +284,7 @@ if(member != newstate) \
         {
           activeTexture((uint32_t)(GL_TEXTURE0+i)); // the standard guarantees GL_TEXTUREi = GL_TEXTURE0+i
           Texture* texture = textures[i].get();
-          bindTexture(texture->texture, texture->neverBeenBound);
-          texture->neverBeenBound = false;
+          bindTexture(texture->texture);
         }
         activeTexture(GL_TEXTURE0); // reset 
       }      
@@ -494,7 +492,7 @@ if(member != newstate) \
     void Context::bind(Buffer* buffer)
     {
       auto pos = target2buffer.find(buffer->target);
-      if((pos == target2buffer.end()) || (pos->second != buffer->buffer))
+      if(pos == target2buffer.end() || (pos->second != buffer->buffer))
       {
         glBindBuffer(buffer->target, buffer->buffer);GLASSERT;
         target2buffer[buffer->target] = buffer->buffer;
