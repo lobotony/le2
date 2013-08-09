@@ -58,8 +58,8 @@ struct Layer : enable_shared_from_this<Layer>
   void opacity(f32 v);
   f32 opacity();
   
-  void backgroundImage(const TexturePtr& v);
-  TexturePtr backgroundImage();
+  void backgroundImage(const ImagePtr& v);
+  ImagePtr backgroundImage();
   
   // hit test
   bool containsPoint(const Vec2& gp); // gp in global window coordinates
@@ -85,7 +85,7 @@ struct Layer : enable_shared_from_this<Layer>
 private:
   s16         _cornerRadius;
   Color       _backgroundColor;
-  TexturePtr  _backgroundImage;
+  ImagePtr    _backgroundImage;
   Color       _borderColor;
   f32         _borderWidth;
   f32         _opacity;

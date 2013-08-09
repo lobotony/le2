@@ -181,7 +181,7 @@ void Layer::draw(DrawContext* ctx)
       }
       else
       {
-        ctx->drawTexturedRect(r, _backgroundImage, _backgroundColor, false, true);
+        ctx->drawImage(_backgroundImage, r, _backgroundColor);
       }
     }
     else
@@ -266,8 +266,8 @@ Color Layer::borderColor() {return _borderColor; }
 void Layer::borderWidth(f32 v) { _borderWidth=v; needsRedraw(); }
 f32 Layer::borderWidth() { return _borderWidth; }
 
-void Layer::backgroundImage(const TexturePtr& v) { _backgroundImage=v; needsRedraw(); }
-TexturePtr Layer::backgroundImage() { return _backgroundImage; }
+void Layer::backgroundImage(const ImagePtr& v) { _backgroundImage=v; needsRedraw(); }
+ImagePtr Layer::backgroundImage() { return _backgroundImage; }
 
 void Layer::opacity(f32 v) { _opacity=v; if(superlayer) { superlayer->needsRedraw(); } };
 f32 Layer::opacity() {return _opacity; }

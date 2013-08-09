@@ -48,7 +48,7 @@ void UiTestApp::startup()
   sl5->rect(Rect(100,100,201,199));
   sl5->backgroundColor(whiteColor);
   sl5->name = "rings";
-  sl5->backgroundImage(resourceManager->texture("resources/images/rings.png"));
+  sl5->backgroundImage(resourceManager->image("resources/images/rings.png"));
   
   ui->rootView->layer->addSublayer(sl1);
   ui->rootView->layer->addSublayer(sl2);

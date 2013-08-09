@@ -7,6 +7,8 @@
 namespace lost
 {
 
+#pragma mark - Lifecycle -
+
 ResourceManager::ResourceManager()
 {
 }
@@ -15,7 +17,7 @@ ResourceManager::~ResourceManager()
 {
 }
 
-
+#pragma mark - Hash / ResourceId -
 
 ResourceId ResourceManager::stringToHash(const string& resourcePath)
 {
@@ -34,6 +36,8 @@ ResourceId ResourceManager::hashPath(const string& resourcePath)
   ASSERT(hash2string[rid] == resourcePath, "tried to overwrite resource id:"<<rid << " old path:'"<<hash2string[rid] << "new path:" <<resourcePath);
   return rid;
 }
+
+#pragma mark - Bitmap -
 
 BitmapPtr ResourceManager::bitmap(const string& resourcePath) 
 {
@@ -60,6 +64,8 @@ BitmapPtr ResourceManager::bitmap(ResourceId rid)
   
   return result;
 }
+
+#pragma mark - Texture -
 
 bool ResourceManager::hasTexture(const string& texturePath)
 {
@@ -113,6 +119,60 @@ TexturePtr ResourceManager::texture(const string& bitmapPath, const TexturePtr& 
   
   return result;
 }
+
+#pragma mark - Image -
+
+bool ResourceManager::hasImage(const string& path)
+{
+  ResourceId rid = hashPath(path);
+  return hasImage(rid);
+}
+
+bool ResourceManager::hasImage(ResourceId rid)
+{
+  return (hash2image.find(rid) != hash2image.end());
+}
+
+ImagePtr ResourceManager::image(const string& bitmapPath)
+{
+  return image(hashPath(bitmapPath));
+}
+
+ImagePtr ResourceManager::image(const string& bitmapPath, const ImagePtr& img)
+{
+  ImagePtr result = img;
+  ResourceId rid = hashPath(bitmapPath);
+  
+  if(!hasImage(rid))
+  {
+    hash2image[rid] = img;
+  }
+  
+  return result;
+}
+
+ImagePtr ResourceManager::image(ResourceId rid)
+{
+  ImagePtr result;
+  
+  if(!hasImage(rid))
+  {
+    // hash to string mapping MUST exist if it wasn't loaded yet
+    ASSERT(hash2string.find(rid) != hash2string.end(), "couldn't find image resource with id:"<<rid);
+    DOUT("caching image: " << rid << " -> " << hash2string[rid]);
+    
+    TexturePtr tex = texture(rid);
+    result.reset(new Image(tex));
+    hash2image[rid] = result;
+  }
+  else
+  {
+    result = hash2image[rid];
+  }
+  
+  return result;
+}
+
 
 ShaderProgramPtr ResourceManager::shader(const string& shaderPath)
 {
@@ -222,6 +282,7 @@ void ResourceManager::logStats()
 {
   DOUT("bitmaps: "<<(u32)hash2bitmap.size());
   DOUT("textures: "<<(u32)hash2texture.size());
+  DOUT("images: "<<(u32)hash2image.size());
   DOUT("shader programs: "<<(u32)hash2shaderprogram.size());
   DOUT("font names: "<<(u32)fontId2dataPath.size());
   DOUT("font data loaded: "<<(u32)fontId2data.size());

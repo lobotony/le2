@@ -24,6 +24,13 @@ struct ResourceManager
   TexturePtr texture(const string& bitmapPath, const TexturePtr& tex); // takes tex and adds it to the resources under path 'bitmapPath', returning tex. Nothing is loaded from disk
   TexturePtr texture(ResourceId bitmapHash);
 
+  bool hasImage(const string& path);
+  bool hasImage(ResourceId rid);
+
+  ImagePtr image(const string& bitmapPath); // loads a bitmap and creates a texture from it, caching it
+  ImagePtr image(const string& bitmapPath, const ImagePtr& tex); // takes tex and adds it to the resources under path 'bitmapPath', returning tex. Nothing is loaded from disk
+  ImagePtr image(ResourceId bitmapHash);
+
   ShaderProgramPtr shader(const string& shaderPath); // base path to a pair of files with .vs/.fs extensions
   ShaderProgramPtr shader(ResourceId bitmapHash);
   
@@ -46,6 +53,7 @@ private:
   
   map<ResourceId, BitmapPtr>          hash2bitmap;
   map<ResourceId, TexturePtr>         hash2texture;
+  map<ResourceId, ImagePtr>           hash2image;
   map<ResourceId, ShaderProgramPtr>   hash2shaderprogram;
   
   // ResourceId is derived from font name in meta file, NOT from data path
