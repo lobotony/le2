@@ -50,7 +50,7 @@ void Matrix::initScaling(const Vec3& s)
   m[10] = s.z;
 }
 
-void Matrix::initRotateX(float angleDeg)
+void Matrix::initRotateX(f32 angleDeg)
 {
   initIdentity();
   float ar = deg2rad(angleDeg);
@@ -58,7 +58,7 @@ void Matrix::initRotateX(float angleDeg)
   m[6] = -1.0f*sin(ar);m[10] = cos(ar);
 }
 
-void Matrix::initRotateY(float angleDeg)
+void Matrix::initRotateY(f32 angleDeg)
 {
   initIdentity();
   float ar = deg2rad(angleDeg);
@@ -66,7 +66,7 @@ void Matrix::initRotateY(float angleDeg)
   m[2]=sin(ar); m[10]=cos(ar);
 }
 
-void Matrix::initRotateZ(float angleDeg)
+void Matrix::initRotateZ(f32 angleDeg)
 {
   initIdentity();
   float ar = deg2rad(angleDeg);
@@ -86,17 +86,17 @@ void Matrix::initOrtho(const Rect& rect, const Vec2& nearAndFar)
   m[15] = 1.0;
 }
 
-void Matrix::initPerspective(const float& fovy, const float& aspect, const Vec2& nearAndFar)
+void Matrix::initPerspective(f32 fovy, f32 aspect, const Vec2& nearAndFar)
 {
-  float radFovY = deg2rad(fovy / 2.0f);
-  float f = cos(radFovY) / sin(radFovY);
-  float deltaZ = nearAndFar.max - nearAndFar.min;
+  f32 radFovY = deg2rad(fovy / 2.0f);
+  f32 f = cos(radFovY) / sin(radFovY);
+  f32 deltaZ = nearAndFar.max - nearAndFar.min;
   
-  float m0 = f / aspect;
-  float m5 = f;
-  float m10 = - (nearAndFar.max + nearAndFar.min) / deltaZ;
-  float m11 = -1;
-  float m14 = (-2 * nearAndFar.min * nearAndFar.max) / deltaZ;
+  f32 m0 = f / aspect;
+  f32 m5 = f;
+  f32 m10 = - (nearAndFar.max + nearAndFar.min) / deltaZ;
+  f32 m11 = -1;
+  f32 m14 = (-2 * nearAndFar.min * nearAndFar.max) / deltaZ;
   
   zero();
   m[0] = m0;
@@ -143,7 +143,7 @@ void Matrix::transpose()
   std::swap(m[7], m[13]);
   std::swap(m[11], m[14]);
 }
-Vec4 Matrix::row(long num) const
+Vec4 Matrix::row(u32 num) const
 {
   assert((num >= 0) && (num <=3));
   switch(num)
@@ -155,7 +155,7 @@ Vec4 Matrix::row(long num) const
     default: ASSERT(false, "impossible");return Vec4();
   }
 }
-void Matrix::row(long num, const Vec4& row)
+void Matrix::row(u32 num, const Vec4& row)
 {
   assert((num >= 0) && (num <=3));
   switch(num)
@@ -167,7 +167,7 @@ void Matrix::row(long num, const Vec4& row)
     default: ASSERT(false, "impossible");
   }
 }
-Vec4 Matrix::col(long num) const
+Vec4 Matrix::col(u32 num) const
 {
   assert((num >= 0) && (num <=3));
   switch(num)

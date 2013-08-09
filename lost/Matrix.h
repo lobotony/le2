@@ -36,7 +36,7 @@ bool operator!=(const Matrix& lhs, const Matrix& rhs);
  */
 struct Matrix
 {
-  static const unsigned long numvals = 16; // named constant to avoid magic number
+  static const u32 numvals = 16; // named constant to avoid magic number
   float m[numvals]; // holds all matrix values as required by OpenGL
 
   void zero(); // zero all elements      
@@ -46,11 +46,11 @@ struct Matrix
   // initialises the matrix to be a scaling matrix with the given values
   // each component of the vector denotes a scaling factor along the corresponding axis
   void initScaling(const Vec3& s);
-  void initRotateX(float angleDeg);
-  void initRotateY(float angleDeg);
-  void initRotateZ(float angleDeg);
+  void initRotateX(f32 angleDeg);
+  void initRotateY(f32 angleDeg);
+  void initRotateZ(f32 angleDeg);
   void initOrtho(const Rect& rect, const Vec2& nearAndFar);
-  void initPerspective(const float& fovy, const float& aspect, const Vec2& nearAndFar);
+  void initPerspective(f32 fovy, f32 aspect, const Vec2& nearAndFar);
   void initLookAt(const Vec3& eye, const Vec3& center, const Vec3& up);
   void transpose();
 
@@ -91,6 +91,8 @@ struct Matrix
     m.initTranslation(inTranslation);
     return m;
   }
+  static Matrix translate(f32 x, f32 y) { return translate(Vec3(x,y,0)); }
+  
   
   static Matrix ortho(const Rect& rect, const Vec2& nearAndFar)
   {
@@ -99,8 +101,8 @@ struct Matrix
     return m;
   }
   
-  static Matrix perspective(float fovy,
-                            float aspect,
+  static Matrix perspective(f32 fovy,
+                            f32 aspect,
                             const Vec2& nearAndFar)
   {
     Matrix m;
@@ -131,9 +133,9 @@ struct Matrix
     return m;
   }
   
-  Vec4 row(long num) const; // return the specified row as vec4
-  void row(long num, const Vec4& row); // set the specified row as vec4
-  Vec4 col(long num) const; // return the specified column as vec4
+  Vec4 row(u32 num) const; // return the specified row as vec4
+  void row(u32 num, const Vec4& row); // set the specified row as vec4
+  Vec4 col(u32 num) const; // return the specified column as vec4
 };
 
 Matrix operator*(const Matrix& lhs, const Matrix& rhs);
