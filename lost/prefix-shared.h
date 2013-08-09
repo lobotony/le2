@@ -31,6 +31,8 @@
   #include "lost/StringStream.h"
   #include "lost/Platform.h"
   #include "lost/lmath.h"
+  #include "lost/Texture.h"
+  #include "lost/Image.h"
 
 #endif // __cplusplus
 

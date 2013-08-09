@@ -19,6 +19,7 @@ struct DrawContext
   void drawRoundRect(const Rect& rect, u16 radius, const Color& col);
   void drawRoundRectFrame(const Rect& rect, u16 radius, u16 thickness, const Color& col);
   
+  void drawImage(const ImagePtr& image, const Rect& rect, const Color& col);
   
   string discPath(u16 radius);
   string ringPath(u16 radius, u16 thickness);
@@ -38,6 +39,7 @@ private:
   bool _flipX;
   bool _flipY;
   void updateTexCoords(); // always updates texcoords for current flip settings
+  void setTexCoords(const Vec2& bl, const Vec2& br, const Vec2& tr, const Vec2& tl); // always updates texcoords for current flip settings
   void updateTexCoords(bool flipX, bool flipY); // checks if new flags are different and triggers optional update
   void drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const Color& col);
 };

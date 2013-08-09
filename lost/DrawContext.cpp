@@ -167,6 +167,17 @@ void DrawContext::updateTexCoords(bool flipX, bool flipY)
   }
 }
 
+void DrawContext::setTexCoords(const Vec2& bl,
+                  const Vec2& br,
+                  const Vec2& tr,
+                  const Vec2& tl)
+{
+  bgquad->set(0,UT_texcoord0, bl);
+  bgquad->set(1,UT_texcoord0, br);
+  bgquad->set(2,UT_texcoord0, tr);
+  bgquad->set(3,UT_texcoord0, tl);
+}
+
 
 #pragma mark - drawing -
 
@@ -218,6 +229,18 @@ void DrawContext::drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const C
   ninePatch->material->color = col.premultiplied();
   ninePatch->transform = Matrix::translate(Vec3(rect.x, rect.y, 0));
   glContext->draw(ninePatch);
+}
+
+void DrawContext::drawImage(const ImagePtr& image, const Rect& rect, const Color& col)
+{
+  setTexCoords(image->bl, image->br, image->tr, image->tl);
+  bgquad->transform = Matrix::translate(rect.x, rect.y) * Matrix::scale(Vec3(rect.width, rect.height, 1));
+  bgquad->material->color = col.premultiplied();
+  bgquad->material->shader = textureShader;
+  bgquad->material->limitTextures(1);
+  bgquad->material->setTexture(0, image->texture);
+  bgquad->material->blendPremultiplied();
+  glContext->draw(bgquad);  
 }
 
 }
