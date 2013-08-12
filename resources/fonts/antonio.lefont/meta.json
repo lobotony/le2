@@ -1,0 +1,16 @@
+{
+  "fonts" : [
+  {
+     "name" : "Antonio bold",
+     "ttfile" : "Antonio-Bold.ttf"
+   },
+  {
+     "name" : "Antonio light",
+     "ttfile" : "Antonio-Light.ttf"
+   },
+  {
+     "name" : "Antonio regular",
+     "ttfile" : "Antonio-Regular.ttf"
+   }
+  ]
+}
