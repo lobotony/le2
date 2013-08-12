@@ -234,7 +234,21 @@ void DrawContext::drawText( const string& text,
   _textBuffer->reset();
   _textBuffer->renderAllPhysicalLines(textMesh);
 
-  textMesh->transform = Matrix::translate(pos.x, pos.y);
+  DOUT("textmesh size "<<textMesh->size<<" target rect: "<<targetRect);
+
+  f32 dx = floorf((targetRect.width - textMesh->size.width)/2.0f);
+  f32 dy = floorf((targetRect.height - textMesh->size.height)/2.0f);
+
+  if(alignment == TextAlignmentLeft)
+  {
+    dx = 0;
+  }
+  else if(alignment == TextAlignmentRight)
+  {
+    dx = targetRect.width - textMesh->size.width;
+  }
+
+  textMesh->transform = Matrix::translate(targetRect.x+dx, targetRect.y+dy);
   textMesh->material->color = col.premultiplied();
   textMesh->material->blendPremultiplied();
   glContext->draw(textMesh);  
@@ -251,6 +265,11 @@ void DrawContext::drawRoundRectFrame(const Rect& rect, u16 radius, u16 thickness
 {
   TexturePtr tex = ring(radius, thickness);
   drawRR(rect, radius, tex, col);
+}
+
+void DrawContext::drawRectFrame(const Rect& rect, u16 thickness, const Color& col)
+{
+  DOUT("not implemented yet");
 }
 
 void DrawContext::drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const Color& col)

@@ -28,6 +28,7 @@ struct DrawContext
   
   void drawRoundRect(const Rect& rect, u16 radius, const Color& col);
   void drawRoundRectFrame(const Rect& rect, u16 radius, u16 thickness, const Color& col);
+  void drawRectFrame(const Rect& rect, u16 thickness, const Color& col);
   
   void drawImage(const ImagePtr& image, const Rect& rect, const Color& col);
   

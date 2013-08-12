@@ -196,7 +196,14 @@ void Layer::draw(DrawContext* ctx)
   }
   if((_borderColor != clearColor) && (_borderWidth > 0))
   {
-    ctx->drawRoundRectFrame(Rect(0,0,_rect.size()), _cornerRadius, _borderWidth, _borderColor);
+    if(_cornerRadius > 0)
+    {
+      ctx->drawRoundRectFrame(Rect(0,0,_rect.size()), _cornerRadius, _borderWidth, _borderColor);
+    }
+    else
+    {
+      ctx->drawRectFrame(Rect(0,0,_rect.size()), _borderWidth, _borderColor);
+    }
   }
 }
 

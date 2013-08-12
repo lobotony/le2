@@ -72,8 +72,9 @@ void UiTestApp::startup()
   SZDOUT(Frame);
   
   resourceManager->registerFontBundle("resources/fonts/vera.lefont");
+  resourceManager->registerFontBundle("resources/fonts/antonio.lefont");
   FontPtr font = resourceManager->font("Vera", 12);
-
+  FontPtr largeFont = resourceManager->font("Antonio bold", 20);
   {
     TextLayerPtr tl(new TextLayer);
     tl->font(font);
@@ -118,6 +119,29 @@ void UiTestApp::startup()
     tl->cornerRadius(8);
     ui->rootView->layer->addSublayer(tl);
   }
+
+  {
+    TextLayerPtr tl(new TextLayer);
+    tl->font(largeFont);
+    
+    string txt =
+"Then throw her in the laundry room, which will hereafter be referred to as 'the brig'. But I know you in the future. I cleaned your poop. This opera's as lousy as it is brilliant! Your lyrics lack subtlety. You can't just have your characters announce how they feel. That makes me feel angry!\n\nOh, I don't have time for this. I have to go and buy a single piece of fruit with a coupon and then return it, making people wait behind me while I complain. I usually try to keep my sadness pent up inside where it can fester quietly as a mental illness. I am Singing Wind, Chief of the Martians.\n\nYou'll have all the Slurm you can drink when you're partying with Slurms McKenzie! Yes, I saw. You were doing well, until everyone died. Bender, we're trying our best.\n\nThat's a popular name today. Little 'e', big 'B'? Fry! Quit doing the right thing, you jerk! Bender, we're trying our best. I'm Santa Claus! Good news, everyone! I've taught the toaster to feel love!\n\nDr. Zoidberg, that doesn't make sense. But, okay! Why, those are the Grunka-Lunkas! They work here in the Slurm factory. Fry! Quit doing the right thing, you jerk! I didn't ask for a completely reasonable excuse! I asked you to get busy! I am Singing Wind, Chief of the Martians.";
+    
+    tl->text(txt);
+    tl->name = tl->text();
+    tl->rect(300,40,400,400);
+    tl->textColor(blackColor);
+    tl->backgroundColor(whiteColor);
+    tl->insets(Insets(10));
+    tl->cornerRadius(0);
+    tl->alignment(TextAlignmentLeft);
+    tl->breakmode(BREAKMODE_WORD);
+    tl->borderColor(blueColor);
+    tl->borderWidth(1);
+    
+    ui->rootView->layer->addSublayer(tl);
+  }
+
   first = true;
   logged = false;
   

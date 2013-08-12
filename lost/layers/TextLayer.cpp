@@ -40,7 +40,10 @@ void TextLayer::draw(DrawContext* rc)
   Layer::draw(rc);
   if(_font)
   {
-    rc->drawText(_text, _font, _textColor, rect().rectWithInsets(_insets), Vec2(0,0), _alignment, _breakmode);
+    Rect cr = rect();
+    Rect r(0,0,cr.width, cr.height);
+    r.applyInsets(_insets);
+    rc->drawText(_text, _font, _textColor, r, Vec2(_insets.l,0), _alignment, _breakmode);
   }
 }
 
