@@ -30,6 +30,7 @@ Quad::Quad(const Rect& inRect)
   BufferLayout layout;
   layout.add(ET_vec2_f32, UT_position);
   layout.add(ET_vec3_f32, UT_normal);
+  layout.add(ET_vec2_f32, UT_texcoord0);
   this->resetBuffers(layout, ET_u16);
   
   indexBuffer->drawMode = GL_TRIANGLES;
@@ -96,6 +97,7 @@ Quad::Quad(const vector<Rect>& rects)
   BufferLayout layout;
   layout.add(ET_vec2_f32, UT_position);
   layout.add(ET_vec3_f32, UT_normal);
+  layout.add(ET_vec2_f32, UT_texcoord0);  
   this->resetBuffers(layout, ET_u16);
 
   indexBuffer->drawMode = GL_TRIANGLES;
