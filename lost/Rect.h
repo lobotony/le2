@@ -17,6 +17,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LOST_RECT_H
 #define LOST_RECT_H
 
+#include "lost/Insets.h"
+
 namespace lost
 {
   struct Rect
@@ -53,6 +55,9 @@ namespace lost
     Vec2 bottomRight() const;
     Vec2 topRight() const;
     Vec2 topLeft() const;
+    
+    Rect rectWithInsets(const Insets& insets) const;
+    void applyInsets(const Insets& insets);
     
     float x;
     float y;

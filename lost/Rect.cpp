@@ -156,4 +156,20 @@ namespace lost
     Vec2 Rect::bottomRight() const { return Vec2(maxX(), y); }
     Vec2 Rect::topRight() const { return Vec2(maxX(), maxY()); }
     Vec2 Rect::topLeft() const { return Vec2(x, maxY()); }
+  
+    Rect Rect::rectWithInsets(const Insets& insets) const
+    {
+      Rect result(*this);
+      result.applyInsets(insets);
+      return result;
+    }
+  
+    void Rect::applyInsets(const Insets& insets)
+    {
+      x += insets.l;
+      y += insets.b;
+      width -= (insets.l + insets.r);
+      height -= (insets.b + insets.t);
+    }
+  
 }
