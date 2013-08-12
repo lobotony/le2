@@ -159,12 +159,14 @@ void DrawContext::updateTexCoords()
 
 void DrawContext::updateTexCoords(bool flipX, bool flipY)
 {
-  if((_flipX != flipX) || (_flipY != flipY))
-  {
+  // disabled flip state caching and comparison since it would clash with image drawing when
+  // state wasn't set 
+//  if((_flipX != flipX) || (_flipY != flipY))
+//  {
     _flipX = flipX;
     _flipY = flipY;
     updateTexCoords();
-  }
+//  }
 }
 
 void DrawContext::setTexCoords(const Vec2& bl,
@@ -193,7 +195,7 @@ void DrawContext::drawSolidRect(const Rect& rect, const Color& col)
 void DrawContext::drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col, bool flipX, bool flipY)
 {
   updateTexCoords(flipX, flipY);
-  bgquad->transform = Matrix::translate(Vec3(rect.x, rect.y, 0)) * Matrix::scale(Vec3(rect.width, rect.height, 1));
+  bgquad->transform = Matrix::translate(rect.x, rect.y) * Matrix::scale(rect.width, rect.height);
   bgquad->material->color = col.premultiplied();
   bgquad->material->shader = textureShader;
   bgquad->material->limitTextures(1);
@@ -233,7 +235,7 @@ void DrawContext::drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const C
 
 void DrawContext::drawImage(const ImagePtr& image, const Rect& rect, const Color& col)
 {
-  setTexCoords(image->bl, image->br, image->tr, image->tl);
+  updateQuadTexCoordsFromImage(image);
   bgquad->transform = Matrix::translate(rect.x, rect.y) * Matrix::scale(Vec3(rect.width, rect.height, 1));
   bgquad->material->color = col.premultiplied();
   bgquad->material->shader = textureShader;
@@ -241,6 +243,22 @@ void DrawContext::drawImage(const ImagePtr& image, const Rect& rect, const Color
   bgquad->material->setTexture(0, image->texture);
   bgquad->material->blendPremultiplied();
   glContext->draw(bgquad);  
+}
+
+void DrawContext::updateQuadTexCoordsFromImage(ImagePtr image)
+{
+  switch(image->orientation)
+  {
+    case ImageOrientationUp:setTexCoords(image->bl, image->br, image->tr, image->tl);break;
+    case ImageOrientationDown:setTexCoords(image->tr, image->tl, image->bl, image->br);break;
+    case ImageOrientationLeft:setTexCoords(image->br, image->tr, image->tl, image->bl);break;
+    case ImageOrientationRight:setTexCoords(image->tl, image->bl, image->br, image->tr);break;
+
+    case ImageOrientationUpMirrored:setTexCoords(image->br, image->bl, image->tl, image->tr);break;
+    case ImageOrientationDownMirrored:setTexCoords(image->tl, image->tr, image->br, image->bl);break;
+    case ImageOrientationLeftMirrored:setTexCoords(image->tr, image->br, image->bl, image->tl);break;
+    case ImageOrientationRightMirrored:setTexCoords(image->bl, image->tl, image->tr, image->br);break;
+  }
 }
 
 }

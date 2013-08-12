@@ -45,10 +45,11 @@ void UiTestApp::startup()
   sl4->borderWidth(1);
 
   LayerPtr sl5(new Layer);
-  sl5->rect(Rect(100,100,201,199));
+  sl5->rect(Rect(130,130,165,165));
   sl5->backgroundColor(whiteColor);
-  sl5->name = "rings";
-  sl5->backgroundImage(resourceManager->image("resources/images/rings.png"));
+  sl5->name = "arrow";
+  sl5->backgroundImage(resourceManager->image("resources/images/arrow.png"));
+  sl5->backgroundImage()->orientation = ImageOrientationUp;
   
   ui->rootView->layer->addSublayer(sl1);
   ui->rootView->layer->addSublayer(sl2);
@@ -56,8 +57,6 @@ void UiTestApp::startup()
   ui->rootView->layer->addSublayer(sl4);
   ui->rootView->layer->addSublayer(sl5);
   
-    
-
   DOUT("root Z:"<<ui->rootView->layer->z(););
   DOUT("sl1 Z:"<<sl1->z());
   DOUT("sl2 Z:"<<sl2->z());

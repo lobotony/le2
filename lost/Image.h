@@ -41,8 +41,6 @@ struct Image
   f32               t,b,l,r; // top/bottom/left/right caps for NinePatch drawing
 
   // normalised texture coordinates that describe the part of the texture used for drawing.
-  // you should not need to set these manually, since they will be derived from the other parameters
-  // and also reflect orientation.
   Vec2              bl, br, tr, tl;
 
   void updateTextureCoords();

@@ -163,6 +163,7 @@ ImagePtr ResourceManager::image(ResourceId rid)
     
     TexturePtr tex = texture(rid);
     result.reset(new Image(tex));
+    result->orientation = ImageOrientationDownMirrored;
     hash2image[rid] = result;
   }
   else

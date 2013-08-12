@@ -21,10 +21,16 @@ Image::~Image()
 
 void Image::updateTextureCoords()
 {
-  bl = Vec2(0,0);
+/*  bl = Vec2(0,0);
   br = Vec2(1,0);
   tr = Vec2(1,1);
-  tl = Vec2(0,1);
+  tl = Vec2(0,1);*/
+  
+  // vertically mirror texture coordinates here so ImageOrientation works as intended
+  br = Vec2(1,1);
+  bl = Vec2(0,1);
+  tl = Vec2(0,0);
+  tr = Vec2(1,0);
 }
 
 }

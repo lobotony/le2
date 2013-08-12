@@ -125,6 +125,7 @@ struct Matrix
     m.initScaling(f);
     return m;
   }
+  static Matrix scale(f32 x, f32 y) { return scale(Vec3(x,y,1)); }
   
   static Matrix identity()
   {

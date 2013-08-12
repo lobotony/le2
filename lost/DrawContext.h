@@ -41,6 +41,7 @@ private:
   void updateTexCoords(); // always updates texcoords for current flip settings
   void setTexCoords(const Vec2& bl, const Vec2& br, const Vec2& tr, const Vec2& tl); // always updates texcoords for current flip settings
   void updateTexCoords(bool flipX, bool flipY); // checks if new flags are different and triggers optional update
+  void updateQuadTexCoordsFromImage(ImagePtr image);
   void drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const Color& col);
 };
 }
