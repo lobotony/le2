@@ -33,6 +33,8 @@
   #include "lost/lmath.h"
   #include "lost/Texture.h"
   #include "lost/Image.h"
+  #include "lost/TextBreakmodes.h"
+  #include "lost/TextAlignment.h"
 
 #endif // __cplusplus
 

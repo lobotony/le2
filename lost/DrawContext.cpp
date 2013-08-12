@@ -8,6 +8,7 @@
 #include "lost/TextMesh.h"
 #include "lost/Bitmap.h"
 #include "lost/NinePatch.h"
+#include "lost/TextBuffer.h"
 
 namespace lost
 {
@@ -17,6 +18,9 @@ namespace lost
 DrawContext::DrawContext(Context* ctx)
 {
   glContext = ctx;
+  
+  _textBuffer = new TextBuffer;
+  
   // load some common shaders
   colorShader = Application::instance()->resourceManager->shader("resources/glsl/color");
   textureShader = Application::instance()->resourceManager->shader("resources/glsl/texture");
@@ -212,6 +216,30 @@ void DrawContext::drawText(const string& text, const FontPtr& font, const Color&
   textMesh->material->blendPremultiplied();
   glContext->draw(textMesh);
 }
+
+void DrawContext::drawText( const string& text,
+                            const FontPtr& font,
+                            const Color& col,
+                            const Rect& targetRect,
+                            const Vec2& pos,
+                            TextAlignment alignment,
+                            BreakMode breakmode)
+{
+  _textBuffer->text(text);
+  _textBuffer->font(font);
+  _textBuffer->setAlign(alignment);
+  _textBuffer->setCharacterMetrics(false);
+  _textBuffer->breakMode(breakmode);
+  _textBuffer->width(targetRect.width);
+  _textBuffer->reset();
+  _textBuffer->renderAllPhysicalLines(textMesh);
+
+  textMesh->transform = Matrix::translate(pos.x, pos.y);
+  textMesh->material->color = col.premultiplied();
+  textMesh->material->blendPremultiplied();
+  glContext->draw(textMesh);  
+}
+
 
 void DrawContext::drawRoundRect(const Rect& rect, u16 r, const Color& col)
 {

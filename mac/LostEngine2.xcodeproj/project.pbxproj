@@ -114,6 +114,8 @@
 		EA0EEAFF15E67804000CBC13 /* Matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
 		EA6983BA172EF9BF00B4BA2E /* MeshAlgo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshAlgo.cpp; sourceTree = "<group>"; };
 		EA6983BB172EF9BF00B4BA2E /* MeshAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshAlgo.h; sourceTree = "<group>"; };
+		EA69E8F017B93360008318C2 /* Insets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Insets.h; sourceTree = "<group>"; };
+		EA69E8F217B964F9008318C2 /* TextAlignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextAlignment.h; sourceTree = "<group>"; };
 		EA6B8A2F1742A5CE00733FA9 /* Runner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Runner.h; sourceTree = "<group>"; };
 		EA6B8A301742A88300733FA9 /* RunnerMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RunnerMac.mm; sourceTree = SOURCE_ROOT; };
 		EA6B8A341742B16900733FA9 /* Clock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clock.cpp; sourceTree = "<group>"; };
@@ -391,6 +393,8 @@
 				EACD24A515D8333100453F75 /* Data.cpp */,
 				EACD24A615D8333100453F75 /* Data.h */,
 				EACD24AA15D8523300453F75 /* Disallow.h */,
+				EAE79C81178C2EBF00A3C4B4 /* DrawContext.cpp */,
+				EAE79C82178C2EBF00A3C4B4 /* DrawContext.h */,
 				EABB38E61600D42B0009D8F7 /* Event.h */,
 				EAE79CAB178C41B300A3C4B4 /* EventDispatcher.cpp */,
 				EAE79CAC178C41B300A3C4B4 /* EventDispatcher.h */,
@@ -408,6 +412,7 @@
 				EA945F0B15F7A87B004EE290 /* HybridBuffer.h */,
 				EAC8B02917B50942001A9D76 /* Image.cpp */,
 				EAC8B02A17B50942001A9D76 /* Image.h */,
+				EA69E8F017B93360008318C2 /* Insets.h */,
 				EA90FCC315E15C730071F358 /* lgl.cpp */,
 				EA90FCC215E15B4F0071F358 /* lgl.h */,
 				EABC647D179AAF7D00B1A409 /* lmath.cpp */,
@@ -456,6 +461,7 @@
 				EA0C315715FCDC0900661552 /* StringAdditions.h */,
 				EACD249F15D81FF600453F75 /* StringStream.cpp */,
 				EACD24A015D81FF600453F75 /* StringStream.h */,
+				EA69E8F217B964F9008318C2 /* TextAlignment.h */,
 				EAADB61B15FFA3A2008F7450 /* TextBreakmodes.h */,
 				EAADB61C15FFA3A2008F7450 /* TextBuffer.cpp */,
 				EAADB61D15FFA3A2008F7450 /* TextBuffer.h */,
@@ -492,8 +498,6 @@
 				EAE79C73178C2E9200A3C4B4 /* views */,
 				EAE79C7E178C2EAF00A3C4B4 /* Compositor.cpp */,
 				EAE79C7F178C2EAF00A3C4B4 /* Compositor.h */,
-				EAE79C81178C2EBF00A3C4B4 /* DrawContext.cpp */,
-				EAE79C82178C2EBF00A3C4B4 /* DrawContext.h */,
 				EAE79C84178C2ECA00A3C4B4 /* EventSystem.cpp */,
 				EAE79C85178C2ECA00A3C4B4 /* EventSystem.h */,
 				EAE79C87178C2ED800A3C4B4 /* Frame.cpp */,

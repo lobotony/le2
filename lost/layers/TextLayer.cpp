@@ -3,6 +3,12 @@
 
 namespace lost
 {
+TextLayer::TextLayer()
+{
+  _textColor = blackColor;
+  _alignment = TextAlignmentLeft;
+  _breakmode = BREAKMODE_WORD;
+}
 
 string TextLayer::text() const { return _text; }
 void TextLayer::text(const string& v) { _text = v; needsRedraw(); }
@@ -12,6 +18,15 @@ void TextLayer::font(const FontPtr& v) { _font = v; needsRedraw(); }
 
 Color TextLayer::textColor() const { return _textColor; }
 void TextLayer::textColor(const Color& v) { _textColor = v; needsRedraw(); }
+
+Insets TextLayer::insets() const { return _insets; }
+void TextLayer::insets(const Insets& v) { _insets = v; needsRedraw(); }
+
+TextAlignment TextLayer::alignment() const { return _alignment; }
+void TextLayer::alignment(TextAlignment v) { _alignment = v; needsRedraw(); }
+
+BreakMode TextLayer::breakmode() const { return _breakmode; }
+void TextLayer::breakmode(BreakMode v) { _breakmode = v; needsRedraw(); }
 
 string TextLayer::description()
 {
@@ -25,7 +40,7 @@ void TextLayer::draw(DrawContext* rc)
   Layer::draw(rc);
   if(_font)
   {
-    rc->drawText(_text, _font, _textColor, Vec2(0,10), 0);
+    rc->drawText(_text, _font, _textColor, rect().rectWithInsets(_insets), Vec2(0,0), _alignment, _breakmode);
   }
 }
 

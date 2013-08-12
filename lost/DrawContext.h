@@ -5,6 +5,7 @@ namespace lost
 {
 
 struct Context;
+struct TextBuffer;
 
 /** Bundles common functions and resources for efficient 2D UI drawing.
  * Layers don't need to use this, but having this helps share some resources.
@@ -16,6 +17,15 @@ struct DrawContext
   void drawSolidRect(const Rect& rect, const Color& col);
   void drawTexturedRect(const Rect& rect, const TexturePtr& tex, const Color& col, bool flipX=false, bool flipY=false);
   void drawText(const string& text, const FontPtr& font, const Color& col, const Vec2& pos, int alignment);
+
+  void drawText(const string& text,
+                const FontPtr& font,
+                const Color& col,
+                const Rect& targetRect,
+                const Vec2& offset,
+                TextAlignment alignment,
+                BreakMode breakmode);
+  
   void drawRoundRect(const Rect& rect, u16 radius, const Color& col);
   void drawRoundRectFrame(const Rect& rect, u16 radius, u16 thickness, const Color& col);
   
@@ -36,6 +46,7 @@ struct DrawContext
   NinePatchPtr ninePatch;
   
 private:
+  TextBuffer* _textBuffer;
   bool _flipX;
   bool _flipY;
   void updateTexCoords(); // always updates texcoords for current flip settings

@@ -8,6 +8,8 @@ namespace lost
 
 struct TextLayer : public Layer
 {
+  TextLayer();
+
   string text() const;
   void text(const string& v);
   
@@ -17,14 +19,26 @@ struct TextLayer : public Layer
   Color textColor() const;
   void textColor(const Color& v);
   
+  Insets insets() const;
+  void insets(const Insets& v);
+  
+  TextAlignment alignment() const;
+  void alignment(TextAlignment v);
+  
+  BreakMode breakmode() const;
+  void breakmode(BreakMode v);
+  
   string description();
   
   virtual void draw(DrawContext* rc);
 
 private:
-  string  _text;
-  FontPtr _font;
-  Color   _textColor;
+  string        _text;
+  FontPtr       _font;
+  Color         _textColor;
+  Insets        _insets;
+  TextAlignment _alignment;
+  BreakMode     _breakmode;
 };
 
 }
