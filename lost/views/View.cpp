@@ -174,9 +174,11 @@ void View::rect(f32 x, f32 y, f32 w, f32 h) { layer->rect(x, y, w, h); }
 void View::rect(const Rect& r) { layer->rect(r); }
 const Rect& View::rect() const { return layer->rect(); }
 
+void View::pos(f32 x, f32 y) { pos(Vec2(x,y)); }
 void View::pos(const Vec2& p) { layer->pos(p); }
 Vec2 View::pos() const { return layer->pos(); }
 
+void View::size(f32 w, f32 h) { size(Vec2(w,h)); }
 void View::size(const Vec2& sz) { layer->size(sz); }
 Vec2 View::size() const { return layer->size(); }
 

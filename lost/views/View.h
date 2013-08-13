@@ -30,9 +30,11 @@ struct View : enable_shared_from_this<View>
   virtual void rect(const Rect& r);
   const Rect& rect() const;
   
+  void pos(f32 x, f32 y);
   void pos(const Vec2& p);
   Vec2 pos() const;
   
+  void size(f32 w, f32 h);
   void size(const Vec2& sz);
   Vec2 size() const;
 
