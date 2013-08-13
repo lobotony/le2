@@ -5,6 +5,7 @@
 #include "lost/ResourceManager.h"
 #include "lost/Event.h"
 #include "lost/views/Label.h"
+#include "lost/views/ImageView.h"
 
 namespace lost
 {
@@ -234,6 +235,10 @@ void UiTestApp::startup()
   label->rect(200,200,100,100);
   label->addEventHandler(ET_MouseUpInside, [](Event* event){ DOUT("mouse up inside label"); }, EP_Target);
   ui->rootView->addSubview(label);
+
+  ImageViewPtr iv(new ImageView(resourceManager->image("resources/images/rings.png")));
+  iv->pos(200,300);
+  ui->rootView->addSubview(iv);
 
   DOUT("current focus: "<<ui->focusedView()->name());
 }

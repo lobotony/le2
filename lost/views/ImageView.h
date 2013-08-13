@@ -1,21 +1,17 @@
 #ifndef LOST_IMAGEVIEW_H
 #define LOST_IMAGEVIEW_H
 
+#include "lost/views/View.h"
+
 namespace lost
 {
 struct ImageView : public View
 {
   ImageView();
-  virtual ~ImageView();
+  ImageView(const ImagePtr& v);
   
-  void texture(const TexturePtr& v);
-  TexturePtr texture();
-  
-  void startAnimation();
-  void stopAnimation();
-  
-private:
-  
+  void image(const ImagePtr& v);
+  ImagePtr image() const;
 };
 }
 
