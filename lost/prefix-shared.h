@@ -35,6 +35,7 @@
   #include "lost/Image.h"
   #include "lost/TextBreakmodes.h"
   #include "lost/TextAlignment.h"
+  #include "lost/Animation.h"
 
 #endif // __cplusplus
 
