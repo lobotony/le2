@@ -84,6 +84,9 @@ namespace lost
   LE_SP(TextLayer);
   LE_SP(Animation);
   LE_SP(Image);
+  LE_SP(Label);
+  LE_SP(Button);
+  LE_SP(ImageView);
 }
 
 #endif
