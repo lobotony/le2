@@ -11,6 +11,7 @@ View::View()
   superview = NULL;
   focusable = true;
   focused = false;
+  name("View");
 }
 
 View::~View()
@@ -143,7 +144,24 @@ bool View::visible()
   return layer->visible();
 }
 
-#pragma mark - hit test - 
+#pragma mark - basic appearance -
+
+void View::backgroundColor(const Color& v) { layer->backgroundColor(v); }
+Color View::backgroundColor() { return layer->backgroundColor(); }
+
+void View::borderColor(const Color& v) { layer->borderColor(v); }
+Color View::borderColor() { return layer->borderColor(); }
+
+void View::borderWidth(f32 v) { layer->borderWidth(v); }
+f32 View::borderWidth() { return layer->borderWidth(); }
+
+void View::opacity(f32 v) { layer->opacity(v); }
+f32 View::opacity() { return layer->opacity(); }
+
+void View::backgroundImage(const ImagePtr& v) { layer->backgroundImage(v); }
+ImagePtr View::backgroundImage() { return layer->backgroundImage(); }
+
+#pragma mark - hit test -
 
 bool View::containsPoint(const Vec2& point)
 {

@@ -27,7 +27,7 @@ struct View : enable_shared_from_this<View>
 
   // basic geometry
   void rect(f32 x, f32 y, f32 w, f32 h);
-  void rect(const Rect& r);
+  virtual void rect(const Rect& r);
   const Rect& rect() const;
   
   void pos(const Vec2& p);
@@ -38,6 +38,22 @@ struct View : enable_shared_from_this<View>
 
   string name();
   void name(const string& v);
+
+  // basic appearance
+  void backgroundColor(const Color& v);
+  Color backgroundColor();
+
+  void borderColor(const Color& v);
+  Color borderColor();
+  
+  void borderWidth(f32 v);
+  f32 borderWidth();
+  
+  void opacity(f32 v);
+  f32 opacity();
+  
+  void backgroundImage(const ImagePtr& v);
+  ImagePtr backgroundImage();
   
   // hit test
   bool containsPoint(const Vec2& point);
