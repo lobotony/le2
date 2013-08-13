@@ -6,7 +6,7 @@ namespace lost
 TextLayer::TextLayer()
 {
   _textColor = blackColor;
-  _alignment = TextAlignmentLeft;
+  _alignment = TextAlignmentCenter;
   _breakmode = BREAKMODE_WORD;
 }
 
