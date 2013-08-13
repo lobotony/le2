@@ -6,6 +6,7 @@ namespace lost
 Label::Label()
 {
   textLayer.reset(new TextLayer);
+  textLayer->backgroundColor(clearColor);
   layer->addSublayer(textLayer);
   name("Label");
 }
