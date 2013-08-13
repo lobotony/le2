@@ -6,6 +6,7 @@
 #include "lost/Event.h"
 #include "lost/views/Label.h"
 #include "lost/views/ImageView.h"
+#include "lost/views/Button.h"
 
 namespace lost
 {
@@ -69,9 +70,13 @@ void UiTestApp::startup()
   SZDOUT(LayerPtr);
   SZDOUT(string);
   SZDOUT(vector<LayerPtr>);
+  SZDOUT(Layer);
   SZDOUT(View);
+  SZDOUT(Label);
+  SZDOUT(ImageView);
   SZDOUT(Color);
   SZDOUT(Frame);
+  SZDOUT(Animation);
   
   resourceManager->registerFontBundle("resources/fonts/vera.lefont");
   resourceManager->registerFontBundle("resources/fonts/antonio.lefont");
@@ -177,7 +182,7 @@ void UiTestApp::startup()
   auto poslogger = [this](Event* ev)
   {
 //    DOUT("move "<<ev->mouseEvent.x<<" "<<ev->mouseEvent.y);
-//    cursor->pos(Vec2(ev->mouseEvent.x, ev->mouseEvent.y));
+    cursor->pos(Vec2(ev->mouseEvent.x, ev->mouseEvent.y));
   };
   
 //  auto enterLogger = [this](Event* ev) { DOUT(ev->base.currentTarget->name()<<": enter "<<ev->base.target->name()<<" phase: "<<ev->base.phase); };
@@ -232,13 +237,25 @@ void UiTestApp::startup()
   LabelPtr label(new Label);
   label->font(largeFont);
   label->text("TESTING!!!!!");
-  label->rect(200,200,100,100);
+  label->rect(120,300,100,100);
   label->addEventHandler(ET_MouseUpInside, [](Event* event){ DOUT("mouse up inside label"); }, EP_Target);
   ui->rootView->addSubview(label);
 
   ImageViewPtr iv(new ImageView(resourceManager->image("resources/images/rings.png")));
   iv->pos(200,300);
   ui->rootView->addSubview(iv);
+
+  ButtonPtr b(new Button);
+  b->background(resourceManager->image("resources/images/PowerButton-Pressed.png"), ButtonStatePressed);
+  b->background(resourceManager->image("resources/images/PowerButton-Released.png"), ButtonStateReleased);
+  b->title("off", ButtonStateReleased);
+  b->title("ON", ButtonStatePressed);
+  b->titleColor(whiteColor, ButtonStateReleased);
+  b->titleColor(whiteColor, ButtonStatePressed);
+  b->rect(450,450,120,120);
+  b->titleLabel->font(resourceManager->font("Antonio bold", 20));
+  b->titleLabel->insets(Insets(44,0,0,0));
+  ui->rootView->addSubview(b);
 
   DOUT("current focus: "<<ui->focusedView()->name());
 }
