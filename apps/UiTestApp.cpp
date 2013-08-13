@@ -4,6 +4,7 @@
 #include "lost/layers/TextLayer.h"
 #include "lost/ResourceManager.h"
 #include "lost/Event.h"
+#include "lost/views/Label.h"
 
 namespace lost
 {
@@ -74,7 +75,7 @@ void UiTestApp::startup()
   resourceManager->registerFontBundle("resources/fonts/vera.lefont");
   resourceManager->registerFontBundle("resources/fonts/antonio.lefont");
   FontPtr font = resourceManager->font("Vera", 12);
-  FontPtr largeFont = resourceManager->font("Antonio bold", 20);
+  FontPtr largeFont = resourceManager->font("Antonio bold", 18);
   {
     TextLayerPtr tl(new TextLayer);
     tl->font(font);
@@ -175,7 +176,7 @@ void UiTestApp::startup()
   auto poslogger = [this](Event* ev)
   {
 //    DOUT("move "<<ev->mouseEvent.x<<" "<<ev->mouseEvent.y);
-    cursor->pos(Vec2(ev->mouseEvent.x, ev->mouseEvent.y));
+//    cursor->pos(Vec2(ev->mouseEvent.x, ev->mouseEvent.y));
   };
   
 //  auto enterLogger = [this](Event* ev) { DOUT(ev->base.currentTarget->name()<<": enter "<<ev->base.target->name()<<" phase: "<<ev->base.phase); };
@@ -226,6 +227,13 @@ void UiTestApp::startup()
   v3->addEventHandler(ET_MouseEnter, evLogger, EP_Target);
   v3->addEventHandler(ET_MouseLeave, evLogger, EP_Bubble);
   v3->addEventHandler(ET_MouseLeave, evLogger, EP_Target);
+
+  LabelPtr label(new Label);
+  label->font(largeFont);
+  label->text("TESTING!!!!!");
+  label->rect(200,200,100,100);
+  label->addEventHandler(ET_MouseUpInside, [](Event* event){ DOUT("mouse up inside label"); }, EP_Target);
+  ui->rootView->addSubview(label);
 
   DOUT("current focus: "<<ui->focusedView()->name());
 }
