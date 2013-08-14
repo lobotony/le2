@@ -25,6 +25,8 @@ struct Compositor
   void cachedDraw(const LayerPtr& rootLayer);
   void unchachedDraw(const LayerPtr& rootLayer);
 
+  void logCacheStats();
+
 private:
   Vec2 windowSize;
   Camera2DPtr uicam;

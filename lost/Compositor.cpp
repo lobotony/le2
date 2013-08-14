@@ -79,8 +79,8 @@ void Compositor::windowResized(const Vec2& newSize)
   
 void Compositor::draw(const LayerPtr& rootLayer)
 {
-//  cachedDraw(rootLayer);
-  unchachedDraw(rootLayer);
+  cachedDraw(rootLayer);
+//  unchachedDraw(rootLayer);
   
   redrawCandidates.clear();
   redraws.clear();
@@ -223,6 +223,18 @@ void Compositor::checkedNeedsRedraw(Layer* layer)
   {
     redrawCandidates.push_back(layer);
   }
+}
+
+void Compositor::logCacheStats()
+{
+  u32 mem = 0;
+  for(auto i : layerCache)
+  {
+    mem += (i.second->dataWidth * i.second->dataHeight);
+  }
+  mem *= 4;
+  mem /= 1024;
+  DOUT("Layer cache: entries"<<(u32)layerCache.size()<<" approx. mem: "<<mem<<" kb");
 }
 
 }
