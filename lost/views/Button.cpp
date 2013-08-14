@@ -8,10 +8,12 @@ namespace lost
 Button::Button()
 {
   imageView.reset(new ImageView);
+  imageView->name("buttonBackground");
   addSubview(imageView);
 
   titleLabel.reset(new Label);
   titleLabel->backgroundColor(clearColor);
+  titleLabel->name("buttonTitle");
   addSubview(titleLabel);
 
   backgroundColor(clearColor);
@@ -22,6 +24,8 @@ Button::Button()
   addEventHandler(ET_MouseDown, [this](Event* event) { mouseDown(event); }, EP_Bubble);
   addEventHandler(ET_MouseUpInside  , [this](Event* event) { mouseUpInside(event); }, EP_Bubble);
   addEventHandler(ET_MouseUpOutside, [this](Event* event) { mouseUpOutside(event); }, EP_Bubble);
+  
+  name("Button");
 }
 
 Button::~Button()
