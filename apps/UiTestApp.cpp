@@ -255,6 +255,7 @@ void UiTestApp::startup()
   b->rect(450,450,120,120);
   b->titleLabel->font(resourceManager->font("Antonio bold", 20));
   b->titleLabel->insets(Insets(44,0,0,0));
+  b->addAction([](Button* b) { DOUT("button action "<<b->name()); });
   ui->rootView->addSubview(b);
 
   DOUT("current focus: "<<ui->focusedView()->name());

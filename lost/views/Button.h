@@ -16,6 +16,8 @@ enum ButtonState
 
 struct Button : public View
 {
+  typedef std::function<void(Button*)> Action;
+
   Button();
   virtual ~Button();
   
@@ -34,6 +36,10 @@ struct Button : public View
   void background(const ImagePtr& v, ButtonState s);
   void image(const ImagePtr& v, ButtonState s);
 
+  u32 addAction(Action action);
+  void removeAction(u32 index);
+  void removeAllActions();
+
 private:
   void updateFromState();
   void mouseDown(Event* event);
@@ -46,6 +52,9 @@ private:
   map<ButtonState, ImagePtr>  state2image;
   
   ButtonState _state;
+
+  void triggerActions();
+  vector<Action> actions;
 };
 
 }

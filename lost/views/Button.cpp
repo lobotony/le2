@@ -42,6 +42,7 @@ void Button::mouseUpInside(Event* event)
 {
   DOUT("");
   state(ButtonStateReleased);
+  triggerActions();
 }
 
 void Button::mouseUpOutside(Event* event)
@@ -102,6 +103,30 @@ void Button::updateFromState()
     titleLabel->textColor(txtcol->second);
   }
   layer->needsRedraw();
+}
+
+u32 Button::addAction(Action action)
+{
+  actions.push_back(action);
+  return u32(actions.size()-1);
+}
+
+void Button::removeAction(u32 index)
+{
+  actions.erase(actions.begin()+index);
+}
+
+void Button::removeAllActions()
+{
+  actions.clear();
+}
+
+void Button::triggerActions()
+{
+  for(auto& action : actions)
+  {
+    action(this);
+  }
 }
 
 }
