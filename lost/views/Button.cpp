@@ -37,11 +37,13 @@ void Button::mouseDown(Event* event)
 void Button::mouseUpInside(Event* event)
 {
   DOUT("");
+  state(ButtonStateReleased);
 }
 
 void Button::mouseUpOutside(Event* event)
 {
   DOUT("");
+  state(ButtonStateReleased);
 }
 
 void Button::rect(const Rect& r)
