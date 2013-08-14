@@ -234,7 +234,7 @@ void DrawContext::drawText( const string& text,
   _textBuffer->reset();
   _textBuffer->renderAllPhysicalLines(textMesh);
 
-  DOUT("textmesh size "<<textMesh->size<<" target rect: "<<targetRect);
+//  DOUT("textmesh size "<<textMesh->size<<" target rect: "<<targetRect);
 
   f32 dx = floorf((targetRect.width - textMesh->size.width)/2.0f);
   f32 dy = floorf((targetRect.height - textMesh->size.height)/2.0f);
@@ -269,7 +269,7 @@ void DrawContext::drawRoundRectFrame(const Rect& rect, u16 radius, u16 thickness
 
 void DrawContext::drawRectFrame(const Rect& rect, u16 thickness, const Color& col)
 {
-  DOUT("not implemented yet");
+//  DOUT("not implemented yet");
 }
 
 void DrawContext::drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const Color& col)
