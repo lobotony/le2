@@ -19,6 +19,9 @@ struct UiTestApp : Application
   bool next;
   
   LayerPtr cursor;
+  
+  LabelPtr label;
+  bool growing; 
 };
 
 }

@@ -235,9 +235,9 @@ void UiTestApp::startup()
   v3->addEventHandler(ET_MouseLeave, evLogger, EP_Bubble);
   v3->addEventHandler(ET_MouseLeave, evLogger, EP_Target);
 
-  LabelPtr label(new Label);
+  label.reset(new Label);
   label->font(largeFont);
-  label->text("TESTING!!!!!");
+  label->text("Good news, everyone! I've taught the toaster to feel love!\n\nDr. Zoidberg, that doesn't make sense. But, okay! Why, those are the Grunka-Lunkas! They work here in the Slurm factory. Fry! Quit doing the right thing, you jerk! I didn't ask for a completely reasonable excuse! I asked you to get busy! I am Singing Wind, Chief of the Martians.");
   label->rect(120,300,100,100);
   label->addEventHandler(ET_MouseUpInside, [](Event* event){ DOUT("mouse up inside label"); }, EP_Target);
   ui->rootView->addSubview(label);
@@ -256,7 +256,20 @@ void UiTestApp::startup()
   b->rect(450,450,120,120);
   b->titleLabel->font(resourceManager->font("Antonio bold", 20));
   b->titleLabel->insets(Insets(44,0,0,0));
-  b->addAction([this](Button* b) { ui->compositor->logCacheStats(); });
+  b->addAction([this](Button* b)
+  {
+    ui->compositor->logCacheStats();
+    if(!growing)
+    {
+      label->size(300,200);
+      growing = true;
+    }
+    else
+    {
+      label->size(100,100);
+      growing = false;
+    }
+  });
   ui->rootView->addSubview(b);
 
   DOUT("current focus: "<<ui->focusedView()->name());
