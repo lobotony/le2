@@ -22,6 +22,9 @@ struct Compositor
   void clearCacheForLayer(Layer* layer);
   void reset(); // called when ui is disabled, clears and resets all state
 
+  void cachedDraw(const LayerPtr& rootLayer);
+  void unchachedDraw(const LayerPtr& rootLayer);
+
 private:
   Vec2 windowSize;
   Camera2DPtr uicam;
@@ -31,13 +34,21 @@ private:
   
   
   DrawContext* drawContext;
-    
+  
+  void checkedNeedsRedraw(Layer* layer);
   void prepareRedraws(const LayerPtr rootLayer);
   void updateLayerCaches();
   
   vector<Layer*> redrawCandidates;
   vector<Layer*> redraws;
   map<Layer*, TexturePtr> layerCache;
+  
+  // uncached drawing
+  TexturePtr drawBuffer;
+  void unchachedDraw(Vec2 pos, const LayerPtr& layer);
+  void drawLayer(const Vec2& globalLayerOrigin, const LayerPtr& layer);
+  u32 numDraws;
+  
 };
 }
 

@@ -79,6 +79,64 @@ void Compositor::windowResized(const Vec2& newSize)
   
 void Compositor::draw(const LayerPtr& rootLayer)
 {
+//  cachedDraw(rootLayer);
+  unchachedDraw(rootLayer);
+  
+  redrawCandidates.clear();
+  redraws.clear();
+}
+
+#pragma mark - uncached draw -
+
+void Compositor::unchachedDraw(const LayerPtr& rootLayer)
+{
+  numDraws=0;
+  unchachedDraw(Vec2(0,0), rootLayer);
+//  DOUT("layers drawn: "<<numDraws);
+}
+
+void Compositor::unchachedDraw(Vec2 pos, const LayerPtr& layer)
+{
+  drawLayer(pos, layer);
+  for(auto sublayer : layer->sublayers)
+  {
+    unchachedDraw(pos+sublayer->pos(), sublayer);
+  }
+}
+
+void Compositor::drawLayer(const Vec2& globalLayerOrigin, const LayerPtr& layer)
+{
+  numDraws++;
+  // create framebuffer texture if required
+  if(!drawBuffer)
+  {
+    drawBuffer.reset(new Texture);
+  }
+  drawBuffer->init(layer->rect().size());
+
+  // setup framebuffer and camera
+  fb->bind();
+  fb->detachAll();
+  fb->attachColorBuffer(0, drawBuffer);
+  fb->check(); // FIXME: remove this once it is not needed anymore for debugging
+  fbcam->viewport(Rect(0,0,layer->rect().size()));
+  drawContext->glContext->camera(fbcam);
+
+  // draw layer into texture
+  layer->draw(drawContext);
+
+  drawContext->glContext->bindDefaultFramebuffer();  
+  drawContext->glContext->camera(uicam);
+  // draw texture as rect onto screen at global origin pos
+  Color drawColor(1.0f, 1.0f, 1.0f, layer->opacity());
+  drawContext->drawTexturedRect(Rect(globalLayerOrigin, layer->rect().size()), drawBuffer, drawColor);
+}
+
+#pragma mark - cached draw -
+
+void Compositor::cachedDraw(const LayerPtr& rootLayer)
+{
+  numDraws = 0;
   prepareRedraws(rootLayer);
   updateLayerCaches();
 
@@ -86,9 +144,7 @@ void Compositor::draw(const LayerPtr& rootLayer)
   drawContext->glContext->camera(uicam);
   Color drawColor(1.0f, 1.0f, 1.0f, rootLayer->opacity());
   drawContext->drawTexturedRect(rootLayer->rect(), layerCache[rootLayer.get()], drawColor);
-  
-  redrawCandidates.clear();
-  redraws.clear();
+//  DOUT("layer caches drawn: "<<numDraws);
 }
 
 void Compositor::prepareRedraws(const LayerPtr rootLayer)
@@ -114,6 +170,7 @@ void Compositor::updateLayerCaches()
 {
   for(Layer* layer : redraws)
   {
+    numDraws++;
 //    DOUT(layer->z() << " : " << layer->description());
     // find existing texture for layer or create new one and resize to current layer size
     TexturePtr texture;
@@ -148,7 +205,18 @@ void Compositor::updateLayerCaches()
   }
 }
 
+#pragma mark - redraw scheduling -
+
 void Compositor::needsRedraw(Layer* layer)
+{
+  while(layer)
+  {
+    checkedNeedsRedraw(layer);
+    layer = layer->superlayer;
+  }
+}
+
+void Compositor::checkedNeedsRedraw(Layer* layer)
 {
   auto pos = find(redrawCandidates.begin(), redrawCandidates.end(), layer);
   if(pos == redrawCandidates.end())
