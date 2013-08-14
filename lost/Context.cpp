@@ -554,7 +554,7 @@ void Context::textureDying(Texture* tex)
 
 void Context::bufferDying(Buffer* buffer)
 {
-  DOUT("");
+//  DOUT("");
   for(auto i : target2buffer)
   {
     if(i.second == buffer->buffer)
