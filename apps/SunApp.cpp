@@ -32,7 +32,7 @@ void SunApp::updateSpline(const vector<Vec2>& cp, u32 numPoints, MeshPtr& triang
   f32 halfWidth = splineWidth / 2;
   u32 j=0;
   
-//  f32 falloff = halfWidth / numPoints;
+  f32 falloff = halfWidth / numPoints;
   f32 hw = halfWidth;
   for(u32 i=0; i<numPoints; i+=1)
   {
@@ -49,7 +49,7 @@ void SunApp::updateSpline(const vector<Vec2>& cp, u32 numPoints, MeshPtr& triang
 //    DOUT("p "<< p << " n "<<n);
 //    DOUT("left "<<leftPoint<<" right "<<rightPoint );
     j+=2;
-//    hw -= falloff;
+    hw -= falloff;
   }
   
 }
@@ -84,7 +84,7 @@ void SunApp::startup()
     
   Color skyBlue(.4, .8, 1, 1);
   
-  mainRenderFunc = [this] ()
+  mainRenderFunc = [this, skyBlue] ()
   {
     // offscreen pass
     offscreenCanvas->drawToCanvas(sceneRenderFunc);
@@ -111,7 +111,7 @@ void SunApp::startup()
     canvasQuad->material->setTexture(0, vblurCanvas->framebuffer->texture(0));
     canvasQuad->material->shader = textureShader;
     
-    glContext->clearColor(blackColor);
+    glContext->clearColor(skyBlue);
     glContext->camera(cam);
     glContext->clear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
 
@@ -133,8 +133,8 @@ void SunApp::startup()
 
 void SunApp::setupSplineTexture()
 {
-  Color splineBorderColor = Color(.39,.75,0.1,1);
-  Color splineColor = Color(.24, .55, .0, 1);  
+  Color splineBorderColor = Color(.75,.75,0.1,1);
+  Color splineColor = Color(1, 1, .7, 1);
   BitmapPtr splineBitmap(new Bitmap(splineWidth+2, 1, GL_RGBA));
   splineBitmap->clear(Color(0,0,0,0));
   for(u32 i=1; i<(splineWidth-1); ++i)
@@ -158,7 +158,7 @@ void SunApp::setupSplineTexture()
 void SunApp::setupSplines()
 {
   numInterpolatedPoints = 50;
-  splineWidth = 12;
+  splineWidth = 30;
   d = 0;
   numCircles = 5;
   numSplines = 20;
@@ -268,7 +268,7 @@ void SunApp::update()
   d += clock.deltaUpdate;
 
 
-  f32 ff = .1;
+  f32 ff = .3;
 
   o1 = sin(d)*ff;
   o2 = cos(d)/2*ff;
