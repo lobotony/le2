@@ -394,6 +394,13 @@ void Layer::addDefaultKeyAccessors()
   
   key2getter["size"] = [this]() { return Variant(size()); };
 
+  key2setter["pos"] = [this](const Variant& v)
+  {
+    ASSERT(v.type==VT_vec2, "pos must be Vec2");
+    pos(v.vec2);
+  };
+  
+  key2getter["pos"] = [this]() { return Variant(pos()); };
 }
 
 void Layer::setValue(const string& key, const Variant& v)

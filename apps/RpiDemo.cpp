@@ -51,10 +51,10 @@ void RpiDemo::startup()
   label->textColor(Color(1,1,1,1));
   label->backgroundColor(Color(0,0,0,0));
   
-  f32 descHeight = 220;
+  descHeight = 220;
   f32 descWidth = windowSize.width-w;
   f32 is = 10;
-  ViewPtr descContainer(new View);
+  descContainer.reset(new View);
   ui->rootView->addSubview(descContainer);
   descContainer->backgroundColor(transBlackColor);
   descContainer->rect(0,0,descWidth, descHeight);
@@ -96,12 +96,56 @@ void RpiDemo::startup()
   descButton->titleColor(whiteColor, ButtonStateReleased);
   descButton->titleColor(blackColor, ButtonStatePressed);
 
+  touchButton->addAction([this](Button* b) {toggleTouchDemo();});
+  descButton->addAction([this](Button* b) {toggleSpecs();});
+  
+  slidingIn = false;
+  descContainer->pos(0,-descHeight);
 }
 
 void RpiDemo::toggleSpecs()
 {
+  DOUT("");
   
+  f32 duration = 1;
+  f32 speed = 1;
+
+  if(!slidingIn)
+  {
+    slidingIn = true;
+    AnimationPtr slideIn(new Animation);
+    slideIn->key = "pos";
+    slideIn->beginTime = currentTimeSeconds();
+    slideIn->duration = duration;
+    slideIn->speed = speed;
+    slideIn->startValue = Variant(descContainer->pos());
+    slideIn->endValue = Variant(Vec2(0,0));
+      
+    descContainer->layer->addAnimation(slideIn->key, slideIn);
+    specAnim = slideIn;
+  }
+  else
+  {
+    slidingIn = false;
+    AnimationPtr slideOut(new Animation);
+    slideOut->key = "pos";
+    slideOut->beginTime = currentTimeSeconds();
+    slideOut->duration = duration;
+    slideOut->speed = speed;
+    slideOut->startValue = Variant(descContainer->pos());
+    slideOut->endValue = Variant(Vec2(0,-descHeight));
+    slideOut->timingFunction = TimingFunction::easeIn();
+      
+    descContainer->layer->addAnimation(slideOut->key, slideOut);
+    specAnim = slideOut;    
+  }
 }
+
+void RpiDemo::toggleTouchDemo()
+{
+  DOUT("");
+}
+
 
 void RpiDemo::update()
 {

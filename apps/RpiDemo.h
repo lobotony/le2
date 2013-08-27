@@ -15,6 +15,14 @@ struct RpiDemo : Application
   void shutdown();
   
   void toggleSpecs();
+  void toggleTouchDemo();
+  
+  f32 descHeight;
+  ViewPtr descContainer;
+  
+  // specAnim
+  AnimationPtr specAnim;
+  bool slidingIn;
   
 };
   
