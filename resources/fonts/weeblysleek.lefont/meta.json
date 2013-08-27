@@ -1,0 +1,29 @@
+{
+  "fonts" : 
+  [
+    {
+       "name" : "Weebly Sleek Ui Light",
+       "ttfile" : "weblysleekuil.ttf"
+    },
+    {
+       "name" : "Weebly Sleek Ui Light Italic",
+       "ttfile" : "weblysleekuili.ttf"
+    },
+    {
+       "name" : "Weebly Sleek Ui Standard",
+       "ttfile" : "weblysleekuisl.ttf"
+    },
+    {
+       "name" : "Weebly Sleek Ui Standard Italic",
+       "ttfile" : "weblysleekuisli.ttf"
+    },
+    {
+       "name" : "Weebly Sleek Ui Bold",
+       "ttfile" : "weblysleekuisb.ttf"
+    },
+    {
+       "name" : "Weebly Sleek Ui Bold Italic",
+       "ttfile" : "weblysleekuisbi.ttf"
+    },
+  ]
+}

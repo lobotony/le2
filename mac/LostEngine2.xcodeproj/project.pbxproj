@@ -21,6 +21,7 @@
 		EA2268F517BA578F00D7BC60 /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA2268F117BA578F00D7BC60 /* Label.cpp */; };
 		EA2268F917BA579A00D7BC60 /* ImageView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA2268F717BA579A00D7BC60 /* ImageView.cpp */; };
 		EA2268FC17BA57CF00D7BC60 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA2268FA17BA57CF00D7BC60 /* Button.cpp */; };
+		EA23339417CCABAE000646D1 /* RpiDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA23339217CCABAE000646D1 /* RpiDemo.cpp */; };
 		EA6983BC172EF9BF00B4BA2E /* MeshAlgo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6983BA172EF9BF00B4BA2E /* MeshAlgo.cpp */; };
 		EA6B8A311742A88300733FA9 /* RunnerMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA6B8A301742A88300733FA9 /* RunnerMac.mm */; };
 		EA6B8A361742B16900733FA9 /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA6B8A341742B16900733FA9 /* Clock.cpp */; };
@@ -121,6 +122,8 @@
 		EA2268F817BA579A00D7BC60 /* ImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
 		EA2268FA17BA57CF00D7BC60 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
 		EA2268FB17BA57CF00D7BC60 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
+		EA23339217CCABAE000646D1 /* RpiDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RpiDemo.cpp; path = ../apps/RpiDemo.cpp; sourceTree = "<group>"; };
+		EA23339317CCABAE000646D1 /* RpiDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RpiDemo.h; path = ../apps/RpiDemo.h; sourceTree = "<group>"; };
 		EA6983BA172EF9BF00B4BA2E /* MeshAlgo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MeshAlgo.cpp; sourceTree = "<group>"; };
 		EA6983BB172EF9BF00B4BA2E /* MeshAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshAlgo.h; sourceTree = "<group>"; };
 		EA69E8F017B93360008318C2 /* Insets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Insets.h; sourceTree = "<group>"; };
@@ -298,6 +301,8 @@
 				EAF8EDE3179D69B6004E53FC /* AnimTest.h */,
 				EAAFD8BC177215AA00C1D521 /* DemoApp.cpp */,
 				EAAFD8BD177215AA00C1D521 /* DemoApp.h */,
+				EA23339217CCABAE000646D1 /* RpiDemo.cpp */,
+				EA23339317CCABAE000646D1 /* RpiDemo.h */,
 				EAAFD8BF177215CB00C1D521 /* SunApp.cpp */,
 				EAAFD8C0177215CB00C1D521 /* SunApp.h */,
 				EAAFD8B91772147800C1D521 /* UiTestApp.cpp */,
@@ -720,6 +725,7 @@
 				EA2268F517BA578F00D7BC60 /* Label.cpp in Sources */,
 				EA2268F917BA579A00D7BC60 /* ImageView.cpp in Sources */,
 				EA2268FC17BA57CF00D7BC60 /* Button.cpp in Sources */,
+				EA23339417CCABAE000646D1 /* RpiDemo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
