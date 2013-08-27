@@ -101,6 +101,57 @@ void RpiDemo::startup()
   
   slidingIn = false;
   descContainer->pos(0,-descHeight);
+  
+  psize = 80;
+  touchView.reset(new View);
+  touchView->rect(200,600,psize,psize);
+  touchView->layer->cornerRadius(8);
+  touchView->layer->borderWidth(2);
+  touchView->backgroundColor(transBlackColor);
+  touchView->borderColor(whiteColor);
+  
+  ui->rootView->addSubview(touchView);
+  
+  offset = Vec2(0,descHeight);
+  areaSize = Vec2(windowSize.width-w, windowSize.height);
+  
+  clickedView = false;
+  downHandler = [this](Event* event)
+  {
+    clickedView = true;
+//    DOUT(event->mouseEvent.x << " "<<event->mouseEvent.y);
+  };
+
+  moveHandler = [this](Event* event)
+  {
+    if(clickedView)
+    {
+      f32 x = event->mouseEvent.x;
+      f32 y = event->mouseEvent.y;
+      
+      x = std::min(x,areaSize.x+offset.x);
+      x = std::max(x,offset.x);
+      x = floorf(x-(psize/2));
+      y = std::min(y,areaSize.y+offset.y);
+      y = std::max(y,offset.y);
+      y = floorf(y-(psize/2));
+      
+      touchView->pos(Vec2(x, y));
+    }
+  };
+
+  upHandler = [this](Event* event)
+  {
+    clickedView = NULL;
+//    DOUT(eventTypeToString(event->base.type)<<" "<<eventPhaseToString(event->base.phase));
+  };
+
+  ui->rootView->addEventHandler(ET_MouseMove, moveHandler, EP_Target);
+  ui->rootView->addEventHandler(ET_MouseMove, moveHandler, EP_Bubble);
+  touchView->addEventHandler(ET_MouseDown, downHandler, EP_Target);
+  ui->rootView->addEventHandler(ET_MouseUp, upHandler, EP_Target);
+  ui->rootView->addEventHandler(ET_MouseUp, upHandler, EP_Bubble);
+  touchView->visible(true);
 }
 
 void RpiDemo::toggleSpecs()
