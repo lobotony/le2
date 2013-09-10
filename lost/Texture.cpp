@@ -23,6 +23,7 @@ Texture::Params::Params()
 void Texture::create()
 {
   glGenTextures(1, &texture);GLASSERT;
+  Context::instance()->textureCreated(this);
 }
 
 
@@ -113,7 +114,7 @@ void Texture::init(const Vec2& inSize, const Texture::Params& inParams)
         inParams.format,
         inParams.type,
         0);
-
+  internalFormat = inParams.internalFormat;
   // memorize texture and raw data sizes for texture coordinate calculations
   width = texwidth;
   height = texheight;
@@ -142,6 +143,8 @@ void Texture::init(const BitmapPtr& inBitmap, const Texture::Params& inParams)
                   bitmapParams.format,
                   inParams.type,
                   inBitmap->data);GLASSERT;
+
+  internalFormat = inParams.internalFormat;
 
   // set wrapping and filters
   wrapS(bitmapParams.wrapS);
