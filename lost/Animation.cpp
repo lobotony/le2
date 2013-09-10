@@ -87,7 +87,7 @@ Variant Animation::currentValue(TimeInterval now)
 bool Animation::stopped(TimeInterval now)
 {
   bool result = true;
-  if(repeatCount == numeric_limits<float>::infinity())
+  if(doesRepeatForever())
   {
     result = false;
   }
@@ -106,6 +106,11 @@ bool Animation::stopped(TimeInterval now)
   }
   
   return result;
+}
+
+bool Animation::doesRepeatForever()
+{
+  return repeatCount == numeric_limits<float>::infinity();
 }
 
 void Animation::repeatForever()

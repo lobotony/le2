@@ -24,6 +24,7 @@ struct Animation
   f32             repeatCount; // 0 = ignore
   TimeInterval    repeatDuration; // 0 = ignore
   void            repeatForever(); // sets repeatCount to infinity
+  bool            doesRepeatForever();
 
   bool            autoreverses;
 
@@ -35,10 +36,10 @@ struct Animation
   
   Animation();
   virtual ~Animation();
-  bool stopped(TimeInterval now);
-  f32 periodLength(); // in local time, unscaled by speed
-  f32 totalDuration(); // returns total duration in local time, taking autoreverse and repeats into account. Speed is not applied yet.
-  f32 currentAbsoluteTime(TimeInterval now); // returns the absolute time within the period
+  bool    stopped(TimeInterval now);
+  f32     periodLength(); // in local time, unscaled by speed
+  f32     totalDuration(); // returns total duration in local time, taking autoreverse and repeats into account. Speed is not applied yet.
+  f32     currentAbsoluteTime(TimeInterval now); // returns the absolute time within the period
   Variant currentValue(TimeInterval now);
 };
 }
