@@ -158,7 +158,7 @@ void RpiDemo::toggleSpecs()
 {
   DOUT("");
   
-  f32 duration = 1;
+  f32 duration = .3;
   f32 speed = 1;
 
   if(!slidingIn)
@@ -185,7 +185,7 @@ void RpiDemo::toggleSpecs()
     slideOut->speed = speed;
     slideOut->startValue = Variant(descContainer->pos());
     slideOut->endValue = Variant(Vec2(0,-descHeight));
-    slideOut->timingFunction = TimingFunction::easeIn();
+    slideOut->timingFunction = TimingFunction::easeOut();
       
     descContainer->layer->addAnimation(slideOut->key, slideOut);
     specAnim = slideOut;    
