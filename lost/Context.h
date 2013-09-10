@@ -67,6 +67,8 @@ private:
   
   map<GLenum, GLuint> target2buffer;
   
+  vector<Texture*> _textures;
+  
 public:
   Context();
   ~Context();
@@ -121,6 +123,8 @@ public:
   void disableUnrequiredVertexAttributes();
   
   // resource lifecycle & cache sync
+  void logTextureStats();
+  void textureCreated(Texture* tex);
   void textureDying(Texture* tex);
   void bufferDying(Buffer* buffer);
   void shaderprogramDying(ShaderProgram* prog);

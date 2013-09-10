@@ -539,6 +539,40 @@ if(member != newstate) \
 
 #pragma mark - Resource Lifecycle & Cache Sync -
 
+void Context::logTextureStats()
+{
+  DOUT("--- Texture Stats:");
+  DOUT("alive: "<<(s64)_textures.size());
+  f64 numBytes = 0;
+  for(Texture* tex : _textures)
+  {
+    u64 bpp = 0;
+    switch(tex->internalFormat)
+    {
+      case GL_ALPHA:bpp=1;break;
+      case GL_RGB:bpp=3;break;
+      case GL_RGBA:bpp=4;break;
+      default:
+        EOUT("dunno bpp:"<<tex->internalFormat);
+    }
+    f64 sz =tex->width*tex->height*bpp;
+    numBytes += sz;
+    DOUT(tex->texture<<" size: "<<sz/(1024*1024)<<" MB");
+  }
+  DOUT("memory: "<<numBytes/(1024*1024)<<" MB");
+}
+
+void Context::textureCreated(Texture* tex)
+{
+  auto pos = find(_textures.begin(), _textures.end(), tex);
+  if(pos == _textures.end())
+  {
+    _textures.push_back(tex);
+    DOUT("num textures: "<<(s64)_textures.size());
+  }
+}
+
+
 void Context::textureDying(Texture* tex)
 {
   DOUT("");
