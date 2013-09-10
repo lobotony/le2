@@ -479,16 +479,34 @@ void Layer::addDefaultActions()
   key2action["opacity"] = standardAction;
 }
 
-void Layer::setValue(const string& key, const Variant& v)
+void Layer::setValue(const string& key, const Variant& v, bool animated)
 {
-  auto pos = key2setter.find(key);
-  if(pos != key2setter.end())
+  bool setWithoutAnimation = false;
+  if(animated)
   {
-    pos->second(v);
+    auto pos = key2action.find(key);
+    if(pos != key2action.end())
+    {
+      addAnimation(key, pos->second(key, v));
+    }
+    else
+    {
+      WOUT("no animation found for key: "<<key);
+      setWithoutAnimation = true;
+    }
   }
-  else
+  
+  if(!animated or setWithoutAnimation)
   {
-    WOUT("couldn't find setter for key '"<<key<<"'");
+    auto pos = key2setter.find(key);
+    if(pos != key2setter.end())
+    {
+      pos->second(v);
+    }
+    else
+    {
+      WOUT("couldn't find setter for key '"<<key<<"'");
+    }
   }
 }
 
@@ -498,16 +516,6 @@ Variant Layer::getValue(const string& key)
   ASSERT(pos != key2getter.end(), "can't find getter for key "<<key);
   return pos->second();
 }
-
-void Layer::addOptionalAnimationFor(const string& key, const Variant& endValue)
-{
-  auto pos = key2action.find(key);
-  if(pos != key2action.end())
-  {
-    addAnimation(key, pos->second(key, endValue));
-  }
-}
-
 
 }
 

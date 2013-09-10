@@ -158,15 +158,17 @@ void RpiDemo::toggleSpecs()
 {
   DOUT("");
   
+  bool animated = true;
+  
   if(!slidingIn)
   {
     slidingIn = true;
-    descContainer->layer->addOptionalAnimationFor("pos", Variant(Vec2(0,0)));
+    descContainer->layer->setValue("pos", Variant(Vec2(0,0)), animated);
   }
   else
   {
     slidingIn = false;
-    descContainer->layer->addOptionalAnimationFor("pos", Variant(Vec2(0,-descHeight)));
+    descContainer->layer->setValue("pos", Variant(Vec2(0,-descHeight)), animated);
   }
 }
 

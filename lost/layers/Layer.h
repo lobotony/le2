@@ -84,7 +84,7 @@ struct Layer : enable_shared_from_this<Layer>
   void removeAllAnimations();
   bool hasAnimations();
   void updateAnimations(TimeInterval now);
-  void setValue(const string& key, const Variant& v);
+  void setValue(const string& key, const Variant& v, bool animated = false);
   Variant getValue(const string& key);
 
   
@@ -93,8 +93,6 @@ struct Layer : enable_shared_from_this<Layer>
   
   Layer* superlayer;
   vector<LayerPtr> sublayers;
-
-  void addOptionalAnimationFor(const string& key, const Variant& endValue);
 
 private:
   s16         _cornerRadius;
