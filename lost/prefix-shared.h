@@ -36,6 +36,14 @@
   #include "lost/TextBreakmodes.h"
   #include "lost/TextAlignment.h"
   #include "lost/Animation.h"
+  #include "lost/UserInterface.h"
+  #include "lost/ResourceManager.h"
+  #include "lost/views/View.h"
+  #include "lost/views/Button.h"
+  #include "lost/views/ImageView.h"
+  #include "lost/views/Label.h"
+  #include "lost/layers/Layer.h"
+  #include "lost/layers/TextLayer.h"
 
 #endif // __cplusplus
 
