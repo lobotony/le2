@@ -12,6 +12,7 @@ View::View()
   focusable = true;
   focused = false;
   name("View");
+  _userInteractionEnabled = true;
 }
 
 View::~View()
@@ -182,7 +183,7 @@ void View::size(f32 w, f32 h) { size(Vec2(w,h)); }
 void View::size(const Vec2& sz) { layer->size(sz); }
 Vec2 View::size() const { return layer->size(); }
 
-#pragma mark - event handing - 
+#pragma mark - event handing -
 
 EDConnection View::addEventHandler(EventType et, EventHandler handler, EventPhase phase)
 {
@@ -209,6 +210,17 @@ void View::removeEventHandler(const EDConnection& connection)
 void View::dispatchEvent(Event* event, EventPhase phase)
 {
 }
+
+void View::userInteractionEnabled(bool val)
+{
+  _userInteractionEnabled = val;
+}
+
+bool View::userInteractionEnabled()
+{
+  return _userInteractionEnabled;
+}
+
 
 }
 

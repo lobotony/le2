@@ -60,6 +60,9 @@ struct View : enable_shared_from_this<View>
   // hit test
   bool containsPoint(const Vec2& point);
   
+  void userInteractionEnabled(bool val);
+  bool userInteractionEnabled();
+  
   // focus handling
   void gainFocus();
   void loseFocus();
@@ -78,6 +81,9 @@ struct View : enable_shared_from_this<View>
   EventDispatcher captureEventDispatcher;
   EventDispatcher targetEventDispatcher;
   EventDispatcher bubbleEventDispatcher;
+  
+private:
+  bool _userInteractionEnabled;
 };
 
 }
