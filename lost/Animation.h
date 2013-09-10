@@ -41,6 +41,8 @@ struct Animation
   f32     totalDuration(); // returns total duration in local time, taking autoreverse and repeats into account. Speed is not applied yet.
   f32     currentAbsoluteTime(TimeInterval now); // returns the absolute time within the period
   Variant currentValue(TimeInterval now);
+  
+  std::function<void(Layer*, Animation*)> completionHandler;
 };
 }
 

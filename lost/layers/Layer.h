@@ -111,6 +111,7 @@ private:
   void startAnimating();
   void stopAnimating();
   void addDefaultKeyAccessors();
+  void safeSetValue(const string& key, const Variant& v);
   
   map<string, std::function<void(const Variant& v)>> key2setter;
   map<string, std::function<Variant()>> key2getter;

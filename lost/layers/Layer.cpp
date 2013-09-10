@@ -353,6 +353,20 @@ void Layer::stopAnimating()
   Application::instance()->ui->stopAnimating(this);
 }
 
+void Layer::safeSetValue(const string& key, const Variant& v)
+{
+  auto pos = key2setter.find(key);
+  if(pos != key2setter.end())
+  {
+    pos->second(v);
+  }
+  else
+  {
+    EOUT("can't find setter for key "<<key);
+  }
+}
+
+
 void Layer::updateAnimations(TimeInterval now)
 {
   // run all animations if not stopped
@@ -361,19 +375,15 @@ void Layer::updateAnimations(TimeInterval now)
     const AnimationPtr& animation = entry.second;
     if(!animation->stopped(now))
     {
-      auto pos = key2setter.find(animation->key);
-      if(pos != key2setter.end())
-      {
-        pos->second(animation->currentValue(now));
-      }
-      else
-      {
-        EOUT("can't find setter for animation key "<<animation->key);
-      }
-      
+      safeSetValue(animation->key, animation->currentValue(now));
     }
     else
     {
+      safeSetValue(animation->key, animation->endValue); // assign end value on stop to make sure end result is as expected
+      if(animation->completionHandler)
+      {
+        animation->completionHandler(this, animation.get());
+      }
       removeKeys.push_back(entry.first);
     }
   }
@@ -409,8 +419,34 @@ void Layer::addDefaultKeyAccessors()
     pos(v.vec2);
   };
   key2getter["pos"] = [this]() { return Variant(pos()); };
-  
-  
+
+  key2setter["x"] = [this](const Variant& v)
+  {
+    ASSERT(v.type==VT_float, "x must be f32");
+    x(v.f);
+  };
+  key2getter["x"] = [this]() { return Variant(x()); };
+
+  key2setter["y"] = [this](const Variant& v)
+  {
+    ASSERT(v.type==VT_float, "y must be f32");
+    y(v.f);
+  };
+  key2getter["y"] = [this]() { return Variant(y()); };
+
+  key2setter["width"] = [this](const Variant& v)
+  {
+    ASSERT(v.type==VT_float, "width must be f32");
+    width(v.f);
+  };
+  key2getter["width"] = [this]() { return Variant(width()); };
+
+  key2setter["height"] = [this](const Variant& v)
+  {
+    ASSERT(v.type==VT_float, "height must be f32");
+    height(v.f);
+  };
+  key2getter["height"] = [this]() { return Variant(height()); };
 }
 
 void Layer::setValue(const string& key, const Variant& v)

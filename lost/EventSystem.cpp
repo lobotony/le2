@@ -18,8 +18,8 @@ EventSystem::~EventSystem()
 
 void EventSystem::viewDying(View* view)
 {
-  // FIXME: remove from all members and re-establish consistent state afterwards
-  DOUT(view->name());
+  DOUT("---");
+   DOUT(view->name());
   
 #define rm(vec, elem) {auto pos = find(vec.begin(), vec.end(), elem); if(pos != vec.end()) { DOUT(#vec<<" removing "<<elem->name());vec.erase(pos);}}
 
