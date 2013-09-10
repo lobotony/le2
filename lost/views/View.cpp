@@ -183,6 +183,18 @@ void View::size(f32 w, f32 h) { size(Vec2(w,h)); }
 void View::size(const Vec2& sz) { layer->size(sz); }
 Vec2 View::size() const { return layer->size(); }
 
+void View::x(f32 v) { layer->x(v); }
+f32 View::x() const { return layer->x(); }
+
+void View::y(f32 v) { layer->y(v); }
+f32 View::y() const { return layer->y(); }
+
+void View::width(f32 v) { layer->width(v); }
+f32 View::width() const { return layer->width(); }
+
+void View::height(f32 v) { layer->height(v); }
+f32 View::height() const { return layer->height(); }
+
 #pragma mark - event handing -
 
 EDConnection View::addEventHandler(EventType et, EventHandler handler, EventPhase phase)

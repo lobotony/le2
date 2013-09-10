@@ -38,6 +38,18 @@ struct View : enable_shared_from_this<View>
   void size(const Vec2& sz);
   Vec2 size() const;
 
+  void x(f32 v);
+  f32 x() const;
+  
+  void y(f32 v);
+  f32 y() const;
+  
+  void width(f32 v);
+  f32 width() const;
+  
+  void height(f32 v);
+  f32 height() const;
+
   string name();
   void name(const string& v);
 
