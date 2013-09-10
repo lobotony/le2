@@ -158,37 +158,15 @@ void RpiDemo::toggleSpecs()
 {
   DOUT("");
   
-  f32 duration = .3;
-  f32 speed = 1;
-
   if(!slidingIn)
   {
     slidingIn = true;
-    AnimationPtr slideIn(new Animation);
-    slideIn->key = "pos";
-    slideIn->beginTime = currentTimeSeconds();
-    slideIn->duration = duration;
-    slideIn->speed = speed;
-    slideIn->startValue = Variant(descContainer->pos());
-    slideIn->endValue = Variant(Vec2(0,0));
-      
-    descContainer->layer->addAnimation(slideIn->key, slideIn);
-    specAnim = slideIn;
+    descContainer->layer->addOptionalAnimationFor("pos", Variant(Vec2(0,0)));
   }
   else
   {
     slidingIn = false;
-    AnimationPtr slideOut(new Animation);
-    slideOut->key = "pos";
-    slideOut->beginTime = currentTimeSeconds();
-    slideOut->duration = duration;
-    slideOut->speed = speed;
-    slideOut->startValue = Variant(descContainer->pos());
-    slideOut->endValue = Variant(Vec2(0,-descHeight));
-    slideOut->timingFunction = TimingFunction::easeOut();
-      
-    descContainer->layer->addAnimation(slideOut->key, slideOut);
-    specAnim = slideOut;    
+    descContainer->layer->addOptionalAnimationFor("pos", Variant(Vec2(0,-descHeight)));
   }
 }
 

@@ -94,6 +94,8 @@ struct Layer : enable_shared_from_this<Layer>
   Layer* superlayer;
   vector<LayerPtr> sublayers;
 
+  void addOptionalAnimationFor(const string& key, const Variant& endValue);
+
 private:
   s16         _cornerRadius;
   Color       _backgroundColor;
@@ -111,10 +113,12 @@ private:
   void startAnimating();
   void stopAnimating();
   void addDefaultKeyAccessors();
+  void addDefaultActions();
   void safeSetValue(const string& key, const Variant& v);
   
   map<string, std::function<void(const Variant& v)>> key2setter;
   map<string, std::function<Variant()>> key2getter;
+  map<string, std::function<AnimationPtr(const string&, const Variant&)>> key2action;
 };
 }
 

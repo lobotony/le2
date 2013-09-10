@@ -22,6 +22,7 @@ Layer::Layer()
 
   _visible = true;
   addDefaultKeyAccessors();
+  addDefaultActions();
   needsRedraw();
 }
 
@@ -311,6 +312,7 @@ bool Layer::containsPoint(const Vec2& gp)
 void Layer::addAnimation(const string& key, const AnimationPtr& animation)
 {
   animations[key] = animation;
+  animation->key = key;
   startAnimating();
 }
 
@@ -449,6 +451,34 @@ void Layer::addDefaultKeyAccessors()
   key2getter["height"] = [this]() { return Variant(height()); };
 }
 
+void Layer::addDefaultActions()
+{
+  auto standardAction = [this](const string& key, const Variant& endValue)
+  {
+    AnimationPtr result(new Animation);
+    f32 duration = .5;
+    f32 speed = 1;
+    
+    result->beginTime = currentTimeSeconds();
+    result->duration = duration;
+    result->speed = speed;
+    result->startValue = getValue(key);
+    result->endValue = endValue;
+    result->timingFunction = TimingFunction::easeOut();
+    
+    return result;
+  };
+
+
+  key2action["pos"] = standardAction;
+  key2action["size"] = standardAction;
+  key2action["x"] = standardAction;
+  key2action["y"] = standardAction;
+  key2action["width"] = standardAction;
+  key2action["height"] = standardAction;
+  key2action["opacity"] = standardAction;
+}
+
 void Layer::setValue(const string& key, const Variant& v)
 {
   auto pos = key2setter.find(key);
@@ -467,6 +497,15 @@ Variant Layer::getValue(const string& key)
   auto pos = key2getter.find(key);
   ASSERT(pos != key2getter.end(), "can't find getter for key "<<key);
   return pos->second();
+}
+
+void Layer::addOptionalAnimationFor(const string& key, const Variant& endValue)
+{
+  auto pos = key2action.find(key);
+  if(pos != key2action.end())
+  {
+    addAnimation(key, pos->second(key, endValue));
+  }
 }
 
 
