@@ -43,23 +43,35 @@ struct Layer : enable_shared_from_this<Layer>
   void size(const Vec2& sz);
   Vec2 size() const;
   
+  void x(f32 v);
+  f32 x() const;
+  
+  void y(f32 v);
+  f32 y() const;
+  
+  void width(f32 v);
+  f32 width() const;
+  
+  void height(f32 v);
+  f32 height() const;
+  
   void cornerRadius(s16 v);
-  s16 cornerRadius();
+  s16 cornerRadius() const;
   
   void backgroundColor(const Color& v);
-  Color backgroundColor();
+  Color backgroundColor() const;
 
   void borderColor(const Color& v);
-  Color borderColor();
+  Color borderColor() const;
   
   void borderWidth(f32 v);
-  f32 borderWidth();
+  f32 borderWidth() const;
   
   void opacity(f32 v);
-  f32 opacity();
+  f32 opacity() const;
   
   void backgroundImage(const ImagePtr& v);
-  ImagePtr backgroundImage();
+  ImagePtr backgroundImage() const;
   
   // hit test
   bool containsPoint(const Vec2& gp); // gp in global window coordinates

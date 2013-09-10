@@ -259,26 +259,37 @@ Vec2 Layer::size() const
   return _rect.size();
 }
 
+void Layer::x(f32 v) { Rect r = _rect;r.x = v;rect(r); }
+f32 Layer::x() const { return _rect.x; }
+
+void Layer::y(f32 v) { Rect r = _rect;r.y = v;rect(r); }
+f32 Layer::y() const { return _rect.y; }
+
+void Layer::width(f32 v) { Rect r = _rect;r.width = v;rect(r); }
+f32 Layer::width() const { return _rect.width; }
+
+void Layer::height(f32 v) { Rect r = _rect;r.height = v;rect(r);  }
+f32 Layer::height() const { return _rect.height; }
+
 #pragma mark - Draw Properties -
 
 void Layer::cornerRadius(s16 v) {_cornerRadius=v; needsRedraw(); }
-s16 Layer::cornerRadius() { return _cornerRadius; };
+s16 Layer::cornerRadius() const { return _cornerRadius; };
 
 void Layer::backgroundColor(const Color& v) {_backgroundColor = v; needsRedraw(); }
-Color Layer::backgroundColor() { return _backgroundColor; };
+Color Layer::backgroundColor() const { return _backgroundColor; };
 
 void Layer::borderColor(const Color& v) { _borderColor=v;needsRedraw(); }
-Color Layer::borderColor() {return _borderColor; }
+Color Layer::borderColor() const {return _borderColor; }
 
 void Layer::borderWidth(f32 v) { _borderWidth=v; needsRedraw(); }
-f32 Layer::borderWidth() { return _borderWidth; }
+f32 Layer::borderWidth() const { return _borderWidth; }
 
 void Layer::backgroundImage(const ImagePtr& v) { _backgroundImage=v; needsRedraw(); }
-ImagePtr Layer::backgroundImage() { return _backgroundImage; }
+ImagePtr Layer::backgroundImage() const { return _backgroundImage; }
 
 void Layer::opacity(f32 v) { _opacity=v; if(superlayer) { superlayer->needsRedraw(); } };
-f32 Layer::opacity() {return _opacity; }
-
+f32 Layer::opacity() const { return _opacity; }
 
 #pragma mark - hit test -
 
@@ -383,7 +394,6 @@ void Layer::addDefaultKeyAccessors()
     ASSERT(v.type==VT_float, "opacity must be float");
     opacity(v.f);
   };
-  
   key2getter["opacity"] = [this]() { return Variant(_opacity); };
 
   key2setter["size"] = [this](const Variant& v)
@@ -391,7 +401,6 @@ void Layer::addDefaultKeyAccessors()
     ASSERT(v.type==VT_vec2, "size must be Vec2");
     size(v.vec2);
   };
-  
   key2getter["size"] = [this]() { return Variant(size()); };
 
   key2setter["pos"] = [this](const Variant& v)
@@ -399,8 +408,9 @@ void Layer::addDefaultKeyAccessors()
     ASSERT(v.type==VT_vec2, "pos must be Vec2");
     pos(v.vec2);
   };
-  
   key2getter["pos"] = [this]() { return Variant(pos()); };
+  
+  
 }
 
 void Layer::setValue(const string& key, const Variant& v)
