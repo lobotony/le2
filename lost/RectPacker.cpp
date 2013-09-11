@@ -15,6 +15,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include "RectPacker.h"
+#include <algorithm>
 
 namespace lost
 {

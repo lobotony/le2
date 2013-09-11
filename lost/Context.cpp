@@ -26,6 +26,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "lost/Buffer.h"
 #include "lost/Application.h"
 #include "lost/FrameBuffer.h"
+#include <algorithm>
 
 namespace lost
 {
