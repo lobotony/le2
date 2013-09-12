@@ -12,6 +12,8 @@ struct ImageView : public View
   
   void image(const ImagePtr& v);
   ImagePtr image() const;
+  
+  bool resizeOnImageChange; // if true, the view will update it's 
 };
 }
 

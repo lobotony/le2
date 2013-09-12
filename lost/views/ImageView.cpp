@@ -5,6 +5,7 @@ namespace lost
 
 ImageView::ImageView()
 {
+  resizeOnImageChange = true;
 }
 
 ImageView::ImageView(const ImagePtr& v)
@@ -13,7 +14,14 @@ ImageView::ImageView(const ImagePtr& v)
   size(v->size);
 }
 
-void ImageView::image(const ImagePtr& v) { layer->backgroundImage(v); size(v->size); }
+void ImageView::image(const ImagePtr& v)
+{
+  layer->backgroundImage(v);
+  if(resizeOnImageChange)
+  {
+    size(v->size);
+  }
+}
 ImagePtr ImageView::image() const { return layer->backgroundImage(); }
 
 }

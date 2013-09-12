@@ -9,6 +9,7 @@ Button::Button()
 {
   imageView.reset(new ImageView);
   imageView->name("buttonBackground");
+  imageView->resizeOnImageChange = false;
   addSubview(imageView);
 
   titleLabel.reset(new Label);
