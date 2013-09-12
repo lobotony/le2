@@ -59,6 +59,12 @@ namespace lost
     Rect rectWithInsets(const Insets& insets) const;
     void applyInsets(const Insets& insets);
     
+    void centerHorizontallyWithin(const Rect& other);
+    void centerVerticallyWithin(const Rect& other);
+    void centerWithin(const Rect& other);
+    
+    void floor(); // applies floorf() to all values
+    
     float x;
     float y;
     float width;

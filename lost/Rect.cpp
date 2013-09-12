@@ -171,5 +171,28 @@ namespace lost
       width -= (insets.l + insets.r);
       height -= (insets.b + insets.t);
     }
+
+    void Rect::centerHorizontallyWithin(const Rect& other)
+    {
+      x = other.x + (other.width - width)/2;
+    }
   
+    void Rect::centerVerticallyWithin(const Rect& other)
+    {
+      y = other.y + (other.height - height)/2;
+    }
+
+    void Rect::centerWithin(const Rect& other)
+    {
+      centerHorizontallyWithin(other);
+      centerVerticallyWithin(other);
+    }
+
+    void Rect::floor()
+    {
+      x = floorf(x);
+      y = floorf(y);
+      width = floorf(width);
+      height = floorf(height);
+    }
 }
