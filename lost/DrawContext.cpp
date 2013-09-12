@@ -63,7 +63,7 @@ DrawContext::DrawContext(Context* ctx)
   updateTexCoords();
   
   ninePatch.reset(new NinePatch);
-  ninePatch->flip = false;
+  ninePatch->flip = true;
   ninePatch->material->shader = textureShader;
   ninePatch->material->blendPremultiplied();
 }
@@ -282,6 +282,21 @@ void DrawContext::drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const C
 
 void DrawContext::drawImage(const ImagePtr& image, const Rect& rect, const Color& col)
 {
+  switch(image->resizeMode)
+  {
+    case ImageResizeModeStretch:drawImageStretched(image, rect, col);break;
+    case ImageResizeModeNinePatch:drawImageNinepatched(image, rect, col);break;
+    case ImageResizeModeTile:drawImageTiled(image, rect, col);break;
+    default:
+    {
+      WOUT("dont' know what to do with ImageResizeMode"<<image->resizeMode);
+      break;
+    }
+  }
+}
+
+void DrawContext::drawImageStretched(const ImagePtr& image, const Rect& rect, const Color& col)
+{
   updateQuadTexCoordsFromImage(image);
   bgquad->transform = Matrix::translate(rect.x, rect.y) * Matrix::scale(Vec3(rect.width, rect.height, 1));
   bgquad->material->color = col.premultiplied();
@@ -290,6 +305,19 @@ void DrawContext::drawImage(const ImagePtr& image, const Rect& rect, const Color
   bgquad->material->setTexture(0, image->texture);
   bgquad->material->blendPremultiplied();
   glContext->draw(bgquad);  
+}
+
+void DrawContext::drawImageNinepatched(const ImagePtr& image, const Rect& rect, const Color& col)
+{
+  ninePatch->update(image->texture, rect.size(), image->l, image->r, image->t, image->b);
+  ninePatch->material->color = col.premultiplied();
+  ninePatch->transform = Matrix::translate(Vec3(rect.x, rect.y, 0));
+  glContext->draw(ninePatch);
+}
+
+void DrawContext::drawImageTiled(const ImagePtr& image, const Rect& rect, const Color& col)
+{
+  WOUT("not implemented yet");
 }
 
 void DrawContext::updateQuadTexCoordsFromImage(ImagePtr image)

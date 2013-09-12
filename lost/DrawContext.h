@@ -55,6 +55,9 @@ private:
   void updateTexCoords(bool flipX, bool flipY); // checks if new flags are different and triggers optional update
   void updateQuadTexCoordsFromImage(ImagePtr image);
   void drawRR(const Rect& rect, u16 r, const TexturePtr& tex, const Color& col);
+  void drawImageStretched(const ImagePtr& image, const Rect& rect, const Color& col);
+  void drawImageNinepatched(const ImagePtr& image, const Rect& rect, const Color& col);
+  void drawImageTiled(const ImagePtr& image, const Rect& rect, const Color& col);
 };
 }
 
