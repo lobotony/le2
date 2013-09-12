@@ -9,6 +9,14 @@ namespace lost
 
 struct DrawContext;
 
+enum LayerContentMode
+{
+  LayerContentModeScaleToFill = 0,
+  LayerContentModeScaleAspectFit,
+  LayerContentModeScaleAspectFill,
+  LayerContentModeCenter
+};
+
 struct Layer : enable_shared_from_this<Layer>
 {
   Layer();
@@ -73,6 +81,9 @@ struct Layer : enable_shared_from_this<Layer>
   void backgroundImage(const ImagePtr& v);
   ImagePtr backgroundImage() const;
   
+  void backgroundContentMode(LayerContentMode v);
+  LayerContentMode backgroundContentMode();
+  
   // hit test
   bool containsPoint(const Vec2& gp); // gp in global window coordinates
   
@@ -95,15 +106,16 @@ struct Layer : enable_shared_from_this<Layer>
   vector<LayerPtr> sublayers;
 
 private:
-  s16         _cornerRadius;
-  Color       _backgroundColor;
-  ImagePtr    _backgroundImage;
-  Color       _borderColor;
-  f32         _borderWidth;
-  f32         _opacity;
+  LayerContentMode  _backgroundContentMode;
+  s16               _cornerRadius;
+  Color             _backgroundColor;
+  ImagePtr          _backgroundImage;
+  Color             _borderColor;
+  f32               _borderWidth;
+  f32               _opacity;
 
-  Rect        _rect;
-  bool        _visible;
+  Rect              _rect;
+  bool              _visible;
   
   map<string, AnimationPtr> animations;
   vector<string> removeKeys;
@@ -113,6 +125,7 @@ private:
   void addDefaultKeyAccessors();
   void addDefaultActions();
   void safeSetValue(const string& key, const Variant& v);
+  Rect calculateDrawRectFor(const Rect& originalRect, const ImagePtr& img, LayerContentMode mode);
   
   map<string, std::function<void(const Variant& v)>> key2setter;
   map<string, std::function<Variant()>> key2getter;

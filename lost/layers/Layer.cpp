@@ -19,8 +19,8 @@ Layer::Layer()
   _borderColor = clearColor;
   _borderWidth = 0;
   _opacity = 1.0f;
-
   _visible = true;
+  _backgroundContentMode = LayerContentModeScaleToFill;
   addDefaultKeyAccessors();
   addDefaultActions();
   needsRedraw();
@@ -182,7 +182,8 @@ void Layer::draw(DrawContext* ctx)
       }
       else
       {
-        ctx->drawImage(_backgroundImage, r, _backgroundColor);
+        Rect drawRect = calculateDrawRectFor(r, _backgroundImage, _backgroundContentMode);
+        ctx->drawImage(_backgroundImage, drawRect, _backgroundColor);
       }
     }
     else
@@ -207,6 +208,76 @@ void Layer::draw(DrawContext* ctx)
     }
   }
 }
+
+Rect Layer::calculateDrawRectFor(const Rect& originalRect, const ImagePtr& img, LayerContentMode mode)
+{
+  Rect result = originalRect;
+  
+  switch(img->resizeMode)
+  {
+    case ImageResizeModeNinePatch:break; // do nothing since ninepatch will always span all of the original rect
+    case ImageResizeModeTile:break; // do nothing, because image will be tiled acros all of the original rect
+    case ImageResizeModeStretch: // adjust to content mode
+    {
+      switch(mode)
+      {
+        case LayerContentModeScaleToFill:break; // do nothing, results in original rect
+        case LayerContentModeScaleAspectFit: // squeeze image into available space, preserving aspect ratio
+        {
+          f32 scale = 1;
+          if(img->size.height > img->size.width)
+          {
+            scale = originalRect.height / img->size.height;
+          }
+          else
+          {
+            scale = originalRect.width / img->size.width;
+          }
+          result.width = floorf(img->size.width * scale);
+          result.height = floorf(img->size.height * scale);
+          result.centerWithin(originalRect);
+          break;
+        }
+        case LayerContentModeScaleAspectFill: // scale image to fill available space, preserving aspect ratio
+        {
+          f32 scale = 1;
+          if(img->size.height > img->size.width)
+          {
+            scale = originalRect.width / img->size.width;
+          }
+          else
+          {
+            scale = originalRect.height / img->size.height;
+          }
+          result.width = floorf(img->size.width * scale);
+          result.height = floorf(img->size.height * scale);
+          result.centerWithin(originalRect);
+          break;
+        }
+        case LayerContentModeCenter:
+        {
+          result.size(img->size);
+          result.centerWithin(originalRect);
+          break;
+        }
+        default:
+        {
+          WOUT("don't know what to do with LayerContentMode: "<<mode);
+          break;
+        }
+      }
+      break;
+    }
+    default:
+    {
+      WOUT("don't know what to do with ImageResizeMode: "<<img->resizeMode);
+      break;
+    }
+  }
+  result.floor();
+  return result;
+}
+
 
 #pragma mark - Basic Geometry -
 
@@ -288,6 +359,9 @@ f32 Layer::borderWidth() const { return _borderWidth; }
 
 void Layer::backgroundImage(const ImagePtr& v) { _backgroundImage=v; needsRedraw(); }
 ImagePtr Layer::backgroundImage() const { return _backgroundImage; }
+
+void Layer::backgroundContentMode(LayerContentMode v) { _backgroundContentMode = v; needsRedraw(); }
+LayerContentMode Layer::backgroundContentMode() { return _backgroundContentMode; }
 
 void Layer::opacity(f32 v) { _opacity=v; if(superlayer) { superlayer->needsRedraw(); } };
 f32 Layer::opacity() const { return _opacity; }
