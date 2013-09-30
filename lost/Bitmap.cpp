@@ -32,6 +32,8 @@ void Bitmap::reset()
   height = 0;
   premultiplied = false;
   format = 0;
+  mmapaddr = NULL;
+  mmapsize = 0;
 }
 
 Bitmap::Bitmap()
@@ -74,7 +76,7 @@ void Bitmap::destroy()
   {
     stbi_image_free(data);
   }
-  else if(data && !loaded)
+  else if(data && !loaded && !mmapaddr)
   {
     delete [] data;
   }

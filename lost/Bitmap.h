@@ -28,6 +28,9 @@ namespace lost
     GLenum      format; // format of bitmap (rgb, rgba)
     bool        premultiplied; // true if alpha was premlultiplied, false otherwise
 
+    u8*         mmapaddr; // != NULL if this is a mmapped file
+    u32         mmapsize; // != 0 if this is a mmapped file
+
     /** creates an empty bitmap with zero size.
      * Use init to resize it in a given format.
      */

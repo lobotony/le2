@@ -51,6 +51,12 @@ void Application::doStartup()
   // Application startup
   glContext = new Context;
   resourceManager = new ResourceManager;
+  
+  if(!config["textureCache"].isNull())
+  {
+    resourceManager->useCacheAt(config["textureCache"].asString());
+  }
+  
   ui = new UserInterface;
   // user startup
   startup();

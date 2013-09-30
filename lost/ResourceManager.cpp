@@ -1,5 +1,6 @@
 #include "lost/ResourceManager.h"
 #include "lost/Bitmap.h"
+#include "lost/BitmapIo.h"
 #include "lost/Texture.h"
 #include "lost/TruetypeFont.h"
 #include "lost/StringAdditions.h"
@@ -11,10 +12,18 @@ namespace lost
 
 ResourceManager::ResourceManager()
 {
+  useCache = false;
 }
 
 ResourceManager::~ResourceManager()
 {
+}
+
+void ResourceManager::useCacheAt(const string& cacheDir)
+{
+  this->cacheDir = cacheDir;
+  create_directories(cacheDir);
+  useCache = true;
 }
 
 #pragma mark - Hash / ResourceId -
@@ -93,10 +102,32 @@ TexturePtr ResourceManager::texture(ResourceId rid)
     ASSERT(hash2string.find(rid) != hash2string.end(), "couldn't find texture resource with id:"<<rid);
     DOUT("caching texture: " << rid << " -> " << hash2string[rid]);
     
-    DataPtr data = mainBundle.load(hash2string[rid]);
-    BitmapPtr bmp(new Bitmap(data));
-    bmp->premultiplyAlpha();
-    result.reset(new Texture(bmp));
+    if(useCache)
+    {
+      Path cachedBitmapPath = cacheDir / Path(hash2string[rid]).file().string()+".raw";
+      if(exists(cachedBitmapPath))
+      {
+        DOUT("reading from memory mapped raw file");
+        BitmapPtr mapped = loadMapped(cachedBitmapPath.string());
+        result.reset(new Texture(mapped));
+      }
+      else
+      {
+        DOUT("creating raw cache file");
+        DataPtr data = mainBundle.load(hash2string[rid]);
+        BitmapPtr bmp(new Bitmap(data));
+        bmp->premultiplyAlpha();
+        result.reset(new Texture(bmp));
+        writeRawToPath(bmp, cachedBitmapPath.string());
+      }
+    }
+    else
+    {
+      DataPtr data = mainBundle.load(hash2string[rid]);
+      BitmapPtr bmp(new Bitmap(data));
+      bmp->premultiplyAlpha();
+      result.reset(new Texture(bmp));
+    }
     hash2texture[rid] = result;
   }
   else

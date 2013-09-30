@@ -43,7 +43,11 @@ struct ResourceManager
   
   void logStats();
 
+  void useCacheAt(const string& cacheDir);
+
 private:
+  Path cacheDir; // will create cache and reuse data on start/texture load if this is set
+  bool useCache;
   ResourceId stringToHash(const string& resourcePath);
   ResourceId hashPath(const string& resourcePath);
 
