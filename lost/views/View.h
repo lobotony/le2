@@ -93,6 +93,8 @@ struct View : enable_shared_from_this<View>
   EventDispatcher captureEventDispatcher;
   EventDispatcher targetEventDispatcher;
   EventDispatcher bubbleEventDispatcher;
+
+  void logTree();
   
 private:
   bool _userInteractionEnabled;

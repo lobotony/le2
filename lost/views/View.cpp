@@ -103,6 +103,27 @@ bool View::isSubviewOf(View* root)
   return result;
 }
 
+static u32 _numViews = 0;
+void _logTree(u32 depth, View* current)
+{
+  string spaces;
+  _numViews++;
+  for(u32 i=0; i<depth;++i) { spaces += "-";}
+  DOUT(spaces << current->name());
+  for(auto view : current->subviews)
+  {
+    _logTree(depth+1, view.get());
+  }
+}
+
+void View::logTree()
+{
+  u32 depth = 0;
+  _numViews = 0;
+  _logTree(depth, this);
+  DOUT("num view:"<<_numViews);
+}
+
 
 #pragma mark - debug -
 

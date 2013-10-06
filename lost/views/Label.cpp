@@ -9,6 +9,7 @@ Label::Label()
   textLayer->backgroundColor(clearColor);
   layer->addSublayer(textLayer);
   name("Label");
+  textLayer->name = "text";
 }
 
 Label::~Label()

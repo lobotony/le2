@@ -105,6 +105,8 @@ struct Layer : enable_shared_from_this<Layer>
   Layer* superlayer;
   vector<LayerPtr> sublayers;
 
+  void logTree();
+
 private:
   LayerContentMode  _backgroundContentMode;
   s16               _cornerRadius;

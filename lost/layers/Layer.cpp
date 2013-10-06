@@ -9,9 +9,7 @@ namespace lost
 {
 
 Layer::Layer()
-{
-  name = "";
-  
+{  
   superlayer = NULL;
   
   _cornerRadius = 0;
@@ -30,6 +28,28 @@ Layer::~Layer()
 {
   Application::instance()->ui->layerDying(this);
 }
+
+static u32 _numLayers = 0;
+void _logTree(u32 depth, Layer* current)
+{
+  string spaces;
+  _numLayers++;
+  for(u32 i=0; i<depth;++i) { spaces += "-";}
+  DOUT(spaces << current->name);
+  for(auto layer : current->sublayers)
+  {
+    _logTree(depth+1, layer.get());
+  }
+}
+
+void Layer::logTree()
+{
+  u32 depth = 0;
+  _numLayers = 0;
+  _logTree(depth, this);
+  DOUT("num layers:"<<_numLayers);
+}
+
 
 string Layer::description()
 {
