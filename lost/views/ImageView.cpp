@@ -6,6 +6,7 @@ namespace lost
 ImageView::ImageView()
 {
   resizeOnImageChange = true;
+  layer->composite(false);
 }
 
 ImageView::ImageView(const ImagePtr& v)

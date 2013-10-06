@@ -10,11 +10,13 @@ Button::Button()
   imageView.reset(new ImageView);
   imageView->name("buttonBackground");
   imageView->resizeOnImageChange = false;
+  imageView->composite(false);
   addSubview(imageView);
 
   titleLabel.reset(new Label);
   titleLabel->backgroundColor(clearColor);
   titleLabel->name("buttonTitle");
+  titleLabel->composite(false);
   addSubview(titleLabel);
 
   backgroundColor(clearColor);
@@ -27,6 +29,7 @@ Button::Button()
   addEventHandler(ET_MouseUpOutside, [this](Event* event) { mouseUpOutside(event); }, EP_Bubble);
   
   name("Button");
+  layer->composite(true);
 }
 
 Button::~Button()

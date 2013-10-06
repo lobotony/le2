@@ -38,6 +38,8 @@ struct Layer : enable_shared_from_this<Layer>
   virtual void draw(DrawContext* ctx);
   
   void needsRedraw(); // invalidate texture cache in compositor, force content redraw and composition
+  void composite(bool v);
+  bool composite();
 
   virtual string description();
   
@@ -108,6 +110,7 @@ struct Layer : enable_shared_from_this<Layer>
   void logTree();
 
 private:
+  bool              _composite;
   LayerContentMode  _backgroundContentMode;
   s16               _cornerRadius;
   Color             _backgroundColor;

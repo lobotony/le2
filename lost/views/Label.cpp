@@ -10,6 +10,7 @@ Label::Label()
   layer->addSublayer(textLayer);
   name("Label");
   textLayer->name = "text";
+  layer->composite(true);
 }
 
 Label::~Label()

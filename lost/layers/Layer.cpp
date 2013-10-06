@@ -21,6 +21,7 @@ Layer::Layer()
   _backgroundContentMode = LayerContentModeScaleToFill;
   addDefaultKeyAccessors();
   addDefaultActions();
+  composite(false);
   needsRedraw();
 }
 
@@ -49,7 +50,6 @@ void Layer::logTree()
   _logTree(depth, this);
   DOUT("num layers:"<<_numLayers);
 }
-
 
 string Layer::description()
 {
@@ -178,6 +178,17 @@ bool Layer::visible()
 void Layer::needsRedraw()
 {
   Application::instance()->ui->needsRedraw(this);
+}
+
+void Layer::composite(bool v)
+{
+  _composite = v;
+  needsRedraw();
+}
+
+bool Layer::composite()
+{
+  return _composite;
 }
 
 void Layer::draw(DrawContext* ctx)

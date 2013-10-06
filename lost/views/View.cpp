@@ -103,6 +103,16 @@ bool View::isSubviewOf(View* root)
   return result;
 }
 
+void View::composite(bool v)
+{
+  layer->composite(v);
+}
+
+bool View::composite()
+{
+  return layer->composite();
+}
+
 static u32 _numViews = 0;
 void _logTree(u32 depth, View* current)
 {

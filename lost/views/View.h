@@ -20,6 +20,9 @@ struct View : enable_shared_from_this<View>
   void removeAllSubviews();
   bool isSubviewOf(View* root);
   
+  void composite(bool v);
+  bool composite();
+  
   // visibility
   bool isVisibleWithinSuperviews(); // returns visibility of this and all superlayers
   void visible(bool val); // sets this layers visibility flag
