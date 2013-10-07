@@ -20,8 +20,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace lost
 {
   double currentTimeSeconds(); // returns current time in seconds
-  long currentTimeMilliSeconds(); // returns current time in milliseconds
-  long currentTimeMicroSeconds(); // returns current time in microseconds
+  double currentTimeMilliSeconds(); // returns current time in milliseconds
+  double currentTimeMicroSeconds(); // returns current time in microseconds
   string currentTimeFormat(); // returns current time as formatted string (e.g. "2007/11/26 23:30:37:123")
 }
 
