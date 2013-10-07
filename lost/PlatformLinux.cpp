@@ -53,12 +53,12 @@ namespace lost
 	}
 
 	// returns current time in microseconds
-	long currentTimeMicroSeconds()
+	double currentTimeMicroSeconds()
 	{
 	  struct timeval tv;
 
 	  gettimeofday(&tv, NULL);
-	  return tv.tv_sec*1000000 + tv.tv_usec;
+	  return ((double)tv.tv_sec)*1000000.0 + ((double)tv.tv_usec);
 	}
 
 	Path getApplicationFilename(bool excludeExtension = false)
