@@ -18,10 +18,11 @@ EventSystem::~EventSystem()
 
 void EventSystem::viewDying(View* view)
 {
-  DOUT("---");
-   DOUT(view->name());
+//   DOUT(view->name());
   
-#define rm(vec, elem) {auto pos = find(vec.begin(), vec.end(), elem); if(pos != vec.end()) { DOUT(#vec<<" removing "<<elem->name());vec.erase(pos);}}
+#define rm(vec, elem) {auto pos = find(vec.begin(), vec.end(), elem); if(pos != vec.end()) { vec.erase(pos); }}
+  //DOUT(#vec<<" removing "<<elem->name());\
+  
 
   loseFocus(view); // make sure current focus and its stack are consistent
 

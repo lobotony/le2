@@ -573,10 +573,9 @@ void Context::textureCreated(Texture* tex)
   }
 }
 
-
 void Context::textureDying(Texture* tex)
 {
-  DOUT("");
+//  DOUT("");
   for(u32 i=0; i<_maxTextures; ++i)
   {
     if(activeTextures[i] == tex->texture)
