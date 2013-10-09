@@ -334,8 +334,8 @@ void EventSystem::propagateTargetEvent(const ViewStack& vs, Event* event, s32 ta
 
 void EventSystem::propagateBubbleEvents(const ViewStack& vs, Event* event, s32 targetIndex)
 {
-  // called on all views in the stack but the lowermost, in reverse order
-  s32 i=targetIndex-1;
+  // called on all views in the stack, in reverse order
+  s32 i=targetIndex;
   while((i>=0) && !event->base.stopDispatch && !event->base.stopPropagation && event->base.bubbles)
   {
     View* view = vs[i];
