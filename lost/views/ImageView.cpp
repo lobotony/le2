@@ -5,6 +5,7 @@ namespace lost
 
 ImageView::ImageView()
 {
+  name("ImageView");
   resizeOnImageChange = true;
   layer->composite(false);
 }
