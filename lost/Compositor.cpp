@@ -199,8 +199,11 @@ void Compositor::updateLayerCaches()
     // draw sublayer contents
     for(LayerPtr sublayer : layer->sublayers)
     {
-      Color drawColor(1.0f,1.0f,1.0f, sublayer->opacity());
-      drawContext->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], drawColor);
+      if(sublayer->visible())
+      {
+        Color drawColor(1.0f,1.0f,1.0f, sublayer->opacity());
+        drawContext->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], drawColor);
+      }
     }
   }
 }
