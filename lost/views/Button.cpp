@@ -8,9 +8,10 @@ namespace lost
 Button::Button()
 {
   imageView.reset(new ImageView);
-  imageView->name("buttonBackground");
+  imageView->name("buttonIcon");
   imageView->resizeOnImageChange = false;
   imageView->composite(false);
+  imageView->backgroundColor(whiteColor);
   addSubview(imageView);
 
   titleLabel.reset(new Label);
@@ -18,8 +19,6 @@ Button::Button()
   titleLabel->name("buttonTitle");
   titleLabel->composite(false);
   addSubview(titleLabel);
-
-  backgroundColor(clearColor);
 
   _state = ButtonStateReleased;
   updateFromState();
@@ -92,20 +91,38 @@ void Button::updateFromState()
   auto bg = state2background.find(_state);
   if(bg != state2background.end())
   {
-    imageView->image(bg->second);
+    layer->backgroundImage(bg->second);
+  }
+  
+  auto img = state2image.find(_state);
+  if(img != state2image.end())
+  {
+    imageView->visible(true);
+    imageView->layer->backgroundContentMode(lost::LayerContentModeCenter);
+    imageView->image(img->second);
+  }
+  else
+  {
+    imageView->visible(false);
   }
   
   auto txt = state2title.find(_state);
   if(txt != state2title.end())
   {
+    titleLabel->visible(true);
     titleLabel->text(txt->second);
+
+    auto txtcol = state2titleColor.find(_state);
+    if(txtcol != state2titleColor.end())
+    {
+      titleLabel->textColor(txtcol->second);
+    }
+  }
+  else
+  {
+    titleLabel->visible(false);
   }
 
-  auto txtcol = state2titleColor.find(_state);
-  if(txtcol != state2titleColor.end())
-  {
-    titleLabel->textColor(txtcol->second);
-  }
   layer->needsRedraw();
 }
 
