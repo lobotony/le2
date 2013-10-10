@@ -37,20 +37,17 @@ Button::~Button()
 
 void Button::mouseDown(Event* event)
 {
-  DOUT("");
   state(ButtonStatePressed);
 }
 
 void Button::mouseUpInside(Event* event)
 {
-  DOUT("");
   state(ButtonStateReleased);
   triggerActions();
 }
 
 void Button::mouseUpOutside(Event* event)
 {
-  DOUT("");
   state(ButtonStateReleased);
 }
 
