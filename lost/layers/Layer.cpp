@@ -500,7 +500,7 @@ void Layer::updateAnimations(TimeInterval now)
   // remove stopped animations
   for(auto key : removeKeys)
   {
-    DOUT("removing animation '"<<key<<"' from layer '"<<name<<"'");
+//    DOUT("removing animation '"<<key<<"' from layer '"<<name<<"'");
     animations.erase(key);
   }
   removeKeys.clear();
