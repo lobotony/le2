@@ -20,6 +20,8 @@ View::~View()
   Application::instance()->ui->viewDying(this);
 }
 
+#pragma mark - hierarchy -
+
 bool View::containsSubview(const ViewPtr& view)
 {
   bool result = false;
@@ -134,6 +136,15 @@ void View::logTree()
   DOUT("num view:"<<_numViews);
 }
 
+void View::bringSubviewToFront(const ViewPtr& view)
+{
+  auto pos = find(subviews.begin(), subviews.end(), view);
+  if(pos != subviews.end())
+  {
+    removeSubview(view);
+    addSubview(view);
+  }
+}
 
 #pragma mark - debug -
 

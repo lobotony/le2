@@ -19,6 +19,7 @@ struct View : enable_shared_from_this<View>
   void removeFromSuperview();
   void removeAllSubviews();
   bool isSubviewOf(View* root);
+  void bringSubviewToFront(const ViewPtr& view);
   
   void composite(bool v);
   bool composite();
