@@ -382,7 +382,7 @@ void EventSystem::updateCurrentViewStack(Event* event)
     for(auto i=view->subviews.rbegin(); i!=view->subviews.rend(); ++i)
     {
       View* v = (*i).get();
-      if(v->visible() && view->userInteractionEnabled() && v->containsPoint(pos))
+      if(v->visible() && v->userInteractionEnabled() && v->containsPoint(pos))
       {
         view = v;
         containsPoint = true;
