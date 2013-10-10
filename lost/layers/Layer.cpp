@@ -342,6 +342,7 @@ void Layer::pos(const Vec2& p)
 {
   Rect r = _rect;
   r.pos(p);
+  r.floor();
   rect(r);
 }
 
@@ -354,6 +355,7 @@ void Layer::size(const Vec2& sz)
 {
   Rect r = _rect;
   r.size(sz);
+  r.floor();
   rect(r);
 }
 
@@ -362,16 +364,16 @@ Vec2 Layer::size() const
   return _rect.size();
 }
 
-void Layer::x(f32 v) { Rect r = _rect;r.x = v;rect(r); }
+void Layer::x(f32 v) { Rect r = _rect;r.x = floorf(v);rect(r); }
 f32 Layer::x() const { return _rect.x; }
 
-void Layer::y(f32 v) { Rect r = _rect;r.y = v;rect(r); }
+void Layer::y(f32 v) { Rect r = _rect;r.y = floorf(v);rect(r); }
 f32 Layer::y() const { return _rect.y; }
 
-void Layer::width(f32 v) { Rect r = _rect;r.width = v;rect(r); }
+void Layer::width(f32 v) { Rect r = _rect;r.width = floorf(v);rect(r); }
 f32 Layer::width() const { return _rect.width; }
 
-void Layer::height(f32 v) { Rect r = _rect;r.height = v;rect(r);  }
+void Layer::height(f32 v) { Rect r = _rect;r.height = floorf(v);rect(r);  }
 f32 Layer::height() const { return _rect.height; }
 
 #pragma mark - Draw Properties -
