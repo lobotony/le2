@@ -22,6 +22,12 @@ namespace lost
 
 Quad::Quad()
 {
+  BufferLayout layout;
+  layout.add(ET_vec2_f32, UT_position);
+  layout.add(ET_vec3_f32, UT_normal);
+  layout.add(ET_vec2_f32, UT_texcoord0);
+  this->resetBuffers(layout, ET_u16);
+
   indexBuffer->drawMode = GL_TRIANGLES;
 }
 
@@ -129,12 +135,14 @@ void Quad::init(const vector<Rect>& rects,
           bool flip)
 {
   ASSERT(rects.size() == pixelCoords.size(), "number of rects and pixelCoords must match");
-  
-  BufferLayout layout;
-  layout.add(ET_vec2_f32, UT_position);
-  layout.add(ET_vec3_f32, UT_normal);
-  layout.add(ET_vec2_f32, UT_texcoord0);
-  this->resetBuffers(layout, ET_u16);
+  if(!indexBuffer or !vertexBuffer)
+  {
+    BufferLayout layout;
+    layout.add(ET_vec2_f32, UT_position);
+    layout.add(ET_vec3_f32, UT_normal);
+    layout.add(ET_vec2_f32, UT_texcoord0);
+    this->resetBuffers(layout, ET_u16);
+  }
   
   indexBuffer->drawMode = GL_TRIANGLES;
   this->material->textures.clear();
