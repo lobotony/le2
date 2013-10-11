@@ -384,11 +384,32 @@ void Bitmap::vline(uint32_t x, uint32_t yb, uint32_t yt, const Color& inColor)
 
 void Bitmap::draw(uint32_t x, uint32_t y, lost::shared_ptr<Bitmap> target)
 {
-  for(uint32_t cy=0; cy<height; ++cy)
+  if((format != target->format) || (format != GL_RGBA)) // slow path
   {
-    for(uint32_t cx=0; cx<width; ++cx)
+    for(uint32_t cy=0; cy<height; ++cy)
     {
-      target->pixel(x+cx, y+cy, pixel(cx, cy));
+      for(uint32_t cx=0; cx<width; ++cx)
+      {
+        target->pixel(x+cx, y+cy, pixel(cx, cy));
+      }
+    }
+  }
+  else // fast path for GL_RGBA
+  {
+    u32* sourceDataPtr = (u32*)data;
+    u32 sourceLineSize = width;
+    
+    u32* targetDataPtr = (u32*)target->data;
+    u32 targetLineSize = target->width;
+    
+    for(u32 cy=0; cy<height; ++cy)
+    {
+      for(u32 cx=0; cx<width; ++cx)
+      {
+        u32* targetPixel = targetDataPtr + cx+x + ((y+cy)*targetLineSize);
+        u32* sourcePixel = sourceDataPtr + cx + cy*sourceLineSize;
+        *targetPixel = *sourcePixel;
+      }
     }
   }
 }
