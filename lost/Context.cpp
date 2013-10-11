@@ -558,7 +558,7 @@ void Context::logTextureStats()
     }
     f64 sz =tex->width*tex->height*bpp;
     numBytes += sz;
-    DOUT(tex->texture<<" size: "<<sz/(1024*1024)<<" MB");
+//    DOUT(tex->texture<<" size: "<<sz/(1024*1024)<<" MB");
   }
   DOUT("memory: "<<numBytes/(1024*1024)<<" MB");
 }
@@ -583,6 +583,13 @@ void Context::textureDying(Texture* tex)
       activeTextures[i] = 0;
       DOUT("removing dying texture "<<tex->texture);
     }
+  }
+
+  auto pos = find(_textures.begin(), _textures.end(), tex);
+  if(pos != _textures.end())
+  {
+    DOUT("removing global texture referebce: "<<tex->texture);
+    _textures.erase(pos);
   }
 }
 
