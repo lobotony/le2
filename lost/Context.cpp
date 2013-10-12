@@ -569,7 +569,7 @@ void Context::textureCreated(Texture* tex)
   if(pos == _textures.end())
   {
     _textures.push_back(tex);
-    DOUT("num textures: "<<(s64)_textures.size());
+//    DOUT("num textures: "<<(s64)_textures.size());
   }
 }
 
@@ -588,7 +588,7 @@ void Context::textureDying(Texture* tex)
   auto pos = find(_textures.begin(), _textures.end(), tex);
   if(pos != _textures.end())
   {
-    DOUT("removing global texture referebce: "<<tex->texture);
+//    DOUT("removing global texture referebce: "<<tex->texture);
     _textures.erase(pos);
   }
 }
