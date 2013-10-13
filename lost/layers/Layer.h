@@ -46,6 +46,7 @@ struct Layer : enable_shared_from_this<Layer>
   void rect(f32 x, f32 y, f32 w, f32 h);
   void rect(const Rect& r);
   const Rect& rect() const;
+  void centerInSuperlayer();
   
   void pos(const Vec2& p);
   Vec2 pos() const;

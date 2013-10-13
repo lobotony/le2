@@ -338,6 +338,17 @@ const Rect& Layer::rect() const
   return _rect;
 }
 
+void Layer::centerInSuperlayer()
+{
+  if(superlayer)
+  {
+    Rect r = _rect;
+    r.centerWithin(superlayer->rect());
+    r.floor();
+    rect(r);
+  }
+}
+
 void Layer::pos(const Vec2& p)
 {
   Rect r = _rect;
