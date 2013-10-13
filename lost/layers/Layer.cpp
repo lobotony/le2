@@ -583,10 +583,10 @@ void Layer::addDefaultActions()
     result->startValue = getValue(key);
     result->endValue = endValue;
     result->timingFunction = TimingFunction::easeOut();
+    result->key = key;
     
     return result;
   };
-
 
   key2action["pos"] = standardAction;
   key2action["size"] = standardAction;
