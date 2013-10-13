@@ -13,11 +13,6 @@
 namespace lost
 {
 
-void AnimationSystem::reset()
-{
-  layers.clear();
-}
-
 void AnimationSystem::update()
 {
   TimeInterval now = currentTimeSeconds();

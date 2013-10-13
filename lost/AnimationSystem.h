@@ -14,7 +14,6 @@ namespace lost
 struct AnimationSystem
 {
 
-  void reset();
   void update();
   void startAnimating(Layer* layer);
   void stopAnimating(Layer* layer);

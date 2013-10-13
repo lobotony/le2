@@ -102,7 +102,6 @@ void UserInterface::layerDying(Layer* layer)
 {
   compositor->layerDying(layer);
   animator->stopAnimating(layer);
-  animator->reset();
 }
 
 void UserInterface::gainFocus(View* view)
