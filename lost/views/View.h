@@ -33,6 +33,7 @@ struct View : enable_shared_from_this<View>
   void rect(f32 x, f32 y, f32 w, f32 h);
   virtual void rect(const Rect& r);
   const Rect& rect() const;
+  void centerInSuperview();
   
   void pos(f32 x, f32 y);
   void pos(const Vec2& p);

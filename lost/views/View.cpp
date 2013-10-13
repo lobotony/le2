@@ -216,6 +216,7 @@ bool View::containsPoint(const Vec2& point)
 void View::rect(f32 x, f32 y, f32 w, f32 h) { layer->rect(x, y, w, h); }
 void View::rect(const Rect& r) { layer->rect(r); }
 const Rect& View::rect() const { return layer->rect(); }
+void View::centerInSuperview() { layer->centerInSuperlayer(); }
 
 void View::pos(f32 x, f32 y) { pos(Vec2(x,y)); }
 void View::pos(const Vec2& p) { layer->pos(p); }
