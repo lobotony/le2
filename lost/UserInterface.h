@@ -52,6 +52,13 @@ struct UserInterface
   void gainFocus(View* view);
   void loseFocus(View* view);
   View* focusedView();
+  
+  // add views for continuous updates per frame
+  void addFrameUpdater(void* obj, const std::function<void(void)>& func);
+  void removeFrameUpdater(void* obj);
+  void processFrameUpdates();
+  
+  map<void*, std::function<void(void)>> frameUpdates;
 };
 }
 

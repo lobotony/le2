@@ -25,6 +25,7 @@ void UserInterface::update(const EventQueue::Container& events)
 {
   processEvents(events);
   animator->update();
+  processFrameUpdates();
   draw();
 }
 
@@ -128,5 +129,36 @@ void UserInterface::stopAnimating(Layer* layer)
 {
   animator->stopAnimating(layer);
 }
+
+#pragma mark - frame updates -
+
+void UserInterface::addFrameUpdater(void* obj, const std::function<void(void)>& func)
+{
+  frameUpdates[obj] = func;
+  DOUT("count: "<<(s64)frameUpdates.size());
+}
+
+void UserInterface::removeFrameUpdater(void* obj)
+{
+  auto pos = frameUpdates.find(obj);
+  if(pos != frameUpdates.end())
+  {
+    frameUpdates.erase(pos);
+    DOUT("count: "<<(s64)frameUpdates.size());
+  }
+  else
+  {
+    EOUT("not found"<<(u64)obj);
+  }
+}
+
+void UserInterface::processFrameUpdates()
+{
+  for(auto pos : frameUpdates)
+  {
+    pos.second();
+  }
+}
+
 
 }
