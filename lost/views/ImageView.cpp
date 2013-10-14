@@ -89,7 +89,6 @@ void ImageView::animate()
   u32 frameNum = u32(ds / _frameTime) % _images.size();
   if(frameNum != _currentFrame)
   {
-    DOUT(frameNum);
     _currentFrame = frameNum;
     image(_images[frameNum]);
   }
