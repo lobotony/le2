@@ -128,6 +128,7 @@ TexturePtr ResourceManager::texture(ResourceId rid)
       bmp->premultiplyAlpha();
       result.reset(new Texture(bmp));
     }
+    result->filter(GL_LINEAR);
     hash2texture[rid] = result;
   }
   else
