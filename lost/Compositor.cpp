@@ -168,6 +168,7 @@ void Compositor::prepareRedraws(const LayerPtr rootLayer)
 
 void Compositor::updateLayerCaches()
 {
+  Clock c;
   for(Layer* layer : redraws)
   {
     numDraws++;
@@ -205,6 +206,11 @@ void Compositor::updateLayerCaches()
         drawContext->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], drawColor);
       }
     }
+  }
+  if(redraws.size()>0)
+  {
+    c.update();
+    DOUT("redraw "<<(s64)redraws.size()<<" in "<<c.deltaStart<<" sec");
   }
 }
 
