@@ -210,7 +210,7 @@ void Compositor::updateLayerCaches()
   if(redraws.size()>0)
   {
     c.update();
-    DOUT("redraw "<<(s64)redraws.size()<<" in "<<c.deltaStart<<" sec");
+//    DOUT("redraw "<<(s64)redraws.size()<<" in "<<c.deltaStart<<" sec");
   }
 }
 
