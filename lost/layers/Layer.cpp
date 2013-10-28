@@ -70,6 +70,7 @@ void Layer::addSublayer(const LayerPtr& layer)
     }
     layer->superlayer = this;
     sublayers.push_back(layer);
+    layer->needsRedraw();
   }
   else
   {
