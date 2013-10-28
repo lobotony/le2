@@ -63,6 +63,7 @@ void View::removeSubview(const ViewPtr& view)
       subviews.remove(view);
       layer->removeSublayer(view->layer);
       view->superview = NULL;
+      needsRedraw();
     }
     else
     {
@@ -188,6 +189,7 @@ bool View::visible()
 }
 
 #pragma mark - basic appearance -
+void View::needsRedraw() { layer->needsRedraw(); }
 
 void View::backgroundColor(const Color& v) { layer->backgroundColor(v); }
 Color View::backgroundColor() { return layer->backgroundColor(); }

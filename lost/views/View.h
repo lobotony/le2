@@ -59,6 +59,8 @@ struct View : enable_shared_from_this<View>
   void name(const string& v);
 
   // basic appearance
+  void needsRedraw();
+  
   void backgroundColor(const Color& v);
   Color backgroundColor();
 
