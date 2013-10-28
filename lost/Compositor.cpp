@@ -203,7 +203,11 @@ void Compositor::updateLayerCaches()
       if(sublayer->visible())
       {
         Color drawColor(1.0f,1.0f,1.0f, sublayer->opacity());
-        drawContext->drawTexturedRect(sublayer->rect(), layerCache[sublayer.get()], drawColor);
+        const TexturePtr& tex = layerCache[sublayer.get()];
+        if(tex)
+        {
+          drawContext->drawTexturedRect(sublayer->rect(), tex, drawColor);
+        }
       }
     }
   }
