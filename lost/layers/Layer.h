@@ -38,6 +38,7 @@ struct Layer : enable_shared_from_this<Layer>
   virtual void draw(DrawContext* ctx);
   
   void needsRedraw(); // invalidate texture cache in compositor, force content redraw and composition
+  void recursiveNeedsRedraw(); // called on this and all children
   void composite(bool v);
   bool composite();
 
