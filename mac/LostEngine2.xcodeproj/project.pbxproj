@@ -86,6 +86,7 @@
 		EAF3581A1728162200824CF2 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358141728162200824CF2 /* json_reader.cpp */; };
 		EAF3581B1728162200824CF2 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358151728162200824CF2 /* json_value.cpp */; };
 		EAF3581D1728162200824CF2 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF358171728162200824CF2 /* json_writer.cpp */; };
+		EAF4299818984FD1008F35A9 /* BitmapIo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF4299618984FD0008F35A9 /* BitmapIo.cpp */; };
 		EAF4A18C177DCAD300958CEE /* NinePatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF4A18A177DCAD200958CEE /* NinePatch.cpp */; };
 		EAF87C7A15E903A900986F86 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF87C7815E903A900986F86 /* Buffer.cpp */; };
 		EAF87C7E15E903B800986F86 /* BufferLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAF87C7C15E903B800986F86 /* BufferLayout.cpp */; };
@@ -267,6 +268,8 @@
 		EAF358141728162200824CF2 /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = json_reader.cpp; path = "../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_reader.cpp"; sourceTree = "<group>"; };
 		EAF358151728162200824CF2 /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = json_value.cpp; path = "../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_value.cpp"; sourceTree = "<group>"; };
 		EAF358171728162200824CF2 /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = json_writer.cpp; path = "../thirdparty/jsoncpp-src-0.5.0/src/lib_json/json_writer.cpp"; sourceTree = "<group>"; };
+		EAF4299618984FD0008F35A9 /* BitmapIo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitmapIo.cpp; sourceTree = "<group>"; };
+		EAF4299718984FD0008F35A9 /* BitmapIo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapIo.h; sourceTree = "<group>"; };
 		EAF4A18A177DCAD200958CEE /* NinePatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NinePatch.cpp; sourceTree = "<group>"; };
 		EAF4A18B177DCAD200958CEE /* NinePatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NinePatch.h; sourceTree = "<group>"; };
 		EAF87C7815E903A900986F86 /* Buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Buffer.cpp; sourceTree = "<group>"; };
@@ -382,6 +385,8 @@
 				EAAFD8B017720FDB00C1D521 /* Application.h */,
 				EACD24A815D851AB00453F75 /* Bitmap.cpp */,
 				EACD24A915D851AB00453F75 /* Bitmap.h */,
+				EAF4299618984FD0008F35A9 /* BitmapIo.cpp */,
+				EAF4299718984FD0008F35A9 /* BitmapIo.h */,
 				EAADB60D15FF97FD008F7450 /* BitmapPacker.cpp */,
 				EAADB60E15FF97FD008F7450 /* BitmapPacker.h */,
 				EAF87C7815E903A900986F86 /* Buffer.cpp */,
@@ -687,6 +692,7 @@
 				EAADB62715FFA3BA008F7450 /* TruetypeFont.cpp in Sources */,
 				EAADB62D15FFABC4008F7450 /* Quad.cpp in Sources */,
 				EABB38E01600CC990009D8F7 /* LEAppDelegate.mm in Sources */,
+				EAF4299818984FD1008F35A9 /* BitmapIo.cpp in Sources */,
 				EABB38E41600CDD80009D8F7 /* LEWindow.mm in Sources */,
 				EABB38EA1600D42B0009D8F7 /* EventQueue.cpp in Sources */,
 				EABB38ED1600D6FA0009D8F7 /* EventPool.cpp in Sources */,
