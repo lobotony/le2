@@ -1,5 +1,4 @@
-#ifndef LOST_RANGE_H
-#define LOST_RANGE_H
+#pragma once
 
 namespace lost
 {
@@ -16,4 +15,3 @@ struct Range
 
 }
 
-#endif

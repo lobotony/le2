@@ -1,5 +1,4 @@
-#ifndef LOST_CLOCK_H
-#define LOST_CLOCK_H
+#pragma once
 
 namespace lost
 {
@@ -18,5 +17,4 @@ struct Clock
 };
 }
 
-#endif
 

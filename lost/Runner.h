@@ -1,5 +1,4 @@
-#ifndef LOST_RUNNER_H
-#define LOST_RUNNER_H
+#pragma once
 
 
 namespace lost
@@ -22,5 +21,4 @@ void run(Application* app);
 
 }
 
-#endif
 

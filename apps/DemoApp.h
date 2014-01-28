@@ -1,5 +1,4 @@
-#ifndef LOST_DEMOAPP_H
-#define LOST_DEMOAPP_H
+#pragma once
 
 #include "lost/Application.h"
 
@@ -59,5 +58,4 @@ struct DemoApp : Application
 
 }
 
-#endif
 

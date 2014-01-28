@@ -1,5 +1,4 @@
-#ifndef LOST_IMAGE_H
-#define LOST_IMAGE_H
+#pragma once
 
 namespace lost
 {
@@ -49,4 +48,3 @@ struct Image
 
 }
 
-#endif

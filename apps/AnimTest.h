@@ -1,5 +1,4 @@
-#ifndef LOST_ANIMTEST_H
-#define LOST_ANIMTEST_H
+#pragma once
 
 #include "lost/Application.h"
 
@@ -16,6 +15,4 @@ void shutdown();
 
 };
 }
-
-#endif
 

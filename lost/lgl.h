@@ -1,5 +1,4 @@
-#ifndef LOST_GL_H
-#define LOST_GL_H
+#pragma once
 
 #include "lost/PlatformType.h"
 #include "lost/Log.h"
@@ -76,5 +75,4 @@ ASSERT(false, "GL error: " << getGlErrorAsString(err)); \
 #   define GLASSERT
 #endif
 
-#endif
 

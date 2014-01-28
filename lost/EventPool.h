@@ -1,5 +1,4 @@
-#ifndef LOST_EVENTPOOL_H
-#define LOST_EVENTPOOL_H
+#pragma once
 
 #include "lost/Event.h"
 #include <mutex>
@@ -22,5 +21,4 @@ struct EventPool
 
 }
 
-#endif
 

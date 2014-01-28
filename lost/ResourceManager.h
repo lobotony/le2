@@ -1,5 +1,4 @@
-#ifndef LOST_RESOURCEMANAGER_H
-#define LOST_RESOURCEMANAGER_H
+#pragma once
 
 #include "lost/Bundle.h"
 
@@ -69,5 +68,4 @@ private:
 };
 }
 
-#endif
 

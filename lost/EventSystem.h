@@ -1,5 +1,4 @@
-#ifndef LOST_EVENTYSTEM_H
-#define LOST_EVENTYSTEM_H
+#pragma once
 
 #include "lost/Event.h"
 
@@ -51,6 +50,4 @@ private:
 };
 }
 
-
-#endif
 

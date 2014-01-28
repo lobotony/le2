@@ -1,5 +1,4 @@
-#ifndef LOST_CANVAS_H
-#define LOST_CANVAS_H
+#pragma once
 
 namespace lost
 {
@@ -21,5 +20,4 @@ struct Canvas
 
 }
 
-#endif
 

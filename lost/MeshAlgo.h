@@ -1,5 +1,5 @@
-#ifndef LOST_MESHALGO_H
-#define LOST_MESHALGO_H
+
+#pragma once
 
 namespace lost
 {
@@ -9,5 +9,4 @@ namespace lost
 
 }
 
-#endif
 

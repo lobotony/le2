@@ -1,13 +1,4 @@
-//
-//  TimingFunction.h
-//  LostEngine2
-//
-//  Created by Tony Kostanjsek on 20.07.13.
-//  Copyright (c) 2013 Tony Kostanjsek. All rights reserved.
-//
-
-#ifndef __LostEngine2__TimingFunction__
-#define __LostEngine2__TimingFunction__
+#pragma once
 
 namespace lost
 {
@@ -32,4 +23,3 @@ struct TimingFunction
 };
 }
 
-#endif /* defined(__LostEngine2__TimingFunction__) */

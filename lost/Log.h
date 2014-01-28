@@ -1,5 +1,4 @@
-#ifndef LOST_LOG_H
-#define LOST_LOG_H
+#pragma once
 
 namespace lost
 {
@@ -20,4 +19,3 @@ lost::log(ss.str()); \
 
 #define ASSERT(cond, ms) { bool LOST_ASSERT_COND = (cond); if(!LOST_ASSERT_COND) {EOUT(ms << " " << string(#cond)); abort();} }
 
-#endif

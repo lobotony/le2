@@ -1,5 +1,4 @@
-#ifndef LOST_LABEL_H
-#define LOST_LABEL_H
+#pragma once
 
 #include "lost/views/View.h"
 
@@ -38,4 +37,3 @@ struct Label : public View
 
 }
 
-#endif

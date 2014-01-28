@@ -1,5 +1,4 @@
-#ifndef LOST_BUTTON_H
-#define LOST_BUTTON_H
+#pragma once
 
 #include "lost/views/View.h"
 
@@ -59,4 +58,3 @@ private:
 
 }
 
-#endif

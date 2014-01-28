@@ -1,5 +1,4 @@
-#ifndef LOST_BITMAP_IO_H
-#define LOST_BITMAP_IO_H
+#pragma once
 
 #include "lost/Bitmap.h"
 
@@ -22,4 +21,3 @@ BitmapPtr loadMapped(const string& filepath);
 void writeRawToPath(const BitmapPtr& bmp, const string& filepath);
 }
 
-#endif

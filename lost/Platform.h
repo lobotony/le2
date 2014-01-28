@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_PLATFORM_PLATFORM_H
-#define LOST_PLATFORM_PLATFORM_H
+#pragma once
 
 #include "lost/PlatformType.h"
 #include "lost/PlatformTime.h"
@@ -27,4 +26,3 @@ namespace lost {
   bool setClipboardString(const string& str);
 }
 
-#endif

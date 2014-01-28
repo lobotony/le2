@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_UNIFORMBLOCK_H
-#define LOST_UNIFORMBLOCK_H
+#pragma once
 
 #include "lost/Variant.h"
 
@@ -40,4 +39,3 @@ struct UniformBlock
 };
 }
 
-#endif

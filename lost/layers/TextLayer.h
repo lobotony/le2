@@ -1,5 +1,4 @@
-#ifndef LOST_TEXTLAYER_H
-#define LOST_TEXTLAYER_H
+#pragma once
 
 #include "lost/layers/Layer.h"
 
@@ -44,5 +43,4 @@ private:
 }
 
 
-#endif
 

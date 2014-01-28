@@ -15,8 +15,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 
-#ifndef LOST_STRINGSTREAM_H
-#define LOST_STRINGSTREAM_H
+#pragma once
 
 namespace lost
 {
@@ -53,4 +52,3 @@ lost::StringStream& operator<<(lost::StringStream& s, const lost::Rect& v);
 lost::StringStream& operator<<(lost::StringStream& stream, const lost::Path& p);
 lost::StringStream& operator<<(lost::StringStream& stream, const lost::Color& p);
 
-#endif

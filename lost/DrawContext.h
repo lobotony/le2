@@ -1,5 +1,4 @@
-#ifndef LOST_DRAWCONTEXT_H
-#define LOST_DRAWCONTEXT_H
+#pragma once
 
 namespace lost
 {
@@ -61,5 +60,4 @@ private:
 };
 }
 
-#endif
 

@@ -1,5 +1,4 @@
-#ifndef LOST_SUNAPP_H
-#define LOST_SUNAPP_H
+#pragma once
 
 #include "lost/Application.h"
 
@@ -65,5 +64,4 @@ struct SunApp : Application
 
 }
 
-#endif
 

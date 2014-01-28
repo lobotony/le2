@@ -1,5 +1,4 @@
-#ifndef LOST_COMPOSITOR_H
-#define LOST_COMPOSITOR_H
+#pragma once
 
 namespace lost
 {
@@ -54,5 +53,4 @@ private:
 };
 }
 
-#endif
 

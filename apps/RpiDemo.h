@@ -1,5 +1,4 @@
-#ifndef LOST_RPIDEMO_H
-#define LOST_RPIDEMO_H
+#pragma once
 
 #include "lost/Application.h"
 #include "lost/Event.h"
@@ -40,4 +39,3 @@ struct RpiDemo : Application
   
 }
 
-#endif

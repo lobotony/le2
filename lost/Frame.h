@@ -1,5 +1,4 @@
-#ifndef LOST_FRAME_H
-#define LOST_FRAME_H
+#pragma once
 
 namespace lost
 {
@@ -38,6 +37,4 @@ struct Frame
   Param h;
 };
 }
-
-#endif
 

@@ -1,5 +1,4 @@
-#ifndef LOST_STRINGADDITIONS_H
-#define LOST_STRINGADDITIONS_H
+#pragma once
 
 namespace lost
 {
@@ -29,5 +28,4 @@ string convertUtf32ToUtf8String(const u32string& utf32string);
 }
 
 
-#endif
 

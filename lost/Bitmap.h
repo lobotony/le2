@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_BITMAP_BITMAP_H
-#define LOST_BITMAP_BITMAP_H
+#pragma once
 
 namespace lost
 {
@@ -201,4 +200,3 @@ namespace lost
   };
 } // namespace lost
 
-#endif

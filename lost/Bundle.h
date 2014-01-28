@@ -1,5 +1,4 @@
-#ifndef LOST_BUNDLE_H
-#define LOST_BUNDLE_H
+#pragma once
 
 namespace lost
 {
@@ -37,5 +36,4 @@ struct ResourceBundle : Bundle
 
 }
 
-#endif
 

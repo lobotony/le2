@@ -27,8 +27,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
-#ifndef LOST_CONTEXT_H
-#define LOST_CONTEXT_H
+#pragma once
 
 namespace lost
 {
@@ -132,4 +131,3 @@ public:
 };
 }
 
-#endif

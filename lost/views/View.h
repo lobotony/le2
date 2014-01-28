@@ -1,5 +1,4 @@
-#ifndef LOST_VIEW_H
-#define LOST_VIEW_H
+#pragma once
 
 #include "lost/Frame.h"
 #include "lost/layers/Layer.h"
@@ -108,6 +107,4 @@ private:
 };
 
 }
-
-#endif
 

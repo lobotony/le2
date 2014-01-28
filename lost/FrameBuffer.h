@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_GL_FRAMEBUFFER_H
-#define LOST_GL_FRAMEBUFFER_H
+#pragma once
 
 #include "lost/Texture.h"
 #include "lost/RenderBuffer.h"
@@ -111,5 +110,3 @@ namespace lost
     static void setup();
   };
 }
-
-#endif

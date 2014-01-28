@@ -1,5 +1,4 @@
-#ifndef LOST_LAYER_H
-#define LOST_LAYER_H
+#pragma once
 
 #include "lost/Frame.h"
 #include "lost/Variant.h"
@@ -140,5 +139,4 @@ private:
 };
 }
 
-#endif
 

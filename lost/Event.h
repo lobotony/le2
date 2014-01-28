@@ -1,5 +1,4 @@
-#ifndef LOST_EVENT_H
-#define LOST_EVENT_H
+#pragma once
 
 namespace lost
 {
@@ -107,5 +106,4 @@ static const char* eventPhaseToString(EventPhase ep)
 
 }
 
-#endif
 

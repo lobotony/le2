@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_BUFFER_H
-#define LOST_BUFFER_H
+#pragma once
 
 namespace lost
 {
@@ -59,4 +58,3 @@ struct Buffer
 
 }
 
-#endif

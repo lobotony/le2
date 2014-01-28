@@ -1,5 +1,4 @@
-#ifndef LOST_PREFIX_SHARED_H
-#define LOST_PREFIX_SHARED_H
+#pragma once
 
 #ifdef __cplusplus
 
@@ -48,4 +47,3 @@
 #endif // __cplusplus
 
 
-#endif

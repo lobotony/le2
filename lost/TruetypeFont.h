@@ -15,8 +15,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 
-#ifndef LOST_TRUETYPEFONT_H
-#define LOST_TRUETYPEFONT_H
+#pragma once
 
 #include "lost/Font.h"
 
@@ -56,5 +55,4 @@ struct TruetypeFont : public Font
 
 }
 
-#endif
 

@@ -1,5 +1,4 @@
-#ifndef LOST_EVENTQUEUE_H
-#define LOST_EVENTQUEUE_H
+#pragma once
 
 #include "lost/Event.h"
 #include <mutex>
@@ -42,5 +41,5 @@ private:
 };
 
 }
-#endif
+
 

@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_PLATFORM_SHARED_PTR_H
-#define LOST_PLATFORM_SHARED_PTR_H
+#pragma once
 
 #include <memory>
 
@@ -53,4 +52,3 @@ struct shared_array : public std::shared_ptr<T>
 
 }
 
-#endif // guard

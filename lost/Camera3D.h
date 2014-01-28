@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_CAMERA3D_H
-#define LOST_CAMERA3D_H
+#pragma once
 
 #include "lost/Camera.h"
 
@@ -61,4 +60,3 @@ public:
 };
 }
 
-#endif

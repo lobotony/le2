@@ -1,5 +1,4 @@
-#ifndef LOST_EVENTDISPATCHER_H
-#define LOST_EVENTDISPATCHER_H
+#pragma once
 
 #include "lost/Event.h"
 
@@ -48,5 +47,4 @@ struct EventDispatcher
 };
 }
 
-#endif
 

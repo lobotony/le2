@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_TEXTMESH_H
-#define LOST_TEXTMESH_H
+#pragma once
 
 #include "lost/Quad.h"
 
@@ -47,4 +46,3 @@ struct TextMesh : Quad
 
 }
 
-#endif

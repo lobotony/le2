@@ -1,5 +1,4 @@
-#ifndef LOST_UI_H
-#define LOST_UI_H
+#pragma once
 
 #include "lost/views/View.h"
 #include "lost/EventQueue.h"
@@ -62,4 +61,3 @@ struct UserInterface
 };
 }
 
-#endif

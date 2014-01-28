@@ -1,5 +1,4 @@
-#ifndef LOST_UITESTAPP_H
-#define LOST_UITESTAPP_H
+#pragma once
 
 #include "lost/Application.h"
 
@@ -26,5 +25,4 @@ struct UiTestApp : Application
 
 }
 
-#endif
 

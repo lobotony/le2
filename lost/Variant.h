@@ -1,5 +1,4 @@
-#ifndef LOST_VARIANT_H
-#define LOST_VARIANT_H
+#pragma once
 
 namespace lost
 {
@@ -95,4 +94,3 @@ inline Variant operator-(const Variant& lhs, const Variant& rhs)
 
 }
 
-#endif

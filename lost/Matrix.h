@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_MATRIX_H
-#define LOST_MATRIX_H
+#pragma once
 
 namespace lost
 {
@@ -151,4 +150,3 @@ bool operator!=(const Matrix& lhs, const Matrix& rhs);
 
 }
 
-#endif

@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_PLATFORM_TIME_H
-#define LOST_PLATFORM_TIME_H
+#pragma once
 
 namespace lost
 {
@@ -25,4 +24,3 @@ namespace lost
   string currentTimeFormat(); // returns current time as formatted string (e.g. "2007/11/26 23:30:37:123")
 }
 
-#endif

@@ -1,5 +1,4 @@
-#ifndef LOST_APPLICATION_H
-#define LOST_APPLICATION_H
+#pragma once
 
 namespace lost
 {
@@ -38,5 +37,4 @@ struct Application
 
 }
 
-#endif
 

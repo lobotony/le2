@@ -1,5 +1,4 @@
-#ifndef LOST_TEXTURE_H
-#define LOST_TEXTURE_H
+#pragma once
 
 namespace lost
 {
@@ -143,5 +142,4 @@ namespace lost
   };
 }
 
-#endif
 

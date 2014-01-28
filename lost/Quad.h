@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_QUAD_H
-#define LOST_QUAD_H
+#pragma once
 
 #include "lost/Mesh.h"
 #include "lost/Data.h"
@@ -68,4 +67,3 @@ struct Quad : public Mesh
                        bool flip=true);         
 };
 }
-#endif

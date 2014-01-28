@@ -1,5 +1,4 @@
-#ifndef LOST_TEXTALIGNMENT_H
-#define LOST_TEXTALIGNMENT_H
+#pragma once
 
 namespace lost
 {
@@ -13,5 +12,4 @@ enum TextAlignment
 
 }
 
-#endif
 

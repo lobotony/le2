@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_UNIFORM_H
-#define LOST_UNIFORM_H
+#pragma once
 
 namespace lost
 {
@@ -54,4 +53,3 @@ struct Uniform
 
 }
 
-#endif

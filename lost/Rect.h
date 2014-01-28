@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_RECT_H
-#define LOST_RECT_H
+#pragma once
 
 #include "lost/Insets.h"
 
@@ -72,4 +71,3 @@ namespace lost
   };
 }
 
-#endif

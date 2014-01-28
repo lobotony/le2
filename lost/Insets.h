@@ -1,5 +1,4 @@
-#ifndef LOST_INSETS_H
-#define LOST_INSETS_H
+#pragma once
 
 namespace lost
 {
@@ -13,5 +12,4 @@ struct Insets
 };
 }
 
-#endif
 

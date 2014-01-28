@@ -1,5 +1,4 @@
-#ifndef LOST_IMAGEVIEW_H
-#define LOST_IMAGEVIEW_H
+#pragma once
 
 #include "lost/views/View.h"
 
@@ -33,5 +32,4 @@ private:
 };
 }
 
-#endif
 

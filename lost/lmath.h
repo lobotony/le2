@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_MATH_LMATH_H
-#define LOST_MATH_LMATH_H
+#pragma once
 
 // don't call this header "Math.h" or it might conflict with standard library "math.h" depending 
 // on the order of includes in your current build setting and result in confusing errors.
@@ -95,4 +94,3 @@ namespace lost
     }
 }
 
-#endif

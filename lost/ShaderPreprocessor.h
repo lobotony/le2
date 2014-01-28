@@ -1,5 +1,4 @@
-#ifndef LOST_SHADERPREPROCESSOR_H
-#define LOST_SHADERPREPROCESSOR_H
+#pragma once
 
 #include "lost/Bundle.h"
 
@@ -26,5 +25,4 @@ ShaderProgramPtr loadShader(const Bundle& bundle, Path relativePath);
 }
 
 
-#endif
 

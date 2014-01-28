@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_TEXTBUFFER_H
-#define LOST_TEXTBUFFER_H
+#pragma once
 
 #include "lost/Range.h"
 #include "lost/TextBreakmodes.h"
@@ -113,4 +112,3 @@ private:
 
 }
 
-#endif

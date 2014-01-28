@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_PATH_H
-#define LOST_PATH_H
+#pragma once
 
 namespace lost 
 {
@@ -50,4 +49,3 @@ namespace lost
   bool create_directories(const Path& path); 
 }
 
-#endif

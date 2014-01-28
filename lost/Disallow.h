@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_DISALLOW_H
-#define LOST_DISALLOW_H
+#pragma once
 
 // from here : http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml?showone=Copy_Constructors#Copy_Constructors
 // A macro to disallow the copy constructor and operator= functions
@@ -36,4 +35,3 @@ class Foo {
 };
 */
 
-#endif

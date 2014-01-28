@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_HYBRIDBUFFER_H
-#define LOST_HYBRIDBUFFER_H
+#pragma once
 
 #include "lost/BufferLayout.h"
 
@@ -104,4 +103,3 @@ struct HybridVertexBuffer : HybridBuffer
 
 }
 
-#endif

@@ -14,8 +14,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef LOST_VEC4_H
-#define LOST_VEC4_H
+#pragma once
 
 namespace lost
 {
@@ -41,4 +40,3 @@ Vec4 operator-(const Vec4& inOp1, const Vec4& inOp2);
 bool compare(const Vec4& l, const Vec4& r, float epsilon);
 } // lost
 
-#endif
