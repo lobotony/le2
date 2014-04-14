@@ -49,7 +49,7 @@ const static ElementType ET_mat4x4_f32 = 40;
 
 uint32_t elementSize(ElementType t); // returns elemtn size in bytes
 uint32_t numScalarsForElementType(ElementType et); // returns the number of scalars an ET is made of. 
-                                                   // This is mostly relevant for vectpr/matrix since all other types return 1.
+                                                   // This is mostly relevant for vectpr/matrix since all other types  1.
 GLenum   glScalarTypeForElementType(ElementType et);
 // each element or stride of a buffer needs to be marked with a usage type, so it can be mapped to a GL buffer and stride
 typedef uint32_t UsageType;
